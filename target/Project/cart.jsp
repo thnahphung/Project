@@ -19,31 +19,8 @@
 </head>
 
 <body>
-<ul class="nav nav-page">
-    <li class=" left">
-        <a href="home-page.jsp"><img src="images/logo/logo-rmbg1.png" alt=""></a>
-    </li>
-    <li class="nav-item center">
-        <a class="nav-link active" href="list-product.jsp">Sản Phẩm</a>
-        <a class="nav-link" href="list-product.jsp">Gỗ</a>
-        <a class="nav-link" href="list-product.jsp">Gốm</a>
-        <a class="nav-link" href="list-product.jsp">giảm giá</a>
-        <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
-    </li>
-    <li class=" right">
-        <div class="item-right search-item">
-            <input type="text" id="search" placeholder="Tìm kiếm..." />
-            <span class="icon"><i class="fa fa-search"></i></span>
 
-        </div>
-        <a href="login.jsp" class="item-right"> <i class="fa-solid fa-user"></i>
-            <p>Đăng nhập</p>
-        </a>
-        <a href="cart.jsp" class="item-right"><i class="fa-solid fa-cart-shopping"></i>
-            <p>Giỏ hàng (2)</p>
-        </a>
-    </li>
-</ul>
+<%@include file="header.jsp" %>
 
 <div class="container content">
     <div class="row">
@@ -247,40 +224,8 @@
         </div>
     </div>
 </div>
-<footer class="footer row">
-    <div class="col-1"></div>
-    <div class="col-2">
-        <img src="images/logo/logo2.png" alt="">
-    </div>
-    <div class="col-2">
-        <div class="title">Sản phẩm</div>
-        <div><a href="">Đồ gỗ</a></div>
-        <div><a href="">Đồ gốm</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Về Craft</div>
-        <div><a href="">Tuyển cộng tác viên</a></div>
-        <div><a href="">Địa chỉ</a></div>
-        <div><a href="">Thông tin thành lập</a></div>
-        <div><a href="">Người thành lập</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Liên hệ</div>
-        <div><a href="">Facebook</a></div>
-        <div><a href="">Istagram</a></div>
-        <div><a href="">Twiter</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Hỗ trợ</div>
-        <div><a href="">Thông tin bảo hành</a></div>
-        <div><a href="">Thông tin đổi trả</a></div>
-        <div><a href="">Liên hệ nhân viên chăm sóc</a></div>
-    </div>
-
-    <div class="col-1"></div>
-</footer>
-<a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>
-
+<%@include file="footer.jsp" %>
+<%@include file="scroll-to-top.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
