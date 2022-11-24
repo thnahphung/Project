@@ -232,6 +232,7 @@ a {
 }
 
 .list-product .row .thumbnail .cont-item img {
+    width: 250px;
     height: 250px;
     transition: transform .5s ease;
 }
