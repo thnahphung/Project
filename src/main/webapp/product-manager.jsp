@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charsetUTF-8" language="java" pageEncoding="UTF-8" %> >
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %> >
 <html lang="en">
 
 <head>
@@ -19,60 +19,7 @@
 </head>
 
 <body>
-    <div class="header-top">
-        <h3 class="title">Quản lý sản phẩm</h3>
-        <div class="right">
-            <div class="search item">
-                <input type="text" id="search" placeholder="Search..." />
-                <span class="icon"><i class="fa fa-search"></i></span>
-            </div>
-            <div class="notifi ">
-                <div class="item notifi-item">
-                    <i class="fa-solid fa-bell"></i>
-                    <p>thông báo</p>
-                    <p style="color: red;">(1)</p>
-                </div>
-                <div class="notifi-table">
-                    <a href="">Có một cái gì đó mới </a>
-                    <a href="">Ai đó đã mua hàng</a>
-                    <a href="">Có một thành viên mới</a>
-                    <a href="">Có một thành viên mới</a>
-
-                </div>
-            </div>
-            <div class="user item">
-                <a href="login.jsp" class="item-right"> <img class="user-avatar" src="images/team-2.jpg" alt="">
-                    <p>Thanh Phụng</p>
-                </a>
-            </div>
-
-
-
-        </div>
-    </div>
-    <div class="header-left">
-        <img src="images/logo/logo-rmbg1.png" alt="">
-        <ul>
-            <li><a href="admin.jsp">Bản điều khiển</a></li>
-            <li><a href="product-manager.jsp">Quản lý sản phẩm</a></li>
-            <li><a href="user-manager.jsp">Quản lý khách hàng</a></li>
-            <li><a href="">Quản lý tài khoản</a></li>
-            <li><a href="">Đăng xuất</a></li>
-
-        </ul>
-    </div>
-    </div>
-    <div class="header-left">
-        <img src="images/logo/logo-rmbg1.png" alt="">
-        <ul>
-            <li><a href="admin.jsp">Bản điều khiển</a></li>
-            <li><a href="product-manager.jsp">Quản lý sản phẩm</a></li>
-            <li><a href="user-manager.jsp">Quản lý khách hàng</a></li>
-            <li><a href="">Quản lý tài khoản</a></li>
-            <li><a href="">Đăng xuất</a></li>
-
-        </ul>
-    </div>
+   <%@include file="header-admin.jsp"%>
     <div class="content">
         <div class="row">
             <div class="col-sm">
