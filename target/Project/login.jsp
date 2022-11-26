@@ -17,7 +17,7 @@
 
 </head>
 <body>
-    <div class="form-login 4">
+    <div class="form-login">
         <div class="background"></div>
         <form action="">
             <img src="images/logo/logo-rmbg1.png" alt="">
