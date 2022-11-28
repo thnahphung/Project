@@ -29,6 +29,11 @@
 
     String email = (String) request.getAttribute("email");
     email = (email == null ? "" : email);
+
+    String pass = (String) request.getAttribute("pass");
+    String passAgain = (String) request.getAttribute("passAgain");
+
+
 %>
 <div class="content">
     <div class="background"></div>
@@ -46,8 +51,8 @@
             <input type="text" name="fullName" class="input name" placeholder="Họ tên" value="<%=fullName%>">
             <input type="text" name="phone" class="input phone" placeholder="Số điện thoại" value="<%=phone%>">
             <input type="email" name="email" class="input mail" placeholder="Email" value="<%=email%>">
-            <input type="password" name="pass" class="input pass" placeholder="Mật khẩu">
-            <input type="password" name="passAgain" class="input passAgain" placeholder="Nhập lại mật khẩu">
+            <input type="password" name="pass" class="input pass" placeholder="Mật khẩu" value="<%=pass%>">
+            <input type="password" name="passAgain" class="input passAgain" placeholder="Nhập lại mật khẩu" value="<%=passAgain%>">
             <%--                <i class="fa-solid fa-check"></i>--%>
             <!-- <i class="fa-solid fa-xmark"></i> -->
 

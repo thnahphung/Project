@@ -152,9 +152,9 @@
                                 <%}%>
                             </div>
                             <h3 class="price">
-                                <%= product.getPrice()%> VNĐ
-                                <% if(product.getPriceReal()!=0){%>
-                                <span class="price-real"><%= product.getPriceReal()%> VND</span>
+                                <%=product.getPriceFormat()%> VND
+                                <% if(product.getPriceReal() != 0) {%>
+                                <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
                                 <%}%>
                             </h3>
                         </div>

@@ -26,7 +26,7 @@ public class ProductService {
 
     public List<Product> getListProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src,decription,detail, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
 
@@ -133,14 +133,16 @@ public class ProductService {
                     public int compare(Product o1, Product o2) {
                         return o1.getPrice() - o2.getPrice();
                     }
-                }); break;
+                });
+                break;
             case "rating":
                 Collections.sort(list, new Comparator<Product>() {
                     @Override
                     public int compare(Product o1, Product o2) {
                         return o1.getRate() - o2.getRate();
                     }
-                }); break;
+                });
+                break;
         }
 
         return list;
@@ -172,7 +174,7 @@ public class ProductService {
 
     public static void main(String[] args) {
 //        System.out.println(ProductService.getInstance().getProductById(1));
-//        System.out.println(ProductService.getInstance().getListProduct());
+        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
 
 //        System.out.println(ProductService.getInstance().getProductById(1));
@@ -183,7 +185,7 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getNewProducts());
 //        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
 
-        System.out.println(ProductService.getInstance().getTopWoodProducts());
+//        System.out.println(ProductService.getInstance().getTopWoodProducts());
     }
 
 

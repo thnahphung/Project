@@ -82,7 +82,7 @@
     <div class="favourite top-product">
         <% for (Product product : favouriteProducts) { %>
         <div class="top-product-img">
-            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                     src="<%= product.getImageSrc()%>" alt=""></a>
         </div>
 
@@ -102,14 +102,14 @@
         <div class="product">
             <div class="thumbnail">
                 <div class="cont-item ">
-                    <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+                    <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                             src="<%=product.getImageSrc()%>"
                             alt="">
                     </a>
                 </div>
 
                 <div class="caption">
-                    <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%=product.getProductName()%>
+                    <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%=product.getProductName()%>
                     </a></h3>
                     <div class="ratting">
                         <% int count = product.getRate();
@@ -126,9 +126,9 @@
                         <%}%>
                     </div>
                     <h3 class="price">
-                        <%=product.getPrice()%> VND
+                        <%=product.getPriceFormat()%> VND
                         <% if(product.getPriceReal() != 0) {%>
-                        <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                        <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
                         <% } %>
                     </h3>
                 </div>
@@ -151,7 +151,7 @@
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-                        <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+                        <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                                 src="<%=product.getImageSrc()%>"
                                 alt="">
 
@@ -159,7 +159,7 @@
                     </div>
 
                     <div class="caption">
-                        <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%=product.getProductName()%>
+                        <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%=product.getProductName()%>
                         </a></h3>
                        <div class="ratting">
                                 <% int count = product.getRate();
@@ -176,9 +176,9 @@
                                 <%}%>
                             </div>
                         <h3 class="price">
-                            <%=product.getPrice()%> VND
-                            <% if (product.getPriceReal() != 0){ %>
-                            <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                            <%=product.getPriceFormat()%> VND
+                            <% if(product.getPriceReal() != 0) {%>
+                            <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
                             <%}%>
                         </h3>
                     </div>
@@ -195,7 +195,7 @@
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-                        <a href="http://localhost:8080/id=<%=product.getProductId()%>"><img
+                        <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                                 src="<%=product.getImageSrc()%>"
                                 alt="">
 
@@ -203,7 +203,7 @@
                     </div>
 
                     <div class="caption">
-                        <h3><a href="http://localhost:8080/id=<%=product.getProductId()%>"> <%=product.getProductName()%></a></h3>
+                        <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"> <%=product.getProductName()%></a></h3>
                         <div class="ratting">
                             <% int count = product.getRate();
                                 for (int i = 0; i < 5; i++) {
@@ -219,9 +219,9 @@
                             <%}%>
                         </div>
                         <h3 class="price">
-                            <%=product.getPrice()%> VND
-                            <% if(product.getPriceReal() != 0) { %>
-                             <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                            <%=product.getPriceFormat()%> VND
+                            <% if(product.getPriceReal() != 0) {%>
+                            <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
                             <% } %>
                         </h3>
                     </div>
@@ -236,7 +236,7 @@
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-                        <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+                        <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                                 src="<%=product.getImageSrc()%>"
                                 alt="">
 
@@ -244,7 +244,7 @@
                     </div>
 
                     <div class="caption">
-                        <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"> <%=product.getProductName()%></a></h3>
+                        <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"> <%=product.getProductName()%></a></h3>
                         <div class="ratting">
                             <% int count = product.getRate();
                                 for (int i = 0; i < 5; i++) {
@@ -260,9 +260,9 @@
                             <%}%>
                         </div>
                         <h3 class="price">
-                            <%=product.getPrice()%> VND
-                            <% if(product.getPriceReal() != 0) { %>
-                            <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                            <%=product.getPriceFormat()%> VND
+                            <% if(product.getPriceReal() != 0) {%>
+                            <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
                             <% } %>
                         </h3>
                     </div>
