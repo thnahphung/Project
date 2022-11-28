@@ -19,11 +19,7 @@ a {
 /*header end*/
 
 
-
-
-
 /*content start*/
-
 
 
 /*Address book and sort start*/
@@ -65,7 +61,6 @@ a {
 }
 
 /*Address book and sort end*/
-
 
 
 /* left navigation start */
@@ -206,18 +201,15 @@ a {
 /* left navigation end */
 
 
-
 /*slider start*/
 
 /*slider end*/
-
 
 
 /*list product start*/
 .list-product {
     margin-top: 30px;
 }
-
 
 
 .list-product .row .col-4 .thumbnail {
@@ -357,7 +349,6 @@ a {
 /*content end*/
 
 
-
 /*footer start*/
 
 
@@ -379,4 +370,26 @@ a {
     border-bottom: 8px dashed var(--color2);
     box-sizing: border-box;
 
+}
+
+.sort .sort-table {
+    margin-top: 13px;
+    z-index: 20;
+    position: absolute;
+    z-index: 2;
+    background: wheat;
+    width: 200px;
+    margin-left: -139px;
+    display: none;
+}
+
+.sort .sort-table .sort-item {
+    padding: 10px 0px;
+}
+
+.sort .sort-table .sort-item a {
+    padding: 0px 10px;
+}
+.sort:hover .sort-table{
+    display: block;
 }
