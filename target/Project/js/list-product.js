@@ -12,20 +12,20 @@ $('.scrolltotop').click(function () {
     return false;
 });
 
-
-$('.item-groupProduct').click(function () {
-    alert($(this).html())
-    $.ajax({
-        url: "/listProductGroup",
-        type: "get", //send it through get method
-        data: {
-            group: $(this).val(),
-        },
-        success: function (response) {
-            $(".list-product .row").html(response);
-        },
-        error: function (xhr) {
-            //Do Something to handle error
-        }
-    });
-})
+// ------------Loc san pham theo nhom--------------------
+// $('.item-groupProduct').click(function () {
+//     alert($(this).html())
+//     $.ajax({
+//         url: "/listProductGroup",
+//         type: "get", //send it through get method
+//         data: {
+//             group: $(this).val(),
+//         },
+//         success: function (response) {
+//             $(".list-product .row").html(response);
+//         },
+//         error: function (xhr) {
+//             //Do Something to handle error
+//         }
+//     });
+// })

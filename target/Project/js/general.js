@@ -42,6 +42,8 @@ $(document).ready(function () {
 //     })
 // })
 
+
+//------------ Search at listProduct -------------
 $("#search").click(function () {
     $.ajax({
         url: "/search",

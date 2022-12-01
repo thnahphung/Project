@@ -25,32 +25,10 @@
 </head>
 
 <body>
-<ul class="nav nav-home ">
-    <li class=" left">
-        <a href="home-page.jsp"><img src="images/logo/logo-rmbg1.png" alt=""></a>
-    </li>
-    <li class="nav-item center">
-        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1">Sản Phẩm</a>
-        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Gỗ</a>
-        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1">Gốm</a>
-        <a class="nav-link" href="list-product.jsp">giảm giá</a>
-        <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
-    </li>
-    <li class=" right">
-        <div class="item-right search-item">
-            <input type="text" id="search" placeholder="Tìm kiếm..."/>
-            <span class="icon"><i class="fa fa-search"></i></span>
+<%--header--%>
+<%@include file="header.jsp" %>
 
-        </div>
-        <a href="login.jsp" class="item-right"> <i class="fa-solid fa-user"></i>
-            <p>Đăng nhập</p>
-        </a>
-        <a href="cart.jsp" class="item-right"><i class="fa-solid fa-cart-shopping"></i>
-            <p>Giỏ hàng (2)</p>
-        </a>
-    </li>
-</ul>
-
+<%-- end header--%>
 <div class="banner-slider">
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
@@ -114,8 +92,7 @@
                         <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%=product.getProductName()%>
                         </a></h3>
 
-                    <h3><a href=""><%=product.getProductName()%>
-                    </a></h3>
+
 
                     <div class="ratting">
                         <% int count = product.getRate();
@@ -281,7 +258,7 @@
 <!-- Footer -->
 
 <%@include file="footer.jsp" %>
-
+<%--end footer--%>
 
 <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>
 

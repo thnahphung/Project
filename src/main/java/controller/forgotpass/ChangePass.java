@@ -14,7 +14,7 @@ public class ChangePass extends HttpServlet {
         String phoneEmail = request.getParameter("phoneEmail");
         String newPass = request.getParameter("pass");
         UserService.getInstance().changePass(phoneEmail, newPass);
-        response.getWriter().println("Đổi pass thành công");
+        response.getWriter().println("Đổi mật khẩu thành công");
     }
 
     @Override
