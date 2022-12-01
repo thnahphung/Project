@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,33 +21,7 @@
 <body>
     <div id="container">
         <!-- header -->
-        <div class="header">
-            <ul class="nav nav-page">
-                <li class=" left">
-                    <a href="home-page.jsp"><img src="images/logo/logo-rmbg1.png" alt=""></a>
-                </li>
-                <li class="nav-item center">
-                    <a class="nav-link active" href="list-product.jsp">Sản Phẩm</a>
-                    <a class="nav-link" href="list-product.jsp">Gỗ</a>
-                    <a class="nav-link" href="list-product.jsp">Gốm</a>
-                    <a class="nav-link" href="list-product.jsp">giảm giá</a>
-                    <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
-                </li>
-                <li class=" right">
-                    <div class="item-right search-item">
-                        <input type="text" id="search" placeholder="Search..." />
-                        <span class="icon"><i class="fa fa-search"></i></span>
-
-                    </div>
-                    <a href="login.jsp" class="item-right"> <i class="fa-solid fa-user"></i>
-                        <p>Đăng nhập</p>
-                    </a>
-                    <a href="cart.jsp" class="item-right"><i class="fa-solid fa-cart-shopping"></i>
-                        <p>Giỏ hàng (2)</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <%@include file="header.jsp" %>
         <!-- end header -->
 
 
@@ -206,39 +182,8 @@
 
             <!-- footer -->
 
-            <footer class="footer row">
-                <div class="col-1"></div>
-                <div class="col-2">
-                    <img src="images/logo/logo2.png" alt="">
-                </div>
-                <div class="col-2">
-                    <div class="title">Sản phẩm</div>
-                    <div><a href="">Đồ gỗ</a></div>
-                    <div><a href="">Đồ gốm</a></div>
-                </div>
-                <div class="col-2">
-                    <div class="title">Về Craft</div>
-                    <div><a href="">Tuyển cộng tác viên</a></div>
-                    <div><a href="">Địa chỉ</a></div>
-                    <div><a href="">Thông tin thành lập</a></div>
-                    <div><a href="">Người thành lập</a></div>
-                </div>
-                <div class="col-2">
-                    <div class="title">Liên hệ</div>
-                    <div><a href="">Facebook</a></div>
-                    <div><a href="">Istagram</a></div>
-                    <div><a href="">Twiter</a></div>
-                </div>
-                <div class="col-2">
-                    <div class="title">Hỗ trợ</div>
-                    <div><a href="">Thông tin bảo hành</a></div>
-                    <div><a href="">Thông tin đổi trả</a></div>
-                    <div><a href="">Liên hệ nhân viên chăm sóc</a></div>
-                </div>
-
-                <div class="col-1"></div>
-
-            </footer>
+            <%@include file="footer.jsp" %>
+            <%@include file="scroll-to-top.jsp" %>
             <!-- end footer -->
         </div>
     </div>
