@@ -9,6 +9,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private int productId;
     private Category category;
+    private int categoryId;
     private String productName;
     private int price;
     private int priceReal;
@@ -43,6 +44,14 @@ public class Product implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getProductName() {
@@ -92,6 +101,7 @@ public class Product implements Serializable {
         return "Product{" +
                 "productId=" + productId +
                 ", category=" + category +
+                ",category_id="+ categoryId+
                 ", productName='" + productName + '\'' +
                 ", price=" + price +
                 ", priceReal=" + priceReal +

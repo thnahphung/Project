@@ -107,23 +107,18 @@ a {
 }
 
 .content .left .type-left ul li a {
-    color: var(--color4);
-    opacity: 0.5;
+    color: var(--color3);
+    font-size: 25px;
 }
 
 .content .left .type-left ul .drivider {
-    margin: 15px;
+    margin: 15px 30px;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: bold;
 
 }
 
-.content .left .type-left ul .drivider a:hover,
-.content .left .type-left ul .drivider a:active {
-    color: var(--color4);
-    opacity: 1;
-}
 
 .content .left .type-left ul .line {
     margin: 15px 0;
