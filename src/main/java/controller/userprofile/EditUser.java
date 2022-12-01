@@ -18,11 +18,13 @@ public class EditUser extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String email = request.getParameter("email");
 
+
         UserService.getInstance().editInfor(user.getUserID(), fullName, phoneNumber, email);
 
         response.getWriter().println("<li>" + fullName + "</li>\n" +
                 "                     <li>" + phoneNumber + "</li>\n" +
                 "                    <li>" + email + "</li>");
+
 
 
     }

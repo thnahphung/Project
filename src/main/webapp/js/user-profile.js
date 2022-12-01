@@ -1,9 +1,13 @@
 $(document).ready(function () {
     $(".button-save").click(function () {
-
         let fullName = $("#input-edit-name").val();
         let phoneNumber = $('#input-edit-phone').val();
         let email = $("#input-edit-email").val();
+
+        if (checkNull(fullName) || checkNull(phoneNumber) || checkNull(email)) {
+
+            return $(".error").text("không");
+        }
 
         $.ajax({
             url: "/userprofile/editUser",
@@ -20,7 +24,13 @@ $(document).ready(function () {
                 //Do Something to handle error
             }
         });
-        $('#formEditInfor').fadeOut();
-        $(".modal-backdrop").fadeOut();
+        $('#formEditInfor').modal('toggle');
+        // $(".modal-backdrop").fadeOut();
     })
+
+    function checkNull(text) {
+        return text.length == 0 || text == null;
+    }
+
+
 });

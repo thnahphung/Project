@@ -69,9 +69,12 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li><%=user.getFullName()%></li>
-                                    <li><%=user.getPhoneNumber()%></li>
-                                    <li><%=user.getEmail()%></li>
+                                    <li><%=user.getFullName()%>
+                                    </li>
+                                    <li><%=user.getPhoneNumber()%>
+                                    </li>
+                                    <li><%=user.getEmail()%>
+                                    </li>
                                 </ul>
 
                                 <div class="inf-right">
@@ -89,14 +92,19 @@
                                                     <h5 class="modal-title uppercase" id="modalLongTitle">Sửa thông
                                                         tin</h5>
                                                 </div>
+                                                <p class="error"></p>
                                                 <div class="modal-body">
                                                     <div class="form-add-address">
-                                                        <input class="input" type="text" name="" id="input-edit-name"
-                                                               placeholder="Họ tên">
-                                                        <input class="input" type="text" name="" id="input-edit-phone"
-                                                               placeholder="Số điện thoại">
-                                                        <input class="input" type="email" name="" id="input-edit-email"
-                                                               placeholder="Email">
+                                                        <input class="input" type="text" name="input-edit-name"
+                                                               id="input-edit-name"
+                                                               placeholder="Họ tên" value="<%=user.getFullName()%>">
+                                                        <input class="input" type="text" name="input-edit-phone"
+                                                               id="input-edit-phone"
+                                                               placeholder="Số điện thoại"
+                                                               value="<%=user.getPhoneNumber()%>">
+                                                        <input class="input" type="email" name="input-edit-email"
+                                                               id="input-edit-email"
+                                                               placeholder="Email" value="<%=user.getEmail()%>">
 
                                                     </div>
                                                 </div>
@@ -104,8 +112,7 @@
                                                     <button type="button" class="button button-close submit"
                                                             data-dismiss="modal">Hủy
                                                     </button>
-                                                    <button type="button" class="button button-save submit">Lưu thông
-                                                        tin
+                                                    <button type="button" class="button button-save submit" >Lưu thông tin
                                                     </button>
                                                 </div>
                                             </div>
