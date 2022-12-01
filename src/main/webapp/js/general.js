@@ -1,7 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         var scroll = $(window).scrollTop();
 
         //>=, not <=
@@ -25,12 +25,31 @@ $(document).ready(function() {
 //     });
 // }
 
+// ------Search Every Where----------
+// $("#search").click(function () {
+//     $.ajax({
+//         url: "/Searches",
+//         type: "get",
+//         data: {
+//             search: $('.search-input').val()
+//         },
+//         success: function (response) {
+//             $(".list-product .row").html(response);
+//         },
+//         error: function (xhr) {
+//             //Do Something to handle error
+//         }
+//     })
+// })
+
+
+//------------ Search at listProduct -------------
 $("#search").click(function () {
     $.ajax({
         url: "/search",
         type: "get", //send it through get method
         data: {
-            search:$(".search-input").val(),
+            search: $(".search-input").val(),
         },
         success: function (response) {
             $(".list-product .row").html(response);

@@ -9,12 +9,13 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "Search", value = "/search")
-public class Search extends HttpServlet {
+@WebServlet(name = "ListProductGroup", value = "/listProductGroup")
+public class ListProductGroup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String search = request.getParameter("search");
-        List<Product> productList = ProductService.getInstance().getListProductInSearch(search);
+        String group =  request.getParameter("group");
+        int kind = Integer.parseInt((String) request.getAttribute("kind"));
+        List<Product> productList = ProductService.getInstance().getListProductInGroupName(kind, group);
         for (Product product : productList) {
             StringBuilder rate = new StringBuilder();
             StringBuilder priceReal = new StringBuilder();
@@ -27,9 +28,9 @@ public class Search extends HttpServlet {
                     rate.append(" <i class=\"fa fa-star  \"></i>\n");
                 }
             }
-                if (product.getPriceReal() != 0) {
-                    priceReal.append(" <span class=\\\"price-real\\\">" + product.getPriceReal() + " VND</span>");
-                }
+            if (product.getPriceReal() != 0) {
+                priceReal.append(" <span class=\\\"price-real\\\">" + product.getPriceReal() + " VND</span>");
+            }
 
 
             response.getWriter().println("   <div class=\"col-4\">\n" +
@@ -53,11 +54,11 @@ public class Search extends HttpServlet {
                     "                    </div>");
 
         }
-        request.getRequestDispatcher("list-Product.jsp").forward(request,response);
-    }
 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

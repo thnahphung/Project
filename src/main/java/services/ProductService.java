@@ -132,6 +132,24 @@ public class ProductService {
 
     }
 
+    public List<Product> getListProductInGroupName(int kind, String group) {
+
+        List<Product> list = getListProductByKind(kind);
+        List<Product> listResult = new ArrayList<Product>();
+
+        for (Product product : list) {
+            if ("".equals(group)) {
+                return list;
+            } else if (product.getCategory().getName().equals(group)) {
+                listResult.add(product);
+            }
+
+        }
+
+        return listResult;
+
+    }
+
     //  danh sach san pham o 1 trang
     public List<Product> getListProductInPage(int kind, int group, int page, String sort) {
         List<Product> list = getSortListProduct(kind, sort, group);
@@ -248,9 +266,16 @@ public class ProductService {
 
     //    tim kiem
     public List<Product> getListProductInSearch(String search) {
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product where product_name= '" + search + "'").mapToBean(Product.class).stream().collect(Collectors.toList());
+        List<Product> list = new ArrayList<>();
+        List<Product> pr = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
+        for (Product p : pr) {
+            if (p.getProductName().contains(search)) {
+                list.add(p);
+            }
+        }
+        return list;
     }
 
     //    public List<Comment> getCommentOfProductById(int id) {
