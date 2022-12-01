@@ -9,7 +9,6 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private int productId;
     private Category category;
-    private int categoryId;
     private String productName;
     private int price;
     private int priceReal;
@@ -53,14 +52,6 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getProductName() {
         return productName;
     }
@@ -94,6 +85,7 @@ public class Product implements Serializable {
     }
 
 
+<<<<<<< HEAD
 
 
     @Override
@@ -110,4 +102,6 @@ public class Product implements Serializable {
                 '}';
     }
 
+=======
+>>>>>>> parent of 2d7ab4b (Phan Thi Quynh Nhu)
 }

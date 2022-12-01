@@ -13,11 +13,19 @@
 
                                 <li class="nav-item center" id="nav-items">
 
+<<<<<<< HEAD
                                     <a class="nav-link" id="sanpham" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&group=0&page=1&sort=0">Sản Phẩm</a>
                                     <a class="nav-link" id="go" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&group=0&page=1&sort=0">Gỗ</a>
                                     <a class="nav-link" id="gom" href="http://localhost:8080/listProduct?kind=<%=ProductService.RECAMIC%>&group=0&page=1&sort=0">Gốm</a>
                                     <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.PAINT%>&group=0&page=1&sort=price">Tranh</a>
                                     <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.SALE%>&group=0&page=1&sort=a-z">Giảm giá</a>
+=======
+        <a class="nav-link" id="sanpham" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1&sort=0">Sản Phẩm</a>
+        <a class="nav-link" id="go" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1&sort=0">Gỗ</a>
+        <a class="nav-link" id="gom" href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1&sort=0">Gốm</a>
+        <a class="nav-link" href="list-product.jsp">giảm giá</a>
+        <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
+>>>>>>> parent of 2d7ab4b (Phan Thi Quynh Nhu)
 
                                 </li>
                                 <li class=" right">
