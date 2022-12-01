@@ -8,6 +8,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private int productId;
     private Category category;
+    private  int categoryId;
     private String productName;
     private int price;
     private int priceReal;
@@ -47,9 +48,18 @@ public class Product implements Serializable {
         return category;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
+
 
     public String getProductName() {
         return productName;
@@ -84,36 +94,17 @@ public class Product implements Serializable {
     }
 
 
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-=======
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
->>>>>>> parent of 93016d7 (Le Bao Dang)
-
     @Override
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
                 ", category=" + category +
-                ",category_id="+ categoryId+
                 ", productName='" + productName + '\'' +
                 ", price=" + price +
                 ", priceReal=" + priceReal +
                 ", rate=" + rate +
                 ", imageSrc='" + imageSrc + '\'' +
+                ", productDetail=" + productDetail +
                 '}';
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 2d7ab4b (Phan Thi Quynh Nhu)
-=======
->>>>>>> parent of 93016d7 (Le Bao Dang)
 }

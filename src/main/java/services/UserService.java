@@ -94,7 +94,6 @@ public class UserService {
     public boolean checkSamePass(String pass, String passAgain){
         return pass.equals(passAgain);
     }
-<<<<<<< HEAD
 
 
     public void addUser(User user){
@@ -110,8 +109,6 @@ public class UserService {
                     .execute();
         });
     }
-=======
->>>>>>> parent of 93016d7 (Le Bao Dang)
     public static void main(String[] args) {
 
 //        User user13 = new User(13, "nhuw", "nhuw@gmail.com", "0900000005", "nhuwpass", "user", "https://i.pinimg.com/564x/92/35/3f/92353f71687dcf1fc4d2f5858283a087.jpg");
