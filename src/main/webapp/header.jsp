@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="bean.Product" %>
 <%@ page import="services.ProductService" %>
+<%@ page import="bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <ul class="nav nav-page">
     <li class=" left">
@@ -25,8 +26,15 @@
             <span class="icon"><i class="fa fa-search"></i></span>
 
         </div>
-        <a href="login.jsp" class="item-right"> <i class="fa-solid fa-user"></i>
+        <a href="login.jsp" class="item-right">
+            <%   User user = (User) session.getAttribute("auth");
+                if(user!=null){%>
+            <img src="<%=user.getAvatar()%>" alt="">
+            <p><%=user.getFullName()%></p>
+            <%} else {%>
+            <i class="fa-solid fa-user"></i>
             <p>Đăng nhập</p>
+            <%}%>
         </a>
         <a href="cart.jsp" class="item-right"><i class="fa-solid fa-cart-shopping"></i>
             <p>Giỏ hàng (2)</p>

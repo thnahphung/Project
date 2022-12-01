@@ -73,7 +73,11 @@ a {
     display: flex;
     color: var(--color4);
 }
-
+.nav-page .right .item-right img{
+    border-radius: 25%;
+    width: 25px;
+    height: 25px;
+}
 .nav-page .right .item-right p {
     margin-top: 2px;
     margin-left: 5px;
