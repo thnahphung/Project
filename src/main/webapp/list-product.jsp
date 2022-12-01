@@ -93,7 +93,7 @@
                     <a href=""> <img class="d-block w-100" src="images/list-product/BIOPHILIA_10.jpg" alt="Second slide"></a>
                 </div>
                 <div class="carousel-item">
-                    <a href=""><img class="d-block w-100 " src="images/list-product/list_collection_default.png" alt="Third slide"></a>
+                    <a href=""><img class="d-block w-100 " src="https://i.etsystatic.com/15645889/r/il/12a570/1253369484/il_794xN.1253369484_12vn.jpg" alt="Third slide"></a>
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
