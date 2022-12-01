@@ -16,8 +16,8 @@ public class ListProduct extends HttpServlet {
         int kind = Integer.parseInt(request.getParameter("kind"));
         int page = Integer.parseInt(request.getParameter("page"));
         String sort = request.getParameter("sort");
-        int size = ProductService.getInstance().getCountProduct(kind) / 15;
-        int count = ProductService.getInstance().getCountProduct(kind)%15 > 0 ? size + 1 : size;
+        int size = ProductService.getInstance().getcountProduct(kind) / 15;
+        int count = ProductService.getInstance().getcountProduct(kind)%15 > 0 ? size + 1 : size;
         List<Product> list = ProductService.getInstance().getListProductInPage(kind, sort, page); // danh sach san pham theo trang
         request.setAttribute("list", list);
         request.setAttribute("kind", kind);

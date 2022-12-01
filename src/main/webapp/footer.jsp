@@ -9,7 +9,7 @@
 
         <div class="title">Sản phẩm</div>
         <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Đồ gỗ</a></div>
-        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1">Đồ gốm</a></div>
+        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.RECAMIC%>&page=1">Đồ gốm</a></div>
     </div>
     <div class="col-2">
         <div class="title">Về Craft</div>
