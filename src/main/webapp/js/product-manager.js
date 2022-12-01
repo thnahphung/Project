@@ -17,9 +17,26 @@ $(document).ready(function () {
             alert("Vui lòng kiểm tra lại")
             return;
         }
-        window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
+        $.ajax({
+            url: "/admins/addProduct",
+            type:"get",
+            data:{
+                name:name,
+                price:price,
+                priceReal:priceReal,
+                inventory:inventory,
+                detail:detail,
+                decription: decription,
+                category:category
+            },success: function (data) {
+                
+            }
+        }).done(function () {
+            $('.btn-submit-img').click();
+        })
+        // window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
 
-        $('.btn-submit-img').click();
+
 
     })
     // $('.edit-product').click(function () {

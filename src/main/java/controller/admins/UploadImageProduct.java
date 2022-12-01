@@ -8,7 +8,8 @@ import java.util.Collection;
 
 @WebServlet(name = "UploadImageProduct", value = "/admins/uploadImageProduct")
 @MultipartConfig(
-        location = "D:\\Git\\Project\\src\\main\\webapp\\images\\image-product",
+//        location = "D:\\Git\\Project\\src\\main\\webapp\\images\\image-product",
+        location = "C:\\Users\\DELL\\Documents\\GitHub\\Project\\src\\main\\webapp\\images\\image-product",
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 101
@@ -28,10 +29,13 @@ public class UploadImageProduct extends HttpServlet {
                 if (fileName != null)
                     part.write(fileName);
             }
+//            Part  part= request.getPart("image-banner");
+//            part.write(getFileName(part));
 
         } catch (Exception e) {
 
         }
+        response.sendRedirect("/ProductManager");
     }
 
     private String getFileName(Part part) {
@@ -43,5 +47,8 @@ public class UploadImageProduct extends HttpServlet {
         int begin = contentDisposition.indexOf("filename=") + 10;
         int end = contentDisposition.length() - 1;
         return contentDisposition.substring(begin, end);
+
     }
+
+
 }

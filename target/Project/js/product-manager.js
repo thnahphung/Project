@@ -3,24 +3,40 @@ $(document).ready(function () {
     //
     // })
     $('#addProduct').click(function () {
-        // var name = $('#input-name').val();
-        // var price = $('#input-price').val().trim();
-        // var priceReal = $('#input-priceReal').val().trim();
-        // var inventory = $('#input-inventory').val();
-        // // img: $()
-        // let category = $('.category').find(":selected").val().trim();
-        // var detail = $('#input-detail').val();
-        // var decription = $('#input-decription').val();
-        //
-        //
-        // if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
-        //     alert("Vui lòng kiểm tra lại")
-        //     return;
-        // }
-        // window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
-        // window.location = "/admins/uploadImageProduct";
+        var name = $('#input-name').val();
+        var price = $('#input-price').val().trim();
+        var priceReal = $('#input-priceReal').val().trim();
+        var inventory = $('#input-inventory').val();
+        // img: $()
+        let category = $('.category').find(":selected").val().trim();
+        var detail = $('#input-detail').val();
+        var decription = $('#input-decription').val();
 
-        $('.btn-submit-img').click();
+
+        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
+            alert("Vui lòng kiểm tra lại")
+            return;
+        }
+        $.ajax({
+            url: "/admins/addProduct",
+            type:"get",
+            data:{
+                name:name,
+                price:price,
+                priceReal:priceReal,
+                inventory:inventory,
+                detail:detail,
+                decription: decription,
+                category:category
+            },success: function (data) {
+                
+            }
+        }).done(function () {
+            $('.btn-submit-img').click();
+        })
+        // window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
+
+
 
     })
     // $('.edit-product').click(function () {
