@@ -18,6 +18,7 @@ public class Homepage extends HttpServlet {
         System.out.println("favouriteProducts"+favouriteProducts);
         List<Product> newProducts = ProductService.getInstance().getNewProducts();
         request.setAttribute("newProducts", newProducts);
+<<<<<<< HEAD
         System.out.println("newProducts"+newProducts);
 
         List<Product> topWoodProducts = ProductService.getInstance().getTopProducts(ProductService.WOOD);
@@ -32,6 +33,9 @@ public class Homepage extends HttpServlet {
         request.setAttribute("topPaintingProducts", topPaintingProducts);
         System.out.println("topPaintingProducts"+topPaintingProducts);
 
+=======
+        System.out.println(12);
+>>>>>>> parent of 93016d7 (Le Bao Dang)
         request.getRequestDispatcher("home-page.jsp").forward(request, response);
 
 

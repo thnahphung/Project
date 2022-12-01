@@ -34,12 +34,21 @@
 
         <div class="sort">
             <span>Sắp xếp</span>
+<<<<<<< HEAD
             <ul class="sort-table" id="sort-tableID">
                 <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=a-z">Tên từ A-Z</a></li>
                 <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=2">Tên từ Z-A</a></li>
                 <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=price">Giá từ thấp đến cao</a></li>
                 <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=4">Giá từ cao đến thấp</a></li>
                 <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=ratting">Đánh giá tốt nhất</a></li>
+=======
+            <ul class="sort-table">
+                <li class="sort-item"><a>Tên từ A-Z</a></li>
+                <li class="sort-item"><a>Tên từ Z-A</a></li>
+                <li class="sort-item"><a>Giá từ thấp đến cao</a></li>
+                <li class="sort-item"><a>Giá từ cao đến thấp</a></li>
+                <li class="sort-item"><a>Đánh giá tốt nhất</a></li>
+>>>>>>> parent of 93016d7 (Le Bao Dang)
             </ul>
         </div>
     </div>
@@ -132,12 +141,12 @@
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
                                     src="<%= product.getImageSrc()%>" alt="">
                             </a>
                         </div>
                         <div class="button">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
                                class="buy-now"> Mua ngay</a>
 
                         </div>

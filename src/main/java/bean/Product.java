@@ -1,7 +1,6 @@
 package bean;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -87,6 +86,16 @@ public class Product implements Serializable {
 
 <<<<<<< HEAD
 
+<<<<<<< HEAD
+=======
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+>>>>>>> parent of 93016d7 (Le Bao Dang)
 
     @Override
     public String toString() {
@@ -101,7 +110,10 @@ public class Product implements Serializable {
                 ", imageSrc='" + imageSrc + '\'' +
                 '}';
     }
+<<<<<<< HEAD
 
 =======
 >>>>>>> parent of 2d7ab4b (Phan Thi Quynh Nhu)
+=======
+>>>>>>> parent of 93016d7 (Le Bao Dang)
 }

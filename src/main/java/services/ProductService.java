@@ -69,14 +69,19 @@ public class ProductService {
 
     public List<Product> getListFavouriteProduct() {
         return JDBIConnector.get().withHandle(handle -> {
+<<<<<<< HEAD
             return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, rate, image_src, product_detail_id\n" +
                     "FROM product \n" +
                     "ORDER BY rate DESC\n" +
                     "LIMIT 3;").mapToBean(Product.class).stream().collect(Collectors.toList());
+=======
+            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src,decription,detail, rate from product ORDER BY price DESC limit 3").mapToBean(Product.class).stream().collect(Collectors.toList());
+>>>>>>> parent of 93016d7 (Le Bao Dang)
         });
 
     }
 
+<<<<<<< HEAD
     public List<Product> getTopProducts(int kind) {
        return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT p.product_id, p.product_name, p.price, p.price_real,p.rate, p.image_src,p.product_detail_id\n" +
@@ -86,6 +91,15 @@ public class ProductService {
         });
     }
 
+=======
+    public List<Product> getListWoodProduct() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
+                    "FROM product\n" +
+                    "WHERE category_id = 1;").mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+    }
+>>>>>>> parent of 93016d7 (Le Bao Dang)
 
     public List<String> getImageOfProductById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
@@ -166,6 +180,7 @@ public class ProductService {
 
 //        System.out.println(ProductService.getInstance().getNewProducts());
 //        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
+<<<<<<< HEAD
 
 //        System.out.println(ProductService.getInstance().getTopWoodProducts());
 //        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
@@ -174,6 +189,8 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
 =======
 >>>>>>> parent of 2d7ab4b (Phan Thi Quynh Nhu)
+=======
+>>>>>>> parent of 93016d7 (Le Bao Dang)
     }
 
 
