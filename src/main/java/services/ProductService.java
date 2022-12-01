@@ -230,8 +230,10 @@ public class ProductService {
 
 //        System.out.println(ProductService.getInstance().getTopWoodProducts());
 //        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
-        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
+//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
+//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
     }
+
 
 
 }

@@ -94,14 +94,6 @@ public class Product implements Serializable {
     }
 
 
-<<<<<<< HEAD
-    public OrderDetail getOrderDetail() {
-        return orderDetail;
-    }
-
-    public void setOrderDetail(OrderDetail orderDetail) {
-        this.orderDetail = orderDetail;
-    }
 
 
     @Override
@@ -115,9 +107,7 @@ public class Product implements Serializable {
                 ", priceReal=" + priceReal +
                 ", rate=" + rate +
                 ", imageSrc='" + imageSrc + '\'' +
-                ", orderDetail=" + orderDetail +
                 '}';
     }
-=======
->>>>>>> db5f3c1541c7eab9a079a65ebf468778a31bc901
+
 }

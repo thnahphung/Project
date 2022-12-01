@@ -31,7 +31,7 @@
     <li class="nav-item center">
         <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1">Sản Phẩm</a>
         <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Gỗ</a>
-        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1">Gốm</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.RECAMIC%>&page=1">Gốm</a>
         <a class="nav-link" href="list-product.jsp">giảm giá</a>
         <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
     </li>
@@ -126,9 +126,9 @@
                         <%}%>
                     </div>
                     <h3 class="price">
-                        <%=product.getPriceFormat()%> VND
+                        <%=product.getPrice()%> VND
                         <% if(product.getPriceReal() != 0) {%>
-                        <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
+                        <span class="price-real"><%=product.getPriceReal()%> VND</span>
                         <% } %>
                     </h3>
                 </div>
@@ -176,9 +176,9 @@
                                 <%}%>
                             </div>
                         <h3 class="price">
-                            <%=product.getPriceFormat()%> VND
+                            <%=product.getPrice()%> VND
                             <% if(product.getPriceReal() != 0) {%>
-                            <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
+                            <span class="price-real"><%=product.getPriceReal()%> VND</span>
                             <%}%>
                         </h3>
                     </div>
@@ -189,7 +189,7 @@
 
         </div>
 
-        <%List<Product> topPotteryProducts = ProductService.getInstance().getTopPotteryProducts();%>
+        <%List<Product> topPotteryProducts = (List<Product>) request.getAttribute("topCeramicProducts");%>
         <div class="pottery featured-img-list">
             <% for(Product product: topPotteryProducts) {%>
             <div class="product">
@@ -219,9 +219,9 @@
                             <%}%>
                         </div>
                         <h3 class="price">
-                            <%=product.getPriceFormat()%> VND
+                            <%=product.getPrice()%> VND
                             <% if(product.getPriceReal() != 0) {%>
-                            <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
+                            <span class="price-real"><%=product.getPriceReal()%> VND</span>
                             <% } %>
                         </h3>
                     </div>
@@ -230,7 +230,7 @@
             <% } %>
         </div>
 
-        <%List<Product> topPaintingProducts = ProductService.getInstance().getTopWoodProducts();%>
+        <%List<Product> topPaintingProducts = (List<Product>) request.getAttribute("topPaintingProducts");%>
         <div class="painting featured-img-list">
             <% for(Product product: topPaintingProducts) {%>
             <div class="product">
@@ -260,9 +260,9 @@
                             <%}%>
                         </div>
                         <h3 class="price">
-                            <%=product.getPriceFormat()%> VND
+                            <%=product.getPrice()%> VND
                             <% if(product.getPriceReal() != 0) {%>
-                            <span class="price-real"><%=product.getPriceRealFormat()%> VND</span>
+                            <span class="price-real"><%=product.getPriceReal()%> VND</span>
                             <% } %>
                         </h3>
                     </div>
