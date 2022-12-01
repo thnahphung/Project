@@ -74,7 +74,7 @@ a {
     color: var(--color4);
 }
 .nav-page .right .item-right img{
-    border-radius: 25%;
+    border-radius: 50%;
     width: 25px;
     height: 25px;
 }
