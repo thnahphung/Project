@@ -49,6 +49,7 @@ $(document).ready(function () {
         function () {
             $("button.page-link").parent('.page-item').removeClass("active");
             $(this).parent('.page-item').addClass("active");
+
             $.ajax({
                 url: "/detailProduct/loadComment",
                 type: "get",
@@ -64,6 +65,7 @@ $(document).ready(function () {
             });
         }
     )
+    //search product
 
 
     $("#submit-cmt").click(function () {
@@ -90,7 +92,5 @@ $(document).ready(function () {
             }
         });
     })
-
-
 });
 

@@ -247,15 +247,10 @@ public class ProductService {
     }
 
     //    tim kiem
-    public List<Product> getListProductInSearch( String search) {
-        List<Product> list = getListProduct();
-        List<Product> lisResult = new ArrayList<>();
-        for (Product product : list) {
-            if (product.getProductName().equals(search) || product.getProductId() == Integer.parseInt(search)) {
-                lisResult.add(product);
-            }
-        }
-        return lisResult;
+    public List<Product> getListProductInSearch(String search) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product where product_name= '" + search + "'").mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
     }
 
     //    public List<Comment> getCommentOfProductById(int id) {
