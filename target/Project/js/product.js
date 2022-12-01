@@ -53,7 +53,6 @@ $(document).ready(function () {
 
     
     $("#submit-cmt").click(function () {
-        alert($('.lb-cmt .yellow').length);
         $.ajax({
             url: "/detailProduct/upComment",
             type: "get", //send it through get method

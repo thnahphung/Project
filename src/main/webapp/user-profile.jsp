@@ -22,9 +22,11 @@
 <body>
 
 
+
 <div id="container">
     <!-- header -->
     <%@include file="header.jsp" %>
+
     <!-- end header -->
 
 
@@ -54,7 +56,8 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <!-- <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Đăng xuất</button> -->
-                        <a class="nav-link" href="home-page.jsp"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a>
+                        <a class="nav-link" href="home-page.jsp"><i class="fa-solid fa-right-from-bracket"></i>Đăng
+                            xuất</a>
                     </li>
 
                 </ul>
@@ -65,185 +68,180 @@
                         <div class="inf">
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
-                                <form class="inf-left">
-                                    <input name="fullName" value="">
-                                    <input name="phone">
-                                    <input name="email">
-                                </form>
+                                <ul class="inf-left">
+                                    <li><%=user.getFullName()%></li>
+                                    <li><%=user.getPhoneNumber()%></li>
+                                    <li><%=user.getEmail()%></li>
+                                </ul>
 
                                 <div class="inf-right">
                                     <button type="button" class="btn-add-address button submit" id="edit-info"
-                                            data-toggle="modal" data-target="#editInformation">
+                                            data-toggle="modal" data-target="#formEditInfor">
                                         Sửa
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="editInformation" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="formEditInfor" tabindex="-1" role="dialog"
                                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title uppercase" id="formTitle">Sửa
-                                                        thông tin</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                                    <h5 class="modal-title uppercase" id="modalLongTitle">Sửa thông
+                                                        tin</h5>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form  class="form-add-address">
-                                                        <input class="input" type="text" name="editFullName" id="inputFullName"
+                                                    <div class="form-add-address">
+                                                        <input class="input" type="text" name="" id="input-edit-name"
                                                                placeholder="Họ tên">
-                                                        <input class="input" type="text" name="editPhoneNumber" id="inputPhoneNumber"
+                                                        <input class="input" type="text" name="" id="input-edit-phone"
                                                                placeholder="Số điện thoại">
-                                                        <input class="input" type="email" name="editEmail" id="inputEmail"
+                                                        <input class="input" type="email" name="" id="input-edit-email"
                                                                placeholder="Email">
-                                                    </form>
+
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="button button-close submit"
                                                             data-dismiss="modal">Hủy
                                                     </button>
-                                                    <button type="button" class="button submit">Lưu thông tin</button>
+                                                    <button type="button" class="button button-save submit">Lưu thông
+                                                        tin
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-
-                        </div>
-                    </div>
-                    <div class="order-list">
-                        <table class="table">
-                            <h3>Danh sách đơn hàng</h3>
-                            <thead>
-                            <tr>
-                                <th scope="col">Mã đơn hàng</th>
-                                <th scope="col">Ngày đặt</th>
-                                <th scope="col">Thành tiền</th>
-                                <th scope="col">Trạng thái đơn hàng</th>
-                                <th scope="col">Vận chuyển</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">#215814</th>
-                                <td>22/11/2020</td>
-                                <td>573.000 VND</td>
-                                <td>Chưa thanh toán</td>
-                                <td>Đang giao</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">#215815</th>
-                                <td>3/10/2020</td>
-                                <td>900.000 VND</td>
-                                <td>Đã thanh toán</td>
-                                <td>Hoàn thành</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">#215816</th>
-                                <td>20/7/2020</td>
-                                <td>1.523.000 VND</td>
-                                <td>Đã thanh toán</td>
-                                <td>Hoàn thành</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
-                    <div class="choose-address">
-                        <h6 class="title uppercase"><i class="fa-solid fa-location-dot"></i>Địa chỉ </h6>
-
-                        <div class="list-address">
-                            <div class="contain-address bd-bottom">
-                                <div class="contain-address left">
-                                    <p>
-                                        <label><span class="name">Quỳnh Như</span>
-                                            <span class="phone-number">0123456789</span></label>
-                                    </p>
-                                    <div class="address">
-                                        Kí túc xá khu B đhqg, Đông Hòa, Dĩ An, Bình Dương.
-                                    </div>
-                                </div>
-                                <div class="contain-address right">
-                                    <button class="btn-add-address button submit" id="edit-address">Sửa</button>
-                                    <button class="btn-add-address button submit" id="delete-address">Xóa</button>
-                                </div>
                             </div>
                         </div>
-                        <button type="button" class="btn-add-address button submit" data-toggle="modal"
-                                data-target="#exampleModalCenter">
-                            Thêm địa chỉ mới
-                        </button>
-                        <button type="button" class="btn-delete-address button submit" data-toggle="modal-dele"
-                                data-target="#exampleModalCenter">
-                            Xóa tất cả
-                        </button>
+                        <div class="order-list">
+                            <table class="table">
+                                <h3>Danh sách đơn hàng</h3>
+                                <thead>
+                                <tr>
+                                    <th scope="col">Mã đơn hàng</th>
+                                    <th scope="col">Ngày đặt</th>
+                                    <th scope="col">Thành tiền</th>
+                                    <th scope="col">Trạng thái đơn hàng</th>
+                                    <th scope="col">Vận chuyển</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">#215814</th>
+                                    <td>22/11/2020</td>
+                                    <td>573.000 VND</td>
+                                    <td>Chưa thanh toán</td>
+                                    <td>Đang giao</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">#215815</th>
+                                    <td>3/10/2020</td>
+                                    <td>900.000 VND</td>
+                                    <td>Đã thanh toán</td>
+                                    <td>Hoàn thành</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">#215816</th>
+                                    <td>20/7/2020</td>
+                                    <td>1.523.000 VND</td>
+                                    <td>Đã thanh toán</td>
+                                    <td>Hoàn thành</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
+                        <div class="choose-address">
+                            <h6 class="title uppercase"><i class="fa-solid fa-location-dot"></i>Địa chỉ </h6>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm địa chỉ
-                                            mới</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-add-address">
-                                            <input class="input" type="text" name="" id="input-name"
-                                                   placeholder="Họ tên">
-                                            <input class="input" type="text" name="" id="input-number-phone"
-                                                   placeholder="Số điện thoại">
-                                            <select class="select-address" name="calc_shipping_provinces"
-                                                    required="">
-                                                <option value="">Tỉnh / Thành phố</option>
-                                            </select>
-                                            <select class="select-address" name="calc_shipping_district"
-                                                    required="">
-                                                <option value="">Quận / Huyện</option>
-                                            </select>
-                                            <input class="billing_address_1" name="" type="hidden" value="">
-                                            <input class="billing_address_2" name="" type="hidden" value="">
-                                            <input class="input" type="text" name="" id="input-num-house"
-                                                   placeholder="Số nhà, tên đường">
+                            <div class="list-address">
+                                <div class="contain-address bd-bottom">
+                                    <div class="contain-address left">
+                                        <p>
+                                            <label><span class="name">Quỳnh Như</span> <span
+                                                    class="phone-number">0123456789</span></label>
+                                        </p>
+                                        <div class="address">
+                                            Kí túc xá khu B đhqg, Đông Hòa, Dĩ An, Bình Dương.
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="button button-close submit"
-                                                data-dismiss="modal">
-                                            Hủy
-                                        </button>
-                                        <button type="button" class="button submit">Lưu địa chỉ</button>
+                                    <div class="contain-address right">
+                                        <button class="btn-add-address button submit" id="edit-address">Sửa</button>
+                                        <button class="btn-add-address button submit" id="delete-address">Xóa</button>
                                     </div>
+
                                 </div>
+
                             </div>
+                            <button type="button" class="btn-add-address button submit" data-toggle="modal"
+                                    data-target="#exampleModalCenter">
+                                Thêm địa chỉ mới
+                            </button>
+                            <button type="button" class="btn-delete-address button submit" data-toggle="modal-dele"
+                                    data-target="#exampleModalCenter">
+                                Xóa tất cả
+                            </button>
+
+
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
+        <!-- end content -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm địa chỉ mới</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-add-address">
+                            <input class="input" type="text" name="" id="input-name" placeholder="Họ tên">
+                            <input class="input" type="text" name="" id="input-number-phone"
+                                   placeholder="Số điện thoại">
+                            <select class="select-address" name="calc_shipping_provinces" required="">
+                                <option value="">Tỉnh / Thành phố</option>
+                            </select>
+                            <select class="select-address" name="calc_shipping_district" required="">
+                                <option value="">Quận / Huyện</option>
+                            </select>
+                            <input class="billing_address_1" name="" type="hidden" value="">
+                            <input class="billing_address_2" name="" type="hidden" value="">
+                            <input class="input" type="text" name="" id="input-num-house"
+                                   placeholder="Số nhà, tên đường">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="button button-save submit">Lưu địa chỉ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+
+        <%@include file="footer.jsp" %>
+
+        <!-- end footer -->
     </div>
-    <!-- end content -->
-
-
-    <!-- footer -->
-
-    <%@include file="footer.jsp" %>
-    <%@include file="scroll-to-top.jsp" %>
-    <!-- end footer -->
-</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"

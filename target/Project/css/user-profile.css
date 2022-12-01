@@ -95,18 +95,16 @@ i {
     justify-content: space-between;
 }
 
-.inf-left input {
+.inf li {
     margin-left: 20px;
 }
-form {
-    display: flex;
-    flex-direction: column;
-}
-form.inf-left input {
-    height: 30px;
-    border: none;
-}
 
+ul.inf-left li {
+    height: 30px;
+}
+button#edit-info{
+    width: 60px;
+}
 
 .order-list {
     border: 10px solid #bbad963a;
