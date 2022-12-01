@@ -1,6 +1,7 @@
 <%@ page import="bean.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="services.ProductService" %>
+<%@ page import="bean.Format" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -117,15 +118,24 @@
                     </a></h3>
 
                     <div class="ratting">
+                        <% int count = product.getRate();
+                            for (int i = 0; i < 5; i++) {
+                                if (count > 0) {%>
                         <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star "></i>
+                        <%} else {%>
+                        <i class="fa fa-star  "></i>
+                        <%
+                            }
+                            count--;
+                        %>
+
+                        <%}%>
                     </div>
                     <h3 class="price">
-                        <%=product.getPrice()%>VND
-                        <span class="price-real"><%=product.getPriceReal()%>VND</span>
+                        <%=Format.format(product.getPrice())%> VND
+                        <% if (product.getPriceReal() != 0) {%>
+                        <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                        <% }%>
                     </h3>
                 </div>
             </div>
@@ -171,6 +181,11 @@
 
                             <%}%>
                         </div>
+                        <h3 class="price">
+                            <%=Format.format(product.getPrice())%> VND
+                            <% if (product.getPriceReal() != 0) {%>
+                            <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                            <% }%></h3>
                     </div>
                 </div>
             </div>
@@ -208,6 +223,11 @@
 
                             <%}%>
                         </div>
+                        <h3 class="price">
+                            <%=Format.format(product.getPrice())%> VND
+                            <% if (product.getPriceReal() != 0) {%>
+                            <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                            <% }%></h3>
                     </div>
                 </div>
             </div>
@@ -244,6 +264,11 @@
 
                             <%}%>
                         </div>
+                        <h3 class="price">
+                            <%=Format.format(product.getPrice())%> VND
+                            <% if(product.getPriceReal() != 0 ){%>
+                            <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                            <% }%>                        </h3>
                     </div>
                 </div>
             </div>
@@ -255,39 +280,8 @@
 </div>
 <!-- Footer -->
 
-<footer class="footer row">
-    <div class="col-1"></div>
-    <div class="col-2">
-        <img src="images/logo/logo2.png" alt="">
-    </div>
-    <div class="col-2">
-        <div class="title">Sản phẩm</div>
-        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Đồ gỗ</a></div>
-        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1">Đồ gốm</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Về Craft</div>
-        <div><a href="">Tuyển cộng tác viên</a></div>
-        <div><a href="">Địa chỉ</a></div>
-        <div><a href="">Thông tin thành lập</a></div>
-        <div><a href="">Người thành lập</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Liên hệ</div>
-        <div><a href="">Facebook</a></div>
-        <div><a href="">Instagram</a></div>
-        <div><a href="">Twitter</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Hỗ trợ</div>
-        <div><a href="">Thông tin bảo hành</a></div>
-        <div><a href="">Thông tin đổi trả</a></div>
-        <div><a href="">Liên hệ nhân viên chăm sóc</a></div>
-    </div>
+<%@include file="footer.jsp" %>
 
-    <div class="col-1"></div>
-
-</footer>
 
 <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>
 
@@ -305,8 +299,8 @@
         crossorigin="anonymous"></script>
 
 <script src="js/general.js"></script>
-<%--<script src="js/home-page.js"></script>--%>
-<%@include file="js/home-page.js"%>
+<script src="js/home-page.js"></script>
+
 
 </body>
 
