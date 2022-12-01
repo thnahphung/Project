@@ -1,6 +1,8 @@
 package controller;
 
+import bean.Category;
 import bean.Product;
+import services.CaterogyService;
 import services.ProductService;
 
 import javax.servlet.*;
@@ -18,14 +20,17 @@ public class ListProduct extends HttpServlet {
         String sort = request.getParameter("sort");
         int group = Integer.parseInt(request.getParameter("group"));
         int size = ProductService.getInstance().getCountProduct(kind) / 15;
-        int count = ProductService.getInstance().getCountProduct(kind)%15 > 0 ? size + 1 : size;
-        List<Product> list = ProductService.getInstance().getListProductInPage(kind, sort, page,group); // danh sach san pham theo trang
+        int count = ProductService.getInstance().getCountProduct(kind) % 15 > 0 ? size + 1 : size;
+        List<Product> list = ProductService.getInstance().getListProductInPage(kind,group , page, sort); // danh sach san pham theo trang
         request.setAttribute("list", list);
         request.setAttribute("kind", kind);
         request.setAttribute("page", page);
         request.setAttribute("sort", sort);
         request.setAttribute("count", count);
-        request.setAttribute("group",group);
+        request.setAttribute("group", group);
+        List<Category> categories = CaterogyService.getInstance().getListCategory(kind);
+        System.out.println(categories);
+        request.setAttribute("categories",categories);
         request.getRequestDispatcher("list-product.jsp").forward(request, response);
     }
 

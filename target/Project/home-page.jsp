@@ -107,12 +107,12 @@
                 </div>
 
                 <div class="caption">
-<<<<<<< HEAD
+        
                     <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%=product.getProductName()%>
                     </a></h3>
-=======
+        
                     <h3><a href=""> <%=product.getProductName()%></a></h3>
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                     <div class="ratting">
                         <i class="fa fa-star yellow"></i>
                         <i class="fa fa-star yellow"></i>
@@ -240,20 +240,20 @@
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-<<<<<<< HEAD
+        
                         <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
-                                src="<%=product.getImageSrc()%>"
-=======
+                                src="<%=product.getImageSrc()%>">
+        
                         <a href="#"><img
                                 src="https://i.etsystatic.com/9623213/r/il/7cc5cb/995912283/il_794xN.995912283_mnbb.jpg"
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                                 alt="">
 
                         </a>
                     </div>
 
                     <div class="caption">
-<<<<<<< HEAD
+        
                         <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%=product.getProductName()%>
                         </a></h3>
                        <div class="ratting">
@@ -275,7 +275,7 @@
                             <% if(product.getPriceReal() != 0) {%>
                             <span class="price-real"><%=product.getPriceReal()%> VND</span>
                             <%}%>
-=======
+        
                         <h3><a href=""> Thớt gỗ óc chó</a></h3>
                         <div class="ratting">
                             <i class="fa fa-star yellow"></i>
@@ -495,7 +495,7 @@
                         <h3 class="price">
                             795.000 VND
                             <!-- <span class="price-real">490.000 VND</span> -->
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                         </h3>
                     </div>
                 </div>
@@ -503,33 +503,33 @@
 
 
         </div>
-<<<<<<< HEAD
+        
 
         <%List<Product> topPotteryProducts = (List<Product>) request.getAttribute("topCeramicProducts");%>
-=======
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
+        
         <div class="pottery featured-img-list">
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-<<<<<<< HEAD
+        
                         <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                                 src="<%=product.getImageSrc()%>"
-=======
+        
                         <a href="#"><img
                                 src="https://i.etsystatic.com/27431999/r/il/d76074/4160030118/il_794xN.4160030118_bdy0.jpg"
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                                 alt="">
 
                         </a>
                     </div>
 
                     <div class="caption">
-<<<<<<< HEAD
+        
                         <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"> <%=product.getProductName()%></a></h3>
-=======
+        
                         <h3><a href=""> Tách trà thảo mộc gốm sứ</a></h3>
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                         <div class="ratting">
                             <i class="fa fa-star yellow"></i>
                             <i class="fa fa-star yellow"></i>
@@ -538,20 +538,20 @@
                             <i class="fa fa-star "></i>
                         </div>
                         <h3 class="price">
-<<<<<<< HEAD
+        
                             <%=product.getPrice()%> VND
                             <% if(product.getPriceReal() != 0) {%>
                             <span class="price-real"><%=product.getPriceReal()%> VND</span>
                             <% } %>
-=======
+        
                             1.269.000 VND
                             <!-- <span class="price-real">490.000 VND</span> -->
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                         </h3>
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
+        
             <% } %>
         </div>
 
@@ -563,24 +563,24 @@
                     <div class="cont-item ">
                         <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                                 src="<%=product.getImageSrc()%>"
-=======
+        
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
                         <a href="#"><img
                                 src="https://i.etsystatic.com/22036630/r/il/ca5eae/2459501157/il_794xN.2459501157_95l3.jpg"
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                                 alt="">
 
                         </a>
                     </div>
 
                     <div class="caption">
-<<<<<<< HEAD
+        
                         <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"> <%=product.getProductName()%></a></h3>
-=======
+        
                         <h3><a href=""> Hoa tulip gốm trang trí</a></h3>
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                         <div class="ratting">
                             <i class="fa fa-star yellow"></i>
                             <i class="fa fa-star yellow"></i>
@@ -589,15 +589,15 @@
                             <i class="fa fa-star "></i>
                         </div>
                         <h3 class="price">
-<<<<<<< HEAD
+        
                             <%=product.getPrice()%> VND
                             <% if(product.getPriceReal() != 0) {%>
                             <span class="price-real"><%=product.getPriceReal()%> VND</span>
                             <% } %>
-=======
+        
                             155.000 VND
                             <!-- <span class="price-real">490.000 VND</span> -->
->>>>>>> parent of 93016d7 (Le Bao Dang)
+        
                         </h3>
                     </div>
                 </div>

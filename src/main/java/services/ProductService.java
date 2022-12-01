@@ -117,7 +117,7 @@ public class ProductService {
     }
 
     //  danh sach san pham o 1 trang
-    public List<Product> getListProductInPage(int kind, String sort, int page, int group) {
+        public List<Product> getListProductInPage(int kind,  int group, int page, String sort) {
         List<Product> list = getSortListProduct(kind, sort,group);
         List<Product> listResult = new ArrayList<Product>();
         int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
