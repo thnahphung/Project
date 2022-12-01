@@ -16,10 +16,17 @@ public class Product implements Serializable {
     private int rate;
     private String imageSrc;
 
-
-    private OrderDetail orderDetail;
+    ProductDetail productDetail;
 
     public Product() {
+    }
+
+    public ProductDetail getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(ProductDetail productDetail) {
+        this.productDetail = productDetail;
     }
 
     public String getImageSrc() {
@@ -87,6 +94,7 @@ public class Product implements Serializable {
     }
 
 
+<<<<<<< HEAD
     public OrderDetail getOrderDetail() {
         return orderDetail;
     }
@@ -110,4 +118,6 @@ public class Product implements Serializable {
                 ", orderDetail=" + orderDetail +
                 '}';
     }
+=======
+>>>>>>> db5f3c1541c7eab9a079a65ebf468778a31bc901
 }
