@@ -84,17 +84,24 @@ public class Product implements Serializable {
         this.rate = rate;
     }
 
+
+<<<<<<< HEAD
+
+
     @Override
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
                 ", category=" + category +
+                ",category_id="+ categoryId+
                 ", productName='" + productName + '\'' +
                 ", price=" + price +
                 ", priceReal=" + priceReal +
                 ", rate=" + rate +
                 ", imageSrc='" + imageSrc + '\'' +
-                ", productDetail=" + productDetail +
                 '}';
     }
+
+=======
+>>>>>>> parent of 2d7ab4b (Phan Thi Quynh Nhu)
 }
