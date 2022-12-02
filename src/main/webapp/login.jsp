@@ -19,7 +19,7 @@
 <body>
     <div class="form-login">
         <div class="background"></div>
-        <form action="">
+        <form action="/project/doLogin" method="post">
             <img src="images/logo/logo-rmbg1.png" alt="">
             <h2> Đăng nhập</h2>
             <div class="user">
