@@ -51,11 +51,7 @@
             <div class="row">
                 <div class="row type-left">
                     <ul class="">
-                        <li class="drivider"><a href="">Tất cả</a></li>
-                        <li class="line"><a href="">|</a></li>
-                        <li class="drivider"><a href="">Gỗ</a></li>
-                        <li class="line"><a href="">|</a></li>
-                        <li class="drivider"><a href="">Gốm</a></li>
+                        <li class="drivider"><a href="http://localhost:8080/listProduct?kind=0&page=1&group=0&sort=0">Tất cả</a></li>
                     </ul>
                 </div>
             </div>
@@ -66,7 +62,6 @@
                     <ul>
                         <li class="item"><a href=""> Giảm giá</a></li>
                         <li class="item"><a href=""> Sản phẩm mới</a></li>
-                        <li class="item"><a href=""> Bán chạy</a></li>
                     </ul>
                 </div>
             </div>
@@ -75,12 +70,14 @@
                 <div class="group">
                     <h3>Nhóm sản phẩm</h3>
                     <ul>
-                        <li class="item"><a href=""> Phòng khách</a></li>
-                        <li class="item"><a href=""> Nhà bếp</a></li>
-                        <li class="item"><a href=""> Phong thủy</a></li>
-                        <li class="item"><a href=""> Phòng ngủ</a></li>
-                        <li class="item"><a href=""> Giải trí</a></li>
-                        <li class="item"><a href=""> Trang trí tường</a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.MOHINH%>&page=1&sort=0"> Mô hình</a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.GIADUNG%>&page=1&sort=0"> Gia dụng</a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VANPHONG%>&page=1&sort=0"> Văn phòng</a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGSUC%>&page=1&sort=0"> Trang sức</a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGTRI%>&page=1&sort=0"> Trang trí </a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONDAU%>&page=1&sort=0"> Sơn dầu</a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONMAI%>&page=1&sort=0"> Sơn mài</a></li>
+                        <li class="item"><a href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VAI%>&page=1&sort=0"> Vãi</a></li>
                         <!-- <li class="item"> <a href=""> chăm sóc tóc</a></li> -->
                     </ul>
                 </div>
@@ -174,7 +171,7 @@
         <nav aria-label="Page navigation example" class="pagination-page">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())-1%>" aria-label="Previous">
+                    <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=ProductService.MOHINH%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())-1%>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -184,10 +181,10 @@
                     int count = (int) request.getAttribute("count");
                 for(int i =0; i<count;i++) {
                 %>
-                <li class="page-item "><a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i+1%></a></li>
+                <li class="page-item "><a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=ProductService.MOHINH%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i+1%></a></li>
                 <%}%>
                  <li class="page-item">
-                    <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())+1%>" aria-label="Next">
+                    <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=ProductService.MOHINH%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())+1%>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>

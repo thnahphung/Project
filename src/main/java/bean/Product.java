@@ -9,6 +9,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private int productId;
     private Category category;
+    private int categoryId;
     private String productName;
     private int price;
     private int priceReal;
@@ -52,6 +53,14 @@ public class Product implements Serializable {
         this.category = category;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -85,4 +94,30 @@ public class Product implements Serializable {
     }
 
 
+<<<<<<< HEAD
+    public OrderDetail getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(OrderDetail orderDetail) {
+        this.orderDetail = orderDetail;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", category=" + category +
+                ",category_id="+ categoryId+
+                ", productName='" + productName + '\'' +
+                ", price=" + price +
+                ", priceReal=" + priceReal +
+                ", rate=" + rate +
+                ", imageSrc='" + imageSrc + '\'' +
+                ", orderDetail=" + orderDetail +
+                '}';
+    }
+=======
+>>>>>>> db5f3c1541c7eab9a079a65ebf468778a31bc901
 }
