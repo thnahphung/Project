@@ -17,13 +17,15 @@
 
 </head>
 <body>
+<%String error =(String) request.getAttribute("error");
+error= error==null?"":error;%>
     <div class="form-login">
         <div class="background"></div>
         <form action="/doLogin" method="post">
             <img src="images/logo/logo-rmbg1.png" alt="">
             <h2> Đăng nhập</h2>
             <div class="user">
-                <p class="error">ôi không sai gì đó rồi !</p>
+                <p class="error"><%= error%></p>
                 <input type="text" name="user" class="name input" placeholder="Email hoặc số điện thoại">
                 <input type="password" name="password" class="pass input" placeholder="Mật khẩu">
                 <a href="forgot-pass.jsp" class="forget"> Bạn quên mật khẩu?</a>
