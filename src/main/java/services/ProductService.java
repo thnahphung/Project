@@ -2,6 +2,7 @@ package services;
 
 import bean.Comment;
 import bean.Product;
+import bean.ProductDetail;
 import db.JDBIConnector;
 
 import java.util.*;

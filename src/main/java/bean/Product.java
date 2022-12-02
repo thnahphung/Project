@@ -15,10 +15,17 @@ public class Product implements Serializable {
     private int rate;
     private String imageSrc;
 
-
-    private OrderDetail orderDetail;
+    ProductDetail productDetail;
 
     public Product() {
+    }
+
+    public ProductDetail getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(ProductDetail productDetail) {
+        this.productDetail = productDetail;
     }
 
     public String getImageSrc() {
@@ -78,26 +85,4 @@ public class Product implements Serializable {
     }
 
 
-    public OrderDetail getOrderDetail() {
-        return orderDetail;
-    }
-
-    public void setOrderDetail(OrderDetail orderDetail) {
-        this.orderDetail = orderDetail;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", category=" + category +
-                ", productName='" + productName + '\'' +
-                ", price=" + price +
-                ", priceReal=" + priceReal +
-                ", rate=" + rate +
-                ", imageSrc='" + imageSrc + '\'' +
-                ", orderDetail=" + orderDetail +
-                '}';
-    }
 }

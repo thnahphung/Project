@@ -28,6 +28,8 @@ public class ShowDetailProduct extends HttpServlet {
 
         List<Comment> comments = CommentService.getInstance().getCommentOfProductByPage(id, page);
 
+//        List<Product> listSameProduct = ProductService.getInstance().getListProductByKind(product.getPaCategory());
+
 
         request.setAttribute("product", product);
         request.setAttribute("listImg", listImg);
