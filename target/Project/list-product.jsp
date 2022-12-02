@@ -124,12 +124,12 @@
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="http://localhost:8080/product/detail-product?id=<%= product.getProductId()%>"><img
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
                                     src="<%= product.getImageSrc()%>" alt="">
                             </a>
                         </div>
                         <div class="button">
-                            <a href="http://localhost:8080/product/detail-product?id=<%= product.getProductId()%>"
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
                                class="buy-now"> Mua ngay</a>
                             <a href="" class="wish-list "><i class="fa-solid fa-cart-plus"></i></a>
                         </div>
@@ -169,9 +169,9 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="http://localhost:8080/ListProduct?page=1">1</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/ListProduct?page=2">2</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/ListProduct?page=3">3</a></li>
+                <li class="page-item active"><a class="page-link" href="http://localhost:8080/listProduct?page=1">1</a></li>
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=2">2</a></li>
+                <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=3">3</a></li>
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>

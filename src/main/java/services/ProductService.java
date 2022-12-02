@@ -35,9 +35,9 @@ public class ProductService {
         if(products.size() != 1) return null;
         return products.get(0);
     }
-    public List<Product> getListTopProduct(int begin, int end) {
+    public List<Product> getListTopProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, rate FROM product LIMIT"+begin+","+end).mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, rate FROM product LIMIT 0,15").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
     public static void main(String[] args) {

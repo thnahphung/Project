@@ -9,12 +9,12 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ListProduct", value = "/ListProduct")
+@WebServlet(name = "ListProduct", value = "/listProduct")
 public class ListProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<Product> list = ProductService.getInstance().getListTopProduct();
-//        request.setAttribute("list",list);
+        List<Product> list = ProductService.getInstance().getListTopProduct();
+        request.setAttribute("list",list);
         request.getRequestDispatcher("list-product.jsp").forward(request,response);
     }
 
