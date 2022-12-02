@@ -40,12 +40,22 @@ public class ProductService {
             return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, rate FROM product LIMIT 0,15").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
+
+    public List<Product> getListFavouriteProduct(){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate from product ORDER BY price DESC limit 3").mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+
+    }
+
     public static void main(String[] args) {
 //        System.out.println(ProductService.getInstance().getProductById(1));
-        System.out.println(ProductService.getInstance().getListProduct());
+//        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
 
-        System.out.println(ProductService.getInstance().getProductById(1));
+//        System.out.println(ProductService.getInstance().getProductById(1));
+
+        System.out.println(ProductService.getInstance().getListFavouriteProduct());
     }
 
 
