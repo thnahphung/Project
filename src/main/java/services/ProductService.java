@@ -44,8 +44,7 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getProductById(1));
         System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
-=======
-        System.out.println(ProductService.getInstance().getProductById(1));
->>>>>>> fe40bf0f9887180686a7e1f5ec26cbdab69af3ba
+       System.out.println(ProductService.getInstance().getProductById(1));
+
     }
 }
