@@ -25,24 +25,23 @@ public class CommentService {
     }
 
 
-
-
     public List<Comment> getCommentOfProductById(int id) {
 
-        List<Comment> listResult= JDBIConnector.get().withHandle(handle -> {
+        List<Comment> listResult = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,cmt.date_comment,u.user_id from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = " + id).mapToBean(Comment.class).stream().collect(Collectors.toList());
         });
 
-        for(Comment comment:listResult){
+        for (Comment comment : listResult) {
             comment.setUser(UserService.getInstance().getUserById(comment.getUserId()));
         }
         return listResult;
     }
+
     public List<Comment> getCommentOfProductByPage(int id, int page) {
         List<Comment> list = getCommentOfProductById(id);
         List<Comment> listResult = new ArrayList<Comment>();
         int start = (page - 1) * 5 < 0 ? 0 : (page - 1) * 5;
-        int end = page <= list.size() / 5 ? page * 5 : list.size() - ((page - 1) * 5)+start;
+        int end = page <= list.size() / 5 ? page * 5 : list.size() - ((page - 1) * 5) + start;
         for (int i = start; i < end; i++) {
             listResult.add(list.get(i));
         }
@@ -50,9 +49,10 @@ public class CommentService {
         return listResult;
     }
 
-    public int getCountCommentById(int id){
+    public int getCountCommentById(int id) {
         return getCommentOfProductById(id).size();
     }
+
     public static void main(String[] args) {
         System.out.println(CommentService.getInstance().getCommentOfProductById(1));
     }

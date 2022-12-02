@@ -38,12 +38,12 @@ public class ProductService {
         return products.get(0);
     }
 
-//    Danh sach san pham theo loai
+    //    Danh sach san pham theo loai
     public List<Product> getListProductByKind(int kind) {
 
         if (kind == ALL) {
             return JDBIConnector.get().withHandle(handle -> {
-                return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real,    image_src,      rate FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
+                return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real,   image_src, rate FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
 
             });
         }
@@ -54,9 +54,9 @@ public class ProductService {
 
     }
 
-//  danh sach san pham o 1 trang
-    public List<Product> getListProductInPage(int kind, String sort ,int page) {
-    List<Product> list = getSortListProduct(kind,sort);
+    //  danh sach san pham o 1 trang
+    public List<Product> getListProductInPage(int kind, String sort, int page) {
+        List<Product> list = getSortListProduct(kind, sort);
         List<Product> listResult = new ArrayList<Product>();
         int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
         int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15) + start;
@@ -69,7 +69,7 @@ public class ProductService {
 
     public List<Product> getListFavouriteProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, rate, image_src, product_detail_id\n" +
                     "FROM product \n" +
                     "ORDER BY rate DESC\n" +
                     "LIMIT 3;").mapToBean(Product.class).stream().collect(Collectors.toList());
@@ -79,31 +79,28 @@ public class ProductService {
 
     public List<Product> getTopWoodProducts() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
-                    "FROM product\n" +
-                    "WHERE category_id = 1\n" +
-                    "ORDER BY quantity_sold DESC\n" +
-                    "LIMIT 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT p.product_id, p.product_name, p.price, p.price_real,rate, p.image_src,p.product_detail_id\n" +
+                    "FROM product p JOIN category c on p.category_id = c.category_id JOIN product_detail pd on p.product_detail_id = pd.product_detail_id\n" +
+                    "WHERE pa_category_id = 1\n" +
+                    "ORDER BY quantity_sold DESC limit 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
 
     public List<Product> getTopPotteryProducts() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
-                    "FROM product\n" +
-                    "WHERE category_id = 2\n" +
-                    "ORDER BY quantity_sold DESC\n" +
-                    "LIMIT 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT p.product_id, p.product_name, p.price, p.price_real,rate, p.image_src,p.product_detail_id\n" +
+                    "FROM product p JOIN category c on p.category_id = c.category_id JOIN product_detail pd on p.product_detail_id = pd.product_detail_id\n" +
+                    "WHERE pa_category_id = 2\n" +
+                    "ORDER BY quantity_sold DESC limit 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
 
     public List<Product> getTopPaintingProducts() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
-                    "FROM product\n" +
-                    "WHERE category_id = 3\n" +
-                    "ORDER BY quantity_sold DESC\n" +
-                    "LIMIT 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT p.product_id, p.product_name, p.price, p.price_real,rate, p.image_src,p.product_detail_id\n" +
+                    "FROM product p JOIN category c on p.category_id = c.category_id JOIN product_detail pd on p.product_detail_id = pd.product_detail_id\n" +
+                    "WHERE pa_category_id = 3\n" +
+                    "ORDER BY quantity_sold DESC limit 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
 
@@ -135,14 +132,16 @@ public class ProductService {
                     public int compare(Product o1, Product o2) {
                         return o1.getPrice() - o2.getPrice();
                     }
-                }); break;
+                });
+                break;
             case "ratting":
                 Collections.sort(list, new Comparator<Product>() {
                     @Override
                     public int compare(Product o1, Product o2) {
                         return o2.getRate() - o1.getRate();
                     }
-                }); break;
+                });
+                break;
         }
 
         return list;
@@ -166,9 +165,9 @@ public class ProductService {
 
     public List<Product> getNewProducts() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
-                    "FROM product\n " +
-                    "ORDER BY create_date DESC limit 6;").mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT p.product_id, p.product_name, p.price, p.price_real,rate, p.image_src,p.product_detail_id\n" +
+                    "FROM product p JOIN product_detail pd on p.product_detail_id = pd.product_detail_id\n" +
+                    "ORDER BY pd.create_date DESC LIMIT 8;").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
 
@@ -186,7 +185,7 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
 
 //        System.out.println(ProductService.getInstance().getTopWoodProducts());
-        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
+//        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
     }
 
 
