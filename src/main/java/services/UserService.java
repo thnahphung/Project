@@ -33,8 +33,8 @@ public class UserService {
 
     public User checkLogin(String userName, String password){
         List<User> users = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar from user where full_name =?")
-                        .bind(0, userName)
+                handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar from user where email=? or phone_number=?")
+                        .bind(0, userName).bind(1,userName)
                         .mapToBean(User.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -43,7 +43,7 @@ public class UserService {
         User user = users.get(0);
         System.out.println(12);
         if(!user.getPass().equals((password))
-                || !user.getFullName().equals(userName)){
+                || !(user.getEmail().equals(userName) || user.getPhoneNumber().equals(userName)) ){
             return null;
         }
         return user;
