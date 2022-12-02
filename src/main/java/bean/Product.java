@@ -3,6 +3,7 @@ package bean;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -16,6 +17,11 @@ public class Product implements Serializable {
     private String stt;
     private int quantitySold;
     private String imageSrc;
+
+    private String decription;
+
+    private String detail;
+    private List<String> listImg;
     private int rate;
 
 
