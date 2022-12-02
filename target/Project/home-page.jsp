@@ -1,3 +1,4 @@
+<%@ page import="bean.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -74,7 +75,8 @@
         <div class="title top-favourite">
             <h2>Sản phẩm được yêu thích nhất</h2>
         </div>
-        <div class="favourite top-product">
+        <%Product product =(Product) request.getAttribute("product");%>
+        <div class="favourite top-product" >
             <div class="top-product-img">
                 <a href="product.jsp"><img src="https://i.etsystatic.com/34419527/r/il/5d30ba/3890127857/il_794xN.3890127857_a41m.jpg" alt=""></a>
             </div>
