@@ -169,15 +169,9 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-<<<<<<< HEAD
-                <li class="page-item active"><a class="page-link" href="http://localhost:8080/ListProduct?page=1">1</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/ListProduct?page=2">2</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/ListProduct?page=3">3</a></li>
-=======
                 <li class="page-item active"><a class="page-link" href="http://localhost:8080/listProduct?page=1">1</a></li>
                 <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=2">2</a></li>
                 <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=3">3</a></li>
->>>>>>> 3beefa3d9e6610cf55deac3c9ce24b1f0b6a2143
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
