@@ -15,7 +15,7 @@ public class ProductService {
 
     }
 
-    private static ProductService getInstance() {
+    public static ProductService getInstance() {
         if (instance == null) {
             instance = new ProductService();
         }

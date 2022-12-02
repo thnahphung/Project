@@ -1,5 +1,8 @@
 package controller;
 
+import bean.Product;
+import services.ProductService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -10,7 +13,12 @@ import java.io.PrintWriter;
 public class ShowDetailProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Product product = ProductService.getInstance().getProductById(id);
+        request.setAttribute("product", product);
+
+        request.getRequestDispatcher("product.jsp").forward(request, response);
 
     }
 
