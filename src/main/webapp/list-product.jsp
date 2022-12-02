@@ -116,8 +116,7 @@
         <!-- list product -->
         <div class="list-product">
             <div class="row">
-<<<<<<< HEAD
-=======
+
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
@@ -426,7 +425,6 @@
                             <h3 class="price">
                                 338.000 VND
                                 <span class="price-real">397.000 VND</span>
->>>>>>> fe40bf0f9887180686a7e1f5ec26cbdab69af3ba
 
                 <%
                     List<Product> list = (List<Product>) request.getAttribute("list");
