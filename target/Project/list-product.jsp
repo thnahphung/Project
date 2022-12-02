@@ -115,7 +115,7 @@
                             </a>
                         </div>
                         <div class="button">
-                            <a href="http://localhost:8080/product/detail-product?id=1" class="buy-now"> Mua ngay</a>
+                            <a href="http://localhost:8080/detail-product?id=1" class="buy-now"> Mua ngay</a>
                             <a href="" class="wish-list "><i class="fa-solid fa-cart-plus"></i></a>
                         </div>
                         <div class="caption">

@@ -1,3 +1,5 @@
+<%@ page import="bean.Product" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -59,6 +61,9 @@
     </div>
 
 
+
+
+<%Product product =(Product) request.getAttribute("product");%>
     <div class="container infomation-product bd-bottom">
         <div class="row">
             <div class="col-sm left">
@@ -99,7 +104,7 @@
             </div>
             <div class="col-sm right">
                 <div class="top bd-bottom">
-                    <h3 class="name-product uppercase">Tượng chim cú được chạm khắc bằng tay</h3>
+                    <h3 class="name-product uppercase"><%=product.getProductName()%></h3>
                     <div class="cost">
                         <span class="price uppercase">713.000 VND VND</span>
                         <span class="sale uppercase">839.000 VND VND</span>
