@@ -15,11 +15,14 @@ public class Product implements Serializable {
     private LocalDateTime updateDate;
     private String stt;
     private int quantitySold;
+    private String imageSrc;
+    private int rate;
+
 
     public Product() {
     }
 
-    public Product(int productId, int categoryId, String productName, int price, int priceReal, LocalDateTime createDate, LocalDateTime updateDate, String stt, int quantitySold) {
+    public Product(int productId, int categoryId, String productName, int price, int priceReal, LocalDateTime createDate, LocalDateTime updateDate, String stt, int quantitySold, String imageSrc, int rate) {
         this.productId = productId;
         this.categoryId = categoryId;
         this.productName = productName;
@@ -29,6 +32,8 @@ public class Product implements Serializable {
         this.updateDate = updateDate;
         this.stt = stt;
         this.quantitySold = quantitySold;
+        this.imageSrc=imageSrc;
+        this.rate = rate;
     }
 
     public int getProductId() {
@@ -101,6 +106,22 @@ public class Product implements Serializable {
 
     public void setQuantitySold(int quantitySold) {
         this.quantitySold = quantitySold;
+    }
+
+    public String getImageSrc() {
+        return imageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 
     @Override

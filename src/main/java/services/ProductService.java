@@ -35,8 +35,14 @@ public class ProductService {
         if(products.size() != 1) return null;
         return products.get(0);
     }
-
+    public List<Product> getListTopProduct(int begin, int end) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, rate FROM product LIMIT"+begin+","+end).mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+    }
     public static void main(String[] args) {
-        System.out.println(ProductService.getInstance().getProductById(5));
+//        System.out.println(ProductService.getInstance().getProductById(1));
+        System.out.println(ProductService.getInstance().getListProduct());
+//        System.out.println(ProductService.getInstance().getListTopProduct());
     }
 }
