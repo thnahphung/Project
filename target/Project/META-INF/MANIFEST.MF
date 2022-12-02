@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
+<<<<<<< HEAD
 Built-By: DELL
 Build-Jdk: Oracle OpenJDK version 17.0.1
+=======
+Built-By: thphu
+Build-Jdk: Amazon Corretto version 15.0.2
+>>>>>>> fe40bf0f9887180686a7e1f5ec26cbdab69af3ba
 
