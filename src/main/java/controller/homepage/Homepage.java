@@ -15,22 +15,18 @@ public class Homepage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> favouriteProducts = ProductService.getInstance().getListFavouriteProduct();
         request.setAttribute("favouriteProducts", favouriteProducts);
-        System.out.println("favouriteProducts"+favouriteProducts);
+
         List<Product> newProducts = ProductService.getInstance().getNewProducts();
         request.setAttribute("newProducts", newProducts);
-        System.out.println("newProducts"+newProducts);
 
         List<Product> topWoodProducts = ProductService.getInstance().getTopProducts(ProductService.WOOD);
         request.setAttribute("topWoodProducts", topWoodProducts);
-        System.out.println("topWoodProducts"+topWoodProducts);
 
         List<Product> topCeramicProducts = ProductService.getInstance().getTopProducts(ProductService.CERAMIC);
         request.setAttribute("topCeramicProducts", topCeramicProducts);
-        System.out.println("topCeramicProducts"+topCeramicProducts);
 
         List<Product> topPaintingProducts = ProductService.getInstance().getTopProducts(ProductService.WOOD);
         request.setAttribute("topPaintingProducts", topPaintingProducts);
-        System.out.println("topPaintingProducts"+topPaintingProducts);
 
         System.out.println(12);
         request.getRequestDispatcher("home-page.jsp").forward(request, response);
