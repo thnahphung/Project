@@ -77,10 +77,10 @@
     <div class="title top-favourite">
         <h2>Sản phẩm được yêu thích nhất</h2>
     </div>
-    <%List<Product> products = (List<Product>) request.getAttribute("products");%>
+    <%List<Product> favouriteProduct = (List<Product>) request.getAttribute("favouriteProduct");%>
     <div class="favourite top-product">
 
-        <% for (Product product : products) { %>
+        <% for (Product product : favouriteProduct) { %>
         <div class="top-product-img">
             <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
                     src="<%= product.getImageSrc() %>" alt=""></a>
