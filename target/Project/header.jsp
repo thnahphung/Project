@@ -4,8 +4,8 @@
         <a href="home-page.jsp"><img src="images/logo/logo-rmbg1.png" alt=""></a>
     </li>
     <li class="nav-item center">
-        <a class="nav-link active" href="listProduct">Sản Phẩm</a>
-        <a class="nav-link" href="list-product.jsp">Gỗ</a>
+        <a class="nav-link active" href="http://localhost:8080/listProduct?kind=all">Sản Phẩm</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=wood">Gỗ</a>
         <a class="nav-link" href="list-product.jsp">Gốm</a>
         <a class="nav-link" href="list-product.jsp">giảm giá</a>
         <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
