@@ -165,20 +165,20 @@
         <nav aria-label="Page navigation example" class="pagination-page">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())-1%>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-                <% int count = ProductService.getInstance().countProduct()/15;
+                <% int count = ProductService.getInstance().getcountProduct(request.getAttribute("kind").toString())/15;
+
+
                 for(int i =0; i<count;i++) {
                 %>
-                <li class="page-item active"><a class="page-link" href="http://localhost:8080/listProduct?page=1">1</a></li>
+                <li class="page-item "><a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=i+1%>"><%=i+1%></a></li>
                 <%}%>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=2">2</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=3">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                 <li class="page-item">
+                    <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())+1%>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>
