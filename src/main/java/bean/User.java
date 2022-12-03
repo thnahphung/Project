@@ -27,6 +27,12 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
+    public User(int userID, String fullName, String avatar) {
+        this.userID = userID;
+        this.fullName = fullName;
+        this.avatar = avatar;
+    }
+
     public int getUserID() {
         return userID;
     }

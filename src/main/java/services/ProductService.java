@@ -1,5 +1,6 @@
 package services;
 
+import bean.Comment;
 import bean.Product;
 import bean.User;
 import db.JDBIConnector;
@@ -77,8 +78,10 @@ public class ProductService {
         return ProductService.getInstance().getListProduct().size();
     }
 
-    public Map<Integer,List<String>> getCommentOfProductById(int id){
-       JDBIConnector.get().
+    public List<Comment> getCommentOfProductById(int id){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,u.user_id,u.full_name,u.avatar from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = "+id).mapToBean(Comment.class).stream().collect(Collectors.toList());
+        });
     }
 
 
@@ -100,7 +103,8 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getListFavouriteProduct());
 //        System.out.println(ProductService.getInstance().getImageOfProductById(1));
 
-        System.out.println(ProductService.getInstance().getNewProducts());
+//        System.out.println(ProductService.getInstance().getNewProducts());
+        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
     }
 
 
