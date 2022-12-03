@@ -77,9 +77,9 @@ public class ProductService {
         return ProductService.getInstance().getListProduct().size();
     }
 
-    public Map<Integer,List<String>> getCommentOfProductById(int id){
-       JDBIConnector.get().
-    }
+//    public Map<Integer,List<String>> getCommentOfProductById(int id){
+//       JDBIConnector.get().
+//    }
 
 
     public List<Product> getNewProducts(){
