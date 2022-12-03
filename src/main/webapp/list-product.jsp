@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="bean.Product" %>
+<%@ page import="services.ProductService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 >
 <!DOCTYPE html>
@@ -169,7 +170,11 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
+                <% int count = ProductService.getInstance().countProduct()/15;
+                for(int i =0; i<count;i++) {
+                %>
                 <li class="page-item active"><a class="page-link" href="http://localhost:8080/listProduct?page=1">1</a></li>
+                <%}%>
                 <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=2">2</a></li>
                 <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=3">3</a></li>
                 <li class="page-item">
