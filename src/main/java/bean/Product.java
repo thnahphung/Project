@@ -1,7 +1,6 @@
 package bean;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,6 +8,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private int productId;
     private Category category;
+    private  int categoryId;
     private String productName;
     private int price;
     private int priceReal;
@@ -48,9 +48,18 @@ public class Product implements Serializable {
         return category;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
+
 
     public String getProductName() {
         return productName;
@@ -83,6 +92,7 @@ public class Product implements Serializable {
     public void setRate(int rate) {
         this.rate = rate;
     }
+
 
     @Override
     public String toString() {

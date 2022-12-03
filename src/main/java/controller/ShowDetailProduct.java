@@ -19,23 +19,21 @@ public class ShowDetailProduct extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         int page = Integer.parseInt(request.getParameter("page"));
 
-        int size = CommentService.getInstance().getCountCommentById(id) / 5;
-        int amountPage = CommentService.getInstance().getCountCommentById(id) % 5 > 0 ? size + 1 : size;
-
         Product product = ProductService.getInstance().getProductById(id);
+        request.setAttribute("product", product);
 
         List<String> listImg = ProductService.getInstance().getImageOfProductById(id);
+        request.setAttribute("listImg", listImg);
 
-        List<Comment> comments = CommentService.getInstance().getCommentOfProductByPage(id, page);
+        List<Comment> listCmt = CommentService.getInstance().getCommentOfProductByPage(id, page);
+        request.setAttribute("listCmt", listCmt);
+
+//        int count = 
+
+        request.setAttribute("page", page);
 
 //        List<Product> listSameProduct = ProductService.getInstance().getListProductByKind(product.getPaCategory());
 
-
-        request.setAttribute("product", product);
-        request.setAttribute("listImg", listImg);
-        request.setAttribute("listCmt", comments);
-        request.setAttribute("page", page);
-        request.setAttribute("amountPage", amountPage);
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
 

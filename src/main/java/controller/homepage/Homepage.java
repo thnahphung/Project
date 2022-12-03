@@ -22,13 +22,17 @@ public class Homepage extends HttpServlet {
 
         List<Product> topWoodProducts = ProductService.getInstance().getTopProducts(ProductService.WOOD);
         request.setAttribute("topWoodProducts", topWoodProducts);
+        System.out.println("topWoodProducts"+topWoodProducts);
 
-        List<Product> topCeramicProducts = ProductService.getInstance().getTopProducts(ProductService.RECAMIC);
+        List<Product> topCeramicProducts = ProductService.getInstance().getTopProducts(ProductService.CERAMIC);
         request.setAttribute("topCeramicProducts", topCeramicProducts);
+        System.out.println("topCeramicProducts"+topCeramicProducts);
 
         List<Product> topPaintingProducts = ProductService.getInstance().getTopProducts(ProductService.WOOD);
         request.setAttribute("topPaintingProducts", topPaintingProducts);
+        System.out.println("topPaintingProducts"+topPaintingProducts);
 
+        System.out.println(12);
         request.getRequestDispatcher("home-page.jsp").forward(request, response);
 
 

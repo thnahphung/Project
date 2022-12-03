@@ -1,5 +1,8 @@
 <%@ page import="java.util.List" %>
+<<<<<<< HEAD
 <%@ page import="bean.*" %>
+=======
+>>>>>>> parent of 93016d7 (Le Bao Dang)
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -61,6 +64,7 @@
                 <h3 class="name-product uppercase"><%=product.getProductName()%>
                 </h3>
                 <div class="cost">
+
                     <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>
                     <%if (product.getPriceReal() != 0) {%>
                     <span class="sale uppercase"><%=Format.format(product.getPriceReal())%> VND</span>
@@ -108,72 +112,110 @@
                 <%}%>
             </div>
             <ul class="list-comment">
-                <%
-                    List<Comment> comments = (List<Comment>) request.getAttribute("listCmt");
-                    for (Comment comment : comments) {
-                %>
-
                 <li class="item-comment bd-bottom">
                     <div class="user-cmt">
-                        <img src="<%=comment.getUser().getAvatar()%>"
+                        <img src="https://scontent.fsgn13-3.fna.fbcdn.net/v/t39.30808-6/313391785_991195072283014_7128890801933160323_n.jpg?stp=cp6_dst-jpg&_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5mvp-Zd1yZ4AX-ggyT9&_nc_ht=scontent.fsgn13-3.fna&oh=00_AfCrmvrV-MYelNxCKM_3iYRrD6j4A4j6PRepmR0VToXMpg&oe=6374D52F"
                              alt="" class="img-user-cmt">
                         <div>
-                            <div class="name-user-cmt"><%=comment.getUser().getFullName()%>
-                            </div>
+                            <div class="name-user-cmt">Quynh Nhu</div>
                             <div class="ratting rate-user">
-                                <% count = comment.getRate();
-                                    for (int i = 0; i < 5; i++) {
-                                        if (count > 0) {%>
                                 <i class="fa fa-star yellow"></i>
-                                <%} else {%>
-                                <i class="fa fa-star  "></i>
-                                <%
-                                    }
-                                    count--;
-                                %>
-                                <%}%>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star "></i>
                             </div>
                         </div>
                     </div>
-                    <div class="date-cmt"><%=comment.getDateComment().getDayOfMonth()%>
-                        /<%=comment.getDateComment().getMonthValue()%>/<%=comment.getDateComment().getYear()%>
-                    </div>
+                    <div class="date-cmt">19/10/2022</div>
                     <div class="comment">
                         <p>
-                            <%=comment.getDocument()%>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, inventore iusto
+                            labore eligendi.
                         </p>
                     </div>
 
                 </li>
-                <%}%>
+                <li class="item-comment bd-bottom">
+                    <div class="user-cmt">
+                        <img src="https://scontent.fsgn8-1.fna.fbcdn.net/v/t39.30808-6/314732580_1510805282677333_7550716410289942754_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=k4QhXJ4BtBoAX_QA3w5&_nc_ht=scontent.fsgn8-1.fna&oh=00_AfBOQLwlnfAdfZ0FE-Y3hByrdHKsxFYIvIcYiR9sTH8nww&oe=6373E7EA"
+                             alt="" class="img-user-cmt">
+                        <div>
+                            <div class="name-user-cmt">Thanh Phụng</div>
+                            <div class="ratting rate-user">
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star "></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-cmt">19/10/2022</div>
+                    <div class="comment">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, inventore iusto
+                            labore eligendi.
+                        </p>
+                    </div>
+
+                </li>
+                <li class="item-comment bd-bottom">
+                    <div class="user-cmt">
+                        <img src="https://scontent.fsgn8-2.fna.fbcdn.net/v/t39.30808-6/298558603_1222887821833237_1584251796394668679_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Qwy5353OvL4AX-bC38o&_nc_oc=AQmeF-5l-QfcHyTmSmJJkvOUhSNQ-HIeWke8Z6iBqS06tTWnke0I5xiTYhs25tiwAQg&_nc_ht=scontent.fsgn8-2.fna&oh=00_AfBUIfV18-9V28qUjk6TENUJUI8yvSSoj46-T22WzUX9kA&oe=63756F5E"
+                             alt="" class="img-user-cmt">
+                        <div>
+                            <div class="name-user-cmt">Bảo Đặng</div>
+                            <div class="ratting rate-user">
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star yellow"></i>
+                                <i class="fa fa-star "></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-cmt">19/10/2022</div>
+                    <div class="comment">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, inventore iusto
+                            labore eligendi.
+                        </p>
+                    </div>
+
+                </li>
             </ul>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link"
-                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%= (int)request.getAttribute("page")-1%>"
+                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=(int)request.getAttribute("page")-1%>"
                            aria-label="Previous">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
-
                     <%
-                        for (int i = 1; i <= (int) request.getAttribute("amountPage"); i++) {
-                            if (((int) request.getAttribute("page")) == i) {
+                        for (int i = 0; i < ((List<Comment>) request.getAttribute("listCmt")).size(); i++) {
                     %>
+
+                    <%if (i == (int) request.getAttribute("page")) {%>
                     <li class="page-item active"><a class="page-link"
-                                                    href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i%>
-                    </a></li>
+                                                    href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i + 1%>
+                    </a>
+                    </li>
                     <%} else {%>
-                    <li class="page-item "><a class="page-link"
-                                              href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i%>
-                    </a></li>
-                    <%}%>
-                    <%}%>
+                    <li class="page-item"><a class="page-link"
+                                             href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i + 1%>
+                    </a>
+                    </li>
+                    <%
+                            }
+                        }
+                    %>
                     <li class="page-item">
                         <a class="page-link"
-                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%= (int)request.getAttribute("page")+1%>"
+                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=(int)request.getAttribute("page")+1%>"
                            aria-label="Next">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
                             <span class="sr-only">Next</span>

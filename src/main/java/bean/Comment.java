@@ -10,23 +10,21 @@ public class Comment implements Serializable {
     private User user;
 
     private int userId;
-
-
     private String document;
     private int rate;
 
     private LocalDateTime dateComment;
 
-    public Comment(int commentID, int userId, String document, int rate, LocalDateTime dateComment) {
-        this.commentID = commentID;
-        this.userId = userId;
-        this.document = document;
-        this.rate = rate;
-        this.dateComment = dateComment;
+    public Comment(){
+
     }
 
-    public Comment() {
+    public int getUserId() {
+        return userId;
+    }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getDateComment() {
@@ -69,23 +67,14 @@ public class Comment implements Serializable {
         this.document = document;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     @Override
     public String toString() {
         return "Comment{" +
-                "commentID=" + commentID +
+                "id=" + commentID +
                 ", user=" + user +
-                ", userId=" + userId +
                 ", document='" + document + '\'' +
-                ", rate=" + rate +
-                ", dateComment=" + dateComment +
                 '}';
     }
+
+
 }
