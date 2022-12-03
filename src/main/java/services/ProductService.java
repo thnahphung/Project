@@ -51,6 +51,14 @@ public class ProductService {
 
     }
 
+    public List<Product> getListWoodProduct(){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
+                    "FROM product\n" +
+                    "WHERE category_id = 1;").mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+    }
+
     public List<String> getImageOfProductById(int id){
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select image_src from image where product_id " + "=" + id).mapTo(String.class).stream().collect(Collectors.toList());
@@ -61,6 +69,15 @@ public class ProductService {
 //       JDBIConnector.get().
 //    }
 
+
+    public List<Product> getNewProducts(){
+        return  JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
+                    "FROM product\n" +
+                    "ORDER BY create_date DESC limit 6;").mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+    }
+
     public static void main(String[] args) {
 //        System.out.println(ProductService.getInstance().getProductById(1));
 //        System.out.println(ProductService.getInstance().getListProduct());
@@ -70,6 +87,8 @@ public class ProductService {
 
 //        System.out.println(ProductService.getInstance().getListFavouriteProduct());
 //        System.out.println(ProductService.getInstance().getImageOfProductById(1));
+
+        System.out.println(ProductService.getInstance().getNewProducts());
     }
 
 

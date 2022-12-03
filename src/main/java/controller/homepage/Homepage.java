@@ -13,9 +13,12 @@ import java.util.List;
 public class Homepage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> favouriteProduct = ProductService.getInstance().getListFavouriteProduct();
+        List<Product> favouriteProducts = ProductService.getInstance().getListFavouriteProduct();
+        request.setAttribute("favouriteProducts", favouriteProducts);
 
-        request.setAttribute("favouriteProduct", favouriteProduct);
+        List<Product> newProducts = ProductService.getInstance().getNewProducts();
+        request.setAttribute("newProducts", newProducts);
+
         request.getRequestDispatcher("home-page.jsp").forward(request, response);
 
     }
