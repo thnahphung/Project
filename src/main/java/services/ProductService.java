@@ -85,7 +85,7 @@ public class ProductService {
     public List<Product> getNewProducts(){
         return  JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
-                    "FROM product\n" +
+                    "FROM product\n " +
                     "ORDER BY create_date DESC limit 6;").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
