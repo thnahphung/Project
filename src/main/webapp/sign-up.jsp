@@ -17,6 +17,8 @@
 </head>
 
 <body>
+<%String error =(String) request.getAttribute("error");
+    error= error==null?"":error;%>
     <div class="content">
         <div class="background"></div>
 
@@ -26,17 +28,19 @@
                 <h2> Đăng ký</h2>
             </div>
 
-            <div class="form-input">
-                <input type="text" class="input name" placeholder="Họ tên">
-                <input type="text" class="input phone" placeholder="Số điện thoại">
-                <input type="email" class="input mail" placeholder="Email">
-                <input type="password" class="input pass" placeholder="Mật khẩu">
-                <input type="password" class="input passAgain" placeholder="Nhập lại mật khẩu">
+            <form class="form-input" action="/doSignUp" method="post">
+                <p class="error"><%= error%></p>
+
+                <input type="text" name="fullName" class="input name" placeholder="Họ tên">
+                <input type="text" name="phone" class="input phone" placeholder="Số điện thoại">
+                <input type="email" name="email" class="input mail" placeholder="Email">
+                <input type="password" name="pass" class="input pass" placeholder="Mật khẩu">
+                <input type="password" name="passAgain" class="input passAgain" placeholder="Nhập lại mật khẩu">
                 <i class="fa-solid fa-check"></i>
                 <!-- <i class="fa-solid fa-xmark"></i> -->
 
                 <input type="submit" class="submit" value="Đăng ký">
-            </div>
+            </form>
             <span>Đã có tài khoản? <a href="login.jsp">Đăng nhập</a></span>
         </div>
     </div>

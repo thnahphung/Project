@@ -31,38 +31,73 @@ public class UserService {
         });
     }
 
-    public User checkLogin(String userName, String password){
+    public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar from user where email=? or phone_number=?")
-                        .bind(0, userName).bind(1,userName)
+                        .bind(0, userName).bind(1, userName)
                         .mapToBean(User.class)
                         .stream()
                         .collect(Collectors.toList())
         );
-        if(users.size() != 1) return null;
+        if (users.size() != 1) return null;
         User user = users.get(0);
         System.out.println(12);
-        if(!user.getPass().equals((password))
-                || !(user.getEmail().equals(userName) || user.getPhoneNumber().equals(userName)) ){
+        if (!user.getPass().equals((password))
+                || !(user.getEmail().equals(userName) || user.getPhoneNumber().equals(userName))) {
             return null;
         }
         return user;
     }
 
-    public String hashPassword(String password){
-        try{
+    public String hashPassword(String password) {
+        try {
             MessageDigest sha256 = null;
             sha256 = MessageDigest.getInstance("SHA-256");
             byte[] hash = sha256.digest(password.getBytes());
             BigInteger number = new BigInteger(1, hash);
             return number.toString(16);
-        } catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             return null;
         }
     }
 
+    public boolean checkExistEmail(String email) {
+        List<String> emails = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar \n" +
+                            "from user\n" +
+                            " where email=?").bind(0, email)
+                    .mapTo(String.class).stream().collect(Collectors.toList());
+        });
+        if (emails.size() != 0) {
+
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean checkExistPhone(String phone) {
+        List<String> phones = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar \n" +
+                            "from user\n" +
+                            " where phone_number=?").bind(0, phone)
+                    .mapTo(String.class).stream().collect(Collectors.toList());
+        });
+        if (phones.size() != 0) {
+
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean checkSamePass(String pass, String passAgain){
+        return pass.equals(passAgain);
+    }
     public static void main(String[] args) {
+
         System.out.println(UserService.getInstance().getListUser());
+        System.out.println(UserService.getInstance().checkExistEmail("phanan@gmail.com"));
     }
 
 
