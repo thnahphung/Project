@@ -13,14 +13,15 @@ import java.util.List;
 public class Homepage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Product> favouriteProduct = ProductService.getInstance().getListFavouriteProduct();
+
+        request.setAttribute("favouriteProduct", favouriteProduct);
+        request.getRequestDispatcher("home-page.jsp").forward(request, response);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> products = ProductService.getInstance().getListFavouriteProduct();
 
-        request.setAttribute("products", products);
-        request.getRequestDispatcher("list-product.jsp").forward(request, response);
     }
 }
