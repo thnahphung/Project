@@ -1,4 +1,5 @@
 <%@ page import="bean.Product" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -66,38 +67,17 @@
     <div class="row">
         <div class="col-sm left">
             <div class="slider-show-img">
-                <div><img
-                        src="https://i.etsystatic.com/34082332/r/il/99c9af/3697371489/il_794xN.3697371489_avu8.jpg"
-                        alt=""></div>
-                <div><img
-                        src="https://i.etsystatic.com/34082332/r/il/1daebc/3697370887/il_794xN.3697370887_1gqq.jpg"
-                        alt=""></div>
-                <div><img
-                        src="https://i.etsystatic.com/34082332/r/il/40eca9/3697370969/il_794xN.3697370969_s1yf.jpg"
-                        alt=""></div>
-                <div><img
-                        src="https://i.etsystatic.com/34082332/r/il/3c138f/3697371081/il_794xN.3697371081_psd3.jpg"
-                        alt=""></div>
-                <div><img
-                        src="https://i.etsystatic.com/34082332/r/il/f92d64/3697371185/il_794xN.3697371185_1znh.jpg"
-                        alt=""></div>
+                <%List<String> listImg = (List<String>) request.getAttribute("listImg");%>
+                <div><img src="<%=product.getImageSrc()%>" alt=""></div>
+                <%for(String url:listImg){%>
+                <div><img src="<%=url%>" alt=""></div>
+                <%}%>
             </div>
             <div class="slider-img">
-                <div class="image"><img
-                        src="https://i.etsystatic.com/34082332/r/il/99c9af/3697371489/il_794xN.3697371489_avu8.jpg"
-                        alt=""></div>
-                <div class="image"><img
-                        src="https://i.etsystatic.com/34082332/r/il/1daebc/3697370887/il_794xN.3697370887_1gqq.jpg"
-                        alt=""></div>
-                <div class="image"><img
-                        src="https://i.etsystatic.com/34082332/r/il/40eca9/3697370969/il_794xN.3697370969_s1yf.jpg"
-                        alt=""></div>
-                <div class="image"><img
-                        src="https://i.etsystatic.com/34082332/r/il/3c138f/3697371081/il_794xN.3697371081_psd3.jpg"
-                        alt=""></div>
-                <div class="image"><img
-                        src="https://i.etsystatic.com/34082332/r/il/f92d64/3697371185/il_794xN.3697371185_1znh.jpg"
-                        alt=""></div>
+                <div class="image"><img src="<%=product.getImageSrc()%>" alt=""></div>
+                <%for(String url:listImg){%>
+                <div class="image"><img src="<%=url%>" alt=""></div>
+                <%}%>
             </div>
         </div>
         <div class="col-sm right">

@@ -2,8 +2,6 @@ package bean;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -21,14 +19,14 @@ public class Product implements Serializable {
     private String decription;
 
     private String detail;
-    private List<String> listImg;
+
     private int rate;
 
 
     public Product() {
     }
 
-    public Product(int productId, int categoryId, String productName, int price, int priceReal, LocalDateTime createDate, LocalDateTime updateDate, String stt, int quantitySold, String imageSrc, int rate) {
+    public Product(int productId, int categoryId, String productName, int price, int priceReal, LocalDateTime createDate, LocalDateTime updateDate, String stt, int quantitySold, String imageSrc, String decription, String detail, int rate) {
         this.productId = productId;
         this.categoryId = categoryId;
         this.productName = productName;
@@ -39,6 +37,8 @@ public class Product implements Serializable {
         this.stt = stt;
         this.quantitySold = quantitySold;
         this.imageSrc=imageSrc;
+        this.decription = decription;
+        this.detail = detail;
         this.rate = rate;
     }
 
@@ -130,6 +130,22 @@ public class Product implements Serializable {
         this.rate = rate;
     }
 
+    public String getDecription() {
+        return decription;
+    }
+
+    public void setDecription(String decription) {
+        this.decription = decription;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -142,6 +158,10 @@ public class Product implements Serializable {
                 ", updateDate=" + updateDate +
                 ", stt='" + stt + '\'' +
                 ", quantitySold=" + quantitySold +
+                ", imageSrc='" + imageSrc + '\'' +
+                ", decription='" + decription + '\'' +
+                ", detail='" + detail + '\'' +
+                ", rate=" + rate +
                 '}';
     }
 }

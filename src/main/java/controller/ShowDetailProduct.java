@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "ShowDetailProduct", value = "/detail-product")
 public class ShowDetailProduct extends HttpServlet {
@@ -17,7 +18,10 @@ public class ShowDetailProduct extends HttpServlet {
 
         Product product = ProductService.getInstance().getProductById(id);
 
+        List<String> listImg = ProductService.getInstance().getImageOfProductById(id);
+
         request.setAttribute("product", product);
+        request.setAttribute("listImg", listImg);
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
 
