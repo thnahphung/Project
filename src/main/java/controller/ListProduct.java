@@ -14,8 +14,12 @@ public class ListProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String kind = request.getParameter("kind");
-        List<Product> list = ProductService.getInstance().getListTopProduct(kind);
+        int page = Integer.parseInt(request.getParameter("page"));
+        List<Product> list = ProductService.getInstance().getListTopProduct(kind,page);
+        int count = ProductService.getInstance().getcountProduct(kind);
         request.setAttribute("list",list);
+        request.setAttribute("kind",kind);
+        request.setAttribute("page",page);
         request.getRequestDispatcher("list-product.jsp").forward(request,response);
     }
 

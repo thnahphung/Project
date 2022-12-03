@@ -18,7 +18,7 @@ public class Homepage extends HttpServlet {
 
         List<Product> newProducts = ProductService.getInstance().getNewProducts();
         request.setAttribute("newProducts", newProducts);
-
+        System.out.println(12);
         request.getRequestDispatcher("home-page.jsp").forward(request, response);
 
     }
