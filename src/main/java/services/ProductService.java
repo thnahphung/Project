@@ -57,9 +57,9 @@ public class ProductService {
         });
     }
 
-    public Map<Integer,List<String>> getCommentOfProductById(int id){
-       JDBIConnector.get().
-    }
+//    public Map<Integer,List<String>> getCommentOfProductById(int id){
+//       JDBIConnector.get().
+//    }
 
     public static void main(String[] args) {
 //        System.out.println(ProductService.getInstance().getProductById(1));
