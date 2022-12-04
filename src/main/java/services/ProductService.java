@@ -5,9 +5,7 @@ import bean.Product;
 import bean.User;
 import db.JDBIConnector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
@@ -60,8 +58,9 @@ public class ProductService {
     public List<Product> getListTopProduct(int kind, int page) {
         List<Product> list = getListProductByKind(kind);
         List<Product> listResult = new ArrayList<Product>();
-        int start = (page - 1) * 15 - 1 < 0 ? 0 : (page - 1) * 15 - 1;
-        for (int i = start; i < page * 15; i++) {
+        int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
+        int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15)+start;
+        for (int i = start; i < end; i++) {
             listResult.add(list.get(i));
         }
 
@@ -93,25 +92,36 @@ public class ProductService {
 
         return getListProductByKind(kind).size();
     }
+    public List<Product> getSortListProduct(int kind,String sort){
+        List<Product> list = getListProductByKind(kind);
+        switch (sort){
+            case "a-z":
+            Collections.sort(list, new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+                    return o1.getProductName().compareTo(o2.getProductName());
+                }
+            });
+            case "price":
+        }
 
-<<<<<<< HEAD
+        return list;
+    }
 
+    //    public List<Comment> getCommentOfProductById(int id) {
+//
+//    }
     public List<Comment> getCommentOfProductById(int id) {
-=======
-    public List<Comment> getCommentOfProductById(int id){
->>>>>>> b164e919e4fd264a2c611947b00bedd066eaf708
+
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,u.user_id,u.full_name,u.avatar from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = " + id).mapToBean(Comment.class).stream().collect(Collectors.toList());
         });
     }
-<<<<<<< HEAD
-=======
+
 
 //    public Map<Integer,List<String>> getCommentOfProductById(int id){
 //       JDBIConnector.get().
 //    }
-
->>>>>>> b164e919e4fd264a2c611947b00bedd066eaf708
 
 
     public List<Product> getNewProducts() {
@@ -133,7 +143,7 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getImageOfProductById(1));
 
 //        System.out.println(ProductService.getInstance().getNewProducts());
-        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
+//        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
     }
 
 
