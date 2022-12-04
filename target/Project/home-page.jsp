@@ -1,5 +1,6 @@
 <%@ page import="bean.Product" %>
 <%@ page import="java.util.List" %>
+<%@ page import="services.ProductService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -25,12 +26,12 @@
 <body>
 <ul class="nav nav-home ">
     <li class=" left">
-        <a href="home-page.jsp"><img src="images/logo/logo-rmbg1.png" alt=""></a>
+        <a href="http://localhost:8080/homepage"><img src="images/logo/logo-rmbg1.png" alt=""></a>
     </li>
     <li class="nav-item center">
-        <a class="nav-link active" href="listProduct">Sản Phẩm</a>
-        <a class="nav-link" href="listProduct">Gỗ</a>
-        <a class="nav-link" href="list-product.jsp">Gốm</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1">Sản Phẩm</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Gỗ</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.RECAMIC%>&page=1">Gốm</a>
         <a class="nav-link" href="list-product.jsp">giảm giá</a>
         <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
     </li>
