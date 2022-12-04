@@ -13,7 +13,7 @@ import java.util.List;
 public class ListProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String kind = request.getParameter("kind");
+        int  kind = Integer.parseInt(request.getParameter("kind"));
         int page = Integer.parseInt(request.getParameter("page"));
         List<Product> list = ProductService.getInstance().getListTopProduct(kind,page);
         int count = ProductService.getInstance().getcountProduct(kind);
