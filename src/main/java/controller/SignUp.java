@@ -12,7 +12,6 @@ import java.io.IOException;
 public class SignUp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("sign-up.jsp").forward(request,response);
 
     }
 
@@ -24,20 +23,31 @@ public class SignUp extends HttpServlet {
         String passAgain = request.getParameter("passAgain");
         String email = request.getParameter("email");
 
-        User user = UserService.getInstance().checkLogin(fullName, pass);
-
-        if (fullName == null || phone == null || email == null || pass == null || passAgain == null) {
+        if (fullName.equals("") || phone.equals("") || email.equals("") || pass.equals("") || passAgain.equals("")) {
             request.setAttribute("error", "Bạn chưa điền đầy đủ thông tin!");
-            request.getRequestDispatcher("sign-up.jsp").forward(request,response);
+            request.setAttribute("fullName", fullName);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.getRequestDispatcher("sign-up.jsp").forward(request, response);
+        } else if (UserService.getInstance().checkExistPhone(phone)) {
+            request.setAttribute("error", "Số điện thoại này đã được sử dụng!");
+            request.setAttribute("fullName", fullName);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.getRequestDispatcher("sign-up.jsp").forward(request, response);
         } else if (UserService.getInstance().checkExistEmail(email)) {
             request.setAttribute("error", "Email này đã được sử dụng!");
-            request.getRequestDispatcher("sign-up.jsp").forward(request,response);
-        }else if (UserService.getInstance().checkExistPhone(phone)) {
-            request.setAttribute("error", "Số điện thoại này đã được sử dụng!");
-            request.getRequestDispatcher("sign-up.jsp").forward(request,response);
-        } else if(!UserService.getInstance().checkSamePass(pass, passAgain)){
+            request.setAttribute("fullName", fullName);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.getRequestDispatcher("sign-up.jsp").forward(request, response);
+
+        } else if (!UserService.getInstance().checkSamePass(pass, passAgain)) {
             request.setAttribute("error", "Mật khẩu không trùng khớp!");
-            request.getRequestDispatcher("sign-up.jsp").forward(request,response);
+            request.setAttribute("fullName", fullName);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.getRequestDispatcher("sign-up.jsp").forward(request, response);
         } else {
             response.sendRedirect("login.jsp");
         }
