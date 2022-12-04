@@ -103,17 +103,13 @@ public class ProductService {
         return 0;
     }
 
-<<<<<<< HEAD
+
     public List<Comment> getCommentOfProductById(int id){
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,u.user_id,u.full_name,u.avatar from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = "+id).mapToBean(Comment.class).stream().collect(Collectors.toList());
         });
     }
-=======
-//    public Map<Integer,List<String>> getCommentOfProductById(int id){
-//       JDBIConnector.get().
-//    }
->>>>>>> 642d74b7543016e41dc486adab021641163c64d3
+
 
 
     public List<Product> getNewProducts() {
