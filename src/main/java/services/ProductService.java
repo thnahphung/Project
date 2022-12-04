@@ -94,12 +94,24 @@ public class ProductService {
         return getListProductByKind(kind).size();
     }
 
+<<<<<<< HEAD
 
     public List<Comment> getCommentOfProductById(int id) {
+=======
+    public List<Comment> getCommentOfProductById(int id){
+>>>>>>> b164e919e4fd264a2c611947b00bedd066eaf708
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,u.user_id,u.full_name,u.avatar from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = " + id).mapToBean(Comment.class).stream().collect(Collectors.toList());
         });
     }
+<<<<<<< HEAD
+=======
+
+//    public Map<Integer,List<String>> getCommentOfProductById(int id){
+//       JDBIConnector.get().
+//    }
+
+>>>>>>> b164e919e4fd264a2c611947b00bedd066eaf708
 
 
     public List<Product> getNewProducts() {

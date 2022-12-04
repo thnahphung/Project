@@ -3,6 +3,7 @@ package bean;
 import org.jdbi.v3.core.mapper.Nested;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Comment implements Serializable {
     private int commentID;
@@ -10,15 +11,26 @@ public class Comment implements Serializable {
     private String document;
     private int rate;
 
-    public Comment(int commentID, @Nested User user, String document, int rate) {
+    private LocalDateTime dateComment;
+
+    public Comment(int commentID, @Nested User user, String document, int rate, LocalDateTime dateComment) {
         this.commentID = commentID;
         this.user = user;
         this.document = document;
         this.rate = rate;
+        this.dateComment = dateComment;
     }
 
     public Comment(){
 
+    }
+
+    public LocalDateTime getDateComment() {
+        return dateComment;
+    }
+
+    public void setDateComment(LocalDateTime dateComment) {
+        this.dateComment = dateComment;
     }
 
     public int getRate() {

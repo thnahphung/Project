@@ -172,7 +172,11 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
+<<<<<<< HEAD
                 <% int count = ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))/15;
+=======
+                <% int count = ProductService.getInstance().getcountProduct(request.getAttribute("kind").toString())/15;
+>>>>>>> b164e919e4fd264a2c611947b00bedd066eaf708
 
 
                 for(int i =0; i<count;i++) {
