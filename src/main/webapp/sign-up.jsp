@@ -11,39 +11,51 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="css/sign-up.css">
 </head>
 
 <body>
-<%String error =(String) request.getAttribute("error");
-    error= error==null?"":error;%>
-    <div class="content">
-        <div class="background"></div>
+<% String error = (String) request.getAttribute("error");
+    error = (error == null ? "" : error);
 
-        <div class="main">
+    String fullName = (String) request.getAttribute("fullName");
+    fullName = (fullName == null ? "" : fullName);
 
-            <div id="title"> <img src="images/logo/logo-rmbg1.png" alt="">
-                <h2> Đăng ký</h2>
-            </div>
+    String phone = (String) request.getAttribute("phone");
+    phone = (phone == null ? "" : phone);
 
-            <form class="form-input" action="/doSignUp" method="post">
-                <p class="error"><%= error%></p>
+    String email = (String) request.getAttribute("email");
+    email = (email == null ? "" : email);
+%>
+<div class="content">
+    <div class="background"></div>
 
-                <input type="text" name="fullName" class="input name" placeholder="Họ tên">
-                <input type="text" name="phone" class="input phone" placeholder="Số điện thoại">
-                <input type="email" name="email" class="input mail" placeholder="Email">
-                <input type="password" name="pass" class="input pass" placeholder="Mật khẩu">
-                <input type="password" name="passAgain" class="input passAgain" placeholder="Nhập lại mật khẩu">
-                <i class="fa-solid fa-check"></i>
-                <!-- <i class="fa-solid fa-xmark"></i> -->
+    <div class="main">
 
-                <input type="submit" class="submit" value="Đăng ký">
-            </form>
-            <span>Đã có tài khoản? <a href="login.jsp">Đăng nhập</a></span>
+        <div id="title"><img src="images/logo/logo-rmbg1.png" alt="">
+            <h2> Đăng ký</h2>
         </div>
+
+        <form class="form-input" action="/doSignUp" method="post">
+            <p class="error"><%= error%>
+            </p>
+
+            <input type="text" name="fullName" class="input name" placeholder="Họ tên" value="<%=fullName%>">
+            <input type="text" name="phone" class="input phone" placeholder="Số điện thoại" value="<%=phone%>">
+            <input type="email" name="email" class="input mail" placeholder="Email" value="<%=email%>">
+            <input type="password" name="pass" class="input pass" placeholder="Mật khẩu">
+            <input type="password" name="passAgain" class="input passAgain" placeholder="Nhập lại mật khẩu">
+            <%--                <i class="fa-solid fa-check"></i>--%>
+            <!-- <i class="fa-solid fa-xmark"></i> -->
+
+            <input type="submit" class="submit" value="Đăng ký">
+        </form>
+        <span>Đã có tài khoản? <a href="login.jsp">Đăng nhập</a></span>
     </div>
+</div>
 </body>
 
 </html>
