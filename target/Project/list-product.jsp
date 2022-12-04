@@ -172,8 +172,9 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-                <% int count = ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))/15;
-
+                <%
+                    int size=ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))/15;
+                    int count = ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))%15>0?size+1:size;
 
                 for(int i =0; i<count;i++) {
                 %>
