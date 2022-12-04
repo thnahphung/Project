@@ -2,11 +2,9 @@ package services;
 
 import bean.Comment;
 import bean.Product;
-import bean.User;
 import db.JDBIConnector;
 
 import java.util.*;
-import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 public class ProductService {
@@ -55,11 +53,11 @@ public class ProductService {
 
     }
 
-    public List<Product> getListTopProduct(int kind, int page) {
+    public List<Product> getListProductInPage(int kind, int page) {
         List<Product> list = getListProductByKind(kind);
         List<Product> listResult = new ArrayList<Product>();
         int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
-        int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15)+start;
+        int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15) + start;
         for (int i = start; i < end; i++) {
             listResult.add(list.get(i));
         }
@@ -79,9 +77,31 @@ public class ProductService {
 
     public List<Product> getTopWoodProducts() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
                     "FROM product\n" +
-                    "WHERE category_id = 1;").mapToBean(Product.class).stream().collect(Collectors.toList());
+                    "WHERE category_id = 1\n" +
+                    "ORDER BY quantity_sold DESC\n" +
+                    "LIMIT 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+    }
+
+    public List<Product> getTopPotteryProducts() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
+                    "FROM product\n" +
+                    "WHERE category_id = 2\n" +
+                    "ORDER BY quantity_sold DESC\n" +
+                    "LIMIT 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+    }
+
+    public List<Product> getTopPaintingProducts() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
+                    "FROM product\n" +
+                    "WHERE category_id = 3\n" +
+                    "ORDER BY quantity_sold DESC\n" +
+                    "LIMIT 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
 
@@ -95,17 +115,32 @@ public class ProductService {
 
         return getListProductByKind(kind).size();
     }
-    public List<Product> getSortListProduct(int kind,String sort){
+
+    public List<Product> getSortListProduct(int kind, String sort) {
         List<Product> list = getListProductByKind(kind);
-        switch (sort){
+        switch (sort) {
             case "a-z":
-            Collections.sort(list, new Comparator<Product>() {
-                @Override
-                public int compare(Product o1, Product o2) {
-                    return o1.getProductName().compareTo(o2.getProductName());
-                }
-            });
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getProductName().compareTo(o2.getProductName());
+                    }
+                });
+                break;
             case "price":
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getPrice() - o2.getPrice();
+                    }
+                }); break;
+            case "rating":
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getRate() - o2.getRate();
+                    }
+                }); break;
         }
 
         return list;
@@ -147,6 +182,8 @@ public class ProductService {
 
 //        System.out.println(ProductService.getInstance().getNewProducts());
 //        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
+
+        System.out.println(ProductService.getInstance().getTopWoodProducts());
     }
 
 

@@ -15,11 +15,13 @@ public class ListProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int  kind = Integer.parseInt(request.getParameter("kind"));
         int page = Integer.parseInt(request.getParameter("page"));
-        List<Product> list = ProductService.getInstance().getListTopProduct(kind,page);
+
+        List<Product> list = ProductService.getInstance().getListProductInPage(kind,page);
         int count = ProductService.getInstance().getcountProduct(kind);
         request.setAttribute("list",list);
         request.setAttribute("kind",kind);
         request.setAttribute("page",page);
+
         request.getRequestDispatcher("list-product.jsp").forward(request,response);
     }
 
