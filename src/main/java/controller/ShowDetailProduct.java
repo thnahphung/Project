@@ -21,6 +21,8 @@ public class ShowDetailProduct extends HttpServlet {
 
         List<String> listImg = ProductService.getInstance().getImageOfProductById(id);
 
+
+
         request.setAttribute("product", product);
         request.setAttribute("listImg", listImg);
 

@@ -170,9 +170,6 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
                 <% int count = ProductService.getInstance().getcountProduct(request.getAttribute("kind").toString())/15;
 
 
@@ -182,18 +179,6 @@
                 <%}%>
                  <li class="page-item">
                     <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())+1%>" aria-label="Next">
-=======
->>>>>>> 642d74b7543016e41dc486adab021641163c64d3
-                <% int count = ProductService.getInstance().countProduct()/15;
-                for(int i =0; i<count;i++) {
-                %>
-                <li class="page-item active"><a class="page-link" href="http://localhost:8080/listProduct?page=1">1</a></li>
-                <%}%>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=2">2</a></li>
-                <li class="page-item"><a class="page-link" href="http://localhost:8080/listProduct?page=3">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
->>>>>>> 3749888421f9342f928fe08ba8c2242c609c2ea5
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>

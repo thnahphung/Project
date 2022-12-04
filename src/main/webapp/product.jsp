@@ -225,11 +225,7 @@
 
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <p class="card-body">
-                            Thủ công <br>
-                            Vật liệu: gỗ <br>
-                            Chiều rộng: 7 cm <br>
-                            Chiều cao: 19 cm <br>
-                            Chiều sâu: 7 cm <br>
+                            <%=product.getDetail()%>
                         </p>
                     </div>
                 </div>
@@ -244,22 +240,7 @@
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <p class="card-body">
-                            SỰ CHỈ RÕ <br>
-                            • Kích thước: 19cm x 7cm x 7cm <br>
-                            • Màu sắc: Trong suốt <br>
-                            • Chất liệu & Quy trình: Bàn trang trí chim cú bằng gỗ là sản phẩm thủ công do gia đình
-                            <br>
-                            chúng tôi làm, chim cú được làm từ gỗ jempinis với kỹ thuật điêu khắc rất cẩn thận nhằm
-                            <br>
-                            tạo ra hình chim cú rất đẹp, kết hợp với những gốc gỗ tự nhiên và rất độc đáo như cơ sở
-                            <br>
-                            hoàn hảo để trang trí ngôi nhà của bạn để làm cho nó trông đẹp hơn và cũng có thể tặng
-                            <br>
-                            cho một người đặc biệt như một món quà. <br>
-
-                            THỜI GIAN CHẾ BIẾN & VẬN CHUYỂN <br>
-                            • chúng tôi cần thời gian để xử lý khoảng 2-5 ngày làm việc <br>
-                            • Indonesia Pos Express: 6-12 ngày sau khi tôi đánh dấu đơn hàng là hoàn thành <br>
+                            <%=product.getDecription()%>
                         </p>
                     </div>
                 </div>

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private int productId;
-    private int categoryId;
     private String productName;
     private int price;
     private int priceReal;
@@ -22,13 +21,15 @@ public class Product implements Serializable {
 
     private int rate;
 
+    private String category;
+
+    private String paCategory;
 
     public Product() {
     }
 
-    public Product(int productId, int categoryId, String productName, int price, int priceReal, LocalDateTime createDate, LocalDateTime updateDate, String stt, int quantitySold, String imageSrc, String decription, String detail, int rate) {
+    public Product(int productId, int categoryId, String productName, int price, int priceReal, LocalDateTime createDate, LocalDateTime updateDate, String stt, int quantitySold, String imageSrc, String decription, String detail, int rate, String category, String paCategory) {
         this.productId = productId;
-        this.categoryId = categoryId;
         this.productName = productName;
         this.price = price;
         this.priceReal = priceReal;
@@ -36,10 +37,28 @@ public class Product implements Serializable {
         this.updateDate = updateDate;
         this.stt = stt;
         this.quantitySold = quantitySold;
-        this.imageSrc=imageSrc;
+        this.imageSrc = imageSrc;
         this.decription = decription;
         this.detail = detail;
         this.rate = rate;
+        this.category = category;
+        this.paCategory = paCategory;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getPaCategory() {
+        return paCategory;
+    }
+
+    public void setPaCategory(String paCategory) {
+        this.paCategory = paCategory;
     }
 
     public int getProductId() {
@@ -48,14 +67,6 @@ public class Product implements Serializable {
 
     public void setProductId(int productId) {
         this.productId = productId;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getProductName() {
@@ -150,7 +161,6 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", categoryId=" + categoryId +
                 ", productName='" + productName + '\'' +
                 ", price=" + price +
                 ", priceReal=" + priceReal +
