@@ -2,11 +2,9 @@ package services;
 
 import bean.Comment;
 import bean.Product;
-import bean.User;
 import db.JDBIConnector;
 
 import java.util.*;
-import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 public class ProductService {
@@ -55,11 +53,11 @@ public class ProductService {
 
     }
 
-    public List<Product> getListTopProduct(int kind, int page) {
+    public List<Product> getListProductInPage(int kind, int page) {
         List<Product> list = getListProductByKind(kind);
         List<Product> listResult = new ArrayList<Product>();
         int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
-        int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15)+start;
+        int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15) + start;
         for (int i = start; i < end; i++) {
             listResult.add(list.get(i));
         }
@@ -92,17 +90,32 @@ public class ProductService {
 
         return getListProductByKind(kind).size();
     }
-    public List<Product> getSortListProduct(int kind,String sort){
+
+    public List<Product> getSortListProduct(int kind, String sort) {
         List<Product> list = getListProductByKind(kind);
-        switch (sort){
+        switch (sort) {
             case "a-z":
-            Collections.sort(list, new Comparator<Product>() {
-                @Override
-                public int compare(Product o1, Product o2) {
-                    return o1.getProductName().compareTo(o2.getProductName());
-                }
-            });
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getProductName().compareTo(o2.getProductName());
+                    }
+                });
+                break;
             case "price":
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getPrice() - o2.getPrice();
+                    }
+                }); break;
+            case "rating":
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getRate() - o2.getRate();
+                    }
+                }); break;
         }
 
         return list;
