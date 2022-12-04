@@ -152,7 +152,9 @@
                             </div>
                             <h3 class="price">
                                 <%= product.getPrice()%> VNĐ
+                                <% if(product.getPriceReal()!=0){%>
                                 <span class="price-real"><%= product.getPriceReal()%> VND</span>
+                                <%}%>
                             </h3>
                         </div>
                     </div>
@@ -170,7 +172,7 @@
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-                <% int count = ProductService.getInstance().getcountProduct(request.getAttribute("kind").toString())/15;
+                <% int count = ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))/15;
 
 
                 for(int i =0; i<count;i++) {

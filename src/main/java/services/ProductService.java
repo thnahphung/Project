@@ -12,6 +12,9 @@ import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 public class ProductService {
+    public static final int ALL = 0;
+    public static final int WOOD = 1;
+    public static final int RECAMIC = 2;
     private static ProductService instance;
 
     private ProductService() {
@@ -39,28 +42,30 @@ public class ProductService {
         return products.get(0);
     }
 
-    public List<Product> getListTopProduct(String kind, int page) {
-        int end = 15;
+    public List<Product> getListProductByKind(int kind) {
 
-        switch (kind) {
-            case "all":
-                if (page == 0) {
-                    return JDBIConnector.get().withHandle(handle -> {
-                        return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, decription, detail, rate FROM product   LIMIT " + (0) + "," + (end)).mapToBean(Product.class).stream().collect(Collectors.toList());
-                    });
-                } else return JDBIConnector.get().withHandle(handle -> {
-                    return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, decription, detail, rate FROM product   LIMIT " + (end) + "," + (page * 15)).mapToBean(Product.class).stream().collect(Collectors.toList());
-                });
-            case "wood":
-                return JDBIConnector.get().withHandle(handle -> {
-                    return handle.createQuery("SELECT pro.product_id, pro.category_id, pro.product_name, pro.price, pro.price_real, pro.create_date, pro.update_date, pro.stt, pro.quantity_sold, pro.image_src, pro.rate FROM product pro join category ca on pro.category_id = ca.category_id join pa_category pa on pa.pa_category_id = ca.pa_category_id WHERE pa.pa_category_id=1 LIMIT 0,15").mapToBean(Product.class).stream().collect(Collectors.toList());
-                });
-            case "ceramic":
-                return JDBIConnector.get().withHandle(handle -> {
-                    return handle.createQuery("SELECT pro.product_id, pro.category_id, pro.product_name, pro.price, pro.price_real, pro.create_date, pro.update_date, pro.stt, pro.quantity_sold, pro.image_src, pro.rate FROM product pro join category ca on pro.category_id = ca.category_id join pa_category pa on pa.pa_category_id = ca.pa_category_id WHERE pa.pa_category_id=2 LIMIT 0,15").mapToBean(Product.class).stream().collect(Collectors.toList());
-                });
+        if (kind == ALL) {
+            return JDBIConnector.get().withHandle(handle -> {
+                return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, decription, detail, rate FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
+
+            });
         }
-        return null;
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT pro.product_id, pro.category_id, pro.product_name, pro.price, pro.price_real, pro.create_date, pro.update_date, pro.stt, pro.quantity_sold, pro.image_src, pro.rate FROM product pro join category ca on pro.category_id = ca.category_id join pa_category pa on pa.pa_category_id = ca.pa_category_id WHERE pa.pa_category_id= " + kind).mapToBean(Product.class).stream().collect(Collectors.toList());
+        });
+
+
+    }
+
+    public List<Product> getListTopProduct(int kind, int page) {
+        List<Product> list = getListProductByKind(kind);
+        List<Product> listResult = new ArrayList<Product>();
+        int start = (page - 1) * 15 - 1 < 0 ? 0 : (page - 1) * 15 - 1;
+        for (int i = start; i < page * 15; i++) {
+            listResult.add(list.get(i));
+        }
+
+        return listResult;
     }
 
     public List<Product> getListFavouriteProduct() {
@@ -84,32 +89,29 @@ public class ProductService {
         });
     }
 
-    public int getcountProduct(String kind) {
-        switch (kind) {
-            case "all":
-                return JDBIConnector.get().withHandle(handle -> {
-                    return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, decription, detail, rate FROM product ").mapToBean(Product.class).stream().collect(Collectors.toList());
-                }).size();
+    public int getcountProduct(int kind) {
 
-            case "wood":
-                return JDBIConnector.get().withHandle(handle -> {
-                    return handle.createQuery("SELECT pro.product_id, pro.category_id, pro.product_name, pro.price, pro.price_real, pro.create_date, pro.update_date, pro.stt, pro.quantity_sold, pro.image_src, pro.rate FROM product pro join category ca on pro.category_id = ca.category_id join pa_category pa on pa.pa_category_id = ca.pa_category_id WHERE pa.pa_category_id=1").mapToBean(Product.class).stream().collect(Collectors.toList());
-                }).size();
-            case "ceramic":
-                return JDBIConnector.get().withHandle(handle -> {
-                    return handle.createQuery("SELECT pro.product_id, pro.category_id, pro.product_name, pro.price, pro.price_real, pro.create_date, pro.update_date, pro.stt, pro.quantity_sold, pro.image_src, pro.rate FROM product pro join category ca on pro.category_id = ca.category_id join pa_category pa on pa.pa_category_id = ca.pa_category_id WHERE pa.pa_category_id=2").mapToBean(Product.class).stream().collect(Collectors.toList());
-                }).size();
-        }
-        return 0;
+        return getListProductByKind(kind).size();
     }
 
+<<<<<<< HEAD
 
+    public List<Comment> getCommentOfProductById(int id) {
+=======
     public List<Comment> getCommentOfProductById(int id){
+>>>>>>> b164e919e4fd264a2c611947b00bedd066eaf708
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,u.user_id,u.full_name,u.avatar from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = "+id).mapToBean(Comment.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,u.user_id,u.full_name,u.avatar from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = " + id).mapToBean(Comment.class).stream().collect(Collectors.toList());
         });
     }
+<<<<<<< HEAD
+=======
 
+//    public Map<Integer,List<String>> getCommentOfProductById(int id){
+//       JDBIConnector.get().
+//    }
+
+>>>>>>> b164e919e4fd264a2c611947b00bedd066eaf708
 
 
     public List<Product> getNewProducts() {
