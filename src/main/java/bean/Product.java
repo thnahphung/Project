@@ -1,6 +1,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 public class Product implements Serializable {
@@ -157,6 +158,18 @@ public class Product implements Serializable {
         this.detail = detail;
     }
 
+    public String getPriceFormat() {
+
+        DecimalFormat d = new DecimalFormat("#,###");
+        return d.format(this.price).replace(",", ".");
+    }
+
+    public String getPriceRealFormat() {
+
+        DecimalFormat d = new DecimalFormat("#,###");
+        return d.format(this.priceReal).replace(",", ".");
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -174,4 +187,5 @@ public class Product implements Serializable {
                 ", rate=" + rate +
                 '}';
     }
+
 }

@@ -126,12 +126,12 @@
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                                     src="<%= product.getImageSrc()%>" alt="">
                             </a>
                         </div>
                         <div class="button">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"
                                class="buy-now"> Mua ngay</a>
                             <a href="" class="wish-list "><i class="fa-solid fa-cart-plus"></i></a>
                         </div>
