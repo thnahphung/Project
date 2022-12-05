@@ -1,5 +1,6 @@
 <%@ page import="bean.Product" %>
 <%@ page import="java.util.List" %>
+<%@ page import="services.ProductService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -25,12 +26,12 @@
 <body>
 <ul class="nav nav-home ">
     <li class=" left">
-        <a href="home-page.jsp"><img src="images/logo/logo-rmbg1.png" alt=""></a>
+        <a href="http://localhost:8080/homepage"><img src="images/logo/logo-rmbg1.png" alt=""></a>
     </li>
     <li class="nav-item center">
-        <a class="nav-link active" href="listProduct">Sản Phẩm</a>
-        <a class="nav-link" href="listProduct">Gỗ</a>
-        <a class="nav-link" href="list-product.jsp">Gốm</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1">Sản Phẩm</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Gỗ</a>
+        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.RECAMIC%>&page=1">Gốm</a>
         <a class="nav-link" href="list-product.jsp">giảm giá</a>
         <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
     </li>
@@ -88,6 +89,7 @@
         <% } %>
     </div>
 </div>
+
 <!-- new-product -->
 <div class="container new-products bd-bottom ">
     <div class="title new-product">
@@ -96,7 +98,7 @@
     <%List<Product> newProducts = (List<Product>) request.getAttribute("newProducts");%>
 
     <div class="slider-new-products">
-        <% for(Product product:newProducts){ %>
+        <% for (Product product : newProducts) { %>
         <div class="product">
             <div class="thumbnail">
                 <div class="cont-item ">
@@ -107,7 +109,8 @@
                 </div>
 
                 <div class="caption">
-                    <h3><a href=""> <%=product.getProductName()%></a></h3>
+                    <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%=product.getProductName()%>
+                    </a></h3>
                     <div class="ratting">
                         <i class="fa fa-star yellow"></i>
                         <i class="fa fa-star yellow"></i>
@@ -123,127 +126,32 @@
             </div>
         </div>
         <% } %>
-<%--        <div class="product">--%>
-<%--            <div class="thumbnail">--%>
-<%--                <div class="cont-item ">--%>
-<%--                    <a href="#"><img--%>
-<%--                            src="https://i.etsystatic.com/14458095/r/il/095d0c/3905526261/il_794xN.3905526261_b4o9.jpg"--%>
-<%--                            alt="">--%>
-<%--                    </a>--%>
-<%--                </div>--%>
 
-<%--                <div class="caption">--%>
-<%--                    <h3><a href=""> Bộ cốc bầu trời xanh dễ thương </a></h3>--%>
-<%--                    <div class="ratting">--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star "></i>--%>
-<%--                    </div>--%>
-<%--                    <h3 class="price">--%>
-<%--                        760.000 VND--%>
-<%--                        <!-- <span class="price-real">760.000 VND</span> -->--%>
-<%--                    </h3>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="product">--%>
-<%--            <div class="thumbnail">--%>
-<%--                <div class="cont-item ">--%>
-<%--                    <a href="#"><img--%>
-<%--                            src="https://i.etsystatic.com/36832986/r/il/5a7e1a/4127630124/il_794xN.4127630124_ktlk.jpg"--%>
-<%--                            alt="">--%>
-<%--                    </a>--%>
-<%--                </div>--%>
-
-<%--                <div class="caption">--%>
-<%--                    <h3><a href=""> Bình gốm trang trí nội thất</a></h3>--%>
-<%--                    <div class="ratting">--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star "></i>--%>
-<%--                    </div>--%>
-<%--                    <h3 class="price">--%>
-<%--                        596.000 VND--%>
-<%--                        <!-- <span class="price-real">490.000 VND</span> -->--%>
-<%--                    </h3>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="product">--%>
-<%--            <div class="thumbnail">--%>
-<%--                <div class="cont-item ">--%>
-<%--                    <a href="#"><img--%>
-<%--                            src="https://i.etsystatic.com/27431999/r/il/d76074/4160030118/il_794xN.4160030118_bdy0.jpg"--%>
-<%--                            alt="">--%>
-<%--                    </a>--%>
-<%--                </div>--%>
-
-<%--                <div class="caption">--%>
-<%--                    <h3><a href=""> Cốc gốm thảo mộc</a></h3>--%>
-<%--                    <div class="ratting">--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star "></i>--%>
-<%--                    </div>--%>
-<%--                    <h3 class="price">--%>
-<%--                        369.000 VND--%>
-<%--                        <!-- <span class="price-real">490.000 VND</span> -->--%>
-<%--                    </h3>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="product">--%>
-<%--            <div class="thumbnail">--%>
-<%--                <div class="cont-item ">--%>
-<%--                    <a href="#"><img--%>
-<%--                            src="https://i.etsystatic.com/18808630/r/il/53972b/3812956630/il_794xN.3812956630_2gct.jpg"--%>
-<%--                            alt="">--%>
-<%--                    </a>--%>
-<%--                </div>--%>
-
-<%--                <div class="caption">--%>
-<%--                    <h3><a href=""> Đĩa tròn gỗ thủ công</a></h3>--%>
-<%--                    <div class="ratting">--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <i class="fa fa-star "></i>--%>
-<%--                    </div>--%>
-<%--                    <h3 class="price">--%>
-<%--                        329.000 VND--%>
-<%--                        <span class="price-real">490.000 VND</span>--%>
-<%--                    </h3>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
     </div>
 </div>
+
 <!-- featured -->
 <div class="container featured ">
     <div class="title featured-product">
         <h2>Sản phẩm nổi bật</h2>
     </div>
     <div class="featured-list">
+        <%List<Product> topWoodProducts = (List<Product>) request.getAttribute("topWoodProducts");%>
         <div class="wood featured-img-list">
+            <% for (Product product : topWoodProducts) {%>
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/9623213/r/il/7cc5cb/995912283/il_794xN.995912283_mnbb.jpg"
+                        <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+                                src="<%=product.getImageSrc()%>"
                                 alt="">
 
                         </a>
                     </div>
 
                     <div class="caption">
-                        <h3><a href=""> Thớt gỗ óc chó</a></h3>
+                        <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%=product.getProductName()%>
+                        </a></h3>
                         <div class="ratting">
                             <i class="fa fa-star yellow"></i>
                             <i class="fa fa-star yellow"></i>
@@ -252,236 +160,34 @@
                             <i class="fa fa-star "></i>
                         </div>
                         <h3 class="price">
-                            750.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/11286611/r/il/d113cd/1582087127/il_794xN.1582087127_30q1.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Chụp đèn gỗ</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            2.334.000 VND
-                            <span class="price-real">2.917.000 VND</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/28083097/r/il/4d0be8/3478700194/il_794xN.3478700194_lwhz.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Bình hoa tối giản</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            466.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/11707818/r/il/f87020/2047935892/il_794xN.2047935892_n5xr.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Dụng cụ mở chai treo tường</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            875.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/32000242/r/il/9cfdf7/3389038003/il_794xN.3389038003_42cu.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Lót ly hình mèo</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            338.000 VND
-                            <span class="price-real">397.000 VND</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/34036755/r/il/87793e/3786324874/il_794xN.3786324874_j0l4.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Lá nghệ thuật</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            132.000 VND
-                            <span class="price-real">264.000 VND</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/19076644/r/il/3388bd/4352543767/il_794xN.4352543767_gr5d.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Cặp đôi chim ruồi</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            1.023.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/8105101/r/il/c0872d/568014834/il_794xN.568014834_mgmv.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Giá đỡ ipad</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            492.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/9475846/r/il/36bde4/2220393418/il_794xN.2220393418_adja.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Khay đựng trứng</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            795.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
+                            <%=product.getPrice()%> VND
+                            <% if (product.getPriceReal() != 0){ %>
+                            <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                            <%}%>
                         </h3>
                     </div>
                 </div>
             </div>
 
+            <%} %>
 
         </div>
+
+        <%List<Product> topPotteryProducts = ProductService.getInstance().getTopPotteryProducts();%>
         <div class="pottery featured-img-list">
+            <% for(Product product: topPotteryProducts) {%>
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/27431999/r/il/d76074/4160030118/il_794xN.4160030118_bdy0.jpg"
+                        <a href="http://localhost:8080/id=<%=product.getProductId()%>"><img
+                                src="<%=product.getImageSrc()%>"
                                 alt="">
 
                         </a>
                     </div>
 
                     <div class="caption">
-                        <h3><a href=""> Tách trà thảo mộc gốm sứ</a></h3>
+                        <h3><a href="http://localhost:8080/id=<%=product.getProductId()%>"> <%=product.getProductName()%></a></h3>
                         <div class="ratting">
                             <i class="fa fa-star yellow"></i>
                             <i class="fa fa-star yellow"></i>
@@ -490,24 +196,32 @@
                             <i class="fa fa-star "></i>
                         </div>
                         <h3 class="price">
-                            1.269.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
+                            <%=product.getPrice()%> VND
+                            <% if(product.getPriceReal() != 0) { %>
+                             <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                            <% } %>
                         </h3>
                     </div>
                 </div>
             </div>
+            <% } %>
+        </div>
+
+        <%List<Product> topPaintingProducts = ProductService.getInstance().getTopWoodProducts();%>
+        <div class="painting featured-img-list">
+            <% for(Product product: topPaintingProducts) {%>
             <div class="product">
                 <div class="thumbnail">
                     <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/22036630/r/il/ca5eae/2459501157/il_794xN.2459501157_95l3.jpg"
+                        <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+                                src="<%=product.getImageSrc()%>"
                                 alt="">
 
                         </a>
                     </div>
 
                     <div class="caption">
-                        <h3><a href=""> Hoa tulip gốm trang trí</a></h3>
+                        <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"> <%=product.getProductName()%></a></h3>
                         <div class="ratting">
                             <i class="fa fa-star yellow"></i>
                             <i class="fa fa-star yellow"></i>
@@ -516,247 +230,15 @@
                             <i class="fa fa-star "></i>
                         </div>
                         <h3 class="price">
-                            155.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
+                            <%=product.getPrice()%> VND
+                            <% if(product.getPriceReal() != 0) { %>
+                            <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                            <% } %>
                         </h3>
                     </div>
                 </div>
             </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/33871523/r/il/3dc2cf/3838096200/il_794xN.3838096200_6reo.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Thìa thủ công</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            259.000 VND
-                            <span class="price-real">324.000 VND</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/36818774/r/il/58ddbf/4359951979/il_794xN.4359951979_kyeo.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Cốc trà với trái tim vẽ tay</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            397.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/34419527/r/il/5d30ba/3890127857/il_794xN.3890127857_a41m.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Bộ tách trà</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            912.847 VND
-                            <span class="price-real">1.069.430 VND</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/35949208/r/il/0b950c/4244262239/il_794xN.4244262239_dcew.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Cốc hoa thẩm mỹ Kawaii</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            791.016 VND
-                            <span class="price-real">878.906 VND</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/32760853/r/il/974d95/3547268727/il_794xN.3547268727_4dwp.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Bình cắm hoa</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            499.642 VND
-                            <span class="price-real">555.158 VND</span>
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/28475776/r/il/0217dd/3194568106/il_794xN.3194568106_2q9v.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Bình cắm hoa nhiều kiểu dáng</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            530.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/26537856/r/il/6a2c53/3466089182/il_794xN.3466089182_rc6k.jpg"
-                                alt="">
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Con mèo gốm</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            308.290 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/21154540/r/il/874bf2/4359626909/il_794xN.4359626909_j546.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Cây thông Noel</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            1.606.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumbnail">
-                    <div class="cont-item ">
-                        <a href="#"><img
-                                src="https://i.etsystatic.com/34878446/r/il/e74dd8/3801559837/il_794xN.3801559837_7hlo.jpg"
-                                alt="">
-
-                        </a>
-                    </div>
-
-                    <div class="caption">
-                        <h3><a href=""> Bình gốm rỗng hình tròn</a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
-                        <h3 class="price">
-                            487.000 VND
-                            <!-- <span class="price-real">490.000 VND</span> -->
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            `
-
+            <% } %>
         </div>
     </div>
 
