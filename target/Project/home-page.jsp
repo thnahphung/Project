@@ -112,15 +112,24 @@
                     <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%=product.getProductName()%>
                     </a></h3>
                     <div class="ratting">
+                        <% int count = product.getRate();
+                            for (int i = 0; i < 5; i++) {
+                                if (count > 0) {%>
                         <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star "></i>
+                        <%} else {%>
+                        <i class="fa fa-star  "></i>
+                        <%
+                            }
+                            count--;
+                        %>
+
+                        <%}%>
                     </div>
                     <h3 class="price">
-                        <%=product.getPrice()%>VND
-                        <span class="price-real"><%=product.getPriceReal()%>VND</span>
+                        <%=product.getPrice()%> VND
+                        <% if(product.getPriceReal() != 0) {%>
+                        <span class="price-real"><%=product.getPriceReal()%> VND</span>
+                        <% } %>
                     </h3>
                 </div>
             </div>
@@ -152,13 +161,20 @@
                     <div class="caption">
                         <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%=product.getProductName()%>
                         </a></h3>
-                        <div class="ratting">
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
-                        </div>
+                       <div class="ratting">
+                                <% int count = product.getRate();
+                                    for (int i = 0; i < 5; i++) {
+                                        if (count > 0) {%>
+                                <i class="fa fa-star yellow"></i>
+                                <%} else {%>
+                                <i class="fa fa-star  "></i>
+                                <%
+                                    }
+                                    count--;
+                                %>
+
+                                <%}%>
+                            </div>
                         <h3 class="price">
                             <%=product.getPrice()%> VND
                             <% if (product.getPriceReal() != 0){ %>
@@ -189,11 +205,18 @@
                     <div class="caption">
                         <h3><a href="http://localhost:8080/id=<%=product.getProductId()%>"> <%=product.getProductName()%></a></h3>
                         <div class="ratting">
+                            <% int count = product.getRate();
+                                for (int i = 0; i < 5; i++) {
+                                    if (count > 0) {%>
                             <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
+                            <%} else {%>
+                            <i class="fa fa-star  "></i>
+                            <%
+                                }
+                                count--;
+                            %>
+
+                            <%}%>
                         </div>
                         <h3 class="price">
                             <%=product.getPrice()%> VND
@@ -223,11 +246,18 @@
                     <div class="caption">
                         <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"> <%=product.getProductName()%></a></h3>
                         <div class="ratting">
+                            <% int count = product.getRate();
+                                for (int i = 0; i < 5; i++) {
+                                    if (count > 0) {%>
                             <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star yellow"></i>
-                            <i class="fa fa-star "></i>
+                            <%} else {%>
+                            <i class="fa fa-star  "></i>
+                            <%
+                                }
+                                count--;
+                            %>
+
+                            <%}%>
                         </div>
                         <h3 class="price">
                             <%=product.getPrice()%> VND
@@ -245,41 +275,10 @@
 </div>
 <!-- Footer -->
 
-<footer class="footer row">
-    <div class="col-1"></div>
-    <div class="col-2">
-        <img src="images/logo/logo2.png" alt="">
-    </div>
-    <div class="col-2">
-        <div class="title">Sản phẩm</div>
-        <div><a href="">Đồ gỗ</a></div>
-        <div><a href="">Đồ gốm</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Về Craft</div>
-        <div><a href="">Tuyển cộng tác viên</a></div>
-        <div><a href="">Địa chỉ</a></div>
-        <div><a href="">Thông tin thành lập</a></div>
-        <div><a href="">Người thành lập</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Liên hệ</div>
-        <div><a href="">Facebook</a></div>
-        <div><a href="">Instagram</a></div>
-        <div><a href="">Twitter</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Hỗ trợ</div>
-        <div><a href="">Thông tin bảo hành</a></div>
-        <div><a href="">Thông tin đổi trả</a></div>
-        <div><a href="">Liên hệ nhân viên chăm sóc</a></div>
-    </div>
+<%@include file="footer.jsp" %>
+<%@include file="scroll-to-top.jsp" %>
 
-    <div class="col-1"></div>
-
-</footer>
-
-<a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>
+<%--<a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>--%>
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
