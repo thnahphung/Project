@@ -139,8 +139,7 @@
                         <div class="button">
                             <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"
                                class="buy-now"> Mua ngay</a>
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
-                                    src="<%= product.getImageSrc()%>" class="wish-list "><i class="fa-solid fa-cart-plus"></i></a>
+
                         </div>
                         <div class="caption">
                             <h3><a href=""><%= product.getProductName()%> </a></h3>
@@ -181,9 +180,8 @@
                     </a>
                 </li>
                 <%
-                    int size=ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))/15;
-                    int count = ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))%15>0?size+1:size;
 
+                    int count = (int) request.getAttribute("count");
                 for(int i =0; i<count;i++) {
                 %>
                 <li class="page-item "><a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i+1%></a></li>
