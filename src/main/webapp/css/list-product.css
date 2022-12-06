@@ -374,7 +374,7 @@ a {
 
 .sort .sort-table {
     margin-top: 13px;
-    z-index: 20px;
+    z-index: 20;
     position: absolute;
     z-index: 2;
     background: wheat;
@@ -390,6 +390,6 @@ a {
 .sort .sort-table .sort-item a {
     padding: 0px 10px;
 }
-.sort span:hover .sort .sort-table{
+.sort:hover .sort-table{
     display: block;
 }

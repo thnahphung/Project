@@ -12,9 +12,9 @@
 
     <li class="nav-item center" id="nav-items">
 
-        <a class="nav-link" id="sanpham" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1">Sản Phẩm</a>
-        <a class="nav-link" id="go" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Gỗ</a>
-        <a class="nav-link" id="gom" href="http://localhost:8080/listProduct?kind=<%=ProductService.RECAMIC%>&page=1">Gốm</a>
+        <a class="nav-link" id="sanpham" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1&sort=0">Sản Phẩm</a>
+        <a class="nav-link" id="go" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1&sort=0">Gỗ</a>
+        <a class="nav-link" id="gom" href="http://localhost:8080/listProduct?kind=<%=ProductService.RECAMIC%>&page=1&sort=0">Gốm</a>
         <a class="nav-link" href="list-product.jsp">giảm giá</a>
         <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
 

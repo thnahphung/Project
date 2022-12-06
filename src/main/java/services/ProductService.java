@@ -53,8 +53,8 @@ public class ProductService {
 
     }
 
-    public List<Product> getListProductInPage(int kind, int page) {
-        List<Product> list = getListProductByKind(kind);
+    public List<Product> getListProductInPage(int kind, String sort ,int page) {
+        List<Product> list = getSortListProduct(kind,sort);
         List<Product> listResult = new ArrayList<Product>();
         int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
         int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15) + start;
@@ -134,11 +134,11 @@ public class ProductService {
                         return o1.getPrice() - o2.getPrice();
                     }
                 }); break;
-            case "rating":
+            case "ratting":
                 Collections.sort(list, new Comparator<Product>() {
                     @Override
                     public int compare(Product o1, Product o2) {
-                        return o1.getRate() - o2.getRate();
+                        return o2.getRate() - o1.getRate();
                     }
                 }); break;
         }
