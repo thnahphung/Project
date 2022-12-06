@@ -34,6 +34,13 @@
 
         <div class="sort">
             <span>Sắp xếp</span>
+            <ul class="sort-table">
+                <li class="sort-item"><a>Tên từ A-Z</a></li>
+                <li class="sort-item"><a>Tên từ Z-A</a></li>
+                <li class="sort-item"><a>Giá từ thấp đến cao</a></li>
+                <li class="sort-item"><a>Giá từ cao đến thấp</a></li>
+                <li class="sort-item"><a>Đánh giá tốt nhất</a></li>
+            </ul>
         </div>
     </div>
 
@@ -151,7 +158,7 @@
                                 <%}%>
                             </div>
                             <h3 class="price">
-                                <%= product.getPrice()%> VNĐ
+                                <%= product.getPrice()%> VND
                                 <% if(product.getPriceReal()!=0){%>
                                 <span class="price-real"><%= product.getPriceReal()%> VND</span>
                                 <%}%>
