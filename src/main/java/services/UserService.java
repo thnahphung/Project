@@ -30,7 +30,13 @@ public class UserService {
             return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
     }
-
+    public User getUserById(int id) {
+        List<User> users = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar  FROM user where user_id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
+        });
+        if (users.size() != 1) return null;
+        return users.get(0);
+    }
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar from user where email=? or phone_number=?")

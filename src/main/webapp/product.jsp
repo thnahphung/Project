@@ -48,13 +48,13 @@
             <div class="slider-show-img">
                 <%List<String> listImg = (List<String>) request.getAttribute("listImg");%>
                 <div><img src="<%=product.getImageSrc()%>" alt=""></div>
-                <%for(String url:listImg){%>
+                <%for (String url : listImg) {%>
                 <div><img src="<%=url%>" alt=""></div>
                 <%}%>
             </div>
             <div class="slider-img">
                 <div class="image"><img src="<%=product.getImageSrc()%>" alt=""></div>
-                <%for(String url:listImg){%>
+                <%for (String url : listImg) {%>
                 <div class="image"><img src="<%=url%>" alt=""></div>
                 <%}%>
             </div>
@@ -64,15 +64,10 @@
                 <h3 class="name-product uppercase"><%=product.getProductName()%>
                 </h3>
                 <div class="cost">
-<<<<<<< HEAD
+
                     <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>
                     <%if (product.getPriceReal() != 0) {%>
                     <span class="sale uppercase"><%=Format.format(product.getPriceReal())%> VND</span>
-=======
-                    <span class="price uppercase"><%=product.getPrice()%> VND</span>
-                    <%if (product.getPriceReal() != 0) {%>
-                    <span class="sale uppercase"><%=product.getPriceReal()%> VND</span>
->>>>>>> parent of 93016d7 (Le Bao Dang)
                     <%}%>
                 </div>
                 <div class="ratting">
@@ -82,7 +77,8 @@
                     <i class="fa fa-star yellow"></i>
                     <%} else {%>
                     <i class="fa fa-star  "></i>
-                    <%}
+                    <%
+                        }
                         count--;
                     %>
                     <%}%>
@@ -109,7 +105,8 @@
                 <i class="fa fa-star yellow"></i>
                 <%} else {%>
                 <i class="fa fa-star  "></i>
-                <%}
+                <%
+                    }
                     count--;
                 %>
                 <%}%>
@@ -191,16 +188,35 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link"
+                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=(int)request.getAttribute("page")-1%>"
+                           aria-label="Previous">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <%
+                        for (int i = 0; i < ((List<Comment>) request.getAttribute("listCmt")).size(); i++) {
+                    %>
+
+                    <%if (i == (int) request.getAttribute("page")) {%>
+                    <li class="page-item active"><a class="page-link"
+                                                    href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i + 1%>
+                    </a>
+                    </li>
+                    <%} else {%>
+                    <li class="page-item"><a class="page-link"
+                                             href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i + 1%>
+                    </a>
+                    </li>
+                    <%
+                            }
+                        }
+                    %>
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link"
+                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=(int)request.getAttribute("page")+1%>"
+                           aria-label="Next">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
                             <span class="sr-only">Next</span>
                         </a>
