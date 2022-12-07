@@ -335,7 +335,12 @@ a {
     /*padding: 5px;*/
 }
 
-.pagination:active .page-link {
+.pagination.active .page-link {
+    background-color: var(--color1);
+    border: 1px solid var(--color2);
+    color: black;
+}
+.active{
     background-color: var(--color1);
     border: 1px solid var(--color2);
     color: black;
@@ -379,17 +384,18 @@ a {
 .sort {
     padding: 13px 0px;
 }
-
 .sort .sort-table {
     margin-top: 13px;
     z-index: 20;
     position: absolute;
     z-index: 2;
-    background: var(--color2);
+    background: var(--color1);
     width: 200px;
     margin-left: -139px;
     display: none;
+    border: black 1px solid;
 }
+
 
 .sort .sort-table .sort-item {
     padding: 10px 0px;
