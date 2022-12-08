@@ -34,7 +34,6 @@
 
         <div class="sort">
             <span>Sắp xếp</span>
-<<<<<<< HEAD
             <ul class="sort-table">
                 <li class="sort-item"><a>Tên từ A-Z</a></li>
                 <li class="sort-item"><a>Tên từ Z-A</a></li>
@@ -42,9 +41,6 @@
                 <li class="sort-item"><a>Giá từ cao đến thấp</a></li>
                 <li class="sort-item"><a>Đánh giá tốt nhất</a></li>
             </ul>
-=======
-            <ul class=""></ul>
->>>>>>> b89d5cb91d29ab4193ea78832dc6a4f3176ca732
         </div>
     </div>
 
