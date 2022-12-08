@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    request.getRequestDispatcher("login.jsp").forward(request,response);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
         } else{
             HttpSession session = request.getSession(true);
             session.setAttribute("auth",user);
-            response.sendRedirect("home-page.jsp");
+            response.sendRedirect("homepage");
         }
 
 

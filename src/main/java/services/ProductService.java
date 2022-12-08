@@ -26,35 +26,37 @@ public class ProductService {
 
     public List<Product> getListProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src,decription,detail, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
     }
 
     public Product getProductById(int id) {
         List<Product> products = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src,decription,detail, rate from product where product_id " + "=" + id).mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("select product_id, category_id, product_name, price, price_real, image_src, rate from product where product_id " + "=" + id).mapToBean(Product.class).stream().collect(Collectors.toList());
         });
         if (products.size() != 1) return null;
         return products.get(0);
     }
 
+//    Danh sach san pham theo loai
     public List<Product> getListProductByKind(int kind) {
 
         if (kind == ALL) {
             return JDBIConnector.get().withHandle(handle -> {
-                return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold , image_src, decription, detail, rate FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
+                return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real,    image_src,      rate FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
 
             });
         }
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT pro.product_id, pro.category_id, pro.product_name, pro.price, pro.price_real, pro.create_date, pro.update_date, pro.stt, pro.quantity_sold, pro.image_src, pro.rate FROM product pro join category ca on pro.category_id = ca.category_id join pa_category pa on pa.pa_category_id = ca.pa_category_id WHERE pa.pa_category_id= " + kind).mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT pro.product_id, pro.category_id, pro.product_name, pro.price, pro.price_real, pro.image_src, pro.rate FROM product pro join category ca on pro.category_id = ca.category_id join pa_category pa on pa.pa_category_id = ca.pa_category_id WHERE pa.pa_category_id= " + kind).mapToBean(Product.class).stream().collect(Collectors.toList());
         });
 
 
     }
 
-    public List<Product> getListProductInPage(int kind, int page) {
-        List<Product> list = getListProductByKind(kind);
+//  danh sach san pham o 1 trang
+    public List<Product> getListProductInPage(int kind, String sort ,int page) {
+    List<Product> list = getSortListProduct(kind,sort);
         List<Product> listResult = new ArrayList<Product>();
         int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
         int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15) + start;
@@ -123,7 +125,7 @@ public class ProductService {
                 Collections.sort(list, new Comparator<Product>() {
                     @Override
                     public int compare(Product o1, Product o2) {
-                        return o1.getProductName().compareTo(o2.getProductName());
+                        return o2.getProductName().compareTo(o1.getProductName());
                     }
                 });
                 break;
@@ -134,11 +136,11 @@ public class ProductService {
                         return o1.getPrice() - o2.getPrice();
                     }
                 }); break;
-            case "rating":
+            case "ratting":
                 Collections.sort(list, new Comparator<Product>() {
                     @Override
                     public int compare(Product o1, Product o2) {
-                        return o1.getRate() - o2.getRate();
+                        return o2.getRate() - o1.getRate();
                     }
                 }); break;
         }
@@ -183,7 +185,8 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getNewProducts());
 //        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
 
-        System.out.println(ProductService.getInstance().getTopWoodProducts());
+//        System.out.println(ProductService.getInstance().getTopWoodProducts());
+        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
     }
 
 

@@ -13,16 +13,18 @@ import java.util.List;
 public class ListProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int  kind = Integer.parseInt(request.getParameter("kind"));
+        int kind = Integer.parseInt(request.getParameter("kind"));
         int page = Integer.parseInt(request.getParameter("page"));
-
-        List<Product> list = ProductService.getInstance().getListProductInPage(kind,page);
-        int count = ProductService.getInstance().getcountProduct(kind);
-        request.setAttribute("list",list);
-        request.setAttribute("kind",kind);
-        request.setAttribute("page",page);
-
-        request.getRequestDispatcher("list-product.jsp").forward(request,response);
+        String sort = request.getParameter("sort");
+        int size = ProductService.getInstance().getcountProduct(kind) / 15;
+        int count = ProductService.getInstance().getcountProduct(kind)%15 > 0 ? size + 1 : size;
+        List<Product> list = ProductService.getInstance().getListProductInPage(kind, sort, page); // danh sach san pham theo trang
+        request.setAttribute("list", list);
+        request.setAttribute("kind", kind);
+        request.setAttribute("page", page);
+        request.setAttribute("sort", sort);
+        request.setAttribute("count", count);
+        request.getRequestDispatcher("list-product.jsp").forward(request, response);
     }
 
     @Override

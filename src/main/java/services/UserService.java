@@ -103,10 +103,24 @@ public class UserService {
         return pass.equals(passAgain);
     }
 
+
+    public void addUser(User user){
+         JDBIConnector.get().withHandle(handle -> {
+             return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone, :pass, :varieties, :ava)")
+                    .bind("id", user.getUserID())
+                    .bind("name", user.getFullName())
+                    .bind("email", user.getEmail())
+                    .bind("phone", user.getPhoneNumber())
+                    .bind("pass", user.getPass())
+                    .bind("varieties", user.getVarieties())
+                    .bind("ava", user.getAvatar())
+                    .execute();
+        });
+    }
     public static void main(String[] args) {
 
-        System.out.println(UserService.getInstance().getListUser());
-        System.out.println(UserService.getInstance().checkExistEmail("phanan@gmail.com"));
+//        User user13 = new User(13, "nhuw", "nhuw@gmail.com", "0900000005", "nhuwpass", "user", "https://i.pinimg.com/564x/92/35/3f/92353f71687dcf1fc4d2f5858283a087.jpg");
+//        UserService.getInstance().addUser(user13);
     }
 
 

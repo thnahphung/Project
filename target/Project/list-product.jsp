@@ -34,12 +34,21 @@
 
         <div class="sort">
             <span>Sắp xếp</span>
+
             <ul class="sort-table">
                 <li class="sort-item"><a>Tên từ A-Z</a></li>
                 <li class="sort-item"><a>Tên từ Z-A</a></li>
                 <li class="sort-item"><a>Giá từ thấp đến cao</a></li>
                 <li class="sort-item"><a>Giá từ cao đến thấp</a></li>
                 <li class="sort-item"><a>Đánh giá tốt nhất</a></li>
+
+            <ul class="sort-table" id="sort-tableID">
+                <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=a-z">Tên từ A-Z</a></li>
+                <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=2">Tên từ Z-A</a></li>
+                <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=price">Giá từ thấp đến cao</a></li>
+                <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=4">Giá từ cao đến thấp</a></li>
+                <li class="sort-item"><a href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%= request.getAttribute("page")%>&sort=ratting">Đánh giá tốt nhất</a></li>
+
             </ul>
         </div>
     </div>
@@ -139,7 +148,7 @@
                         <div class="button">
                             <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"
                                class="buy-now"> Mua ngay</a>
-                            <a href="" class="wish-list "><i class="fa-solid fa-cart-plus"></i></a>
+
                         </div>
                         <div class="caption">
                             <h3><a href=""><%= product.getProductName()%> </a></h3>
@@ -180,12 +189,11 @@
                     </a>
                 </li>
                 <%
-                    int size=ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))/15;
-                    int count = ProductService.getInstance().getcountProduct((Integer)request.getAttribute("kind"))%15>0?size+1:size;
 
+                    int count = (int) request.getAttribute("count");
                 for(int i =0; i<count;i++) {
                 %>
-                <li class="page-item "><a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=i+1%>"><%=i+1%></a></li>
+                <li class="page-item "><a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i+1%></a></li>
                 <%}%>
                  <li class="page-item">
                     <a class="page-link" href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())+1%>" aria-label="Next">
