@@ -168,9 +168,9 @@ public class ProductService {
         });
     }
 
-    public int getCountProduct(int kind) {
+    public int getCountProduct(int kind,int group) {
 
-        return getListProductByKind(kind).size();
+        return getListProductInGroup(kind,group).size();
     }
 
     public List<Product> getSortListProduct(int kind, String sort, int group) {
