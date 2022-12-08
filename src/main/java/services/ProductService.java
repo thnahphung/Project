@@ -43,9 +43,9 @@ public class ProductService {
 
         if (kind == ALL) {
             return JDBIConnector.get().withHandle(handle -> {
-<<<<<<< HEAD
+
                 return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real,   image_src, rate FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
-=======
+
                 List<Product> productList = handle.createQuery("SELECT product_id, category_id, product_name, price, price_real,    image_src,      rate FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
                 for (Product product : productList) {
                     product.setCategory(handle.createQuery("SELECT category_id, pa_category_id, name FROM category where category_id=" + product.getCategoryId()).mapToBean(Category.class).stream().collect(Collectors.toList()).get(0));
@@ -106,7 +106,6 @@ public class ProductService {
     //  danh sach san pham o 1 trang
     public List<Product> getListProductInPage(int kind, String sort, int group, int page) {
         List<Product> list = getSortListProduct(kind, group, sort);
->>>>>>> 2d7ab4bd9bbfb6fdeeae6fb184d74ab885d085df
         List<Product> listResult = new ArrayList<Product>();
         int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
         int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15) + start;
