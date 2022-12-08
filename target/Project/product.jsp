@@ -1,6 +1,5 @@
-<%@ page import="bean.Product" %>
 <%@ page import="java.util.List" %>
-<%@ page import="bean.Comment" %>
+<%@ page import="bean.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -62,9 +61,9 @@
                 <h3 class="name-product uppercase"><%=product.getProductName()%>
                 </h3>
                 <div class="cost">
-                    <span class="price uppercase"><%=product.getPriceFormat()%> VND</span>
+                    <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>
                     <%if (product.getPriceReal() != 0) {%>
-                    <span class="sale uppercase"><%=product.getPriceRealFormat()%> VND</span>
+                    <span class="sale uppercase"><%=Format.format(product.getPriceReal())%> VND</span>
                     <%}%>
                 </div>
                 <div class="ratting">
@@ -209,7 +208,7 @@
 
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <p class="card-body">
-                            <%=product.getDetail()%>
+                            <%=product.getProductDetail()%>
                         </p>
                     </div>
                 </div>
@@ -224,7 +223,7 @@
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <p class="card-body">
-                            <%=product.getDecription()%>
+                            <%=product.getProductDetail()%>
                         </p>
                     </div>
                 </div>
