@@ -91,15 +91,7 @@ public class UserService {
 
     }
 
-    public User getUserById(int id) {
-        List<User> users = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id,full_name, avatar from `user` WHERE user_id= " + id).mapToBean(User.class).stream().collect(Collectors.toList());
-        });
-        if (users.size() != 1) return null;
-        return users.get(0);
-    }
-
-    public boolean checkSamePass(String pass, String passAgain) {
+    public boolean checkSamePass(String pass, String passAgain){
         return pass.equals(passAgain);
     }
 

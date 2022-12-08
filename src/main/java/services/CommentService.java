@@ -31,9 +31,9 @@ public class CommentService {
             return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,cmt.date_comment,u.user_id from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = " + id).mapToBean(Comment.class).stream().collect(Collectors.toList());
         });
 
-        for (Comment comment : listResult) {
-            comment.setUser(UserService.getInstance().getUserById(comment.getUserId()));
-        }
+//        for (Comment comment : listResult) {
+//            comment.setUser(UserService.getInstance().getUserById(comment.getUserId()));
+//        }
         return listResult;
     }
 
