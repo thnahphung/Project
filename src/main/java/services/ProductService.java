@@ -68,7 +68,6 @@ public class ProductService {
                     product.setCategory(handle.createQuery("SELECT category_id, pa_category_id, name FROM category where category_id=" + product.getCategoryId()).mapToBean(Category.class).stream().collect(Collectors.toList()).get(0));
                 }
                 return productList;
->>>>>>> 2d7ab4bd9bbfb6fdeeae6fb184d74ab885d085df
 
             });
         }
