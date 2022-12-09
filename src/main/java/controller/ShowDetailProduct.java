@@ -28,7 +28,7 @@ public class ShowDetailProduct extends HttpServlet {
         List<Comment> listCmt = CommentService.getInstance().getCommentOfProductByPage(id, page);
         request.setAttribute("listCmt", listCmt);
 
-        int count = 
+//        int count = 
 
         request.setAttribute("page", page);
 
