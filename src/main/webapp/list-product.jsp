@@ -93,27 +93,27 @@
                             <%=category.getName()%>
                         </a></li>
                         <%}%>
-<%--                        <li class="item"><a--%>
-<%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.GIADUNG%>&page=1&sort=0">--%>
-<%--                            Gia dụng</a></li>--%>
-<%--                        <li class="item"><a--%>
-<%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VANPHONG%>&page=1&sort=0">--%>
-<%--                            Văn phòng</a></li>--%>
-<%--                        <li class="item"><a--%>
-<%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGSUC%>&page=1&sort=0">--%>
-<%--                            Trang sức</a></li>--%>
-<%--                        <li class="item"><a--%>
-<%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGTRI%>&page=1&sort=0">--%>
-<%--                            Trang trí </a></li>--%>
-<%--                        <li class="item"><a--%>
-<%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONDAU%>&page=1&sort=0">--%>
-<%--                            Sơn dầu</a></li>--%>
-<%--                        <li class="item"><a--%>
-<%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONMAI%>&page=1&sort=0">--%>
-<%--                            Sơn mài</a></li>--%>
-<%--                        <li class="item"><a--%>
-<%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VAI%>&page=1&sort=0">--%>
-<%--                            Vải</a></li>--%>
+                        <%--                        <li class="item"><a--%>
+                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.GIADUNG%>&page=1&sort=0">--%>
+                        <%--                            Gia dụng</a></li>--%>
+                        <%--                        <li class="item"><a--%>
+                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VANPHONG%>&page=1&sort=0">--%>
+                        <%--                            Văn phòng</a></li>--%>
+                        <%--                        <li class="item"><a--%>
+                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGSUC%>&page=1&sort=0">--%>
+                        <%--                            Trang sức</a></li>--%>
+                        <%--                        <li class="item"><a--%>
+                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGTRI%>&page=1&sort=0">--%>
+                        <%--                            Trang trí </a></li>--%>
+                        <%--                        <li class="item"><a--%>
+                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONDAU%>&page=1&sort=0">--%>
+                        <%--                            Sơn dầu</a></li>--%>
+                        <%--                        <li class="item"><a--%>
+                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONMAI%>&page=1&sort=0">--%>
+                        <%--                            Sơn mài</a></li>--%>
+                        <%--                        <li class="item"><a--%>
+                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VAI%>&page=1&sort=0">--%>
+                        <%--                            Vải</a></li>--%>
                         <!-- <li class="item"> <a href=""> chăm sóc tóc</a></li> -->
                     </ul>
                 </div>
@@ -165,17 +165,17 @@
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
                                     src="<%= product.getImageSrc()%>" alt="">
                             </a>
                         </div>
                         <div class="button">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"
                                class="buy-now"> Mua ngay</a>
 
                         </div>
                         <div class="caption">
-                            <h3><a href=""><%= product.getProductName()%>
+                            <h3><a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%= product.getProductName()%>
                             </a></h3>
                             <div class="ratting">
                                 <% int count = product.getRate();
@@ -207,6 +207,7 @@
         <!-- pagination -->
         <nav aria-label="Page navigation example" class="pagination-page">
             <ul class="pagination">
+                <%if (((int) request.getAttribute("page")) >= 2) {%>
                 <li class="page-item">
                     <a class="page-link"
                        href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())-1%>"
@@ -214,6 +215,7 @@
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
+                    <%}%>
                 </li>
                 <%
 
@@ -224,6 +226,7 @@
                                           href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i + 1%>
                 </a></li>
                 <%}%>
+                <%if (((int) request.getAttribute("page")) <= count - 1) {%>
                 <li class="page-item">
                     <a class="page-link"
                        href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())+1%>"
@@ -232,6 +235,7 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </li>
+                <%}%>
             </ul>
         </nav>
     </div>

@@ -108,7 +108,7 @@ a {
 
 .content .left .type-left ul li a {
     color: var(--color4);
-    opacity: 0.5;
+    /*opacity: 0.5;*/
 }
 
 .content .left .type-left ul .drivider {
@@ -318,6 +318,9 @@ a {
     color: black;
 }  */
 
+.pagination .page-item {
+    padding: 5px;
+}
 
 .pagination .page-item a:focus {
     outline: none !important;
@@ -329,9 +332,10 @@ a {
     border-radius: 0px;
     color: black;
     font-weight: 500;
+    /*padding: 5px;*/
 }
 
-.pagination .active .page-link {
+.pagination:active .page-link {
     background-color: var(--color1);
     border: 1px solid var(--color2);
     color: black;
@@ -372,12 +376,16 @@ a {
 
 }
 
+.sort {
+    padding: 13px 0px;
+}
+
 .sort .sort-table {
     margin-top: 13px;
     z-index: 20;
     position: absolute;
     z-index: 2;
-    background: wheat;
+    background: var(--color2);
     width: 200px;
     margin-left: -139px;
     display: none;
@@ -389,7 +397,15 @@ a {
 
 .sort .sort-table .sort-item a {
     padding: 0px 10px;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color3);
 }
-.sort:hover .sort-table{
+
+.sort .sort-table .sort-item a:hover {
+    color: var(--color4);
+}
+
+.sort:hover .sort-table {
     display: block;
 }
