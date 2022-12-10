@@ -107,4 +107,6 @@ public class Product implements Serializable {
                 ", productDetail=" + productDetail +
                 '}';
     }
+
+
 }

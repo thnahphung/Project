@@ -25,14 +25,15 @@ public class ShowDetailProduct extends HttpServlet {
         List<String> listImg = ProductService.getInstance().getImageOfProductById(id);
         request.setAttribute("listImg", listImg);
 
-        List<Comment> listCmt = CommentService.getInstance().getCommentOfProductByPage(id, page);
+        List<Comment> listCmt = CommentService.getInstance().getCommentByPage(id, page);
         request.setAttribute("listCmt", listCmt);
 
-//        int count =
+        int countPage = CommentService.getInstance().getCountPageById(id);
+        request.setAttribute("countPage", countPage);
 
         request.setAttribute("page", page);
 
-//        List<Product> listSameProduct = ProductService.getInstance().getListProductByKind(product.getPaCategory());
+        List<Product> listSameProduct = ProductService.getInstance().getListProductByKind(product.getCategory().getCategoryId());
 
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
