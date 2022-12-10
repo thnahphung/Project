@@ -201,7 +201,15 @@ public class ProductService {
     public List<Product> getSortListProduct(int kind, String sort, int group) {
         List<Product> list = getListProductInGroup(kind, group);
         switch (sort) {
-            case "a-z":
+            case "nameA":
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o1.getProductName().compareTo(o2.getProductName());
+                    }
+                });
+                break;
+            case "nameZ":
                 Collections.sort(list, new Comparator<Product>() {
                     @Override
                     public int compare(Product o1, Product o2) {
@@ -209,11 +217,19 @@ public class ProductService {
                     }
                 });
                 break;
-            case "price":
+            case "priceHigh":
                 Collections.sort(list, new Comparator<Product>() {
                     @Override
                     public int compare(Product o1, Product o2) {
                         return o1.getPrice() - o2.getPrice();
+                    }
+                });
+                break;
+            case "priceLow":
+                Collections.sort(list, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product o1, Product o2) {
+                        return o2.getPrice() - o1.getPrice();
                     }
                 });
                 break;
@@ -274,6 +290,10 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
         System.out.println(getInstance().getListSameProduct(1));
+
+
+        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
+//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
 
 
     }
