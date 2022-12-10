@@ -221,6 +221,18 @@ public class ProductService {
         return list;
     }
 
+    //    tim kiem
+    public List<Product> getListProductInSearch( String search) {
+        List<Product> list = getListProduct();
+        List<Product> lisResult = new ArrayList<>();
+        for (Product product : list) {
+            if (product.getProductName().equals(search) || product.getProductId() == Integer.parseInt(search)) {
+                lisResult.add(product);
+            }
+        }
+        return lisResult;
+    }
+
     //    public List<Comment> getCommentOfProductById(int id) {
 //
 //    }
