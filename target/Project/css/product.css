@@ -300,13 +300,13 @@ h5 {
     font-weight: 600;
 }
 
-.infomation-product .rate .pagination .page-item a:focus {
+.infomation-product .rate .pagination .page-item button:focus {
     outline: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
 
-.infomation-product .rate .pagination .page-item a {
+.infomation-product .rate .pagination .page-item button {
     border-radius: 0px;
     color: black;
     font-weight: 500;
