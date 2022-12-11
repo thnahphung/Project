@@ -1,4 +1,20 @@
 $(document).ready(function () {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    $.ajax({
+        url: "/detailProduct/loadComment",
+        type: "get",
+        data: {
+            page: '1',
+            id: urlParams.get('id'),
+        },
+        success: function (response) {
+            $(".list-comment").html(response);
+        },
+        error: function (xhr) {
+        }
+    });
+
     $('.slider-show-img').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -36,33 +52,42 @@ $(document).ready(function () {
 
             $.ajax({
                 url: "/detailProduct/loadComment",
-                type: "get", //send it through get method
+                type: "get",
                 data: {
-                    page: $(this).text()
+                    page: $(this).text().trim(),
+                    id: urlParams.get('id'),
                 },
                 success: function (response) {
                     $(".list-comment").html(response);
                 },
                 error: function (xhr) {
-                    //Do Something to handle error
                 }
             });
         }
     )
-    //search product
+
+
     $("#submit-cmt").click(function () {
+        let idProduct = urlParams.get("id");
+        let value = $(".write-cmt").val();
+        let rate = $('.write-ratting .yellow').length;
+
         $.ajax({
             url: "/detailProduct/upComment",
-            type: "get", //send it through get method
+            type: "get",
             data: {
-                text: $(".write-cmt").val(),
-                rate: $('.lb-cmt .yellow').length
+                text: value,
+                rate: rate,
+                idProduct: idProduct
             },
             success: function (response) {
-                $(".list-comment").html(response);
+                let containListComment = $('.list-comment');
+                containListComment.children().last().remove();
+                containListComment.prepend(response);
+                $(".write-cmt").val("");
             },
             error: function (xhr) {
-                //Do Something to handle error
+
             }
         });
     })

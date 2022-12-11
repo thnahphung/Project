@@ -8,15 +8,23 @@ import java.time.LocalDateTime;
 public class Comment implements Serializable {
     private int commentID;
     private User user;
-
     private int userId;
     private String document;
     private int rate;
 
     private LocalDateTime dateComment;
 
-    public Comment(){
+    public Comment() {
 
+    }
+
+    public Comment(int commentID, User user, int userId, String document, int rate, LocalDateTime dateComment) {
+        this.commentID = commentID;
+        this.user = user;
+        this.userId = userId;
+        this.document = document;
+        this.rate = rate;
+        this.dateComment = dateComment;
     }
 
     public int getUserId() {

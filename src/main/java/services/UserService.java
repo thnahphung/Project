@@ -30,6 +30,7 @@ public class UserService {
             return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
     }
+
     public User getUserById(int id) {
         List<User> users = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar  FROM user where user_id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
@@ -37,6 +38,7 @@ public class UserService {
         if (users.size() != 1) return null;
         return users.get(0);
     }
+
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar from user where email=? or phone_number=?")
@@ -97,14 +99,14 @@ public class UserService {
 
     }
 
-    public boolean checkSamePass(String pass, String passAgain){
+    public boolean checkSamePass(String pass, String passAgain) {
         return pass.equals(passAgain);
     }
 
 
-    public void addUser(User user){
-         JDBIConnector.get().withHandle(handle -> {
-             return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone, :pass, :varieties, :ava)")
+    public void addUser(User user) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone, :pass, :varieties, :ava)")
                     .bind("id", user.getUserID())
                     .bind("name", user.getFullName())
                     .bind("email", user.getEmail())
@@ -115,8 +117,20 @@ public class UserService {
                     .execute();
         });
     }
-    public static void main(String[] args) {
 
+    public void editInfor(int id,String fName, String phone, String mail) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE user SET full_name=?, email=?, phone_number=? WHERE user_id=?;")
+                    .bind(0, fName)
+                    .bind(1, mail)
+                    .bind(2, phone)
+                    .bind(3, id)
+                    .execute();
+        });
+    }
+
+    public static void main(String[] args) {
+            UserService.getInstance().editInfor(1,"Phan An", "", "phanan@gmail.com");
 //        User user13 = new User(13, "nhuw", "nhuw@gmail.com", "0900000005", "nhuwpass", "user", "https://i.pinimg.com/564x/92/35/3f/92353f71687dcf1fc4d2f5858283a087.jpg");
 //        UserService.getInstance().addUser(user13);
     }

@@ -15,9 +15,9 @@ import java.util.List;
 public class LoadComment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        int id = Integer.parseInt(request.getParameter("id"));
         int page = Integer.parseInt(request.getParameter("page"));
-        List<Comment> commentList = CommentService.getInstance().getCommentByPage(1, page);
+        List<Comment> commentList = CommentService.getInstance().getCommentByPage(id, page);
 
         for (Comment comment : commentList) {
             User user = comment.getUser();
@@ -44,7 +44,7 @@ public class LoadComment extends HttpServlet {
                     "                                </div>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
-                    "                        <div class=\"date-cmt\">" + comment.getDateComment() + "/" + comment.getDateComment().getMonthValue() + "/" + comment.getDateComment().getYear() + "</div>\n" +
+                    "                        <div class=\"date-cmt\">" + comment.getDateComment().getDayOfMonth() + "/" + comment.getDateComment().getMonthValue() + "/" + comment.getDateComment().getYear() + "</div>\n" +
                     "                        <div class=\"comment\">\n" +
                     "                            <p>\n" +
                     comment.getDocument() +
