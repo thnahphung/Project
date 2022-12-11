@@ -2,8 +2,10 @@ package services;
 
 import bean.Comment;
 import bean.Product;
+import bean.User;
 import db.JDBIConnector;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,6 +26,11 @@ public class CommentService {
         return instance;
     }
 
+    public int nextId() {
+        return 1 + JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(comment_id) as numberOfComment FROM `comment`").mapTo(Integer.class).one();
+        });
+    }
 
     public List<Comment> getCommentOfProductById(int id) {
 
@@ -51,7 +58,7 @@ public class CommentService {
 
     public List<Comment> getCommentByPage(int id, int page) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Comment> listResult = handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,cmt.date_comment,u.user_id from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = ? ORDER BY  comment_id LIMIT ?,5").bind(0, id).bind(1, page * 5 - 5).mapToBean(Comment.class).stream().collect(Collectors.toList());
+            List<Comment> listResult = handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,cmt.date_comment,u.user_id from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = ? ORDER BY  comment_id DESC LIMIT ?,5").bind(0, id).bind(1, page * 5 - 5).mapToBean(Comment.class).stream().collect(Collectors.toList());
             for (Comment comment : listResult) {
                 comment.setUser(UserService.getInstance().getUserById(comment.getUserId()));
             }
@@ -68,12 +75,27 @@ public class CommentService {
         return countCmt % 5 == 0 ? countCmt / 5 : countCmt / 5 + 1;
     }
 
-    public void addComment(Comment comment) {
+    public void addComment(Comment comment, int idProduct) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO `comment` VALUES (:id, :product_id, :user_id, :document,:rate,:date)")
+                    .bind("id", comment.getCommentID())
+                    .bind("product_id", idProduct)
+                    .bind("user_id", comment.getUser().getUserID())
+                    .bind("document", comment.getDocument())
+                    .bind("rate", comment.getRate())
+                    .bind("date", comment.getDateComment())
+                    .execute();
+        });
 
     }
 
     public static void main(String[] args) {
 //        System.out.println(CommentService.getInstance().getCommentByPage(1, 4));
+//        System.out.println(getInstance().nextId());
+//        User user = new User();
+//        user.setUserID(2);
+//        Comment comment = new Comment(20, user, 2, "hay lam", 5, LocalDateTime.now());
+//        CommentService.getInstance().addComment(comment, 2);
     }
 
 

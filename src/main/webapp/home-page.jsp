@@ -305,7 +305,9 @@
         crossorigin="anonymous"></script>
 
 <script src="js/general.js"></script>
-<script src="js/home-page.js"></script>
+<%--<script src="js/home-page.js"></script>--%>
+<%@include file="js/home-page.js"%>
+
 </body>
 
 </html>

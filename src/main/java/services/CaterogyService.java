@@ -30,4 +30,10 @@ public class CaterogyService {
             return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category where pa_category_id="+kind).mapToBean(Category.class).stream().collect(Collectors.toList());
         });
     }
+
+//    public Category getCategoryById(int id){
+//        return JDBIConnector.get().withHandle(handle -> {
+//            return handle.createQuery("SELECT category_id, `name`, pa_category_id FROM category WHERE category_id=:id").bind("id",id).mapToBean(Category.class).one();
+//        })
+//    }
 }

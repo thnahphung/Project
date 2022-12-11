@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     $(window).scroll(function () {
@@ -46,8 +47,8 @@ $(document).ready(function () {
         prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
         nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
     });
-    $('#slick-slide-control40').text("Đồ gỗ");
-    $('#slick-slide-control41').text("Đồ gốm");
+    $('#slick-slide-control40').text("Gốm");
+    $('#slick-slide-control41').text("Gốm");
     $('#slick-slide-control42').text("Tranh");
 
 });

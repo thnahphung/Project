@@ -262,8 +262,8 @@
     </div>
     <div class="col-2">
         <div class="title">Sản phẩm</div>
-        <div><a href="">Đồ gỗ</a></div>
-        <div><a href="">Đồ gốm</a></div>
+        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Đồ gỗ</a></div>
+        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1">Đồ gốm</a></div>
     </div>
     <div class="col-2">
         <div class="title">Về Craft</div>
@@ -305,7 +305,9 @@
         crossorigin="anonymous"></script>
 
 <script src="js/general.js"></script>
-<script src="js/home-page.js"></script>
+<%--<script src="js/home-page.js"></script>--%>
+<%@include file="js/home-page.js"%>
+
 </body>
 
 </html>

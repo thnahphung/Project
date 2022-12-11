@@ -1,13 +1,11 @@
 package bean;
 
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
-
 import java.io.Serializable;
 
 public class PaCategory implements Serializable {
 
     private int paCategoryId;
-    private String pname;
+    private String name;
 
     public PaCategory() {
     }
@@ -20,23 +18,22 @@ public class PaCategory implements Serializable {
         this.paCategoryId = paCategoryId;
     }
 
-    public String getPname() {
-        return pname;
+    public String getName() {
+        return name;
     }
-    @ColumnName("pname")
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setName(String name) {
+        this.name = name;
     }
-    public PaCategory(int paCategoryId, String pname) {
+    public PaCategory(int paCategoryId, String name) {
         this.paCategoryId = paCategoryId;
-        this.pname = pname;
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "PaCategory{" +
                 "paCategoryId=" + paCategoryId +
-                ", name='" + pname + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

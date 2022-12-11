@@ -111,102 +111,24 @@
                 %>
                 <%}%>
             </div>
-            <ul class="list-comment">
-
-<%--                <%--%>
-<%--                    for (Comment cmt : (List<Comment>) request.getAttribute("listCmt")) {--%>
-<%--                        User uCmt = cmt.getUser();--%>
-<%--                %>--%>
-<%--                <li class="item-comment bd-bottom">--%>
-<%--                    <div class="user-cmt">--%>
-<%--                        <img src="<%=uCmt.getAvatar()%>"--%>
-<%--                             alt="" class="img-user-cmt">--%>
-<%--                        <div>--%>
-<%--                            <div class="name-user-cmt"><%=uCmt.getFullName()%>--%>
-<%--                            </div>--%>
-<%--                            <div class="ratting rate-user">--%>
-<%--                                <% count = cmt.getRate();--%>
-<%--                                    for (int i = 0; i < 5; i++) {--%>
-<%--                                        if (count > 0) {%>--%>
-<%--                                <i class="fa fa-star yellow"></i>--%>
-<%--                                <%} else {%>--%>
-<%--                                <i class="fa fa-star  "></i>--%>
-<%--                                <%--%>
-<%--                                    }--%>
-<%--                                    count--;--%>
-<%--                                %>--%>
-<%--                                <%}%>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="date-cmt"><%=cmt.getDateComment().getDayOfMonth()%>--%>
-<%--                        /<%=cmt.getDateComment().getMonthValue()%>/<%=cmt.getDateComment().getYear()%>--%>
-<%--                    </div>--%>
-<%--                    <div class="comment">--%>
-<%--                        <p>--%>
-<%--                            <%=cmt.getDocument()%>--%>
-<%--                        </p>--%>
-<%--                    </div>--%>
-
-<%--                </li>--%>
-<%--                <%}%>--%>
-            </ul>
+            <ul class="list-comment"></ul>
             <nav aria-label="Page navigation example">
-                <%--                <ul class="pagination">--%>
-                <%--                    <li class="page-item">--%>
-                <%--                        <a class="page-link"--%>
-                <%--                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=(int)request.getAttribute("page")-1%>"--%>
-                <%--                           aria-label="Previous">--%>
-                <%--                            <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>--%>
-                <%--                            <span class="sr-only">Previous</span>--%>
-                <%--                        </a>--%>
-                <%--                    </li>--%>
-                <%--                    <%--%>
-                <%--                        for (int i = 1; i <= (int) request.getAttribute("countPage"); i++) {--%>
-                <%--                    %>--%>
-
-                <%--                    <%if (i == (int) request.getAttribute("page")) {%>--%>
-                <%--                    <li class="page-item active"><a class="page-link"--%>
-                <%--                                                    href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i%>--%>
-                <%--                    </a>--%>
-                <%--                    </li>--%>
-                <%--                    <%} else {%>--%>
-                <%--                    <li class="page-item"><a class="page-link"--%>
-                <%--                                             href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=i%>"><%=i%>--%>
-                <%--                    </a>--%>
-                <%--                    </li>--%>
-                <%--                    <%--%>
-                <%--                            }--%>
-                <%--                        }--%>
-                <%--                    %>--%>
-                <%--                    <li class="page-item">--%>
-                <%--                        <a class="page-link"--%>
-                <%--                           href="http://localhost:8080/detail-product?id=<%=product.getProductId()%>&page=<%=(int)request.getAttribute("page")+1%>"--%>
-                <%--                           aria-label="Next">--%>
-                <%--                            <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>--%>
-                <%--                            <span class="sr-only">Next</span>--%>
-                <%--                        </a>--%>
-                <%--                    </li>--%>
-                <%--                </ul>--%>
 
                 <ul class="pagination">
                     <li class="page-item">
-                        <button class="page-link" href="#" aria-label="Previous">
+                        <button class="page-link" aria-label="Previous">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>
                             <span class="sr-only">Previous</span>
                         </button>
                     </li>
+                    <%for (int i = 1; i <= (int) request.getAttribute("countPage"); i++) {%>
                     <li class="page-item active">
-                        <button class="page-link">1</button>
+                        <button class="page-link"><%=i%>
+                        </button>
                     </li>
+                    <%}%>
                     <li class="page-item">
-                        <button class="page-link">2</button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link">3</button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link" href="#" aria-label="Next">
+                        <button class="page-link" aria-label="Next">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
                             <span class="sr-only">Next</span>
                         </button>
@@ -317,7 +239,6 @@
 <%@include file="footer.jsp" %>
 <%@include file="scroll-to-top.jsp" %>
 
-z
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -326,10 +247,10 @@ z
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
 <script src="js/general.js"></script>
 <script src="js/product.js"></script>
 </body>
