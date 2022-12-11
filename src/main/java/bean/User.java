@@ -13,7 +13,7 @@ public class User implements Serializable {
     private String varieties;
     private String avatar;
 
-    public User(){
+    public User() {
 
     }
 
@@ -89,15 +89,16 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + userID +
+                "userID=" + userID +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + pass + '\'' +
-                ", varie='" + varieties + '\'' +
+                ", pass='" + pass + '\'' +
+                ", varieties='" + varieties + '\'' +
                 ", avatar='" + avatar + '\'' +
                 '}';
     }

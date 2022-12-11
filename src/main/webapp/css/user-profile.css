@@ -90,9 +90,20 @@ i {
 .tab-pane {
     margin: 40px 30px;
 }
+.inf.container {
+    display: flex;
+    justify-content: space-between;
+}
 
 .inf li {
     margin-left: 20px;
+}
+
+ul.inf-left li {
+    height: 30px;
+}
+button#edit-info{
+    width: 60px;
 }
 
 .order-list {
@@ -216,7 +227,18 @@ p {
     border-bottom: 8px dashed var(--color2);
     box-sizing: border-box;
 }
+.contain-address.bd-bottom {
+    display: flex;
+    justify-content: space-between;
+}
 
+.submit {
+    margin-top: 20px;
+}
+
+.right .btn-add-address {
+    width: 50px;
+}
 .input {
     width: 440px;
     height: 40px;
@@ -233,7 +255,13 @@ p {
 .input::placeholder {
     margin-left: 20px;
 }
-
+.error {
+    text-align: left;
+    padding-left: 5px;
+    color: red;
+    margin-bottom: 5px;
+    height: 25px !important;
+}
 
 /*  */
 
