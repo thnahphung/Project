@@ -30,9 +30,9 @@ $(document).ready(function () {
     });
 
     $("button.page-link").click(
-    function () {
-        $("button.page-link").parent('.page-item').removeClass("active");
-        $(this).parent('.page-item').addClass("active");
+        function () {
+            $("button.page-link").parent('.page-item').removeClass("active");
+            $(this).parent('.page-item').addClass("active");
 
             $.ajax({
                 url: "/detailProduct/loadComment",
@@ -49,16 +49,14 @@ $(document).ready(function () {
             });
         }
     )
-
-
-    
+    //search product
     $("#submit-cmt").click(function () {
         $.ajax({
             url: "/detailProduct/upComment",
             type: "get", //send it through get method
             data: {
-                text:$(".write-cmt").val(),
-                rate:$('.lb-cmt .yellow').length
+                text: $(".write-cmt").val(),
+                rate: $('.lb-cmt .yellow').length
             },
             success: function (response) {
                 $(".list-comment").html(response);
@@ -68,7 +66,5 @@ $(document).ready(function () {
             }
         });
     })
-
-
 });
 

@@ -26,25 +26,26 @@
 
     </li>
     <li class=" right">
-        <form class="item-right search-item" action="/listProduct">
+        <div class="item-right search-item">
 
-            <input type="text" id="search" placeholder="Tìm kiếm..." name="txName" value=""/>
-            <span class="icon"><a
-                    href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&group=0&page=1&sort=0&txName=<%=request.getParameter("txName")%>"><i
-                    class=" fa fa-search" name="action"></i></a>
+            <input type="text" class="search-input" placeholder="Tìm kiếm..." name="txName" value=""/>
+            <span class="icon" id="search">
+                    <i class=" fa fa-search" name="action"></i></a>
             </span>
-        </form>
-        <a href="login.jsp" class="item-right">
-            <% User user = (User) session.getAttribute("auth");
-                if (user != null) {%>
+        </div>
+
+        <% User user = (User) session.getAttribute("auth");
+            if (user != null) {%>
+        <a href="/user-profile.jsp" class="item-right">
             <img src="<%=user.getAvatar()%>" alt="">
             <p><%=user.getFullName()%>
-            </p>
-            <%} else {%>
+            </p></a>
+        <%} else {%>
+        <a href="login.jsp" class="item-right">
             <i class="fa-solid fa-user"></i>
-            <p>Đăng nhập</p>
-            <%}%>
-        </a>
+            <p>Đăng nhập</p></a>
+        <%}%>
+
         <a href="cart.jsp" class="item-right"><i class="fa-solid fa-cart-shopping"></i>
             <p>Giỏ hàng (2)</p>
         </a>
