@@ -65,6 +65,7 @@ $(document).ready(function () {
             });
         }
     )
+    //search product
 
 
     $("#submit-cmt").click(function () {

@@ -30,7 +30,7 @@
 
             <input type="text" class="search-input" placeholder="Tìm kiếm..." name="txName" value=""/>
             <span class="icon" id="search">
-                    <i class=" fa fa-search" name="action"></i></a>
+                  <i class=" fa fa-search" name="action"></i>
             </span>
         </div>
 
