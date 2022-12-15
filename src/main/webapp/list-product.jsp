@@ -142,7 +142,7 @@
                         <div class="button">
                             <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
                                class="buy-now"> Mua ngay</a>
-                            <button  class="wish-list btn-add-cart"><i class="fa-solid fa-cart-plus"></i></button>
+                            <button  class="wish-list btn-add-cart" value="<%= product.getProductId()%>"><i class="fa-solid fa-cart-plus"></i></button>
 
                         </div>
                         <div class="caption">

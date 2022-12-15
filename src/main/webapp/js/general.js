@@ -27,10 +27,10 @@ $(document).ready(function () {
 
 // ------Search Every Where----------
 $("#search").click(function () {
-        if (window.location == "/listProduct/searches?search=" + $('.search-input').val().trim()) {
+        if (window.location == "/searches?search=" + $('.search-input').val().trim()) {
             alert( $('.search-input').val().trim())
             $.ajax({
-                url: "/listProduct/searches",
+                url: "/searches",
                 type: "get",
                 data: {
                     search: $('.search-input').val().trim()
@@ -43,7 +43,7 @@ $("#search").click(function () {
                 }
             })
         } else {
-            window.location = "/listProduct/searches?search=" + $('.search-input').val().trim();
+            window.location = "/searches?search=" + $('.search-input').val().trim();
             // $.ajax({
             //     url: "/Searches",
             //     type: "get",
