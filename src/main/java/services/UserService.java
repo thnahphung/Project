@@ -49,7 +49,6 @@ public class UserService {
         );
         if (users.size() != 1) return null;
         User user = users.get(0);
-        System.out.println(12);
         if (!user.getPass().equals((password))
                 || !(user.getEmail().equals(userName) || user.getPhoneNumber().equals(userName))) {
             return null;
@@ -118,7 +117,7 @@ public class UserService {
         });
     }
 
-    public void editInfor(int id,String fName, String phone, String mail) {
+    public void editInfor(int id, String fName, String phone, String mail) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE user SET full_name=?, email=?, phone_number=? WHERE user_id=?;")
                     .bind(0, fName)
@@ -129,10 +128,29 @@ public class UserService {
         });
     }
 
+    public void changePass(String phoneEmail, String newPass){
+         JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `user` SET pass=?  WHERE phone_number=?;")
+                    .bind(0, newPass)
+                    .bind(1, phoneEmail)
+                    .execute();
+        });
+    }
+
+    public boolean checkPhoneEmail(String phoneEmail) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT COUNT(user_id)  FROM `user` WHERE phone_number = ? OR email = ?;")
+                    .bind(0, phoneEmail)
+                    .bind(1, phoneEmail)
+                    .mapTo(Integer.class)
+                    .one() == 1;
+
+        });
+    }
+
     public static void main(String[] args) {
-            UserService.getInstance().editInfor(1,"Phan An", "", "phanan@gmail.com");
-//        User user13 = new User(13, "nhuw", "nhuw@gmail.com", "0900000005", "nhuwpass", "user", "https://i.pinimg.com/564x/92/35/3f/92353f71687dcf1fc4d2f5858283a087.jpg");
-//        UserService.getInstance().addUser(user13);
+
+        System.out.println(UserService.getInstance().checkPhoneEmail("090000005"));
     }
 
 

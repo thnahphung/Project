@@ -25,8 +25,6 @@ public class EditUser extends HttpServlet {
                 "                     <li>" + phoneNumber + "</li>\n" +
                 "                    <li>" + email + "</li>");
 
-
-
     }
 
     @Override

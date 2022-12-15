@@ -85,36 +85,16 @@
                     <h3>Nhóm sản phẩm</h3>
                     <ul>
                         <% List<Category> categories = (List<Category>) request.getAttribute("categories");
+                            int counts = 0;
                             for (Category category : categories) {
 
                         %>
-                        <li class="item"><a
-                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=category.getCategoryId()%>&page=1&sort=0">
+                        <li class="item item-groupProduct">
+
                             <%=category.getName()%>
-                        </a></li>
+                        </li>
                         <%}%>
-                        <%--                        <li class="item"><a--%>
-                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.GIADUNG%>&page=1&sort=0">--%>
-                        <%--                            Gia dụng</a></li>--%>
-                        <%--                        <li class="item"><a--%>
-                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VANPHONG%>&page=1&sort=0">--%>
-                        <%--                            Văn phòng</a></li>--%>
-                        <%--                        <li class="item"><a--%>
-                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGSUC%>&page=1&sort=0">--%>
-                        <%--                            Trang sức</a></li>--%>
-                        <%--                        <li class="item"><a--%>
-                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.TRANGTRI%>&page=1&sort=0">--%>
-                        <%--                            Trang trí </a></li>--%>
-                        <%--                        <li class="item"><a--%>
-                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONDAU%>&page=1&sort=0">--%>
-                        <%--                            Sơn dầu</a></li>--%>
-                        <%--                        <li class="item"><a--%>
-                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.SONMAI%>&page=1&sort=0">--%>
-                        <%--                            Sơn mài</a></li>--%>
-                        <%--                        <li class="item"><a--%>
-                        <%--                                href="http://localhost:8080/listProduct?kind=<%=request.getAttribute("kind")%>&group=<%=ProductService.VAI%>&page=1&sort=0">--%>
-                        <%--                            Vải</a></li>--%>
-                        <!-- <li class="item"> <a href=""> chăm sóc tóc</a></li> -->
+
                     </ul>
                 </div>
             </div>

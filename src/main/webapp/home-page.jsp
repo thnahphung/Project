@@ -1,6 +1,7 @@
 <%@ page import="bean.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="services.ProductService" %>
+<%@ page import="bean.Format" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -24,32 +25,10 @@
 </head>
 
 <body>
-<ul class="nav nav-home ">
-    <li class=" left">
-        <a href="home-page.jsp"><img src="images/logo/logo-rmbg1.png" alt=""></a>
-    </li>
-    <li class="nav-item center">
-        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&page=1">Sản Phẩm</a>
-        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Gỗ</a>
-        <a class="nav-link" href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1">Gốm</a>
-        <a class="nav-link" href="list-product.jsp">giảm giá</a>
-        <a class="nav-link" href="list-product.jsp">Bán Chạy</a>
-    </li>
-    <li class=" right">
-        <div class="item-right search-item">
-            <input type="text" id="search" placeholder="Tìm kiếm..."/>
-            <span class="icon"><i class="fa fa-search"></i></span>
+<%--header--%>
+<%@include file="header.jsp" %>
 
-        </div>
-        <a href="login.jsp" class="item-right"> <i class="fa-solid fa-user"></i>
-            <p>Đăng nhập</p>
-        </a>
-        <a href="cart.jsp" class="item-right"><i class="fa-solid fa-cart-shopping"></i>
-            <p>Giỏ hàng (2)</p>
-        </a>
-    </li>
-</ul>
-
+<%-- end header--%>
 <div class="banner-slider">
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
@@ -113,19 +92,27 @@
                         <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%=product.getProductName()%>
                         </a></h3>
 
-                    <h3><a href=""><%=product.getProductName()%>
-                    </a></h3>
+
 
                     <div class="ratting">
+                        <% int count = product.getRate();
+                            for (int i = 0; i < 5; i++) {
+                                if (count > 0) {%>
                         <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star "></i>
+                        <%} else {%>
+                        <i class="fa fa-star  "></i>
+                        <%
+                            }
+                            count--;
+                        %>
+
+                        <%}%>
                     </div>
                     <h3 class="price">
-                        <%=product.getPrice()%>VND
-                        <span class="price-real"><%=product.getPriceReal()%>VND</span>
+                        <%=Format.format(product.getPrice())%> VND
+                        <% if (product.getPriceReal() != 0) {%>
+                        <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                        <% }%>
                     </h3>
                 </div>
             </div>
@@ -171,6 +158,11 @@
 
                             <%}%>
                         </div>
+                        <h3 class="price">
+                            <%=Format.format(product.getPrice())%> VND
+                            <% if (product.getPriceReal() != 0) {%>
+                            <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                            <% }%></h3>
                     </div>
                 </div>
             </div>
@@ -208,6 +200,11 @@
 
                             <%}%>
                         </div>
+                        <h3 class="price">
+                            <%=Format.format(product.getPrice())%> VND
+                            <% if (product.getPriceReal() != 0) {%>
+                            <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                            <% }%></h3>
                     </div>
                 </div>
             </div>
@@ -244,6 +241,11 @@
 
                             <%}%>
                         </div>
+                        <h3 class="price">
+                            <%=Format.format(product.getPrice())%> VND
+                            <% if(product.getPriceReal() != 0 ){%>
+                            <span class="price-real"><%=Format.format(product.getPriceReal())%> VND</span>
+                            <% }%>                        </h3>
                     </div>
                 </div>
             </div>
@@ -255,39 +257,8 @@
 </div>
 <!-- Footer -->
 
-<footer class="footer row">
-    <div class="col-1"></div>
-    <div class="col-2">
-        <img src="images/logo/logo2.png" alt="">
-    </div>
-    <div class="col-2">
-        <div class="title">Sản phẩm</div>
-        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&page=1">Đồ gỗ</a></div>
-        <div><a href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&page=1">Đồ gốm</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Về Craft</div>
-        <div><a href="">Tuyển cộng tác viên</a></div>
-        <div><a href="">Địa chỉ</a></div>
-        <div><a href="">Thông tin thành lập</a></div>
-        <div><a href="">Người thành lập</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Liên hệ</div>
-        <div><a href="">Facebook</a></div>
-        <div><a href="">Instagram</a></div>
-        <div><a href="">Twitter</a></div>
-    </div>
-    <div class="col-2">
-        <div class="title">Hỗ trợ</div>
-        <div><a href="">Thông tin bảo hành</a></div>
-        <div><a href="">Thông tin đổi trả</a></div>
-        <div><a href="">Liên hệ nhân viên chăm sóc</a></div>
-    </div>
-
-    <div class="col-1"></div>
-
-</footer>
+<%@include file="footer.jsp" %>
+<%--end footer--%>
 
 <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>
 
@@ -305,8 +276,8 @@
         crossorigin="anonymous"></script>
 
 <script src="js/general.js"></script>
-<%--<script src="js/home-page.js"></script>--%>
-<%@include file="js/home-page.js"%>
+<script src="js/home-page.js"></script>
+
 
 </body>
 
