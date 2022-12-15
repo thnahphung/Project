@@ -2,6 +2,7 @@ package bean;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order implements Serializable {
     public static final int ORDERRECEIVED = 1;
@@ -10,34 +11,40 @@ public class Order implements Serializable {
     public static final int SUCCESSFUL = 4;
     public static final int UNSUCCESSFUL = 5;
 
+    public static final int UNPAID = 0;
+    public static final int PAID = 1;
 
-    private int oderId;
+    private int orderId;
     private int userId;
     private int total;
     private String note;
-    private int stt;
+    private int sttDelivery;
+    private boolean sttPay;
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate;
+    private List<OrderDetail> orderDetails;
 
     public Order() {
     }
 
-    public Order(int oderId, int userId, int total, String note, int stt, LocalDateTime orderDate, LocalDateTime deliveryDate) {
-        this.oderId = oderId;
+    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails) {
+        this.orderId = orderId;
         this.userId = userId;
         this.total = total;
         this.note = note;
-        this.stt = stt;
+        this.sttDelivery = sttDelivery;
+        this.sttPay = sttPay;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
+        this.orderDetails = orderDetails;
     }
 
-    public int getOderId() {
-        return oderId;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOderId(int oderId) {
-        this.oderId = oderId;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getUserId() {
@@ -64,12 +71,20 @@ public class Order implements Serializable {
         this.note = note;
     }
 
-    public int getStt() {
-        return stt;
+    public int getSttDelivery() {
+        return sttDelivery;
     }
 
-    public void setStt(int stt) {
-        this.stt = stt;
+    public void setSttDelivery(int sttDelivery) {
+        this.sttDelivery = sttDelivery;
+    }
+
+    public boolean getSttPay() {
+        return sttPay;
+    }
+
+    public void setSttPay(boolean sttPay) {
+        this.sttPay = sttPay;
     }
 
     public LocalDateTime getOrderDate() {
@@ -86,5 +101,29 @@ public class Order implements Serializable {
 
     public void setDeliveryDate(LocalDateTime deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "oderId=" + orderId +
+                ", userId=" + userId +
+                ", total=" + total +
+                ", note='" + note + '\'' +
+                ", sttDelivery=" + sttDelivery +
+                ", sttPay=" + sttPay +
+                ", orderDate=" + orderDate +
+                ", deliveryDate=" + deliveryDate +
+                ", orderDetails=" + orderDetails +
+                '}';
     }
 }

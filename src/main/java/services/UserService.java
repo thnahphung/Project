@@ -1,6 +1,5 @@
 package services;
 
-import bean.Product;
 import bean.User;
 import db.JDBIConnector;
 
@@ -106,7 +105,7 @@ public class UserService {
     public void addUser(User user) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone, :pass, :varieties, :ava)")
-                    .bind("id", user.getUserID())
+                    .bind("id", user.getUserId())
                     .bind("name", user.getFullName())
                     .bind("email", user.getEmail())
                     .bind("phone", user.getPhoneNumber())

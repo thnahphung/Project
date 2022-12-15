@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
         if(user == null){
             request.setAttribute("error", "Sai tài khoản hoặc mật khẩu");
             request.getRequestDispatcher("login.jsp").forward(request,response);
-        } else if (user.getUserID()==1) {
+        } else if (user.getUserId()==1) {
             HttpSession session = request.getSession(true);
             session.setAttribute("auth",user);
             request.getRequestDispatcher("admin.jsp").forward(request,response);

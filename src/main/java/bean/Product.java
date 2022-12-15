@@ -15,7 +15,7 @@ public class Product implements Serializable {
     private int rate;
     private String imageSrc;
 
-    ProductDetail productDetail;
+    private ProductDetail productDetail;
 
     public Product() {
     }
