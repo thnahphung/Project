@@ -163,6 +163,19 @@ public class ProductService {
         return listResult;
     }
 
+    public List<Product> getListProductInPageName(int kind, String group, String page) {
+        List<Product> list = getListProductInGroupName(kind, group);
+        List<Product> listResult = new ArrayList<Product>();
+        int pageInt = Integer.parseInt(page);
+        int start = (pageInt - 1) * 15 < 0 ? 0 : (pageInt - 1) * 15;
+        int end = pageInt <= list.size() / 15 ? pageInt * 15 : list.size() - ((pageInt - 1) * 15) + start;
+        for (int i = start; i < end; i++) {
+            listResult.add(list.get(i));
+        }
+
+        return listResult;
+    }
+
     public List<Product> getListFavouriteProduct() {
         return JDBIConnector.get().withHandle(handle -> {
 
@@ -271,7 +284,7 @@ public class ProductService {
             return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
         for (Product p : pr) {
-            if (p.getProductName().contains(search)) {
+            if (p.getProductName().toUpperCase().contains(search.toUpperCase())) {
                 list.add(p);
             }
         }

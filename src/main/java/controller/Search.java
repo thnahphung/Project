@@ -53,7 +53,6 @@ public class Search extends HttpServlet {
                     "                    </div>");
 
         }
-        request.getRequestDispatcher("list-Product.jsp").forward(request,response);
     }
 
 
