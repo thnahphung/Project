@@ -8,8 +8,7 @@
     <li class=" left">
         <a href="/homepage"><img src="images/logo/logo-rmbg1.png" alt=""></a>
     </li>
-    <% int kind = (Integer) request.getAttribute("kind");
-        String active = "ative";%>
+    <% int kind = (Integer) request.getAttribute("kind");%>
 
     <li class="nav-item center" id="nav-items">
 
@@ -47,7 +46,7 @@
         <%}%>
 
         <a href="cart.jsp" class="item-right"><i class="fa-solid fa-cart-shopping"></i>
-            <p>Giỏ hàng (2)</p>
+            <p>Giỏ hàng (<span class="amount-product">2</span>)</p>
         </a>
     </li>
 </ul>

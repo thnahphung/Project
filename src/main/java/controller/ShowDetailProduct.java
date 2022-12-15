@@ -30,8 +30,8 @@ public class ShowDetailProduct extends HttpServlet {
         int countPage = CommentService.getInstance().getCountPageById(id);
         request.setAttribute("countPage", countPage);
 
-        List<Product> listSameProduct = ProductService.getInstance().getListProductByKind(product.getCategory().getCategoryId());
-
+        List<Product> listSameProduct = ProductService.getInstance().getListSameProduct(product.getCategory().getPaCategoryId());
+        request.setAttribute("listSameProduct", listSameProduct);
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
 
