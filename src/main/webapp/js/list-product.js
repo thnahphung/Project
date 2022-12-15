@@ -1,4 +1,7 @@
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
 $(window).scroll(function () {
+
     if ($(this).scrollTop() > 100) {
         $('.scrolltotop').fadeIn();
     } else {
@@ -14,12 +17,12 @@ $('.scrolltotop').click(function () {
 
 // ------------Loc san pham theo nhom--------------------
 $('.item-groupProduct').click(function () {
-
-    $('.item-groupProduct .button').addClass("active-navbar-left")
+    $('.item-groupProduct').removeClass("active-navbar-left")
+    $(this).addClass("active-navbar-left")
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     $.ajax({
-        url: "/listProductGroup",
+        url: "/listProduct/listProductGroup",
         type: "get", //send it through get method
         data: {
             groups: $(this).text().trim(),
@@ -38,7 +41,7 @@ $('.item-groupProduct').click(function () {
 // ---------- Tim kiem -------------
 $("#search").click(function () {
     $.ajax({
-        url: "/search",
+        url: "/listProduct/search",
         type: "get", //send it through get method
         data: {
             search: $(".search-input").val(),
@@ -52,25 +55,67 @@ $("#search").click(function () {
     });
 })
 
-//---------- Phan trang -----------
 
-$('.page-item').click(function () {
-    alert($(this).text().trim())
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
+// =============== Phan Trang =====================
+$("button.page-link").click(
+    function () {
+        let page = $(this).text().trim();
+
+        if (page === 'Previous') {
+            let buttonActive = $('li.active>button');
+            page = buttonActive.text() - 1 <= 0 ? 1 : buttonActive.text() - 1;
+            buttonActive.parent('.page-item').removeClass('active');
+            $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
+        } else if (page === 'Next') {
+
+            let countPage = $('button.page-link').length - 2;
+            let buttonActive = $('li.active>button');
+
+            page = parseInt(buttonActive.text()) + 1 >= countPage ? countPage : parseInt(buttonActive.text()) + 1;
+            buttonActive.parent('.page-item').removeClass('active');
+            $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
+
+        } else {
+            $("button.page-link").parent('.page-item').removeClass("active");
+            $(this).parent('.page-item').addClass("active");
+        }
+
+        $.ajax({
+            url: "/listProduct/listProductInPage",
+            type: "get",
+            data: {
+                page: page,
+                kind: urlParams.get('kind'),
+                group: $('.active-navbar-left').text()
+            },
+            success: function (response) {
+                $(".list-product .row").html(response);
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+)
+//================= Phan TRang ===================
+
+
+//================ Sap xep =====================
+$('.sort-table').change(function () {
+    // alert($(this).val().trim())
+
     $.ajax({
-        url: "/listProductInPage",
+        url: "/listProduct/sort",
         type: "get",
         data: {
-            pages: $(this).text().trim(),
             kind: urlParams.get('kind'),
-            group: $('.active-navbar-left').text()
+            group: $('.active-navbar-left').text().trim(),
+            sorts: $(this).val().trim()
         },
         success: function (response) {
             $(".list-product .row").html(response);
         },
         error: function (xhr) {
-            //Do Something to handle error
         }
     })
 })
+//================ /Sap xep =====================

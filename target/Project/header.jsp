@@ -14,16 +14,16 @@
                                     <li class="nav-item center" id="nav-items">
 
                                         <a class="nav-link  " id="sanpham"
-                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>&group=0&page=1&sort=0">Sản
+                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>">Sản
                                             Phẩm</a>
                                         <a class="nav-link  " id="go"
-                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>&group=0&page=1&sort=0">Gỗ</a>
+                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>">Gỗ</a>
                                         <a class="nav-link  " id="gom"
-                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>&group=0&page=1&sort=0">Gốm</a>
+                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>">Gốm</a>
                                         <a class="nav-link "
-                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.PAINT%>&group=0&page=1&sort=0">Tranh</a>
+                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.PAINT%>">Tranh</a>
                                         <a class="nav-link  "
-                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.SALE%>&group=0&page=1&sort=0">giảm
+                                            href="http://localhost:8080/listProduct?kind=<%=ProductService.SALE%>">giảm
                                             giá</a>
 
                                     </li>

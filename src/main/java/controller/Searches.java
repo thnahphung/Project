@@ -18,7 +18,7 @@ public class Searches extends HttpServlet {
         int kind = 0;
         int page = 1;
         String sort = "a-z";
-        int group = 0;
+        String group = request.getParameter("groups");
         String search = request.getParameter("search");
         int size = ProductService.getInstance().getCountProduct(kind, group) / 15;
         int count = ProductService.getInstance().getCountProduct(kind, group) % 15 > 0 ? size + 1 : size;

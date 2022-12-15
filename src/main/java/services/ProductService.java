@@ -62,7 +62,7 @@ public class ProductService {
         });
     }
 
-    //    Danh sach san pham theo loai
+    //---------------------------- Danh sach san pham theo loai -----------------------
     public List<Product> getListProductByKind(int kind) {
 
         if (kind == ALL) {
@@ -106,33 +106,15 @@ public class ProductService {
 
     }
 
-    public List<Product> getListProductInGroup(int kind, int group) {
-
-        List<Product> list = getListProductByKind(kind);
-        List<Product> listResult = new ArrayList<Product>();
-
-        for (Product product : list) {
-            if (group == 0) {
-                return list;
-            } else if (product.getCategory().getCategoryId() == group) {
-                listResult.add(product);
-            }
-
-        }
-
-        return listResult;
-
-    }
-
+    // -------------------- Loc san pham theo nhom --------------------------------
     public List<Product> getListProductInGroupName(int kind, String group) {
 
         List<Product> list = getListProductByKind(kind);
         List<Product> listResult = new ArrayList<Product>();
-
+        if ("".equals(group))
+            return list;
         for (Product product : list) {
-            if ("".equals(group)) {
-                return list;
-            } else if (product.getCategory().getName().equals(group)) {
+            if (product.getCategory().getName().equals(group)) {
                 listResult.add(product);
             }
 
@@ -142,18 +124,8 @@ public class ProductService {
 
     }
 
-    //  danh sach san pham o 1 trang
-    public List<Product> getListProductInPage(int kind, int group, int page, String sort) {
-        List<Product> list = getSortListProduct(kind, sort, group);
-        List<Product> listResult = new ArrayList<Product>();
-        int start = (page - 1) * 15 < 0 ? 0 : (page - 1) * 15;
-        int end = page <= list.size() / 15 ? page * 15 : list.size() - ((page - 1) * 15) + start;
-        for (int i = start; i < end; i++) {
-            listResult.add(list.get(i));
-        }
 
-        return listResult;
-    }
+//------------------------ Danh sach san pham o 1 trang ---------------------------------------
 
     public List<Product> getListProductInPageName(int kind, String group, String page) {
         List<Product> list = getListProductInGroupName(kind, group);
@@ -211,14 +183,15 @@ public class ProductService {
             return handle.createQuery("select image_src from image where product_id " + "=" + id).mapTo(String.class).stream().collect(Collectors.toList());
         });
     }
+//------------------ Tong so san pham theo nhom ---------------------
+    public int getCountProduct(int kind, String group) {
 
-    public int getCountProduct(int kind, int group) {
-
-        return getListProductInGroup(kind, group).size();
+        return getListProductInGroupName(kind, group).size();
     }
 
-    public List<Product> getSortListProduct(int kind, String sort, int group) {
-        List<Product> list = getListProductInGroup(kind, group);
+//----------------------------- Sap xep san pham ---------------------------
+    public List<Product> getSortListProductName(int kind, String sort, String group) {
+        List<Product> list = getListProductInGroupName(kind, group);
         switch (sort) {
             case "nameA":
                 Collections.sort(list, new Comparator<Product>() {
@@ -264,8 +237,7 @@ public class ProductService {
 
         return list;
     }
-
-    //    tim kiem
+//------------------------------ Tim kiem----------------------------------------
     public List<Product> getListProductInSearch(String search) {
         List<Product> list = new ArrayList<>();
         List<Product> pr = JDBIConnector.get().withHandle(handle -> {
@@ -288,7 +260,7 @@ public class ProductService {
     }
 
     public static void main(String[] args) {
-        System.out.println(ProductService.getInstance().getProductById(9));
+//        System.out.println(ProductService.getInstance().getProductById(9));
 //        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
 
@@ -311,6 +283,7 @@ public class ProductService {
 
 //        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
+        System.out.println(ProductService.getInstance().getListProductInGroupName(0, ""));
 
 
     }
