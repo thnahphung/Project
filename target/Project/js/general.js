@@ -26,36 +26,39 @@ $(document).ready(function () {
 // }
 
 // ------Search Every Where----------
-// $("#search").click(function () {
-//     $.ajax({
-//         url: "/Searches",
-//         type: "get",
-//         data: {
-//             search: $('.search-input').val()
-//         },
-//         success: function (response) {
-//             $(".list-product .row").html(response);
-//         },
-//         error: function (xhr) {
-//             //Do Something to handle error
-//         }
-//     })
-// })
-
-
-//------------ Search at listProduct -------------
 $("#search").click(function () {
-    $.ajax({
-        url: "/search",
-        type: "get", //send it through get method
-        data: {
-            search: $(".search-input").val(),
-        },
-        success: function (response) {
-            $(".list-product .row").html(response);
-        },
-        error: function (xhr) {
-            //Do Something to handle error
-        }
-    });
-})
+    if (window.location == "/searches?search=" + $('.search-input').val().trim()) {
+        alert($('.search-input').val().trim())
+        $.ajax({
+            url: "/searches",
+            type: "get",
+            data: {
+                search: $('.search-input').val().trim()
+            },
+            success: function (response) {
+                $(".list-product .row").html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        })
+    } else {
+        window.location = "/searches?search=" + $('.search-input').val().trim();
+        // $.ajax({
+        //     url: "/Searches",
+        //     type: "get",
+        //     data: {
+        //         search: $('.search-input').val().trim()
+        //     },
+        //     success: function (response) {
+        //         $(".list-product .row").html(response);
+        //     },
+        //     error: function (xhr) {
+        //         //Do Something to handle error
+        //     }
+        // })
+    }
+}
+)
+
+

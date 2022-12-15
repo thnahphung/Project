@@ -13,9 +13,9 @@ import java.util.List;
 public class ListProductGroup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String group =  request.getParameter("group");
-        int kind = Integer.parseInt((String) request.getAttribute("kind"));
-        List<Product> productList = ProductService.getInstance().getListProductInGroupName(kind, group);
+        String groups = request.getParameter("groups");
+        int kind = Integer.parseInt(request.getParameter("kind"));
+        List<Product> productList = ProductService.getInstance().getListProductInGroupName(kind, groups);
         for (Product product : productList) {
             StringBuilder rate = new StringBuilder();
             StringBuilder priceReal = new StringBuilder();

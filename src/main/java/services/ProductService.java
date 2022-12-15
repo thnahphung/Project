@@ -54,20 +54,12 @@ public class ProductService {
     }
 
     public Product getProductById(int id) {
-        List<Product> products = JDBIConnector.get().withHandle(handle -> {
-            List<Product> list = handle.createQuery("select product_id, category_id, product_name, price, price_real, image_src, rate from product where product_id " + "=" + id).mapToBean(Product.class).stream().collect(Collectors.toList());
-            for (Product product : list) {
-                ProductDetail productDetail = handle.createQuery("SELECT product_detail_id,decription,detail,inventory,create_date,update_date,stt,quantity_sold,user_id FROM product_detail where product_detail_id = ?").bind(0, product.getProductId()).mapToBean(ProductDetail.class).stream().collect(Collectors.toList()).get(0);
-                product.setProductDetail(productDetail);
-                Category category = handle.createQuery("SELECT category_id,pa_category_id,name FROM category WHERE category_id=?").bind(0, product.getCategoryId()).mapToBean(Category.class).collect(Collectors.toList()).get(0);
-                product.setCategory(category);
-                PaCategory paCategory = handle.createQuery("SELECT pa_category_id,name FROM category WHERE category_id=?").bind(0, product.getCategory().getPaCategoryId()).mapToBean(PaCategory.class).collect(Collectors.toList()).get(0);
-                product.getCategory().setPaCategory(paCategory);
-            }
-            return list;
+        return JDBIConnector.get().withHandle(handle -> {
+            Product product = handle.createQuery("select product_id, category_id, product_name, price, price_real, image_src, rate from product where product_id " + "=" + id).mapToBean(Product.class).one();
+            product.setCategory(CaterogyService.getInstance().getCategoryById(product.getCategoryId()));
+            product.setProductDetail(ProductDetailService.getInstance().getById(id));
+            return product;
         });
-        if (products.size() != 1) return null;
-        return products.get(0);
     }
 
     //    Danh sach san pham theo loai
@@ -163,6 +155,19 @@ public class ProductService {
         return listResult;
     }
 
+    public List<Product> getListProductInPageName(int kind, String group, String page) {
+        List<Product> list = getListProductInGroupName(kind, group);
+        List<Product> listResult = new ArrayList<Product>();
+        int pageInt = Integer.parseInt(page);
+        int start = (pageInt - 1) * 15 < 0 ? 0 : (pageInt - 1) * 15;
+        int end = pageInt <= list.size() / 15 ? pageInt * 15 : list.size() - ((pageInt - 1) * 15) + start;
+        for (int i = start; i < end; i++) {
+            listResult.add(list.get(i));
+        }
+
+        return listResult;
+    }
+
     public List<Product> getListFavouriteProduct() {
         return JDBIConnector.get().withHandle(handle -> {
 
@@ -186,24 +191,20 @@ public class ProductService {
         });
     }
 
-    public List<Product> getListSameProduct(int kind) {
+    public List<Product> getListSameProduct(int paCategoryId) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT p.product_id, p.product_name, p.price, p.price_real,p.rate, p.image_src,p.product_detail_id\n" +
-                    "FROM product p \n" +
-                    "WHERE p.category_id = " + kind + "\n" +
-                    "limit 16;").mapToBean(Product.class).stream().collect(Collectors.toList());
+            List<Product> productList = handle.createQuery("SELECT p.product_id, p.price,p.price_real,p.product_name,p.rate,p.category_id,p.image_src \n" +
+                    "FROM product p JOIN category c on p.category_id=c.category_id \n" +
+                    "JOIN pa_category pa ON c.pa_category_id = pa.pa_category_id \n" +
+                    "WHERE pa.pa_category_id = :paCategoryId LIMIT 16").bind("paCategoryId", paCategoryId).mapToBean(Product.class).stream().collect(Collectors.toList());
+
+            for (Product product : productList) {
+                product.setCategory(CaterogyService.getInstance().getCategoryById(product.getCategoryId()));
+            }
+            return productList;
+
         });
     }
-
-
-    public List<Product> getListWoodProduct() {
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select product_id, category_id, product_name, price, price_real, create_date, update_date, stt, quantity_sold, image_src, rate\n" +
-                    "FROM product\n" +
-                    "WHERE category_id = 1;").mapToBean(Product.class).stream().collect(Collectors.toList());
-        });
-    }
-
 
     public List<String> getImageOfProductById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
@@ -271,28 +272,12 @@ public class ProductService {
             return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
         });
         for (Product p : pr) {
-            if (p.getProductName().contains(search)) {
+            if (p.getProductName().toUpperCase().contains(search.toUpperCase())) {
                 list.add(p);
             }
         }
         return list;
     }
-
-    //    public List<Comment> getCommentOfProductById(int id) {
-//
-//    }
-    public List<Comment> getCommentOfProductById(int id) {
-
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,u.user_id,u.full_name,u.avatar from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = " + id).mapToBean(Comment.class).stream().collect(Collectors.toList());
-        });
-    }
-
-
-//    public Map<Integer,List<String>> getCommentOfProductById(int id){
-//       JDBIConnector.get().
-//    }
-
 
     public List<Product> getNewProducts() {
         return JDBIConnector.get().withHandle(handle -> {
@@ -303,7 +288,7 @@ public class ProductService {
     }
 
     public static void main(String[] args) {
-//        System.out.println(ProductService.getInstance().getProductById(1));
+        System.out.println(ProductService.getInstance().getProductById(9));
 //        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
 
@@ -321,10 +306,10 @@ public class ProductService {
 
 //        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
-        System.out.println(getInstance().getListSameProduct(1));
+//        getInstance().getListSameProduct(2);
 
 
-        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
+//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
 
 

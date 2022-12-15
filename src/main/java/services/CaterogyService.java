@@ -13,6 +13,7 @@ public class CaterogyService {
     private CaterogyService() {
 
     }
+
     public static CaterogyService getInstance() {
         if (instance == null) {
             instance = new CaterogyService();
@@ -20,20 +21,22 @@ public class CaterogyService {
         return instance;
     }
 
-    public List<Category> getListCategory(int kind){
-        if(kind==ProductService.ALL && kind==ProductService.SALE){
+    public List<Category> getListCategory(int kind) {
+        if (kind == ProductService.ALL && kind == ProductService.SALE) {
             return JDBIConnector.get().withHandle(handle -> {
                 return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
             });
         }
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category where pa_category_id="+kind).mapToBean(Category.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category where pa_category_id=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
         });
     }
 
-//    public Category getCategoryById(int id){
-//        return JDBIConnector.get().withHandle(handle -> {
-//            return handle.createQuery("SELECT category_id, `name`, pa_category_id FROM category WHERE category_id=:id").bind("id",id).mapToBean(Category.class).one();
-//        })
-//    }
+    public Category getCategoryById(int id) {
+        return JDBIConnector.get().withHandle(handle -> {
+            Category category = handle.createQuery("SELECT category_id, `name`, pa_category_id FROM category WHERE category_id=:id").bind("id", id).mapToBean(Category.class).one();
+            category.setPaCategory(PaCategoryService.getInstance().getPaCategoryById(category.getPaCategoryId()));
+            return category;
+        });
+    }
 }

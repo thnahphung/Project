@@ -87,11 +87,13 @@
                         <% List<Category> categories = (List<Category>) request.getAttribute("categories");
                             int counts = 0;
                             for (Category category : categories) {
-
+                                if (Integer.parseInt(request.getAttribute("kind").toString()) == 0)
                         %>
                         <li class="item item-groupProduct">
+                            <button class="button">
 
-                            <%=category.getName()%>
+                                <%=category.getName()%>
+                            </button>
                         </li>
                         <%}%>
 
@@ -205,13 +207,16 @@
                 %>
 
                 <%if ((int) request.getAttribute("page") == i + 1) {%>
-                <li class="page-item "><a class="page-link active"
-                                          href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i + 1%>
-                </a></li>
+                <li class="page-item ">
+                    <button class="page-link active"><%=i + 1%>
+                    </button>
+                </li>
                 <%} else {%>
-                <li class="page-item "><a class="page-link "
-                                          href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i + 1%>
-                </a></li>
+                <li class="page-item ">
+                    <button class="page-link "
+                            href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i + 1%>
+                    </button>
+                </li>
                 <%
                         }
                     }

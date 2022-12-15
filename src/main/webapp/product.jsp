@@ -1,8 +1,6 @@
 <%@ page import="java.util.List" %>
-<<<<<<< HEAD
+
 <%@ page import="bean.*" %>
-=======
->>>>>>> parent of 93016d7 (Le Bao Dang)
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -27,21 +25,21 @@
 </head>
 
 <body>
+
+<%Product product = (Product) request.getAttribute("product");%>
 <%@include file="header.jsp" %>
 <div class="address-book-background">
     <div class="container address-book-vs-sort">
         <div class="address-book">
-            <span><a href="home-page.jsp">Trang chủ</a></span><span>|</span>
-            <span><a href="list-product.jsp">Gỗ</a></span><span>|</span>
-            <span><a href="list-product.jsp">Trang trí</a></span><span>|</span>
-            <span><a href="product.jsp">Tượng chim cú được chạm khắc bằng tay</a></span>
+            <span><a href="/homepage">Trang chủ</a></span><span>|</span>
+            <span><a href="list-product.jsp"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
+            <span><a href="list-product.jsp"><%=product.getCategory().getName()%></a></span><span>|</span>
+            <span><a href="product.jsp"><%=product.getProductName()%></a></span>
         </div>
     </div>
 
 </div>
 
-
-<%Product product = (Product) request.getAttribute("product");%>
 <div class="container infomation-product bd-bottom">
     <div class="row">
         <div class="col-sm left">
@@ -116,19 +114,22 @@
 
                 <ul class="pagination">
                     <li class="page-item">
-                        <button class="page-link" aria-label="Previous">
+                        <button class="page-link previous" aria-label="Previous">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>
                             <span class="sr-only">Previous</span>
                         </button>
                     </li>
-                    <%for (int i = 1; i <= (int) request.getAttribute("countPage"); i++) {%>
-                    <li class="page-item active">
+                    <%
+                        for (int i = 1; i <= (int) request.getAttribute("countPage"); i++) {
+                            String active = "active";
+                    %>
+                    <li class="page-item <%if(i==1){%><%=active%><%}%>">
                         <button class="page-link"><%=i%>
                         </button>
                     </li>
                     <%}%>
                     <li class="page-item">
-                        <button class="page-link" aria-label="Next">
+                        <button class="page-link next" aria-label="Next">
                             <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
                             <span class="sr-only">Next</span>
                         </button>
@@ -207,31 +208,41 @@
         <h3>Sản phẩm tương tự</h3>
     </div>
     <div class="slider-similar-product">
+        <%for (Product productItem : (List<Product>) request.getAttribute("listSameProduct")) {%>
         <div class="product">
             <div class="thumbnail">
                 <div class="cont-item ">
-                    <a href="#"><img
-                            src="https://i.etsystatic.com/23214896/r/il/473823/2432267993/il_794xN.2432267993_7jam.jpg"
+                    <a href="http://localhost:8080/detail-product?id=<%=productItem.getProductId()%>"><img
+                            src="<%=productItem.getImageSrc()%>"
                             alt="">
                     </a>
                 </div>
 
                 <div class="caption">
-                    <h3><a href="">Quả táo gỗ</a></h3>
+                    <h3><a href="http://localhost:8080/detail-product?id=<%=productItem.getProductId()%>"><%=productItem.getProductName()%></a></h3>
                     <div class="ratting">
+                        <% count = productItem.getRate();
+                            for (int i = 0; i < 5; i++) {
+                                if (count > 0) {%>
                         <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star yellow"></i>
-                        <i class="fa fa-star "></i>
+                        <%} else {%>
+                        <i class="fa fa-star  "></i>
+                        <%
+                            }
+                            count--;
+                        %>
+                        <%}%>
                     </div>
                     <h3 class="price">
-                        514.000 VND
-                        <!-- <span class="price-real">2.520,000 VND</span> -->
+                        <%=Format.format(productItem.getPrice())%> VND
+                        <%if(productItem.getPriceReal()!=0){%>
+                        <span class="price-real"><%=Format.format(productItem.getPriceReal())%> VND</span>
+                        <%}%>
                     </h3>
                 </div>
             </div>
         </div>
+        <%}%>
 
     </div>
 </div>

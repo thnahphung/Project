@@ -20,15 +20,17 @@ public class PaCategoryService implements Serializable {
         return instance;
     }
 
-    public PaCategory getCategoryById(int id){
+    public PaCategory getPaCategoryById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT pa_category_id, `name` from pa_category WHERE pa_category_id = :id").bind("id",id).mapToBean(PaCategory.class).one();
+            return handle.createQuery("SELECT pa_category_id, `name` from pa_category WHERE pa_category_id = :id")
+                    .bind("id", id)
+                    .mapToBean(PaCategory.class).one();
         });
     }
 
 
     public static void main(String[] args) {
-        System.out.println(PaCategoryService.getInstance().getCategoryById(1));
+        System.out.println(PaCategoryService.getInstance().getPaCategoryById(1));
     }
 
 }
