@@ -118,7 +118,24 @@ $(document).ready(function () {
         amountInCart += amountAdd;
         $('.amount-product').text(amountInCart);
 
+        $.ajax({
+            url: "/detailProduct/upComment",
+            type: "get",
+            data: {
+                text: value,
+                rate: rate,
+                idProduct: idProduct
+            },
+            success: function (response) {
+                let containListComment = $('.list-comment');
+                containListComment.children().last().remove();
+                containListComment.prepend(response);
+                $(".write-cmt").val("");
+            },
+            error: function (xhr) {
 
+            }
+        });
     })
 
     $('.write-ratting .fa-star').click(function () {
