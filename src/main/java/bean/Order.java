@@ -127,5 +127,19 @@ public class Order implements Serializable {
                 '}';
     }
 
+    public boolean contain(int idProduct) {
+        for (OrderDetail order : orderDetails) {
+            if (order.getProduct().getProductId() == idProduct)
+                return true;
+        }
+        return false;
+    }
 
+//    public OrderDetail getOderDe
+
+    public void addProduct(int idProduct, int amount) {
+        if (contain(idProduct)) {
+
+        }
+    }
 }
