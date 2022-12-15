@@ -71,15 +71,7 @@ public class Category implements Serializable {
     }
 
     public static void main(String[] args) {
-
-        JDBIConnector.get().registerRowMapper(BeanMapper.factory(PaCategory.class, "pa"));
-        List<Category> categories = JDBIConnector.get().withHandle(handle -> {
-//            handle.registerRowMapper(BeanMapper.factory(Category.class, "c"));
-//            handle.registerRowMapper();
-//            handle.registerRowMapper(JoinRowMapper.forTypes(Category.class, PaCategory.class));
-            return handle.createQuery("SELECT c.category_id,c.name,pa.pa_category_id,pa.name pname FROM category c join pa_category pa on pa.pa_category_id =c.pa_category_id WHERE category_id=2").mapToBean(Category.class).list();
-        });
-        System.out.println(categories);
+        
     }
 
 

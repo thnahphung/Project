@@ -1,6 +1,7 @@
 $(document).ready(function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
+    let click = false;
     $.ajax({
         url: "/detailProduct/loadComment",
         type: "get",
@@ -47,14 +48,32 @@ $(document).ready(function () {
 
     $("button.page-link").click(
         function () {
-            $("button.page-link").parent('.page-item').removeClass("active");
-            $(this).parent('.page-item').addClass("active");
+            let page = $(this).text().trim();
+
+            if (page === 'Previous') {
+                let buttonActive = $('li.active>button');
+                page = buttonActive.text() - 1 <= 0 ? 1 : buttonActive.text() - 1;
+                buttonActive.parent('.page-item').removeClass('active');
+                $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
+            } else if (page === 'Next') {
+
+                let countPage = $('button.page-link').length - 2;
+                let buttonActive = $('li.active>button');
+
+                page = parseInt(buttonActive.text()) + 1 >= countPage ? countPage : parseInt(buttonActive.text()) + 1;
+                buttonActive.parent('.page-item').removeClass('active');
+                $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
+
+            } else {
+                $("button.page-link").parent('.page-item').removeClass("active");
+                $(this).parent('.page-item').addClass("active");
+            }
 
             $.ajax({
                 url: "/detailProduct/loadComment",
                 type: "get",
                 data: {
-                    page: $(this).text().trim(),
+                    page: page,
                     id: urlParams.get('id'),
                 },
                 success: function (response) {
@@ -92,5 +111,36 @@ $(document).ready(function () {
             }
         });
     })
+
+    $('button.btn-add-cart').click(function () {
+        let amountInCart = parseInt($('.amount-product').text());
+        let amountAdd = parseInt($('#quantity').val());
+        amountInCart += amountAdd;
+        $('.amount-product').text(amountInCart);
+    })
+
+    $('.write-ratting .fa-star').click(function () {
+        click = !click;
+        let count = $('.write-ratting .fa-star').index(this);
+        for (let i = 0; i <= $('.write-ratting .fa-star').length; i++) {
+            if (count > 0) {
+                count--;
+                $('.write-ratting .fa-star').eq(i).addClass('yellow');
+            }
+        }
+    })
+
+    $('.write-ratting .fa-star').hover(function () {
+        if (!click) {
+            for (let i = 0; i <= $('.write-ratting .fa-star').index(this); i++) {
+                $('.write-ratting .fa-star').eq(i).addClass('yellow');
+            }
+        }
+    }, function () {
+        if (!click) {
+            $('.write-ratting .fa-star').removeClass('yellow');
+        }
+    })
+
 });
 
