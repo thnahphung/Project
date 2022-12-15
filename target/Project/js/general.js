@@ -27,38 +27,38 @@ $(document).ready(function () {
 
 // ------Search Every Where----------
 $("#search").click(function () {
-        if (window.location == "/listProduct/searches?search=" + $('.search-input').val().trim()) {
-            alert( $('.search-input').val().trim())
-            $.ajax({
-                url: "/listProduct/searches",
-                type: "get",
-                data: {
-                    search: $('.search-input').val().trim()
-                },
-                success: function (response) {
-                    $(".list-product .row").html(response);
-                },
-                error: function (xhr) {
-                    //Do Something to handle error
-                }
-            })
-        } else {
-            window.location = "/listProduct/searches?search=" + $('.search-input').val().trim();
-            // $.ajax({
-            //     url: "/Searches",
-            //     type: "get",
-            //     data: {
-            //         search: $('.search-input').val().trim()
-            //     },
-            //     success: function (response) {
-            //         $(".list-product .row").html(response);
-            //     },
-            //     error: function (xhr) {
-            //         //Do Something to handle error
-            //     }
-            // })
-        }
+    if (window.location == "/listProduct/searches?search=" + $('.search-input').val().trim()) {
+        alert($('.search-input').val().trim())
+        $.ajax({
+            url: "/listProduct/searches",
+            type: "get",
+            data: {
+                search: $('.search-input').val().trim()
+            },
+            success: function (response) {
+                $(".list-product .row").html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        })
+    } else {
+        window.location = "/listProduct/searches?search=" + $('.search-input').val().trim();
+        // $.ajax({
+        //     url: "/Searches",
+        //     type: "get",
+        //     data: {
+        //         search: $('.search-input').val().trim()
+        //     },
+        //     success: function (response) {
+        //         $(".list-product .row").html(response);
+        //     },
+        //     error: function (xhr) {
+        //         //Do Something to handle error
+        //     }
+        // })
     }
+}
 )
 
 

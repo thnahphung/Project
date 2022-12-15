@@ -55,7 +55,7 @@ public class UpComment extends HttpServlet {
                 "\n" +
                 "                    </li>");
 
-        Comment comment = new Comment(id, user, user.getUserID(), text, rate, now);
+        Comment comment = new Comment(id, user, user.getUserId(), text, rate, now);
         CommentService.getInstance().addComment(comment, idProduct);
     }
 
