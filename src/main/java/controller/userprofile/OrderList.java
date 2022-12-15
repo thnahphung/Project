@@ -1,6 +1,7 @@
 package controller.userprofile;
 
 import bean.Order;
+import bean.OrderDetail;
 import bean.User;
 import services.OrderService;
 
@@ -17,7 +18,11 @@ public class OrderList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getUserId());
+//        List<Order> orders = (List<Order>) request.getAttribute("orders");
+//        for (Order order : orders) {
+//
+//            List<OrderDetail> orderDetails = OrderService.getInstance().getOderListByOrderId(order);
+//        }
 
 
     }
