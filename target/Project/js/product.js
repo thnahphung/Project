@@ -117,6 +117,8 @@ $(document).ready(function () {
         let amountAdd = parseInt($('#quantity').val());
         amountInCart += amountAdd;
         $('.amount-product').text(amountInCart);
+
+
     })
 
     $('.write-ratting .fa-star').click(function () {
