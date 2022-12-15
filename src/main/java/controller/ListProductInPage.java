@@ -9,14 +9,15 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ListProductGroup", value = "/listProductGroup")
-public class ListProductGroup extends HttpServlet {
+@WebServlet(name = "ListProductInPage", value = "/listProductInPage")
+public class ListProductInPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String groups = request.getParameter("groups");
+        String pages = (request.getParameter("page"));
         int kind = Integer.parseInt(request.getParameter("kind"));
-        List<Product> productList = ProductService.getInstance().getListProductInGroupName(kind, groups);
-        for (Product product : productList) {
+        String group = request.getParameter("group");
+        List<Product> list = ProductService.getInstance().getListProductInPageName(kind, group, pages);
+        for (Product product : list) {
             StringBuilder rate = new StringBuilder();
             StringBuilder priceReal = new StringBuilder();
             int count = product.getRate();
@@ -54,7 +55,6 @@ public class ListProductGroup extends HttpServlet {
                     "                    </div>");
 
         }
-
     }
 
     @Override

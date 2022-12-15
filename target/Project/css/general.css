@@ -51,8 +51,10 @@ a {
     box-sizing: border-box;
 }
 
-.nav-page .center .active {
-    color: var(--color3);
+.active-navbar {
+    color: var(--color3) !important;
+    border-bottom: 3px var(--color4) solid !important;
+    box-sizing: border-box !important;
 }
 
 
