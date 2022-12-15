@@ -1,14 +1,9 @@
 package services;
 
 import bean.Comment;
-import bean.Product;
-import bean.User;
 import db.JDBIConnector;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,7 +75,7 @@ public class CommentService {
             return handle.createUpdate("INSERT INTO `comment` VALUES (:id, :product_id, :user_id, :document,:rate,:date)")
                     .bind("id", comment.getCommentID())
                     .bind("product_id", idProduct)
-                    .bind("user_id", comment.getUser().getUserID())
+                    .bind("user_id", comment.getUser().getUserId())
                     .bind("document", comment.getDocument())
                     .bind("rate", comment.getRate())
                     .bind("date", comment.getDateComment())

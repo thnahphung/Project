@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    // change information user
     $(".button-save").click(function () {
         let fullName = $("#input-edit-name").val();
         let phoneNumber = $('#input-edit-phone').val();
@@ -25,12 +27,21 @@ $(document).ready(function () {
             }
         });
         $('#formEditInfor').modal('toggle');
-        // $(".modal-backdrop").fadeOut();
     })
 
     function checkNull(text) {
         return text.length == 0 || text == null;
     }
 
+    // order list
+
+    function getDataOrderList() {
+        let table = document.getElementsByClassName('order-list-table');
+        let rowCount = table.length;
+        for (var i = 1; i < rowCount - 1; i++) {
+            var row = table.item(i).toString();
+            alert(row);
+        }
+    }
 
 });

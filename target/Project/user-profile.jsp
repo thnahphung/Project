@@ -1,3 +1,6 @@
+<%@ page import="bean.Order" %>
+<%@ page import="services.OrderService" %>
+<%@ page import="bean.Format" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -20,7 +23,6 @@
 </head>
 
 <body>
-
 
 
 <div id="container">
@@ -112,7 +114,8 @@
                                                     <button type="button" class="button button-close submit"
                                                             data-dismiss="modal">Hủy
                                                     </button>
-                                                    <button type="button" class="button button-save submit" >Lưu thông tin
+                                                    <button type="button" class="button button-save submit">Lưu thông
+                                                        tin
                                                     </button>
                                                 </div>
                                             </div>
@@ -122,39 +125,60 @@
                             </div>
                         </div>
                         <div class="order-list">
-                            <table class="table">
+                            <table class="table order-list-table">
                                 <h3>Danh sách đơn hàng</h3>
                                 <thead>
                                 <tr>
-                                    <th scope="col">Mã đơn hàng</th>
-                                    <th scope="col">Ngày đặt</th>
-                                    <th scope="col">Thành tiền</th>
-                                    <th scope="col">Trạng thái đơn hàng</th>
-                                    <th scope="col">Vận chuyển</th>
+                                    <th scope="colOrderId">Mã đơn hàng</th>
+                                    <th scope="colOrderDate">Ngày đặt</th>
+                                    <th scope="colTotal">Thành tiền</th>
+                                    <th scope="colSttPay">Trạng thái đơn hàng</th>
+                                    <th scope="colSttDelivery">Vận chuyển</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    List<Order> orders = (List<Order>) request.getAttribute("orders");
+                                    for (Order order : orders) {
+
+
+                                %>
+
                                 <tr>
-                                    <th scope="row">#215814</th>
-                                    <td>22/11/2020</td>
-                                    <td>573.000 VND</td>
+                                    <th scope="row">#<%= order.getOrderId()%>
+                                    </th>
+                                    <td><%=Format.formatDate(order.getOrderDate())%>
+                                    </td>
+                                    <td><%=Format.format(order.getTotal())%> VND</td>
+                                    <%if (order.getSttPay()) {%>
+                                    <td>Đã thanh toán</td>
+                                    <%} else {%>
                                     <td>Chưa thanh toán</td>
-                                    <td>Đang giao</td>
+                                    <%}%>
+
+                                    <%if (order.getSttDelivery() == Order.ORDERRECEIVED) {%>
+                                    <td>Đã nhận đơn</td>
+                                    <%} else if (order.getSttDelivery() == Order.CANCELLED) {%>
+                                    <td>Đã hủy</td>
+
+                                    <% } else if (order.getSttDelivery() == Order.SHIPPING) {%>
+                                    <td>Đang giao hàng</td>
+
+                                    <% } else if (order.getSttDelivery() == Order.SUCCESSFUL) {%>
+                                    <td>Giao hàng thành công</td>
+
+                                    <% } else if (order.getSttDelivery() == Order.UNSUCCESSFUL) {%>
+                                    <td>Giao hàng không thành công</td>
+                                    <%}%>
+                                    <td>
+                                        <button class="submit button" id="see-more">Xem thêm <i class="fa-solid fa-circle-info"></i></button>
+                                    </td>
+
                                 </tr>
-                                <tr>
-                                    <th scope="row">#215815</th>
-                                    <td>3/10/2020</td>
-                                    <td>900.000 VND</td>
-                                    <td>Đã thanh toán</td>
-                                    <td>Hoàn thành</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">#215816</th>
-                                    <td>20/7/2020</td>
-                                    <td>1.523.000 VND</td>
-                                    <td>Đã thanh toán</td>
-                                    <td>Hoàn thành</td>
-                                </tr>
+
+                                <%}%>
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -244,16 +268,10 @@
         <!-- end footer -->
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 <script src="js/general.js"></script>
 <script src="js/user-profile.js"></script>
 </body>

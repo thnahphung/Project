@@ -1,6 +1,7 @@
 package bean;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 
 public class Format {
 
@@ -10,4 +11,7 @@ public class Format {
         return decimalFormat.format(num).replace(",", ".");
     }
 
+    public static String formatDate(LocalDateTime date) {
+        return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+    }
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private int userID;
+    private int userId;
     private String fullName;
     private String email;
     private String phoneNumber;
@@ -17,8 +17,8 @@ public class User implements Serializable {
 
     }
 
-    public User(int userID, String fullName, String email, String phoneNumber, String pass, String varieties, String avatar) {
-        this.userID = userID;
+    public User(int userId, String fullName, String email, String phoneNumber, String pass, String varieties, String avatar) {
+        this.userId = userId;
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -27,18 +27,18 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
-    public User(int userID, String fullName, String avatar) {
-        this.userID = userID;
+    public User(int userId, String fullName, String avatar) {
+        this.userId = userId;
         this.fullName = fullName;
         this.avatar = avatar;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFullName() {
@@ -93,7 +93,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userID +
+                "userID=" + userId +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
