@@ -122,6 +122,3 @@ $('.sort-table').change(function () {
     })
 })
 //================ /Sap xep =====================
-$('.btn-add-cart').click(function (){
-    alert($(this).val())
-})
