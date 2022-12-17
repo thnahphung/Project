@@ -1,7 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="bean.Product" %>
 <%@ page import="services.ProductService" %>
-<%@ page import="bean.Category" %>
+<%@ page import="bean.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 >
 <!DOCTYPE html>
@@ -29,29 +28,18 @@
 <div class="address-book-background">
     <div class="container address-book-vs-sort">
         <div class="address-book">
-            <span><a href="home-page.jsp">Trang chủ</a></span><span>|</span>
-            <span><a href="list-product.jsp">Danh sách sản phẩm</a></span>
+            <span><a href="/homepage">Trang chủ</a></span><span>|</span>
+            <span><a href="/listProduct?kind=0">Danh sách sản phẩm</a></span>
         </div>
 
         <div class="sort">
-            <span>Sắp xếp</span>
-            <ul class="sort-table" id="sort-tableID">
-                <li class="sort-item"><a
-                        href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%= request.getAttribute("page")%>&sort=nameA">Tên
-                    từ A-Z</a></li>
-                <li class="sort-item"><a
-                        href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%= request.getAttribute("page")%>&sort=nameZ">Tên
-                    từ Z-A</a></li>
-                <li class="sort-item"><a
-                        href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%= request.getAttribute("page")%>&sort=priceHigh">Giá
-                    từ thấp đến cao</a></li>
-                <li class="sort-item"><a
-                        href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%= request.getAttribute("page")%>&sort=priceLow">Giá
-                    từ cao đến thấp</a></li>
-                <li class="sort-item"><a
-                        href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%= request.getAttribute("page")%>&sort=ratting">Đánh
-                    giá tốt nhất</a></li>
-            </ul>
+            <select name="sort" class="sort-table " id="sort-tableID">
+                <option class="sort-item" value="nameA">A-Z</option>
+                <option class="sort-item" value="nameZ">Z-A</option>
+                <option class="sort-item" value="priceHigh">Giá từ thấp đến cao</option>
+                <option class="sort-item" value="priceLow">Giá từ cao đến thấp</option>
+                <option class="sort-item" value="ratting">Đánh giá tốt nhất</option>
+            </select>
         </div>
     </div>
 
@@ -147,18 +135,19 @@
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><img
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
                                     src="<%= product.getImageSrc()%>" alt="">
                             </a>
                         </div>
                         <div class="button">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
                                class="buy-now"> Mua ngay</a>
+                            <button  class="wish-list btn-add-cart" value="<%= product.getProductId()%>"><i class="fa-solid fa-cart-plus"></i></button>
 
                         </div>
                         <div class="caption">
                             <h3>
-                                <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>&page=1"><%= product.getProductName()%>
+                                <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%= product.getProductName()%>
                                 </a></h3>
                             <div class="ratting">
                                 <% int count = product.getRate();
@@ -175,9 +164,9 @@
                                 <%}%>
                             </div>
                             <h3 class="price">
-                                <%= product.getPrice()%> VND
+                                <%= Format.format(product.getPrice())%> VND
                                 <% if (product.getPriceReal() != 0) {%>
-                                <span class="price-real"><%= product.getPriceReal()%> VND</span>
+                                <span class="price-real"><%= Format.format(product.getPriceReal())%> VND</span>
                                 <%}%>
                             </h3>
                         </div>
@@ -190,47 +179,35 @@
         <!-- pagination -->
         <nav aria-label="Page navigation example" class="pagination-page">
             <ul class="pagination">
-                <%if (((int) request.getAttribute("page")) >= 2) {%>
+
                 <li class="page-item">
-                    <a class="page-link"
-                       href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())-1%>&sort=<%=request.getAttribute("sort")%>"
-                       aria-label="Previous">
+                    <button class="page-link"
+                            aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
-                    </a>
-                    <%}%>
+                    </button>
                 </li>
                 <%
 
                     int count = (int) request.getAttribute("count");
                     for (int i = 0; i < count; i++) {
                 %>
-
-                <%if ((int) request.getAttribute("page") == i + 1) {%>
                 <li class="page-item ">
-                    <button class="page-link active"><%=i + 1%>
-                    </button>
-                </li>
-                <%} else {%>
-                <li class="page-item ">
-                    <button class="page-link "
-                            href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=i+1%>&sort=<%= request.getAttribute("sort")%>"><%=i + 1%>
+                    <button class="page-link "><%=i + 1%>
                     </button>
                 </li>
                 <%
-                        }
                     }
                 %>
-                <%if (((int) request.getAttribute("page")) <= count - 1) {%>
+
                 <li class="page-item">
-                    <a class="page-link"
-                       href="http://localhost:8080/listProduct?kind=<%= request.getAttribute("kind")%>&group=<%=request.getAttribute("group")%>&page=<%=Integer.parseInt(request.getAttribute("page").toString())+1%>&sort=<%=request.getAttribute("sort")%>"
-                       aria-label="Next">
+                    <button class="page-link"
+                            aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
-                    </a>
+                    </button>
                 </li>
-                <%}%>
+
             </ul>
         </nav>
     </div>

@@ -143,7 +143,7 @@ a {
 }
 
 .content .left .type-item .state ul li a,
-.content .left .type-group ul li a, .content .left .type-group ul li button {
+.content .left .type-group ul li button, .content .left .type-group ul li button {
     text-align: left;
     display: block;
     width: 212px;
@@ -158,6 +158,11 @@ a {
 .content .left .type-item ul li:hover,
 .content .left .type-group ul li:hover {
     background-color: #f0e6d4;
+}
+
+.content .left .type-group ul li.active-navbar-left button {
+    background-color: #f0e6d4;
+    color: var(--color2);
 }
 
 .content .left .type-group .group {
@@ -273,6 +278,8 @@ a {
     top: 18px;
     font-size: 23px;
     color: #f15e2c;
+    border: none;
+    background: none;
 }
 
 .list-product .row .thumbnail .caption {
@@ -325,30 +332,25 @@ a {
     padding: 5px;
 }
 
-.pagination .page-item a:focus {
+.pagination .page-item button:focus {
     outline: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
 
-.pagination .page-item a {
+.pagination .page-item button {
     border-radius: 0px;
     color: black;
     font-weight: 500;
     /*padding: 5px;*/
 }
 
-.pagination.active .page-link {
+.page-item.active .page-link {
     background-color: var(--color1);
     border: 1px solid var(--color2);
     color: black;
 }
 
-.active {
-    background-color: var(--color1);
-    border: 1px solid var(--color2);
-    color: black;
-}
 
 .pagination .page-item:first-child {
     margin-right: 10px;
@@ -385,42 +387,31 @@ a {
 
 }
 
-.sort {
-    padding: 13px 0px;
-}
 
-.sort .sort-table {
-    margin-top: 13px;
+
+.sort-table {
+    border: 2px solid var(--color4);
+    cursor: pointer;
+    border-radius: 0px;
+    width: 218px;
     z-index: 20;
-    position: absolute;
-    z-index: 2;
     background: var(--color1);
-    width: 200px;
-    margin-left: -139px;
-    display: none;
-    border: black 1px solid;
+    padding: 3px;
 }
-
-
-.sort .sort-table .sort-item {
+option {
     padding: 10px 0px;
 }
-
-.sort .sort-table .sort-item a {
+option  {
     padding: 0px 10px;
     text-decoration: none;
     font-weight: 600;
     color: var(--color3);
 }
 
-.sort .sort-table .sort-item a:hover {
+ option:hover {
     color: var(--color4);
 }
 
-.sort:hover .sort-table {
-    display: block;
-}
 
-.active-navbar-left button {
-    color: white;
-}
+
+
