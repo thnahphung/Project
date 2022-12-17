@@ -113,24 +113,17 @@ $(document).ready(function () {
     })
 
     $('button.btn-add-cart').click(function () {
-        let amountInCart = parseInt($('.amount-product').text());
         let amountAdd = parseInt($('#quantity').val());
-        amountInCart += amountAdd;
-        $('.amount-product').text(amountInCart);
-
+        let idProduct = parseInt($(this).val());
         $.ajax({
-            url: "/detailProduct/upComment",
+            url: "/cart/addCart",
             type: "get",
             data: {
-                text: value,
-                rate: rate,
-                idProduct: idProduct
+                idProduct: idProduct,
+                amount: amountAdd
             },
             success: function (response) {
-                let containListComment = $('.list-comment');
-                containListComment.children().last().remove();
-                containListComment.prepend(response);
-                $(".write-cmt").val("");
+                $('.amount-product').text(response);
             },
             error: function (xhr) {
 
@@ -160,6 +153,8 @@ $(document).ready(function () {
             $('.write-ratting .fa-star').removeClass('yellow');
         }
     })
+    
+
 
 });
 

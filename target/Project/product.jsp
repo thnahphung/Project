@@ -32,7 +32,8 @@
     <div class="container address-book-vs-sort">
         <div class="address-book">
             <span><a href="/homepage">Trang chủ</a></span><span>|</span>
-            <span><a href="list-product.jsp"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
+            <span><a
+                    href="list-product.jsp"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
             <span><a href="list-product.jsp"><%=product.getCategory().getName()%></a></span><span>|</span>
             <span><a href="product.jsp"><%=product.getProductName()%></a></span>
         </div>
@@ -86,7 +87,8 @@
                 <h5 class="text uppercase">số lượng</h5>
                 <input type="number" id="quantity" class="input" name="quantity" min="1" max="20" placeholder=" "
                        value="1">
-                <button class="btn-add-cart uppercase submit">thêm vào giỏ hàng</button>
+                <button class="btn-add-cart uppercase submit" value="<%=product.getProductId()%>">thêm vào giỏ hàng
+                </button>
                 <button class="btn-buy uppercase submit">thanh toán</button>
             </div>
 
@@ -219,7 +221,9 @@
                 </div>
 
                 <div class="caption">
-                    <h3><a href="http://localhost:8080/detail-product?id=<%=productItem.getProductId()%>"><%=productItem.getProductName()%></a></h3>
+                    <h3>
+                        <a href="http://localhost:8080/detail-product?id=<%=productItem.getProductId()%>"><%=productItem.getProductName()%>
+                        </a></h3>
                     <div class="ratting">
                         <% count = productItem.getRate();
                             for (int i = 0; i < 5; i++) {
@@ -235,7 +239,7 @@
                     </div>
                     <h3 class="price">
                         <%=Format.format(productItem.getPrice())%> VND
-                        <%if(productItem.getPriceReal()!=0){%>
+                        <%if (productItem.getPriceReal() != 0) {%>
                         <span class="price-real"><%=Format.format(productItem.getPriceReal())%> VND</span>
                         <%}%>
                     </h3>
