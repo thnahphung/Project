@@ -70,4 +70,13 @@ public class OrderDetail implements Serializable {
                 ", quantity=" + quantity +
                 '}';
     }
+
+    public int total() {
+        return product.getPrice() * quantity;
+    }
+
+    public int totalSale() {
+        return product.getPriceReal() * quantity;
+    }
+
 }

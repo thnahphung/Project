@@ -1,7 +1,11 @@
 package bean;
 
+import services.OrderDetailService;
+import services.ProductService;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Serializable {
@@ -127,5 +131,61 @@ public class Order implements Serializable {
                 '}';
     }
 
+    public int total() {
+        int total = 0;
+        for (OrderDetail orderDetail : orderDetails) {
+            total += orderDetail.total();
+        }
+        return total;
+    }
 
+    public int totalReal() {
+        int total = 0;
+        for (OrderDetail orderDetail : orderDetails) {
+            total += Math.max(orderDetail.total(), orderDetail.totalSale());
+        }
+        return total;
+    }
+
+    public int amount() {
+        int amount = 0;
+        for (OrderDetail orderDetail : orderDetails) {
+            amount += orderDetail.getQuantity();
+        }
+        return amount;
+    }
+
+    public boolean contain(int idProduct) {
+        for (OrderDetail orderDetail : orderDetails) {
+            if (orderDetail.getProduct().getProductId() == idProduct)
+                return true;
+        }
+        return false;
+    }
+
+    public OrderDetail getOderDetail(int idProduct) {
+        for (OrderDetail orderDetail : orderDetails) {
+            if (orderDetail.getProduct().getProductId() == idProduct)
+                return orderDetail;
+        }
+        return null;
+    }
+
+    public void addProduct(int idProduct, int amount) {
+        OrderDetail orderDetail;
+        if (contain(idProduct)) {
+            orderDetail = getOderDetail(idProduct);
+            orderDetail.setQuantity(orderDetail.getQuantity() + amount);
+            OrderDetailService.getInstance().update(orderDetail);
+        } else {
+            orderDetail = new OrderDetail();
+            orderDetail.setOrderDetailId(OrderDetailService.getInstance().nextId());
+            orderDetail.setOrderId(this.getOrderId());
+            orderDetail.setProductId(idProduct);
+            orderDetail.setProduct(ProductService.getInstance().getProductById(idProduct));
+            orderDetail.setQuantity(amount);
+            OrderDetailService.getInstance().add(orderDetail);
+            orderDetails.add(orderDetail);
+        }
+    }
 }

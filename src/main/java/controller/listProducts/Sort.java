@@ -1,5 +1,6 @@
-package controller;
+package controller.listProducts;
 
+import bean.Format;
 import bean.Product;
 import services.ProductService;
 
@@ -9,14 +10,15 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ListProductGroup", value = "/listProductGroup")
-public class ListProductGroup extends HttpServlet {
+@WebServlet(name = "Sort", value = "/listProducts/sort")
+public class Sort extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String groups = request.getParameter("groups");
+        String sort = request.getParameter("sorts");
         int kind = Integer.parseInt(request.getParameter("kind"));
-        List<Product> productList = ProductService.getInstance().getListProductInGroupName(kind, groups);
-        for (Product product : productList) {
+        String group = request.getParameter("group");
+        List<Product> list = ProductService.getInstance().getSortListProductName(kind,sort,group);
+        for (Product product : list) {
             StringBuilder rate = new StringBuilder();
             StringBuilder priceReal = new StringBuilder();
             int count = product.getRate();
@@ -29,7 +31,7 @@ public class ListProductGroup extends HttpServlet {
                 }
             }
             if (product.getPriceReal() != 0) {
-                priceReal.append(" <span class=\\\"price-real\\\">" + product.getPriceReal() + " VND</span>");
+                priceReal.append(" <span class=\\\"price-real\\\">" + Format.format(product.getPriceReal()) + " VND</span>");
             }
 
 
@@ -47,15 +49,16 @@ public class ListProductGroup extends HttpServlet {
                     "                                <h3><a href=\"http://localhost:8080/detail-product?id=" + product.getProductId() + "&page=1\">" + product.getProductName() + "</a></h3>\n" +
                     "                                <div class=\"ratting\">\n" + rate +
                     "                                </div>\n" +
-                    "                                <h3 class=\"price\">\n" + product.getPrice() + " VND\n" + priceReal +
+                    "                                <h3 class=\"price\">\n" + Format.format(product.getPrice()) + " VND\n" + priceReal +
                     "                                </h3>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                    </div>");
 
         }
-
     }
+
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

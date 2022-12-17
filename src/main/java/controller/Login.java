@@ -8,11 +8,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "Login", value = "/doLogin" )
+@WebServlet(name = "Login", value = "/doLogin")
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.getRequestDispatcher("login.jsp").forward(request,response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     @Override
@@ -20,17 +20,17 @@ public class Login extends HttpServlet {
         String username = request.getParameter("user");
         String password = request.getParameter("password");
         User user = UserService.getInstance().checkLogin(username, password);
-        if(user == null){
+        if (user == null) {
             request.setAttribute("error", "Sai tài khoản hoặc mật khẩu");
             request.getRequestDispatcher("login.jsp").forward(request,response);
         } else if (user.getUserId()==1) {
             HttpSession session = request.getSession(true);
-            session.setAttribute("auth",user);
-            request.getRequestDispatcher("admin.jsp").forward(request,response);
+            session.setAttribute("authAdmin", user);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
 
-        } else{
+        } else {
             HttpSession session = request.getSession(true);
-            session.setAttribute("auth",user);
+            session.setAttribute("auth", user);
             response.sendRedirect("homepage");
         }
 

@@ -25,12 +25,18 @@ body {
     margin-top: 80px;
 }
 
-.container .row .col-8 .title {
+.container .row .title {
     background: var(--color1);
     padding: 15px 20px;
 }
 
 /*list product start*/
+.notification {
+    font-size: 20px;
+    color: var(--color4);
+    text-align: center;
+}
+
 .content .list-product {
     padding-right: 40px;
 }

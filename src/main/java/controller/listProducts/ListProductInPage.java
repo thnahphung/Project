@@ -1,5 +1,6 @@
-package controller;
+package controller.listProducts;
 
+import bean.Format;
 import bean.Product;
 import services.ProductService;
 
@@ -9,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ListProductInPage", value = "/listProductInPage")
+@WebServlet(name = "ListProductInPage", value = "/listProducts/listProductInPage")
 public class ListProductInPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +31,7 @@ public class ListProductInPage extends HttpServlet {
                 }
             }
             if (product.getPriceReal() != 0) {
-                priceReal.append(" <span class=\\\"price-real\\\">" + product.getPriceReal() + " VND</span>");
+                priceReal.append(" <span class=\\\"price-real\\\">" + Format.format(product.getPriceReal()) + " VND</span>");
             }
 
 
@@ -48,7 +49,7 @@ public class ListProductInPage extends HttpServlet {
                     "                                <h3><a href=\"http://localhost:8080/detail-product?id=" + product.getProductId() + "&page=1\">" + product.getProductName() + "</a></h3>\n" +
                     "                                <div class=\"ratting\">\n" + rate +
                     "                                </div>\n" +
-                    "                                <h3 class=\"price\">\n" + product.getPrice() + " VND\n" + priceReal +
+                    "                                <h3 class=\"price\">\n" + Format.format(product.getPrice()) + " VND\n" + priceReal +
                     "                                </h3>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +

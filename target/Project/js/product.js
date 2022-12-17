@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     let click = false;
@@ -9,11 +9,10 @@ $(document).ready(function () {
             page: '1',
             id: urlParams.get('id'),
         },
-        success: function (response) {
+        success: function(response) {
             $(".list-comment").html(response);
         },
-        error: function (xhr) {
-        }
+        error: function(xhr) {}
     });
 
     $('.slider-show-img').slick({
@@ -47,47 +46,46 @@ $(document).ready(function () {
     });
 
     $("button.page-link").click(
-        function () {
-            let page = $(this).text().trim();
+            function() {
+                let page = $(this).text().trim();
 
-            if (page === 'Previous') {
-                let buttonActive = $('li.active>button');
-                page = buttonActive.text() - 1 <= 0 ? 1 : buttonActive.text() - 1;
-                buttonActive.parent('.page-item').removeClass('active');
-                $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
-            } else if (page === 'Next') {
+                if (page === 'Previous') {
+                    let buttonActive = $('li.active>button');
+                    page = buttonActive.text() - 1 <= 0 ? 1 : buttonActive.text() - 1;
+                    buttonActive.parent('.page-item').removeClass('active');
+                    $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
+                } else if (page === 'Next') {
 
-                let countPage = $('button.page-link').length - 2;
-                let buttonActive = $('li.active>button');
+                    let countPage = $('button.page-link').length - 2;
+                    let buttonActive = $('li.active>button');
 
-                page = parseInt(buttonActive.text()) + 1 >= countPage ? countPage : parseInt(buttonActive.text()) + 1;
-                buttonActive.parent('.page-item').removeClass('active');
-                $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
+                    page = parseInt(buttonActive.text()) + 1 >= countPage ? countPage : parseInt(buttonActive.text()) + 1;
+                    buttonActive.parent('.page-item').removeClass('active');
+                    $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
 
-            } else {
-                $("button.page-link").parent('.page-item').removeClass("active");
-                $(this).parent('.page-item').addClass("active");
-            }
-
-            $.ajax({
-                url: "/detailProduct/loadComment",
-                type: "get",
-                data: {
-                    page: page,
-                    id: urlParams.get('id'),
-                },
-                success: function (response) {
-                    $(".list-comment").html(response);
-                },
-                error: function (xhr) {
+                } else {
+                    $("button.page-link").parent('.page-item').removeClass("active");
+                    $(this).parent('.page-item').addClass("active");
                 }
-            });
-        }
-    )
-    //search product
+
+                $.ajax({
+                    url: "/detailProduct/loadComment",
+                    type: "get",
+                    data: {
+                        page: page,
+                        id: urlParams.get('id'),
+                    },
+                    success: function(response) {
+                        $(".list-comment").html(response);
+                    },
+                    error: function(xhr) {}
+                });
+            }
+        )
+        //search product
 
 
-    $("#submit-cmt").click(function () {
+    $("#submit-cmt").click(function() {
         let idProduct = urlParams.get("id");
         let value = $(".write-cmt").val();
         let rate = $('.write-ratting .yellow').length;
@@ -100,45 +98,38 @@ $(document).ready(function () {
                 rate: rate,
                 idProduct: idProduct
             },
-            success: function (response) {
+            success: function(response) {
                 let containListComment = $('.list-comment');
                 containListComment.children().last().remove();
                 containListComment.prepend(response);
                 $(".write-cmt").val("");
             },
-            error: function (xhr) {
+            error: function(xhr) {
 
             }
         });
     })
 
-    $('button.btn-add-cart').click(function () {
-        let amountInCart = parseInt($('.amount-product').text());
+    $('button.btn-add-cart').click(function() {
         let amountAdd = parseInt($('#quantity').val());
-        amountInCart += amountAdd;
-        $('.amount-product').text(amountInCart);
-
+        let idProduct = parseInt($(this).val());
         $.ajax({
-            url: "/detailProduct/upComment",
+            url: "/cart/addCart",
             type: "get",
             data: {
-                text: value,
-                rate: rate,
-                idProduct: idProduct
+                idProduct: idProduct,
+                amount: amountAdd
             },
-            success: function (response) {
-                let containListComment = $('.list-comment');
-                containListComment.children().last().remove();
-                containListComment.prepend(response);
-                $(".write-cmt").val("");
+            success: function(response) {
+                $('.amount-product').text(response);
             },
-            error: function (xhr) {
+            error: function(xhr) {
 
             }
         });
     })
 
-    $('.write-ratting .fa-star').click(function () {
+    $('.write-ratting .fa-star').click(function() {
         click = !click;
         let count = $('.write-ratting .fa-star').index(this);
         for (let i = 0; i <= $('.write-ratting .fa-star').length; i++) {
@@ -149,17 +140,18 @@ $(document).ready(function () {
         }
     })
 
-    $('.write-ratting .fa-star').hover(function () {
+    $('.write-ratting .fa-star').hover(function() {
         if (!click) {
             for (let i = 0; i <= $('.write-ratting .fa-star').index(this); i++) {
                 $('.write-ratting .fa-star').eq(i).addClass('yellow');
             }
         }
-    }, function () {
+    }, function() {
         if (!click) {
             $('.write-ratting .fa-star').removeClass('yellow');
         }
     })
 
-});
 
+
+});
