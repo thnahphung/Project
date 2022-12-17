@@ -12,12 +12,7 @@ body {
 /*header start*/
 
 
-
 /*header end*/
-
-
-
-
 
 
 /*content start*/
@@ -108,7 +103,7 @@ body {
     margin-bottom: 20px;
 }
 
-.content .list-product .product .right .bottom button {
+.content .list-product .product .right .bottom button{
     float: right;
     width: 120px;
     height: 40px;
@@ -125,7 +120,8 @@ body {
     justify-content: space-between;
 }
 
-.content .contain-btn button {
+.content .contain-btn button,
+.content .contain-btn a {
     height: 50px;
     width: 300px;
     font-size: 20px;
@@ -134,8 +130,12 @@ body {
     color: #FFF;
     border: none;
 }
+.content .contain-btn a{
+    text-align: center;
+    line-height: 50px;
+}
 
-/*list product end*/
+    /*list product end*/
 
 
 /*bill start*/
@@ -163,7 +163,7 @@ body {
     margin-top: 20px;
 }
 
-.contain-bill .top .input-voucher button {
+.contain-bill .top .input-voucher button{
     width: 100px;
     height: 40px;
     color: #FFF;
@@ -201,7 +201,7 @@ body {
     margin-top: 10px;
 }
 
-button.submit:hover {
+.submit:hover {
     background-color: var(--color4) !important;
 }
 
@@ -209,15 +209,10 @@ button.submit:hover {
 /*bill end*/
 
 
-
 /*content end*/
 
 
-
-
-
 /*footer start*/
-
 
 
 /*footer end*/
