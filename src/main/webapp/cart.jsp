@@ -66,7 +66,9 @@
                                 <div class="stocking">Còn hàng</div>
                             </div>
                             <div class="bottom">
-                                <button class="btn-remove" value="<%=cartDetail.getOrderDetailId()%>"><i class="fa-solid fa-trash"></i> Xóa</button>
+                                <button class="btn-remove" value="<%=cartDetail.getOrderDetailId()%>"><i
+                                        class="fa-solid fa-trash"></i> Xóa
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -86,7 +88,8 @@
                 <%if (!cart.getOrderDetails().isEmpty()) {%>
                 <button class="delete-all uppercase submit">Xóa tất cả</button>
                 <%}%>
-                <button class="return uppercase submit">quay lại mua hàng</button>
+                <a href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>"
+                   class="return uppercase submit">quay lại mua hàng</a>
             </div>
         </div>
         <%if (!cart.getOrderDetails().isEmpty()) {%>
