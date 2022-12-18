@@ -188,7 +188,7 @@
                     </div>
                     <div class="images">
                         <label>Hình ảnh sản phẩm</label>
-                        <button class="submit">tải ảnh lên</button>
+                        <button class="submit">Tải ảnh lên</button>
                     </div>
                     <div class="parameter">
                         <label>Thông số sản phẩm</label>

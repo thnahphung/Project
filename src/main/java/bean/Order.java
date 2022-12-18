@@ -22,16 +22,19 @@ public class Order implements Serializable {
     private int userId;
     private int total;
     private String note;
+
     private int sttDelivery;
     private boolean sttPay;
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate;
     private List<OrderDetail> orderDetails;
+    private int addressId;
+    private Address address;
 
     public Order() {
     }
 
-    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails) {
+    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails, int addressId, Address address) {
         this.orderId = orderId;
         this.userId = userId;
         this.total = total;
@@ -41,6 +44,8 @@ public class Order implements Serializable {
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
         this.orderDetails = orderDetails;
+        this.addressId = addressId;
+        this.address = address;
     }
 
     public int getOrderId() {
@@ -83,7 +88,7 @@ public class Order implements Serializable {
         this.sttDelivery = sttDelivery;
     }
 
-    public boolean getSttPay() {
+    public boolean isSttPay() {
         return sttPay;
     }
 
@@ -113,13 +118,28 @@ public class Order implements Serializable {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
 
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "oderId=" + orderId +
+                "orderId=" + orderId +
                 ", userId=" + userId +
                 ", total=" + total +
                 ", note='" + note + '\'' +
@@ -128,6 +148,8 @@ public class Order implements Serializable {
                 ", orderDate=" + orderDate +
                 ", deliveryDate=" + deliveryDate +
                 ", orderDetails=" + orderDetails +
+                ", addressId=" + addressId +
+                ", address=" + address +
                 '}';
     }
 
