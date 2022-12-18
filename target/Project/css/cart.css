@@ -121,7 +121,8 @@ body {
 }
 
 .content .contain-btn button,
-.content .contain-btn a {
+.content .contain-btn a,
+.btn-total{
     height: 50px;
     width: 300px;
     font-size: 20px;

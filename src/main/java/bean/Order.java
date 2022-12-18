@@ -1,6 +1,7 @@
 package bean;
 
 import services.OrderDetailService;
+import services.OrderService;
 import services.ProductService;
 
 import java.io.Serializable;
@@ -171,6 +172,14 @@ public class Order implements Serializable {
         return null;
     }
 
+    public OrderDetail getOderDetailByIdDetail(int idDetail) {
+        for (OrderDetail orderDetail : orderDetails) {
+            if (orderDetail.getOrderDetailId() == idDetail)
+                return orderDetail;
+        }
+        return null;
+    }
+
     public void addProduct(int idProduct, int amount) {
         OrderDetail orderDetail;
         if (contain(idProduct)) {
@@ -188,4 +197,16 @@ public class Order implements Serializable {
             orderDetails.add(orderDetail);
         }
     }
+
+    public void removeDetail(int id) {
+        orderDetails.remove(getOderDetailByIdDetail(id));
+        OrderDetailService.getInstance().remove(id);
+    }
+
+    public void removeAll() {
+        OrderService.getInstance().removeAllDetailByOrderId(this.orderId);
+        orderDetails.clear();
+    }
+
+
 }

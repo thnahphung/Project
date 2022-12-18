@@ -3,6 +3,7 @@
 <%@ page import="bean.Product" %>
 <%@ page import="services.ProductService" %>
 <%@ page import="bean.User" %>
+<%@ page import="bean.Order" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <ul class="nav nav-page">
     <li class=" left">
@@ -38,6 +39,7 @@
         </div>
 
         <% User user = (User) session.getAttribute("auth");
+            Order cart = (Order) session.getAttribute("cart");
             if (user != null) {%>
         <a href="/user-profile.jsp" class="item-right">
             <img src="<%=user.getAvatar()%>" alt="">
@@ -54,7 +56,11 @@
 
         <a href="/cart" class="item-right"><i
                 class="fa-solid fa-cart-shopping"></i>
+            <%if (cart != null) {%>
+            <p>Giỏ hàng (<span class="amount-product"><%=cart.amount()%></span>)</p>
+            <%} else {%>
             <p>Giỏ hàng (<span class="amount-product">0</span>)</p>
+            <%}%>
         </a>
     </li>
 </ul>

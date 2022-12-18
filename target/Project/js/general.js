@@ -14,6 +14,64 @@ $(document).ready(function () {
         }
     }); //missing );
 
+    $('button.btn-add-cart').click(function () {
+        let amountAdd = parseInt($('#quantity').val());
+        let idProduct = parseInt($(this).val());
+        if (isNaN(amountAdd)) {
+            amountAdd = 1;
+        }
+        console.log(idProduct);
+        console.log(amountAdd);
+        $.ajax({
+            url: "/cart/addCart",
+            type: "get",
+            data: {
+                idProduct: idProduct,
+                amount: amountAdd
+            },
+            success: function (response) {
+                $('.amount-product').text(response);
+            },
+            error: function (xhr) {
+
+            }
+        });
+    })
+
+    $("#search").click(function () {
+            if (window.location == "/searches?search=" + $('.search-input').val().trim()) {
+                alert($('.search-input').val().trim())
+                $.ajax({
+                    url: "/searches",
+                    type: "get",
+                    data: {
+                        search: $('.search-input').val().trim()
+                    },
+                    success: function (response) {
+                        $(".list-product .row").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                })
+            } else {
+                window.location = "/searches?search=" + $('.search-input').val().trim();
+                // $.ajax({
+                //     url: "/Searches",
+                //     type: "get",
+                //     data: {
+                //         search: $('.search-input').val().trim()
+                //     },
+                //     success: function (response) {
+                //         $(".list-product .row").html(response);
+                //     },
+                //     error: function (xhr) {
+                //         //Do Something to handle error
+                //     }
+                // })
+            }
+        }
+    )
     // document ready  
 });
 
@@ -26,39 +84,6 @@ $(document).ready(function () {
 // }
 
 // ------Search Every Where----------
-$("#search").click(function () {
-        if (window.location == "/searches?search=" + $('.search-input').val().trim()) {
-            alert( $('.search-input').val().trim())
-            $.ajax({
-                url: "/searches",
-                type: "get",
-                data: {
-                    search: $('.search-input').val().trim()
-                },
-                success: function (response) {
-                    $(".list-product .row").html(response);
-                },
-                error: function (xhr) {
-                    //Do Something to handle error
-                }
-            })
-        } else {
-            window.location = "/searches?search=" + $('.search-input').val().trim();
-            // $.ajax({
-            //     url: "/Searches",
-            //     type: "get",
-            //     data: {
-            //         search: $('.search-input').val().trim()
-            //     },
-            //     success: function (response) {
-            //         $(".list-product .row").html(response);
-            //     },
-            //     error: function (xhr) {
-            //         //Do Something to handle error
-            //     }
-            // })
-        }
-    }
-)
+
 
 

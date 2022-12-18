@@ -14,10 +14,8 @@ import java.io.IOException;
 public class RemoveAllProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("auth");
-
-        Order cart = OrderService.getInstance().getCartByUserId(user.getUserId());
-        OrderService.getInstance().removeAllDetailByOrderId(cart.getOrderId());
+        Order cart = (Order) request.getSession().getAttribute("cart");
+      cart.removeAll();
     }
 
     @Override
