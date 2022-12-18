@@ -121,10 +121,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <%-- end modal for button sua--%>
                                 </div>
                             </div>
                         </div>
-                        <div class="order-list">
+                        <div class="order-list form">
                             <table class="table order-list-table">
                                 <h3>Danh sách đơn hàng</h3>
                                 <thead>
@@ -150,7 +151,7 @@
                                     <td><%=Format.formatDate(order.getOrderDate())%>
                                     </td>
                                     <td><%=Format.format(order.getTotal())%> VND</td>
-                                    <%if (order.getSttPay()) {%>
+                                    <%if (order.isSttPay()) {%>
                                     <td>Đã thanh toán</td>
                                     <%} else {%>
                                     <td>Chưa thanh toán</td>
@@ -171,7 +172,9 @@
                                     <td>Giao hàng không thành công</td>
                                     <%}%>
                                     <td>
-                                        <button class="submit button" id="see-more">Xem thêm <i class="fa-solid fa-circle-info"></i></button>
+                                        <a href="/showOrderDetail?orderId=<%=order.getOrderId()%>"  class="submit button see-more" >Chi tiết <i
+                                                class="fa-solid fa-circle-info"></i></a>
+
                                     </td>
 
                                 </tr>
@@ -182,6 +185,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+
                     </div>
                     <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
                         <div class="choose-address">
@@ -269,9 +274,13 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
 <script src="js/general.js"></script>
 <script src="js/user-profile.js"></script>
 </body>

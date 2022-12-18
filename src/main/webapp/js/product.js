@@ -112,24 +112,7 @@ $(document).ready(function () {
         });
     })
 
-    $('button.btn-add-cart').click(function () {
-        let amountAdd = parseInt($('#quantity').val());
-        let idProduct = parseInt($(this).val());
-        $.ajax({
-            url: "/cart/addCart",
-            type: "get",
-            data: {
-                idProduct: idProduct,
-                amount: amountAdd
-            },
-            success: function (response) {
-                $('.amount-product').text(response);
-            },
-            error: function (xhr) {
 
-            }
-        });
-    })
 
     $('.write-ratting .fa-star').click(function () {
         click = !click;

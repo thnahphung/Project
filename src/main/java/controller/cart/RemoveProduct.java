@@ -15,16 +15,15 @@ import java.io.IOException;
 public class RemoveProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("auth");
-        int idProduct = Integer.parseInt(request.getParameter("idProduct"));
-        OrderDetailService.getInstance().remove(idProduct);
+        int idDetail = Integer.parseInt(request.getParameter("idDetail"));
 
-        Order cart = OrderService.getInstance().getCartByUserId(user.getUserId());
+        Order cart = (Order) request.getSession().getAttribute("cart");
+        cart.removeDetail(idDetail);
 
         response.getWriter().println(Format.format(cart.total()));
         response.getWriter().println(Format.format(cart.totalReal() - cart.total()));
         response.getWriter().println(Format.format(cart.totalReal()));
-
+        response.getWriter().println(cart.amount());
 
     }
 

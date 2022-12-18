@@ -27,7 +27,8 @@ public class OrderService implements Serializable {
         return JDBIConnector.get().withHandle(handle -> {
             List<Order> orders = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date\n" +
                             "from ord o\n" +
-                            "WHERE user_id = ?;")
+                            "WHERE user_id = ?\n" +
+                            "ORDER BY order_date ASC;")
                     .bind(0, userId)
                     .mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orders) {
@@ -37,19 +38,22 @@ public class OrderService implements Serializable {
         });
     }
 
-    public List<Order> getOderListByOrderId(int orderId) {
+    public Order getOrderByOrderId(int orderId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orders = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date, od.order_detail_id\n" +
-                            "from ord o JOIN order_detail od on o.order_id = od.order_id where order_id = ?;")
+            Order order = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id\n" +
+                            "                            from ord o  where o.order_id = ?;")
                     .bind(0, orderId)
-                    .mapToBean(Order.class).stream().collect(Collectors.toList());
-            for (Order order : orders) {
-                order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
-            }
-            return orders;
+                    .mapToBean(Order.class).one();
+
+            order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
+            order.setAddress(AddressService.getInstance().getAddressByAddressId(order.getAddressId()));
+            return order;
         });
     }
 
+    public static void main(String[] args) {
+        System.out.println(OrderService.getInstance().getOrderByOrderId(1));
+    }
     public void add(Order order) {
         JDBIConnector.get().withHandle(handle -> {
             int num = handle.createUpdate("INSERT INTO `ord` VALUES (:order_id,:user_id,:total,:note,:stt_delivery,:stt_pay,:order_date,:delivery_date)")
@@ -58,7 +62,7 @@ public class OrderService implements Serializable {
                     .bind("total", order.getTotal())
                     .bind("note", order.getNote())
                     .bind("stt_delivery", order.getSttDelivery())
-                    .bind("stt_pay", order.getSttPay())
+                    .bind("stt_pay", order.isSttPay())
                     .bind("order_date", order.getOrderDate())
                     .bind("delivery_date", order.getDeliveryDate())
                     .execute();
@@ -94,10 +98,10 @@ public class OrderService implements Serializable {
         });
     }
 
-    public void removeAllDetailByOrderId(int id){
+    public void removeAllDetailByOrderId(int id) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("DELETE FROM order_detail WHERE order_id = :id")
-                    .bind("id",id)
+                    .bind("id", id)
                     .execute();
         });
     }

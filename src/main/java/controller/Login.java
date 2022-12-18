@@ -1,6 +1,8 @@
 package controller;
 
 import bean.User;
+import services.OrderDetailService;
+import services.OrderService;
 import services.UserService;
 
 import javax.servlet.*;
@@ -22,8 +24,8 @@ public class Login extends HttpServlet {
         User user = UserService.getInstance().checkLogin(username, password);
         if (user == null) {
             request.setAttribute("error", "Sai tài khoản hoặc mật khẩu");
-            request.getRequestDispatcher("login.jsp").forward(request,response);
-        } else if (user.getUserId()==1) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else if (user.getUserId() == 1) {
             HttpSession session = request.getSession(true);
             session.setAttribute("authAdmin", user);
             request.getRequestDispatcher("admin.jsp").forward(request, response);
@@ -31,7 +33,9 @@ public class Login extends HttpServlet {
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("auth", user);
+            session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getUserId()));
             response.sendRedirect("homepage");
+
         }
 
 

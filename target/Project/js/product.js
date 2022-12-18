@@ -127,34 +127,31 @@ $(document).ready(function () {
             },
             error: function (xhr) {
 
-            }
-        });
-    })
 
-    $('.write-ratting .fa-star').click(function () {
-        click = !click;
-        let count = $('.write-ratting .fa-star').index(this);
-        for (let i = 0; i <= $('.write-ratting .fa-star').length; i++) {
-            if (count > 0) {
-                count--;
-                $('.write-ratting .fa-star').eq(i).addClass('yellow');
-            }
-        }
-    })
+                $('.write-ratting .fa-star').click(function () {
+                    click = !click;
+                    let count = $('.write-ratting .fa-star').index(this);
+                    for (let i = 0; i <= $('.write-ratting .fa-star').length; i++) {
+                        if (count > 0) {
+                            count--;
+                            $('.write-ratting .fa-star').eq(i).addClass('yellow');
+                        }
+                    }
+                })
 
-    $('.write-ratting .fa-star').hover(function () {
-        if (!click) {
-            for (let i = 0; i <= $('.write-ratting .fa-star').index(this); i++) {
-                $('.write-ratting .fa-star').eq(i).addClass('yellow');
-            }
-        }
-    }, function () {
-        if (!click) {
-            $('.write-ratting .fa-star').removeClass('yellow');
-        }
-    })
-    
+                $('.write-ratting .fa-star').hover(function () {
+                    if (!click) {
+                        for (let i = 0; i <= $('.write-ratting .fa-star').index(this); i++) {
+                            $('.write-ratting .fa-star').eq(i).addClass('yellow');
+                        }
+                    }
+                }, function () {
+                    if (!click) {
+                        $('.write-ratting .fa-star').removeClass('yellow');
+                    }
+                })
 
 
-});
+
+            });
 

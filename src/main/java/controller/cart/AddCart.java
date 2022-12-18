@@ -25,7 +25,7 @@ public class AddCart extends HttpServlet {
 
         int amount = Integer.parseInt(request.getParameter("amount"));
 
-        Order cart = OrderService.getInstance().getCartByUserId(user.getUserId());
+        Order cart = (Order) request.getSession().getAttribute("cart");
 
         cart.addProduct(idProduct, amount);
         response.getWriter().println(cart.amount());
