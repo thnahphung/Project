@@ -23,7 +23,10 @@
 </head>
 
 <body>
+<%
+    Order order = (Order) request.getAttribute("order");
 
+%>
 
 <div id="container">
     <!-- header -->
@@ -71,121 +74,56 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li><%=user.getFullName()%>
+                                    <li><%=order.getAddress().getName()%>
                                     </li>
-                                    <li><%=user.getPhoneNumber()%>
+                                    <li>
                                     </li>
-                                    <li><%=user.getEmail()%>
+                                    <li>
                                     </li>
                                 </ul>
 
-                                <div class="inf-right">
-                                    <button type="button" class="btn-add-address button submit" id="edit-info"
-                                            data-toggle="modal" data-target="#formEditInfor">
-                                        Sửa
-                                    </button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="formEditInfor" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title uppercase" id="modalLongTitle">Sửa thông
-                                                        tin</h5>
-                                                </div>
-                                                <p class="error"></p>
-                                                <div class="modal-body">
-                                                    <div class="form-add-address">
-                                                        <input class="input" type="text" name="input-edit-name"
-                                                               id="input-edit-name"
-                                                               placeholder="Họ tên" value="<%=user.getFullName()%>">
-                                                        <input class="input" type="text" name="input-edit-phone"
-                                                               id="input-edit-phone"
-                                                               placeholder="Số điện thoại"
-                                                               value="<%=user.getPhoneNumber()%>">
-                                                        <input class="input" type="email" name="input-edit-email"
-                                                               id="input-edit-email"
-                                                               placeholder="Email" value="<%=user.getEmail()%>">
-
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="button button-close submit"
-                                                            data-dismiss="modal">Hủy
-                                                    </button>
-                                                    <button type="button" class="button button-save submit">Lưu thông
-                                                        tin
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <%-- end modal for button sua--%>
-                                </div>
                             </div>
                         </div>
-                        <div class="order-list form">
-                            <table class="table order-list-table">
+
+                        <div class="order-detail form">
+                            <table class="table order-detail-table">
                                 <h3>Danh sách đơn hàng</h3>
                                 <thead>
                                 <tr>
-                                    <th scope="colOrderId">Mã đơn hàng</th>
-                                    <th scope="colOrderDate">Ngày đặt</th>
-                                    <th scope="colTotal">Thành tiền</th>
-                                    <th scope="colSttPay">Trạng thái đơn hàng</th>
-                                    <th scope="colSttDelivery">Vận chuyển</th>
+                                    <th scope="col">Tên sản phẩm</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Thành tiền</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%
-                                    List<Order> orders = (List<Order>) request.getAttribute("orders");
-                                    for (Order order : orders) {
 
-
-                                %>
 
                                 <tr>
-                                    <th scope="row">#<%= order.getOrderId()%>
-                                    </th>
-                                    <td><%=Format.formatDate(order.getOrderDate())%>
-                                    </td>
-                                    <td><%=Format.format(order.getTotal())%> VND</td>
-                                    <%if (order.isSttPay()) {%>
-                                    <td>Đã thanh toán</td>
-                                    <%} else {%>
-                                    <td>Chưa thanh toán</td>
-                                    <%}%>
-
-                                    <%if (order.getSttDelivery() == Order.ORDERRECEIVED) {%>
-                                    <td>Đã nhận đơn</td>
-                                    <%} else if (order.getSttDelivery() == Order.CANCELLED) {%>
-                                    <td>Đã hủy</td>
-
-                                    <% } else if (order.getSttDelivery() == Order.SHIPPING) {%>
-                                    <td>Đang giao hàng</td>
-
-                                    <% } else if (order.getSttDelivery() == Order.SUCCESSFUL) {%>
-                                    <td>Giao hàng thành công</td>
-
-                                    <% } else if (order.getSttDelivery() == Order.UNSUCCESSFUL) {%>
-                                    <td>Giao hàng không thành công</td>
-                                    <%}%>
-                                    <td>
-                                        <a href="/showOrderDetail?orderId=<%=order.getOrderId()%>"  class="submit button see-more" >Chi tiết <i
-                                                class="fa-solid fa-circle-info"></i></a>
-
-                                    </td>
+                                    <th scope="row">Cú gỗ trên cây</th>
+                                    <td>563.348 VND</td>
+                                    <td>2</td>
+                                    <td>1.200.000 VND</td>
 
                                 </tr>
+                                <tr>
+                                    <th scope="row">Cú gỗ trên cây</th>
+                                    <td>563.348 VND</td>
+                                    <td>2</td>
+                                    <td>1.200.000 VND</td>
+                                </tr>
 
-                                <%}%>
-
+                                <tr>
+                                    <th scope="row">Cú gỗ trên cây</th>
+                                    <td>563.348 VND</td>
+                                    <td>2</td>
+                                    <td>1.200.000 VND</td>
+                                </tr>
 
                                 </tbody>
                             </table>
+                            <div class="address"></div>
                         </div>
-
 
                     </div>
                     <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">

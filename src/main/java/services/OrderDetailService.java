@@ -1,6 +1,9 @@
 package services;
 
+import bean.Category;
 import bean.OrderDetail;
+import bean.Product;
+import bean.ProductDetail;
 import db.JDBIConnector;
 
 import java.io.Serializable;
@@ -78,6 +81,6 @@ public class OrderDetailService implements Serializable {
 
     public static void main(String[] args) {
         System.out.println(getInstance().nextId());
+        System.out.println(getInstance().getListOrderDetailByOrderId(1));
     }
-
 }

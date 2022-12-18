@@ -107,7 +107,7 @@ button#edit-info{
     width: 60px;
 }
 
-.order-list {
+.form {
     border: 10px solid #bbad963a;
     padding: 25px;
 }
@@ -115,6 +115,7 @@ button#edit-info{
 th,
 td {
     text-align: center;
+
 }
 
 .table td,
@@ -264,13 +265,20 @@ p {
     height: 25px !important;
 }
 
-#see-more{
-    width: 120px !important;
-    height: 30px;
-    font-size: 14px;
-    margin: 0;
+
+
+/*  */
+
+.order-detail .table th, .order-detail .table td{
+    padding:10px 30px;
 }
 /*  */
+td>a {
+    font-size: 14px ;
+    padding: 7px 10px;
+    background-color: var(--color3);
+}
+td>a:hover {
+    color: white;
 
-
-/*  */
+}
