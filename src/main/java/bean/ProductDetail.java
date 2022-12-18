@@ -21,6 +21,18 @@ public class ProductDetail implements Serializable {
     public ProductDetail() {
     }
 
+    public ProductDetail(int productDetailId, String decription, String detail, List<Image> images, int inventory, LocalDateTime createDate, LocalDateTime updateDate, int stt, int quantitySold) {
+        this.productDetailId = productDetailId;
+        this.decription = decription;
+        this.detail = detail;
+        this.images = images;
+        this.inventory = inventory;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.stt = stt;
+        this.quantitySold = quantitySold;
+    }
+
     public List<Image> getImages() {
         return images;
     }

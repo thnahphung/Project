@@ -107,7 +107,7 @@
                    cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" name="all"></th>
+                    <th><input type="checkbox" name="select-all" id="select-all"></th>
                     <th>Hình Ảnh</th>
                     <th>Tên</th>
                     <th>Giá tiền</th>
@@ -132,7 +132,8 @@
                     <td><%=product.getProductDetail().getInventory()%>
                     </td>
                     <td>
-                        <button>
+                        <button class="edit-product" value="<%=product.getProductId()%>" data-toggle="modal"
+                                data-target="#exampleModalCenterEdit">
                             Sửa
                         </button>
                     </td>
@@ -158,7 +159,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-add-address">
+                <form class="form-add-address" >
                     <div class="name">
                         <label>Tên sản phẩm</label>
                         <input class="input" type="text" name="name" id="input-name" placeholder="Tên sản phẩm"></div>
@@ -166,62 +167,95 @@
                         <label>Giá sản phẩm</label>
                         <input class="input" type="number" min="0" name="price" id="input-price"
                                placeholder="Giá sản phẩm... VND"></div>
+                    <div class="priceReal">
+                        <label>Giá khuyến mãi</label>
+                        <input class="input" type="number" min="0" name="priceReal" id="input-priceReal"
+                               placeholder="Giá khuyến mãi... VND"></div>
                     <div class="type">
-                        <label >Loại sản phẩm</label>
-                        <select class="input" name="type">
+                        <label>Loại sản phẩm</label>
+                        <select class="input" name="pa_category" id="input-pa_category" >
                             <option value="1">Gỗ</option>
                             <option value="2">Gốm</option>
                             <option value="3">Tranh</option>
                         </select>
                     </div>
                     <div class="group">
-                        <label >Nhóm sản phẩm</label>
-                        <select class="input" name="group">
+                        <label>Nhóm sản phẩm</label>
+                        <select class="input category" name="category" id="category">
                             <option value="1">Mô hình</option>
                             <option value="2">Gia dụng</option>
                             <option value="3">Văn phòng</option>
                         </select>
                     </div>
-                    <div class="amount">
+                    <div class="inventory">
                         <label>Số lượng</label>
-                        <input class="input" type="number" min="0" name="price" id="input-amount" placeholder="Số lượng ...">
+                        <input class="input" type="number" min="0" name="inventory" id="input-inventory"
+                               placeholder="Số lượng ...">
                     </div>
                     <div class="images">
                         <label>Hình ảnh sản phẩm</label>
-                        <button class="submit">tải ảnh lên</button>
+                        <button class="submit">Tải ảnh lên</button>
                     </div>
-                    <div class="parameter">
+                    <div class="detail">
                         <label>Thông số sản phẩm</label>
-                        <textarea class="input" name="parameter" id="input-parameter"></textarea></div>
-                    <div class="describe">
+                        <textarea class="input" name="detail" id="input-detail"></textarea></div>
+                    <div class="decription">
                         <label>Mô tả sản phẩm</label>
-                        <textarea class="input" name="describe" id="input-describe"></textarea></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                    <button type="button" class="button button-save submit">Lưu sản phẩm</button>
-                </div>
+                        <textarea class="input" name="decription" id="input-decription"></textarea></div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="button button-save submit" id="addProduct"
+                                value="Lưu sản phẩm">Thêm sản phẩm</button>
+                    </div>
+                </form>
             </div>
+
+            <%--                <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>--%>
+            <%--                <button type="button" class="button button-save submit" id="addProduct">Lưu sản phẩm</button>--%>
+
         </div>
     </div>
+</div>
+<div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title uppercase" id="Title">Thêm sản phẩm mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body form-edit">
+
+            </div>
+
+            <%--                <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>--%>
+            <%--                <button type="button" class="button button-save submit" id="addProduct">Lưu sản phẩm</button>--%>
+
+        </div>
+    </div>
+</div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-            integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- <script src="js/general.js"></script> -->
-    <script src="js/jquery.dataTables.min.js"></script>
-    <script src="js/admin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="js/general.js"></script> -->
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/product-manager.js"></script>
 </body>
 
 </html>

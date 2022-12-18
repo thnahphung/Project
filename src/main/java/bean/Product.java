@@ -1,8 +1,6 @@
 package bean;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,6 +16,17 @@ public class Product implements Serializable {
     private ProductDetail productDetail;
 
     public Product() {
+    }
+
+    public Product(int productId, int categoryId, String productName, int price, int priceReal, int rate, String imageSrc,ProductDetail productDetail) {
+        this.productId = productId;
+        this.categoryId = categoryId;
+        this.productName = productName;
+        this.price = price;
+        this.priceReal = priceReal;
+        this.rate = rate;
+        this.imageSrc = imageSrc;
+        this.productDetail=productDetail;
     }
 
     public ProductDetail getProductDetail() {

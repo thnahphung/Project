@@ -5,6 +5,7 @@ import db.JDBIConnector;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -185,13 +186,14 @@ public class ProductService {
             return handle.createQuery("select image_src from image where product_id " + "=" + id).mapTo(String.class).stream().collect(Collectors.toList());
         });
     }
-//------------------ Tong so san pham theo nhom ---------------------
+
+    //------------------ Tong so san pham theo nhom ---------------------
     public int getCountProduct(int kind, String group) {
 
         return getListProductInGroupName(kind, group).size();
     }
 
-//----------------------------- Sap xep san pham ---------------------------
+    //----------------------------- Sap xep san pham ---------------------------
     public List<Product> getSortListProductName(int kind, String sort, String group) {
         List<Product> list = getListProductInGroupName(kind, group);
         switch (sort) {
@@ -239,7 +241,8 @@ public class ProductService {
 
         return list;
     }
-//------------------------------ Tim kiem----------------------------------------
+
+    //------------------------------ Tim kiem----------------------------------------
     public List<Product> getListProductInSearch(String search) {
         List<Product> list = new ArrayList<>();
         List<Product> pr = JDBIConnector.get().withHandle(handle -> {
@@ -251,6 +254,62 @@ public class ProductService {
             }
         }
         return list;
+    }
+
+    //--------------------- Lay id lon nhat trong ban ----------------------------
+    public int nextId() {
+        return 1 + JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(`product_id`) as numberProduct FROM `product`").mapTo(Integer.class).one();
+        });
+    }
+
+    //    --------------------------- Them san pham ----------------------------
+    public void addProduct(Product product) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO product VALUES (:productId, :categoryId, :name, :price, :priceReal, :rate, :imgSrc, :proDetailId)")
+                    .bind("productId", nextId())
+                    .bind("categoryId", product.getCategoryId())
+                    .bind("name", product.getProductName())
+                    .bind("price", product.getPrice())
+                    .bind("priceReal", product.getPriceReal())
+                    .bind("rate", product.getRate())
+                    .bind("imgSrc", product.getImageSrc())
+                    .bind("proDetailId", product.getProductDetail().getProductDetailId())
+                    .execute();
+        });
+    }
+
+    // ------------------------- Sua san pham ----------------------------------
+    public void editProduct(Product product) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE product SET product_name=?, price=?,price_real=? where product_id=?s)")
+                    .bind("productId", product.getProductId())
+                    .bind("categoryId", product.getCategoryId())
+                    .bind("name", product.getProductName())
+                    .bind("price", product.getPrice())
+                    .bind("priceReal", product.getPriceReal())
+                    .bind("rate", 0)
+                    .bind("imgSrc", product.getImageSrc())
+                    .bind("proDetailId", product.getProductDetail().getProductDetailId())
+                    .execute();
+        });
+    }
+
+    //------------------------- Them chi tiet san pham ---------------------------
+    public void addProductDetail(ProductDetail product) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO product_detail VALUES (:productDetailId, :decription, :detail, :inventory, :createDate, :updateDate, :stt, :quantitySold,:user)")
+                    .bind("productDetailId", nextId())
+                    .bind("decription", product.getDecription())
+                    .bind("detail", product.getDetail())
+                    .bind("inventory", product.getInventory())
+                    .bind("createDate", LocalDateTime.now())
+                    .bind("updateDate", LocalDateTime.now())
+                    .bind("stt", 0)
+                    .bind("quantitySold", 3)
+                    .bind("user", 1)
+                    .execute();
+        });
     }
 
     public List<Product> getNewProducts() {
@@ -285,8 +344,12 @@ public class ProductService {
 
 //        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
-        System.out.println(ProductService.getInstance().getListProductInGroupName(0, ""));
+//        System.out.println(ProductService.getInstance().getListProductInGroupName(0, ""));
+        ProductDetail productDetail = new ProductDetail(getInstance().getListProduct().size() + 1, "ádsa", "ádad", null, 10, LocalDateTime.now(), LocalDateTime.of(2022, 12, 11, 3, 3, 2), 0, 3);
+        ProductService.getInstance().addProductDetail(productDetail);
+        Product product = new Product(getInstance().getListProduct().size() + 1, 1, "dsad", 1312, 13, 0, "", productDetail);
 
+        ProductService.getInstance().addProduct(product);
 
     }
 
