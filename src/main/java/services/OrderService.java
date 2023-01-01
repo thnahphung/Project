@@ -33,6 +33,7 @@ public class OrderService implements Serializable {
                     .mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orders) {
                 order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
+                order.setAddress(AddressService.getInstance().getAddressByAddressId(order.getAddressId()));
             }
             return orders;
         });
@@ -56,7 +57,7 @@ public class OrderService implements Serializable {
     }
     public void add(Order order) {
         JDBIConnector.get().withHandle(handle -> {
-            int num = handle.createUpdate("INSERT INTO `ord` VALUES (:order_id,:user_id,:total,:note,:stt_delivery,:stt_pay,:order_date,:delivery_date)")
+            int num = handle.createUpdate("INSERT INTO `ord` VALUES (:order_id,:user_id,:total,:note,:stt_delivery,:stt_pay,:order_date,:delivery_date,:address_id)")
                     .bind("order_id", order.getOrderId())
                     .bind("user_id", order.getUserId())
                     .bind("total", order.getTotal())
@@ -65,6 +66,7 @@ public class OrderService implements Serializable {
                     .bind("stt_pay", order.isSttPay())
                     .bind("order_date", order.getOrderDate())
                     .bind("delivery_date", order.getDeliveryDate())
+                    .bind("address_id",order.getAddressId())
                     .execute();
             for (OrderDetail orderDetail : order.getOrderDetails()) {
                 OrderDetailService.getInstance().add(orderDetail);
@@ -83,7 +85,7 @@ public class OrderService implements Serializable {
         return JDBIConnector.get().withHandle(handle -> {
             Order order = null;
             try {
-                order = handle.createQuery("SELECT order_id,user_id,total,note,stt_delivery,stt_pay,order_date,delivery_date FROM ord WHERE stt_delivery =0  and user_id= :user_id")
+                order = handle.createQuery("SELECT order_id,user_id,total FROM ord WHERE stt_delivery =0  and user_id= :user_id")
                         .bind("user_id", userId)
                         .mapToBean(Order.class).one();
                 order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
