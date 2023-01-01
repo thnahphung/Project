@@ -25,9 +25,9 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderListByUserId(int userId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orders = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date\n" +
+            List<Order> orders = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id\n" +
                             "from ord o\n" +
-                            "WHERE user_id = ?\n" +
+                            "WHERE user_id = ? and stt_delivery not like 0\n" +
                             "ORDER BY order_date ASC;")
                     .bind(0, userId)
                     .mapToBean(Order.class).stream().collect(Collectors.toList());
