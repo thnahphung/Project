@@ -21,6 +21,7 @@ public class AddressService {
     }
 
     public Address getAddressByAddressId(int addressId) {
+        System.out.println("address: "+addressId    );
         return JDBIConnector.get().withHandle(handle -> {
             Address address = handle.createQuery("select a.address_id,a.user_id, a.`name`, a.phone_number, a.address_detail_id\n" +
                             "from address a " +
@@ -32,6 +33,11 @@ public class AddressService {
             return address;
         });
     }
+
+    public static void main(String[] args) {
+        System.out.println(AddressService.getInstance().getAddressByAddressId(1));
+    }
+
 
 
 

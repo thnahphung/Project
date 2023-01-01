@@ -22,6 +22,7 @@ public class UserProfile extends HttpServlet {
         request.getSession().setAttribute("auth", user);
 
         List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getUserId());
+        System.out.println("dfg" +orders);
         request.setAttribute("orders", orders);
         request.getRequestDispatcher("user-profile.jsp").forward(request, response);
     }
