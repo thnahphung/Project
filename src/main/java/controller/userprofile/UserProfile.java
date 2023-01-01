@@ -18,11 +18,11 @@ public class UserProfile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       User userNull = new User(3, "Quynh Nhuw", "0819", "nhuw@gmail.com", "pass","","");
         User user = (User) request.getSession().getAttribute("auth");
-        request.getSession().setAttribute("auth", userNull);
+        request.getSession().setAttribute("auth", user);
 
-        List<Order> orders = OrderService.getInstance().getOrderListByUserId(userNull.getUserId());
+        List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getUserId());
+        System.out.println("dfg" +orders);
         request.setAttribute("orders", orders);
         request.getRequestDispatcher("user-profile.jsp").forward(request, response);
     }
