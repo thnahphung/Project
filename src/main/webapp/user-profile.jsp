@@ -114,7 +114,8 @@
                                                     <button type="button" class="button button-close submit"
                                                             data-dismiss="modal">Hủy
                                                     </button>
-                                                    <button type="button" class="button button-save save-info submit">Lưu thông
+                                                    <button type="button" class="button button-save save-info submit">
+                                                        Lưu thông
                                                         tin
                                                     </button>
                                                 </div>
@@ -151,28 +152,13 @@
                                     <td><%=Format.formatDate(order.getOrderDate())%>
                                     </td>
                                     <td><%=Format.format(order.getTotal())%> VND</td>
-                                    <%if (order.isSttPay()) {%>
-                                    <td>Đã thanh toán</td>
-                                    <%} else {%>
-                                    <td>Chưa thanh toán</td>
-                                    <%}%>
-
-                                    <%if (order.getSttDelivery() == Order.ORDERRECEIVED) {%>
-                                    <td>Đã nhận đơn</td>
-                                    <%} else if (order.getSttDelivery() == Order.CANCELLED) {%>
-                                    <td>Đã hủy</td>
-
-                                    <% } else if (order.getSttDelivery() == Order.SHIPPING) {%>
-                                    <td>Đang giao hàng</td>
-
-                                    <% } else if (order.getSttDelivery() == Order.SUCCESSFUL) {%>
-                                    <td>Giao hàng thành công</td>
-
-                                    <% } else if (order.getSttDelivery() == Order.UNSUCCESSFUL) {%>
-                                    <td>Giao hàng không thành công</td>
-                                    <%}%>
+                                    <td><%=order.getPay()%>
+                                    </td>
+                                    <td><%=order.getDelivery()%>
+                                    </td>
                                     <td>
-                                        <a href="/showOrderDetail?orderId=<%=order.getOrderId()%>"  class="submit button see-more" >Chi tiết <i
+                                        <a href="/showOrderDetail?orderId=<%=order.getOrderId()%>"
+                                           class="submit button see-more">Chi tiết <i
                                                 class="fa-solid fa-circle-info"></i></a>
 
                                     </td>

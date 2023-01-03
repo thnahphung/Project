@@ -72,14 +72,14 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="infor" role="tabpanel" aria-labelledby="infor-tab">
                         <div class="inf">
-                            <h3>Thông tin tài khoản</h3>
+                            <h3>Thông tin địa chỉ</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li><%=UserService.getInstance().getUserById(order.getUserId()).getFullName()%>
+                                    <li><%=order.getAddress().getName()%>
                                     </li>
-                                    <li><%=UserService.getInstance().getUserById(order.getUserId()).getPhoneNumber()%>
+                                    <li><%=order.getAddress().getPhoneNumber()%>
                                     </li>
-                                    <li><%=UserService.getInstance().getUserById(order.getUserId()).getEmail()%>
+                                    <li><%=order.getAddress().getAddressDetail().getDetail() + ", " + order.getAddress().getAddressDetail().getDistrict() + ", " + order.getAddress().getAddressDetail().getCity()%>
                                     </li>
                                 </ul>
 
@@ -129,9 +129,11 @@
                                 </tr>
                                 <tr>
                                     <td><%=Format.format(total)%> VND</td>
-                                    <td>+ 30.000 VND</td>
-                                    <td>- 0 VND</td>
-                                    <td><%=Format.format(total- 30000) %> VND</td>
+                                    <td>+ <%=Format.format(order.getTransportFee())%> VND</td>
+                                    <td>- <%=Format.format(order.getDiscount().getDiscountFee())%> VND</td>
+                                    <td><%=Format.format(total + order.getTransportFee() - order.getDiscount().getDiscountFee()) %>
+                                        VND
+                                    </td>
                                 </tr>
                             </table>
                         </div>
