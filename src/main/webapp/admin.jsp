@@ -116,7 +116,7 @@
                     <td><%=order.getOrderId()%></td>
                     <td><%=order.getAddress().getName()%></td>
                     <td><%=order.getAddress().getAddressDetail().getDetail()%>, <%=order.getAddress().getAddressDetail().getDistrict()%>, <%=order.getAddress().getAddressDetail().getCity()%></td>
-                    <td><%=order.getAddress().getPhone()%></td>
+                    <td><%=order.getAddress().getPhoneNumber()%></td>
                     <td><%=order.getOrderDate()%></td>
                     <td><%=order.total()%></td>
                     <td><%=order.getSttDelivery()%></td>
