@@ -62,6 +62,7 @@ public class OrderService implements Serializable {
 
             order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
             order.setAddress(AddressService.getInstance().getAddressByAddressId(order.getAddressId()));
+            order.setDiscount(DiscountService.getInstance().getDiscountByDiscountId(order.getDiscountId()));
             return order;
         });
     }

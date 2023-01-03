@@ -117,6 +117,11 @@ public class Order implements Serializable {
         return sttPay;
     }
 
+    public String getPay() {
+        if (isSttPay()) return "Đã thanh toán";
+        else return "Chưa thanh toán";
+    }
+
     public void setSttPay(boolean sttPay) {
         this.sttPay = sttPay;
     }

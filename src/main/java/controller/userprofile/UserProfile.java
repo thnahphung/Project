@@ -22,7 +22,9 @@ public class UserProfile extends HttpServlet {
         request.getSession().setAttribute("auth", user);
 
         List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getUserId());
+
         request.setAttribute("orders", orders);
+
         request.getRequestDispatcher("user-profile.jsp").forward(request, response);
     }
 
