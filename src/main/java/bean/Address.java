@@ -7,21 +7,18 @@ public class Address implements Serializable {
     private int userId;
     private String name;
     private String phoneNumber;
-    private String country;
-    private String city;
+
     private int addressDetailId;
     private AddressDetail addressDetail;
 
     public Address() {
     }
 
-    public Address(int addressId, int userId, String name, String phoneNumber, String country, String city, int addressDetailId, AddressDetail addressDetail) {
+    public Address(int addressId, int userId, String name, String phoneNumber, int addressDetailId, AddressDetail addressDetail) {
         this.addressId = addressId;
         this.userId = userId;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.country = country;
-        this.city = city;
         this.addressDetailId = addressDetailId;
         this.addressDetail = addressDetail;
     }
@@ -58,21 +55,6 @@ public class Address implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public int getAddressDetailId() {
         return addressDetailId;
@@ -97,8 +79,6 @@ public class Address implements Serializable {
                 ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", phone='" + phoneNumber + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
                 ", addressDetailId=" + addressDetailId +
                 ", addressDetail=" + addressDetail +
                 '}';

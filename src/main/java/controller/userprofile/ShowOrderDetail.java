@@ -1,8 +1,7 @@
 package controller.userprofile;
 
-import bean.HistoryProduct;
-import bean.Order;
-import bean.OrderDetail;
+import bean.*;
+import services.AddressDetailService;
 import services.HistoryProductService;
 import services.OrderService;
 
@@ -18,14 +17,17 @@ public class ShowOrderDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
+
         Order order = OrderService.getInstance().getOrderByOrderId(orderId);
+        request.setAttribute("order", order);
+
         List<HistoryProduct> historyProducts = new ArrayList<>();
-        for(OrderDetail orderDetail : order.getOrderDetails()){
+        for (OrderDetail orderDetail : order.getOrderDetails()) {
             historyProducts.add(HistoryProductService.getInstance().getHistoryProductAtTheTime(orderDetail.getProductId(), order.getOrderDate()));
         }
-        request.setAttribute("order", order);
         request.setAttribute("historyProducts", historyProducts);
-        request.getRequestDispatcher("order-detail.jsp").forward(request,response);
+
+        request.getRequestDispatcher("order-detail.jsp").forward(request, response);
     }
 
     @Override
