@@ -183,7 +183,7 @@
                 <li class="page-item">
                     <button class="page-link"
                             aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                        <span aria-hidden="true"><i class="fa-solid fa-angle-left"></i></span>
                         <span class="sr-only">Previous</span>
                     </button>
                 </li>
@@ -193,7 +193,7 @@
                     for (int i = 0; i < count; i++) {
                 %>
                 <li class="page-item ">
-                    <button class="page-link "><%=i + 1%>
+                    <button class="page-link"><%=i + 1%>
                     </button>
                 </li>
                 <%
@@ -203,7 +203,7 @@
                 <li class="page-item">
                     <button class="page-link"
                             aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                        <span aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
                         <span class="sr-only">Next</span>
                     </button>
                 </li>
