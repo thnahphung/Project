@@ -8,20 +8,18 @@ public class OrderDetail implements Serializable {
     private int productId;
     private Product product;
     private int quantity;
-    private int discountId;
-    private Discount discount;
+
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderDetailId, int orderId, int productId, Product product, int quantity, int discountId, Discount discount) {
+    public OrderDetail(int orderDetailId, int orderId, int productId, Product product, int quantity) {
         this.orderDetailId = orderDetailId;
         this.orderId = orderId;
         this.productId = productId;
         this.product = product;
         this.quantity = quantity;
-        this.discountId = discountId;
-        this.discount = discount;
+
     }
 
     @Override
@@ -32,8 +30,7 @@ public class OrderDetail implements Serializable {
                 ", productId=" + productId +
                 ", product=" + product +
                 ", quantity=" + quantity +
-                ", discountId=" + discountId +
-                ", discount=" + discount +
+
                 '}';
     }
 
@@ -76,22 +73,7 @@ public class OrderDetail implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    public int getDiscountId() {
-        return discountId;
-    }
-
-    public void setDiscountId(int discountId) {
-        this.discountId = discountId;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
+    
 
     public int total() {
         return product.getPrice() * quantity;
