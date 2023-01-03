@@ -6,7 +6,7 @@ public class Address implements Serializable {
     private int addressId;
     private int userId;
     private String name;
-    private String phone;
+    private String phoneNumber;
     private String country;
     private String city;
     private int addressDetailId;
@@ -15,11 +15,11 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(int addressId, int userId, String name, String phone, String country, String city, int addressDetailId, AddressDetail addressDetail) {
+    public Address(int addressId, int userId, String name, String phoneNumber, String country, String city, int addressDetailId, AddressDetail addressDetail) {
         this.addressId = addressId;
         this.userId = userId;
         this.name = name;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.country = country;
         this.city = city;
         this.addressDetailId = addressDetailId;
@@ -50,12 +50,12 @@ public class Address implements Serializable {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getCountry() {
@@ -96,7 +96,7 @@ public class Address implements Serializable {
                 "addressId=" + addressId +
                 ", userId=" + userId +
                 ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
+                ", phone='" + phoneNumber + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", addressDetailId=" + addressDetailId +
