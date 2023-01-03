@@ -53,4 +53,7 @@ $(document).ready(function () {
         $('.delete-all').remove();
         $('.contain-btn').css('justify-content', 'center');
     }
+    $('.btn-total').click(function () {
+        window.location = "http://localhost:8080/shipping";
+    })
 })

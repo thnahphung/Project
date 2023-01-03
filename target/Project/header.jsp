@@ -34,26 +34,13 @@
             <input type="text" class="search-input" placeholder="Tìm kiếm..."
                    name="txName" value=""/>
             <span class="icon" id="search">
-                                                <i class=" fa fa-search" name="action"></i>
-                                            </span>
+                <i class=" fa fa-search" name="action"></i>
+            </span>
         </div>
 
-        <% User user = (User) session.getAttribute("auth");
-            Order cart = (Order) session.getAttribute("cart");
-            if (user != null) {%>
-        <a href="/user-profile.jsp" class="item-right">
-            <img src="<%=user.getAvatar()%>" alt="">
-            <p>
-                <%=user.getFullName()%>
-            </p>
-        </a>
-        <%} else {%>
-        <a href="login.jsp" class="item-right">
-            <i class="fa-solid fa-user"></i>
-            <p>Đăng nhập</p>
-        </a>
-        <%}%>
 
+        <% User user = (User) session.getAttribute("auth");
+            Order cart = (Order) session.getAttribute("cart");%>
         <a href="/cart" class="item-right"><i
                 class="fa-solid fa-cart-shopping"></i>
             <%if (cart != null) {%>
@@ -62,5 +49,18 @@
             <p>Giỏ hàng (<span class="amount-product">0</span>)</p>
             <%}%>
         </a>
+         <%   if (user != null) {%>
+        <a href="/userProfile" class="item-right">
+            <img src="<%=user.getAvatar()%>" alt="">
+
+        </a>
+        <%} else {%>
+        <a href="login.jsp" class="item-right">
+            <i class="fa-solid fa-user"></i>
+            <p>Đăng nhập</p>
+        </a>
+        <%}%>
+
+
     </li>
 </ul>

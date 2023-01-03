@@ -12,7 +12,6 @@ public class Address implements Serializable {
     private int addressDetailId;
     private AddressDetail addressDetail;
 
-
     public Address() {
     }
 

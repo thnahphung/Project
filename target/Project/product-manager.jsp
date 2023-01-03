@@ -31,7 +31,7 @@
                 <div class="icon i-gray"><i class="fa-solid fa-cash-register"></i></div>
                 <div class="title-number">
                     <p class="title">Tổng Sản phẩm</p>
-                    <p class="number">100 sản phẩm</p>
+                    <p class="number"><%=request.getAttribute("quantity")%> sản phẩm</p>
                 </div>
             </div>
             <div class="bottom">
@@ -121,7 +121,7 @@
                     for (Product product : list) {%>
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td><img src="<%=product.getImageSrc()%>" alt="<%=product.getProductName()%>">
+                    <td><img class="avatar" src="<%=product.getImageSrc()%>" alt="<%=product.getProductName()%>">
                     </td>
                     <td><%=product.getProductName()%>
                     </td>
@@ -137,6 +137,7 @@
                             Sửa
                         </button>
                     </td>
+
                 </tr>
                 <%}%>
                 </tbody>
@@ -159,7 +160,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-add-address" >
+                <form class="form-add-address">
                     <div class="name">
                         <label>Tên sản phẩm</label>
                         <input class="input" type="text" name="name" id="input-name" placeholder="Tên sản phẩm"></div>
@@ -173,7 +174,7 @@
                                placeholder="Giá khuyến mãi... VND"></div>
                     <div class="type">
                         <label>Loại sản phẩm</label>
-                        <select class="input" name="pa_category" id="input-pa_category" >
+                        <select class="input" name="pa_category" id="input-pa_category">
                             <option value="1">Gỗ</option>
                             <option value="2">Gốm</option>
                             <option value="3">Tranh</option>
@@ -194,7 +195,8 @@
                     </div>
                     <div class="images">
                         <label>Hình ảnh sản phẩm</label>
-                        <button class="submit">Tải ảnh lên</button>
+                        <button class="submit" id="submit-img">Tải ảnh lên</button>
+                        <input type="file" name="file-img" id="file-img" class="submit" placeholder="Tải ảnh lên">
                     </div>
                     <div class="detail">
                         <label>Thông số sản phẩm</label>
@@ -205,7 +207,8 @@
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
                         <button type="button" class="button button-save submit" id="addProduct"
-                                value="Lưu sản phẩm">Thêm sản phẩm</button>
+                                value="Lưu sản phẩm">Thêm sản phẩm
+                        </button>
                     </div>
                 </form>
             </div>
@@ -236,7 +239,11 @@
         </div>
     </div>
 </div>
-
+<script>
+    $('#submit-img').click(function () {
+        alert($('#file-img').val())
+    })
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

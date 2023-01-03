@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %> >
 <html lang="en">
 
@@ -32,221 +33,45 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                             Trạng thái</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Ngày tạo tài khoản</th>
+                           Số điện thoại</th>
                         <th class="text-secondary opacity-7"></th>
                     </tr>
                 </thead>
                 <tbody>
+                <%List<User> list = (List<User>) request.getAttribute("listUser");
+                    for (int i=1; i<list.size();i++){%>
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
                                 <div>
-                                    <img src="images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
+                                    <img src="<%=list.get(i).getAvatar()%>" class="avatar avatar-sm me-3 border-radius-lg"
                                         alt="user1">
                                 </div>
                                 <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Dương Thanh Phụng</h6>
-                                    <p class="text-xs text-secondary mb-0">PhungThanhDuong@gmail.com</p>
+                                    <h6 class="mb-0 text-sm"><%=list.get(i).getFullName()%></h6>
+                                    <p class="text-xs text-secondary mb-0"><%=list.get(i).getEmail()%></p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <p class="text-xs font-weight-bold mb-0">Quản lý</p>
-                            <p class="text-xs text-secondary mb-0">Quản lý trang web</p>
+                            <p class="text-xs font-weight-bold mb-0"><%=list.get(i).getVarieties()%></p>
+                            <p class="text-xs text-secondary mb-0"><%=list.get(i).getVarieties()%></p>
+
                         </td>
                         <td class="align-middle text-center text-sm">
                             <span class="badge badge-sm bg-gradient-success">Trực tuyến</span>
                         </td>
                         <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">01/11/02</span>
+                            <span class="text-secondary text-xs font-weight-bold"><%=list.get(i).getPhoneNumber()%></span>
                         </td>
                         <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                            <a href="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
                                 data-original-title="Edit user">
                                 sửa
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex px-2 py-1">
-                                <div>
-                                    <img src="images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                                        alt="user2">
-                                </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Phan Thị Quỳnh Như</h6>
-                                    <p class="text-xs text-secondary mb-0">Nhuquynhphanthi@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="text-xs font-weight-bold mb-0">Nhân viên</p>
-                            <p class="text-xs text-secondary mb-0">Quản lý đơn hàng</p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="badge badge-sm bg-gradient-secondary">Ngoại tuyến</span>
-                        </td>
-                        <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">11/11/02</span>
-                        </td>
-                        <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                data-original-title="Edit user">
-                                sửa
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex px-2 py-1">
-                                <div>
-                                    <img src="images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                                        alt="user2">
-                                </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Lê Bảo Đặng</h6>
-                                    <p class="text-xs text-secondary mb-0">Dangbaole@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="text-xs font-weight-bold mb-0">Nhân viên</p>
-                            <p class="text-xs text-secondary mb-0">Quản lý sản phẩm</p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="badge badge-sm bg-gradient-secondary">Ngoại tuyến</span>
-                        </td>
-                        <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">12/11/02</span>
-                        </td>
-                        <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                data-original-title="Edit user">
-                                sửa
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex px-2 py-1">
-                                <div>
-                                    <img src="images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                                        alt="user2">
-                                </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">"Nguyễn Thị Xuân Hoa"</h6>
-                                    <p class="text-xs text-secondary mb-0">Hoaxuanthinguyen@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="text-xs font-weight-bold mb-0">khách hàng</p>
-                            <p class="text-xs text-secondary mb-0">Bình thường</p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="badge badge-sm bg-gradient-secondary">Trực tuyến</span>
-                        </td>
-                        <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">13 /11/02</span>
-                        </td>
-                        <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                data-original-title="Edit user">
-                                sửa
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex px-2 py-1">
-                                <div>
-                                    <img src="images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                                        alt="user2">
-                                </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Phạm Gia Bảo</h6>
-                                    <p class="text-xs text-secondary mb-0">Baogiapham@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="text-xs font-weight-bold mb-0">khách hàng</p>
-                            <p class="text-xs text-secondary mb-0">bình thường</p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="badge badge-sm bg-gradient-secondary">Ngoại tuyến</span>
-                        </td>
-                        <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">11/11/02</span>
-                        </td>
-                        <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                data-original-title="Edit user">
-                                sửa
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex px-2 py-1">
-                                <div>
-                                    <img src="images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                                        alt="user2">
-                                </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Hồ Thanh Hoài An</h6>
-                                    <p class="text-xs text-secondary mb-0">Anhoaithanhho@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="text-xs font-weight-bold mb-0">Khách hàng</p>
-                            <p class="text-xs text-secondary mb-0">Bình thường</p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="badge badge-sm bg-gradient-secondary">Ngoại tuyến</span>
-                        </td>
-                        <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">13/11/02</span>
-                        </td>
-                        <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                data-original-title="Edit user">
-                                sửa
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex px-2 py-1">
-                                <div>
-                                    <img src="images/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg"
-                                        alt="user2">
-                                </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-sm">Võ Khôi Nhơn</h6>
-                                    <p class="text-xs text-secondary mb-0">Nhonkhoivo@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="text-xs font-weight-bold mb-0">Khách hàng</p>
-                            <p class="text-xs text-secondary mb-0">Bình thường</p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="badge badge-sm bg-gradient-secondary">Trực tuyến</span>
-                        </td>
-                        <td class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">11/11/02</span>
-                        </td>
-                        <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                data-original-title="Edit user">
-                                sửa
-                            </a>
-                        </td>
-                    </tr>
+                <%}%>
 
 
 
