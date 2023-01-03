@@ -25,7 +25,7 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderListByUserId(int userId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orders = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id\n" +
+            List<Order> orders = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id, o.transport_fee, o.discount_id\n" +
                             "from ord o\n" +
                             "WHERE user_id = ? and stt_delivery not like 0\n" +
                             "ORDER BY order_date ASC;")
@@ -41,7 +41,7 @@ public class OrderService implements Serializable {
 
     public Order getOrderByOrderId(int orderId) {
         return JDBIConnector.get().withHandle(handle -> {
-            Order order = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id\n" +
+            Order order = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id,o.transport_fee, o.discount_id\n" +
                             "                            from ord o  where o.order_id = ?;")
                     .bind(0, orderId)
                     .mapToBean(Order.class).one();
@@ -57,7 +57,7 @@ public class OrderService implements Serializable {
     }
     public void add(Order order) {
         JDBIConnector.get().withHandle(handle -> {
-            int num = handle.createUpdate("INSERT INTO `ord` VALUES (:order_id,:user_id,:total,:note,:stt_delivery,:stt_pay,:order_date,:delivery_date,:address_id)")
+            int num = handle.createUpdate("INSERT INTO `ord` VALUES (:order_id,:user_id,:total,:note,:stt_delivery,:stt_pay,:order_date,:delivery_date,:address_id, :transport_fee, :discount_id)")
                     .bind("order_id", order.getOrderId())
                     .bind("user_id", order.getUserId())
                     .bind("total", order.getTotal())
@@ -67,6 +67,8 @@ public class OrderService implements Serializable {
                     .bind("order_date", order.getOrderDate())
                     .bind("delivery_date", order.getDeliveryDate())
                     .bind("address_id",order.getAddressId())
+                    .bind("transport_fee", order.getTransportFee())
+                    .bind("discount_id", order.getDiscountId())
                     .execute();
             for (OrderDetail orderDetail : order.getOrderDetails()) {
                 OrderDetailService.getInstance().add(orderDetail);

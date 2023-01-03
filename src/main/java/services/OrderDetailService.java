@@ -1,9 +1,6 @@
 package services;
 
-import bean.Category;
-import bean.OrderDetail;
-import bean.Product;
-import bean.ProductDetail;
+import bean.*;
 import db.JDBIConnector;
 
 import java.io.Serializable;
@@ -51,7 +48,7 @@ public class OrderDetailService implements Serializable {
 
     public void add(OrderDetail orderDetail) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO `order_detail` VALUES (:orderDetailId,:orderId,:productId,:quantity)")
+            return handle.createUpdate("INSERT INTO `order_detail` VALUES (:orderDetailId,:orderId)")
                     .bind("orderDetailId", orderDetail.getOrderDetailId())
                     .bind("orderId", orderDetail.getOrderId())
                     .bind("productId", orderDetail.getProductId())
@@ -79,8 +76,4 @@ public class OrderDetailService implements Serializable {
         });
     }
 
-    public static void main(String[] args) {
-        System.out.println(getInstance().nextId());
-        System.out.println(getInstance().getListOrderDetailByOrderId(1));
-    }
 }

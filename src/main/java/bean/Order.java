@@ -31,11 +31,14 @@ public class Order implements Serializable {
     private List<OrderDetail> orderDetails;
     private int addressId;
     private Address address;
+    private int transportFee;
+    private int discountId;
+    private Discount discount;
 
     public Order() {
     }
 
-    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails, int addressId, Address address) {
+    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails, int addressId, Address address, int transportFee, int discountId, Discount discount) {
         this.orderId = orderId;
         this.userId = userId;
         this.total = total;
@@ -47,6 +50,9 @@ public class Order implements Serializable {
         this.orderDetails = orderDetails;
         this.addressId = addressId;
         this.address = address;
+        this.transportFee = transportFee;
+        this.discountId = discountId;
+        this.discount = discount;
     }
 
     public int getOrderId() {
@@ -83,6 +89,24 @@ public class Order implements Serializable {
 
     public int getSttDelivery() {
         return sttDelivery;
+    }
+
+    public String getDelivery() {
+        switch (getSttDelivery()) {
+            case ORDERRECEIVED:
+                return "Đã nhận đơn";
+            case CANCELLED:
+                return "Đã hủy";
+            case SHIPPING:
+                return "Đang giao hàng";
+            case SUCCESSFUL:
+                return "Giao hàng thành công";
+            case UNSUCCESSFUL:
+                return "Giao hàng không thành công";
+
+            default:
+                return null;
+        }
     }
 
     public void setSttDelivery(int sttDelivery) {
@@ -137,6 +161,30 @@ public class Order implements Serializable {
         this.address = address;
     }
 
+    public int getTransportFee() {
+        return transportFee;
+    }
+
+    public void setTransportFee(int transportFee) {
+        this.transportFee = transportFee;
+    }
+
+    public int getDiscountId() {
+        return discountId;
+    }
+
+    public void setDiscountId(int discountId) {
+        this.discountId = discountId;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -151,6 +199,9 @@ public class Order implements Serializable {
                 ", orderDetails=" + orderDetails +
                 ", addressId=" + addressId +
                 ", address=" + address +
+                ", transportFee=" + transportFee +
+                ", discountId=" + discountId +
+                ", discount=" + discount +
                 '}';
     }
 

@@ -112,4 +112,20 @@ public class ProductDetail implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDetail{" +
+                "productDetailId=" + productDetailId +
+                ", decription='" + decription + '\'' +
+                ", detail='" + detail + '\'' +
+                ", images=" + images +
+                ", inventory=" + inventory +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", stt=" + stt +
+                ", quantitySold=" + quantitySold +
+                ", user=" + user +
+                '}';
+    }
 }
