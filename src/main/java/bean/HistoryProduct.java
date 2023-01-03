@@ -100,4 +100,19 @@ public class HistoryProduct implements Serializable {
         this.decription = decription;
         this.detail = detail;
     }
+
+    @Override
+    public String toString() {
+        return "HistoryProduct{" +
+                "historyProductId=" + historyProductId +
+                ", updateDate=" + updateDate +
+                ", userId=" + userId +
+                ", productId=" + productId +
+                ", price=" + price +
+                ", priceReal=" + priceReal +
+                ", imageSrc='" + imageSrc + '\'' +
+                ", decription='" + decription + '\'' +
+                ", detail='" + detail + '\'' +
+                '}';
+    }
 }

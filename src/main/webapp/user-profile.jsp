@@ -114,7 +114,7 @@
                                                     <button type="button" class="button button-close submit"
                                                             data-dismiss="modal">Hủy
                                                     </button>
-                                                    <button type="button" class="button button-save submit">Lưu thông
+                                                    <button type="button" class="button button-save save-info submit">Lưu thông
                                                         tin
                                                     </button>
                                                 </div>
@@ -260,7 +260,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save submit">Lưu địa chỉ</button>
+                        <button type="button" class="button button-save save-address submit">Lưu địa chỉ</button>
                     </div>
                 </div>
             </div>
@@ -277,7 +277,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>

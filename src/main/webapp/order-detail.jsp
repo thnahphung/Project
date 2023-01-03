@@ -1,6 +1,5 @@
-<%@ page import="bean.Order" %>
-<%@ page import="services.OrderService" %>
-<%@ page import="bean.Format" %>
+<%@ page import="bean.*" %>
+<%@ page import="services.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -19,13 +18,15 @@
     <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> -->
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/user-profile.css">
+    <link rel="stylesheet" href="css/order-detail.css">
 
 </head>
 
 <body>
 <%
     Order order = (Order) request.getAttribute("order");
-
+    List<HistoryProduct> historyProducts = (List<HistoryProduct>) request.getAttribute("historyProducts");
+    int total = 0;
 %>
 
 <div id="container">
@@ -74,11 +75,11 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li><%=order.getAddress().getName()%>
+                                    <li><%=UserService.getInstance().getUserById(order.getUserId()).getFullName()%>
                                     </li>
-                                    <li>
+                                    <li><%=UserService.getInstance().getUserById(order.getUserId()).getPhoneNumber()%>
                                     </li>
-                                    <li>
+                                    <li><%=UserService.getInstance().getUserById(order.getUserId()).getEmail()%>
                                     </li>
                                 </ul>
 
@@ -97,32 +98,42 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
-
+                                <%
+                                    List<OrderDetail> orderDetails = order.getOrderDetails();
+                                    for (int i = 0; i < orderDetails.size(); i++) {
+                                %>
                                 <tr>
-                                    <th scope="row">Cú gỗ trên cây</th>
-                                    <td>563.348 VND</td>
-                                    <td>2</td>
-                                    <td>1.200.000 VND</td>
+                                    <th scope="row"><%=orderDetails.get(i).getProduct().getProductName()%>
+                                    </th>
+                                    <td><%=Format.format(historyProducts.get(i).getPrice())%>
+                                        VND
+                                    </td>
+                                    <td><%=orderDetails.get(i).getQuantity()%>
+                                    </td>
 
+                                    <td><%=Format.format(historyProducts.get(i).getPrice() * orderDetails.get(i).getQuantity())%>
+                                        VND
+                                    </td>
+                                    <%total += historyProducts.get(i).getPrice() * orderDetails.get(i).getQuantity();%>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Cú gỗ trên cây</th>
-                                    <td>563.348 VND</td>
-                                    <td>2</td>
-                                    <td>1.200.000 VND</td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">Cú gỗ trên cây</th>
-                                    <td>563.348 VND</td>
-                                    <td>2</td>
-                                    <td>1.200.000 VND</td>
-                                </tr>
+                                <%}%>
 
                                 </tbody>
                             </table>
-                            <div class="address"></div>
+                            <table class="total-detail">
+                                <tr>
+                                    <td>Tổng tiền hàng:</td>
+                                    <td>Phí vận chuyển:</td>
+                                    <td>Mã giảm giá:</td>
+                                    <td>Thành tiền:</td>
+                                </tr>
+                                <tr>
+                                    <td><%=Format.format(total)%> VND</td>
+                                    <td>+ 30.000 VND</td>
+                                    <td>- 0 VND</td>
+                                    <td><%=Format.format(total- 30000) %> VND</td>
+                                </tr>
+                            </table>
                         </div>
 
                     </div>
@@ -221,6 +232,7 @@
         crossorigin="anonymous"></script>
 <script src="js/general.js"></script>
 <script src="js/user-profile.js"></script>
+<script src="js/order-detail.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // change information user
-    $(".button-save").click(function () {
+    $('.save-info').click(function () {
         let fullName = $("#input-edit-name").val();
         let phoneNumber = $('#input-edit-phone').val();
         let email = $("#input-edit-email").val();
