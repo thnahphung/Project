@@ -3,18 +3,19 @@ $(document).ready(function () {
     let feeShip;
     if (wayShip === 'GHTC') feeShip = 30000;
     else if (wayShip === 'GHHT') feeShip = 50000;
-    console.log(feeShip);
-    console.log($('.total-price').text().replaceAll('.', ''));
-    $('.total-price').text(parseInt($('.total-price').text().replaceAll('.', '')) + feeShip);
 
-    // console.log($('.contain-way-ship input:radio:checked').val())
+    $('.total-price').text(new Intl.NumberFormat('de-DE').format(parseInt($('.total-price').text().replaceAll('.', '')) + feeShip));
 
-    // $('.contain-way-ship p').click(function () {
-    //     wayShip = $('.contain-way-ship input:radio:checked').val();
-    //     if (wayShip === 'GHTC') feeShip = 30000;
-    //     else if (wayShip === 'GHHT') feeShip = 50000;
-    //     $('.total').text(parseInt($('.total')) + feeShip);
-    // })
+    $('.contain-way-ship p').click(function () {
+        wayShip = $('.contain-way-ship input:radio:checked').val();
+        let oldFeeShip = feeShip;
+        if (wayShip === 'GHTC') feeShip = 30000;
+        else if (wayShip === 'GHHT') feeShip = 50000;
+
+        $('.ship-fee').text(new Intl.NumberFormat('de-DE').format(feeShip));
+        $('.total-price').text(new Intl.NumberFormat('de-DE').format(parseInt($('.total-price').text().replaceAll('.', '')) - oldFeeShip + feeShip));
+
+    })
 
     if (address_2 = localStorage.getItem('address_2_saved')) {
         $('select[name="calc_shipping_district"] option').each(function () {

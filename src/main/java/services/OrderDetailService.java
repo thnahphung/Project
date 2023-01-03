@@ -48,7 +48,7 @@ public class OrderDetailService implements Serializable {
 
     public void add(OrderDetail orderDetail) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO `order_detail` VALUES (:orderDetailId,:orderId)")
+            return handle.createUpdate("INSERT INTO `order_detail` VALUES (:orderDetailId,:orderId,:productId,:quantity)")
                     .bind("orderDetailId", orderDetail.getOrderDetailId())
                     .bind("orderId", orderDetail.getOrderId())
                     .bind("productId", orderDetail.getProductId())
