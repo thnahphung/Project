@@ -38,7 +38,21 @@ public class OrderService implements Serializable {
             return orders;
         });
     }
+    public List<Order> getOrderList() {
+        return JDBIConnector.get().withHandle(handle -> {
+            List<Order> orderList = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id from ord o where stt_delivery not like 0;").mapToBean(Order.class).stream().collect(Collectors.toList());
+            for (Order order:  orderList) {
+                order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
+                order.setAddress(AddressService.getInstance().getAddressByAddressId(order.getAddressId()));
 
+            }
+            return orderList;
+        });
+    }
+
+    public static void main(String[] args) {
+        System.out.println( getInstance().getOrderList());
+    }
     public Order getOrderByOrderId(int orderId) {
         return JDBIConnector.get().withHandle(handle -> {
             Order order = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id\n" +
@@ -52,9 +66,6 @@ public class OrderService implements Serializable {
         });
     }
 
-    public static void main(String[] args) {
-        System.out.println(OrderService.getInstance().getOrderByOrderId(1));
-    }
     public void add(Order order) {
         JDBIConnector.get().withHandle(handle -> {
             int num = handle.createUpdate("INSERT INTO `ord` VALUES (:order_id,:user_id,:total,:note,:stt_delivery,:stt_pay,:order_date,:delivery_date,:address_id)")

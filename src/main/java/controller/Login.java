@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
         } else if (user.getUserId() == 1) {
             HttpSession session = request.getSession(true);
             session.setAttribute("authAdmin", user);
-            request.getRequestDispatcher("admin.jsp").forward(request, response);
+            response.sendRedirect("orderManager");
 
         } else {
             HttpSession session = request.getSession(true);

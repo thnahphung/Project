@@ -58,9 +58,7 @@ $('.item-groupProduct').click(function () {
 
 // =============== Phan Trang =====================
 $("button.page-link").click(
-
-
-function () {  alert($(this).text().trim())
+function () {
     let page = $(this).text().trim();
 
     if (page === 'Previous') {

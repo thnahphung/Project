@@ -14,6 +14,8 @@ public class ProductManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> list = ProductService.getInstance().getListProduct();
+        int quantity = list.size();
+        request.setAttribute("quantity",quantity);
         request.setAttribute("list", list);
         request.getRequestDispatcher("product-manager.jsp").forward(request, response);
     }
