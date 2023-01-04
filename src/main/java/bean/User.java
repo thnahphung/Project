@@ -10,14 +10,14 @@ public class User implements Serializable {
     private String email;
     private String phoneNumber;
     private String pass;
-    private String varieties;
+    private int varieties;
     private String avatar;
 
     public User() {
 
     }
 
-    public User(int userId, String fullName, String email, String phoneNumber, String pass, String varieties, String avatar) {
+    public User(int userId, String fullName, String email, String phoneNumber, String pass, int varieties, String avatar) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
@@ -73,11 +73,11 @@ public class User implements Serializable {
         this.pass = pass;
     }
 
-    public String getVarieties() {
+    public int getVarieties() {
         return varieties;
     }
 
-    public void setVarieties(String varieties) {
+    public void setVarieties(int varieties) {
         this.varieties = varieties;
     }
 

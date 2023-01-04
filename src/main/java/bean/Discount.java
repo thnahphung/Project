@@ -81,6 +81,14 @@ public class Discount implements Serializable {
         this.condition = condition;
     }
 
+    public boolean checkTime() {
+        return endDate.isBefore(LocalDateTime.now());
+    }
+
+    public boolean checkQuantity() {
+        return quantity > 0;
+    }
+
     @Override
     public String toString() {
         return "Discount{" +

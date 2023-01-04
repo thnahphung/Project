@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="bean.Product" %>
-<%@ page import="bean.Format" %>
+<%@ page import="bean.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 >
 <html lang="en">
@@ -175,17 +174,24 @@
                     <div class="type">
                         <label>Loại sản phẩm</label>
                         <select class="input" name="pa_category" id="input-pa_category">
-                            <option value="1">Gỗ</option>
-                            <option value="2">Gốm</option>
-                            <option value="3">Tranh</option>
+                            <%
+                                List<PaCategory> paCategoryList = (List<PaCategory>) request.getAttribute("listPacategories");
+
+                                for (PaCategory pa : paCategoryList) {
+                            %>
+                            <option value="<%=pa.getPaCategoryId()%>"><%=pa.getName()%>
+                            </option>
+
+                            <%}%>
                         </select>
                     </div>
                     <div class="group">
                         <label>Nhóm sản phẩm</label>
                         <select class="input category" name="category" id="category">
-                            <option value="1">Mô hình</option>
-                            <option value="2">Gia dụng</option>
-                            <option value="3">Văn phòng</option>
+                            <%List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");
+                                for (Category ca: categoryList) {%>
+                            <option value="<%=ca.getCategoryId()%>" selected><%=ca.getName()%></option>
+                            <%}%>
                         </select>
                     </div>
                     <div class="inventory">
@@ -240,9 +246,10 @@
     </div>
 </div>
 <script>
-    $('#submit-img').click(function () {
-        alert($('#file-img').val())
-    })
+    // $('#submit-img').click(function () {
+    //     alert($('#file-img').val())
+    // })
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

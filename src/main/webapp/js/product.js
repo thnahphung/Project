@@ -49,6 +49,7 @@ $(document).ready(function () {
     $("button.page-link").click(
         function () {
             let page = $(this).text().trim();
+            alert(page);
 
             if (page === 'Previous') {
                 let buttonActive = $('li.active>button');
@@ -56,7 +57,6 @@ $(document).ready(function () {
                 buttonActive.parent('.page-item').removeClass('active');
                 $("button.page-link:contains('" + page + "')").parent('li.page-item').addClass('active');
             } else if (page === 'Next') {
-
                 let countPage = $('button.page-link').length - 2;
                 let buttonActive = $('li.active>button');
 

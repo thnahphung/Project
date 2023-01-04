@@ -38,10 +38,11 @@ public class OrderService implements Serializable {
             return orders;
         });
     }
+
     public List<Order> getOrderList() {
         return JDBIConnector.get().withHandle(handle -> {
             List<Order> orderList = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id from ord o where stt_delivery not like 0;").mapToBean(Order.class).stream().collect(Collectors.toList());
-            for (Order order:  orderList) {
+            for (Order order : orderList) {
                 order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
                 order.setAddress(AddressService.getInstance().getAddressByAddressId(order.getAddressId()));
 
@@ -50,9 +51,7 @@ public class OrderService implements Serializable {
         });
     }
 
-    public static void main(String[] args) {
-        System.out.println( getInstance().getOrderList());
-    }
+
     public Order getOrderByOrderId(int orderId) {
         return JDBIConnector.get().withHandle(handle -> {
             Order order = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id,o.transport_fee, o.discount_id\n" +
@@ -78,7 +77,7 @@ public class OrderService implements Serializable {
                     .bind("stt_pay", order.isSttPay())
                     .bind("order_date", order.getOrderDate())
                     .bind("delivery_date", order.getDeliveryDate())
-                    .bind("address_id",order.getAddressId())
+                    .bind("address_id", order.getAddressId())
                     .bind("transport_fee", order.getTransportFee())
                     .bind("discount_id", order.getDiscountId())
                     .execute();
@@ -110,6 +109,7 @@ public class OrderService implements Serializable {
                 order.setUserId(userId);
                 OrderService.getInstance().add(order);
             }
+            System.out.println(order);
             return order;
         });
     }
@@ -120,6 +120,10 @@ public class OrderService implements Serializable {
                     .bind("id", id)
                     .execute();
         });
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getInstance().getOrderListByUserId(3));
     }
 
 }

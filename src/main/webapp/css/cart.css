@@ -171,7 +171,9 @@ body {
     border: none;
     background: var(--color3);
 }
-
+#mess-voucher{
+    color: red;
+}
 .contain-bill .mid {
     padding: 20px 0px;
 }

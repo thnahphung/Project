@@ -79,7 +79,6 @@ function () {
         $("button.page-link").parent('.page-item').removeClass("active");
         $(this).parent('.page-item').addClass("active");
     }
-
     $.ajax({
         url: "/listProducts/listProductInPage",
         type: "get",

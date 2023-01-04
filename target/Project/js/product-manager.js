@@ -29,10 +29,50 @@ $(document).ready(function () {
             },
             success: function (response) {
                 $(".form-edit").html(response);
+
             },
             error: function (xhr) {
             }
         })
 
     })
+
+    $('#input-pa_category').change(function () {
+        alert($(this).val())
+        $.ajax({
+            url: "/setParCategoryProduct",
+            type: "get",
+            data: {
+                idPacategory: $(this).val().trim()
+            },
+            success: function (data){
+                $("#category").html(data);
+
+            },
+            error: function (xhr){
+
+            }
+        })
+    })
+    $('#edit-pa_category').change(function () {
+        alert(123)
+        alert(document.getElementById('edit-pa_category').val)
+        $.ajax({
+            url: "/setCategory",
+            type: "get",
+            data: {
+                idcategory: $(this).val().trim()
+            },
+            success: function (data){
+                $("#edit-category").html(data);
+
+            },
+            error: function (xhr){
+
+            }
+        })
+    })
 })
+
+
+

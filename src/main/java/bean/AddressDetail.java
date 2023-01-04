@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class AddressDetail implements Serializable {
     private int addressDetailId;
-
     private String detail;
     private String district;
     private String city;
