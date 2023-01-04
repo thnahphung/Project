@@ -23,6 +23,7 @@
 
 <body>
 <%@include file="header.jsp" %>
+
 <div class="container content">
     <div class="row">
         <div class="col-7 left">
@@ -177,7 +178,10 @@
                             VND
                         </div>
                         <div class="col-8 text">Mã khuyến mãi</div>
-                        <div class="col-4 price text text-right">- 0 VND</div>
+                        <%Discount discount = (Discount) request.getAttribute("voucher");%>
+                        <div class="col-4 price text text-right">- <%=discount == null ? 0 : Format.format(discount.getDiscountFee())%>
+                            VND
+                        </div>
                         <div class="col-8 name-product text">Phí vận chuyển</div>
                         <div class="col-4 text text-right"><span class="ship-fee">30.000</span> VND</div>
                     </div>
@@ -187,7 +191,9 @@
                 <div class="bottom">
                     <div class="row">
                         <div class="col-6 text uppercase">Tổng cộng</div>
-                        <div class="col-6 text text-right"><span class="total-price"><%=Format.format(cart.total())%></span> VND</div>
+                        <div class="col-6 text text-right"><span
+                                class="total-price"><%=Format.format(cart.total())%></span> VND
+                        </div>
                     </div>
                     <button class="btn-total uppercase submit">Tiếp tục thanh toán</button>
                 </div>

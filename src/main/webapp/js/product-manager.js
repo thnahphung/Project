@@ -33,6 +33,22 @@ $(document).ready(function () {
             },
             error: function (xhr) {
             }
+        }).done(function () {
+            $('#edit-pa_category').change(function () {
+                $.ajax({
+                    url: "/setCategory",
+                    type: "get",
+                    data: {
+                        idcategory: $(this).val().trim()
+                    },
+                    success: function (data) {
+                        $("#edit-category").html(data);
+                    },
+                    error: function (xhr) {
+
+                    }
+                })
+            })
         })
 
     })
@@ -45,33 +61,16 @@ $(document).ready(function () {
             data: {
                 idPacategory: $(this).val().trim()
             },
-            success: function (data){
+            success: function (data) {
                 $("#category").html(data);
 
             },
-            error: function (xhr){
+            error: function (xhr) {
 
             }
         })
     })
-    $('#edit-pa_category').change(function () {
-        alert(123)
-        alert(document.getElementById('edit-pa_category').val)
-        $.ajax({
-            url: "/setCategory",
-            type: "get",
-            data: {
-                idcategory: $(this).val().trim()
-            },
-            success: function (data){
-                $("#edit-category").html(data);
 
-            },
-            error: function (xhr){
-
-            }
-        })
-    })
 })
 
 
