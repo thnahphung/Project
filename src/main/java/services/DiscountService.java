@@ -33,4 +33,19 @@ public class DiscountService implements Serializable {
 
         });
     }
+
+    public Discount getDiscountByCode(String code) {
+        return JDBIConnector.get().withHandle(handle -> {
+            try {
+                return handle.createQuery(
+                                "select discount_id, `code`, discount_fee, start_date, end_date, quantity, `condition`\n" +
+                                        "from discount where code = :code;")
+                        .bind("code", code)
+                        .mapToBean(Discount.class)
+                        .one();
+            } catch (Exception e) {
+                return null;
+            }
+        });
+    }
 }

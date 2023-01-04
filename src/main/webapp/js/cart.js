@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    let isAppendVoucher = false;
     $('.btn-remove').click(function () {
         let idDetail = $(this).val();
         $(this).closest('.product').remove();
@@ -12,12 +12,14 @@ $(document).ready(function () {
             },
             success: function (response) {
                 let listResponse = response.replace(/\r/g, "").split(/\n/);
+                $('#input-voucher').val('');
+                $('.money-sale-voucher').text(0);
                 if (parseInt(listResponse[2].trim()) === 0) {
                     removeEmlement();
                 } else {
                     $('.total-real').text(listResponse[0] + ' VND');
                     $('.sale').text(listResponse[1] + ' VND');
-                    $('.total').text(listResponse[2] + ' VND');
+                    $('.total span').text(listResponse[2]);
                 }
                 $('.amount-product').text(listResponse[3]);
             },
@@ -52,8 +54,34 @@ $(document).ready(function () {
             '        </li>');
         $('.delete-all').remove();
         $('.contain-btn').css('justify-content', 'center');
+        $('.input-voucher').val('');
     }
+
     $('.btn-total').click(function () {
         window.location = "http://localhost:8080/shipping";
     })
+    $('#submit-voucher').click(function () {
+
+        $.ajax({
+            url: "/cart/checkVoucher",
+            type: "get",
+            data: {
+                voucher: $('#input-voucher').val(),
+            },
+            success: function (response) {
+                let listResponse = response.replace(/\r/g, "").split(/\n/);
+                $('#mess-voucher').text(listResponse[0]);
+                if (listResponse[0] === "") {
+                    $('.money-sale-voucher').text(new Intl.NumberFormat('de-DE').format(listResponse[1]));
+                    $('.total span').text(new Intl.NumberFormat('de-DE').format(listResponse[2]));
+                }
+
+            },
+            error: function (xhr) {
+
+            }
+        });
+
+    })
+
 })

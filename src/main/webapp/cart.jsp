@@ -63,9 +63,9 @@
                             <div class="top">
                                 <div class="price"><%=Format.format(cartDetail.total())%> VND</div>
                                 <div class="stocking">
-                                    <%if(product.getProductDetail().getStt()==0){%>
+                                    <%if (product.getProductDetail().getStt() == 0) {%>
                                     Còn hàng
-                                    <%} else if (product.getProductDetail().getStt()==1) {%>
+                                    <%} else if (product.getProductDetail().getStt() == 1) {%>
                                     Tạm hết hàng
                                     <%}%>
                                 </div>
@@ -104,12 +104,13 @@
             <div class="col-4 bill p-0">
                 <div class="contain-bill p-4">
                     <h5 class="title-bill uppercase">đơn hàng</h5>
-                    <div class="top">
+                    <div class="top bd-bottom  pb-4">
                         <div class="text-bill uppercase">nhập mã khuyến mãi</div>
-                        <div class="input-voucher bd-bottom pb-4">
-                            <input class="input" type="text">
-                            <button class="uppercase submit">áp dụng</button>
+                        <div class="input-voucher">
+                            <input id="input-voucher" class="input" type="text">
+                            <button id="submit-voucher" class="uppercase submit">áp dụng</button>
                         </div>
+                        <div id="mess-voucher"></div>
                     </div>
 
                     <div class="mid bd-bottom">
@@ -121,12 +122,16 @@
                             <span>Giảm</span>
                             <span class="sale">- <%=Format.format(cart.totalReal() - cart.total())%> VND</span>
                         </div>
+                        <div class="arow">
+                            <span>Mã khuyến mãi</span>
+                            <span class="sale-voucher">- <span class="money-sale-voucher">0</span> VND</span>
+                        </div>
                     </div>
 
                     <div class="bottom">
                         <div class="arow">
                             <span class="text uppercase">tạm tính</span>
-                            <span class="total"><%=Format.format(cart.total())%> VND</span>
+                            <span class="total"><span><%=Format.format(cart.total())%></span> VND</span>
                         </div>
                         <button class="btn-total uppercase submit">Tiếp tục thanh toán</button>
 
