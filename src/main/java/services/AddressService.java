@@ -4,6 +4,7 @@ import bean.Address;
 import bean.AddressDetail;
 import db.JDBIConnector;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class AddressService {
@@ -33,11 +34,20 @@ public class AddressService {
         });
     }
 
-    public static void main(String[] args) {
-        System.out.println(AddressService.getInstance().getAddressByAddressId(1));
+    public List<Address> getListAddressByUserId(int id) {
+        return JDBIConnector.get().withHandle(handle -> {
+            List<Address> result = handle.createQuery("select a.address_id,a.user_id, a.`name`, a.phone_number, a.address_detail_id\n" +
+                            "from address a\n" +
+                            " WHERE a.user_id = ?;")
+                    .bind(0, id)
+                    .mapToBean(Address.class)
+                    .stream().collect(Collectors.toList());
+            for (Address address : result) {
+                address.setAddressDetail(AddressDetailService.getInstance().getAddressDetailByAddressDetailId(address.getAddressDetailId()));
+            }
+            return result;
+        });
     }
-
-
 
 
 }
