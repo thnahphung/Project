@@ -147,7 +147,7 @@
                                 <div class="contain-address bd-bottom">
                                     <div class="contain-address left">
                                         <p>
-                                            <label><span class="name">Quỳnh Như</span> <span
+                                            <label><span class="name"><%=order.getAddress().getName()%></span> <span
                                                     class="phone-number">0123456789</span></label>
                                         </p>
                                         <div class="address">

@@ -33,15 +33,8 @@ $(document).ready(function () {
         return text.length == 0 || text == null;
     }
 
-    // order list
 
-    function getDataOrderList() {
-        let table = document.getElementsByClassName('order-list-table');
-        let rowCount = table.length;
-        for (var i = 1; i < rowCount - 1; i++) {
-            var row = table.item(i).toString();
-            alert(row);
-        }
-    }
-
+    $('#address-tab').click(function (){
+        window.location = "http://localhost:8080/showAddress";
+    })
 });

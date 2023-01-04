@@ -52,8 +52,8 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="address-tab" data-toggle="tab" data-target="#address" type="button"
-                                role="tab" aria-controls="profile" aria-selected="false"><i
-                                class="fa-solid fa-location-dot"></i>Danh sách địa chỉ
+                                role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getUserId()%>">
+                            <i class="fa-solid fa-location-dot"></i>Danh sách địa chỉ
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -174,83 +174,12 @@
 
 
                     </div>
-                    <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
-                        <div class="choose-address">
-                            <h6 class="title uppercase"><i class="fa-solid fa-location-dot"></i>Địa chỉ </h6>
 
-                            <div class="list-address">
-                                <div class="contain-address bd-bottom">
-                                    <div class="contain-address left">
-                                        <p>
-                                            <label><span class="name">Quỳnh Như</span> <span
-                                                    class="phone-number">0123456789</span></label>
-                                        </p>
-                                        <div class="address">
-                                            Kí túc xá khu B đhqg, Đông Hòa, Dĩ An, Bình Dương.
-                                        </div>
-                                    </div>
-                                    <div class="contain-address right">
-                                        <button class="btn-add-address button submit" id="edit-address">Sửa</button>
-                                        <button class="btn-add-address button submit" id="delete-address">Xóa</button>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <button type="button" class="btn-add-address button submit" data-toggle="modal"
-                                    data-target="#exampleModalCenter">
-                                Thêm địa chỉ mới
-                            </button>
-                            <button type="button" class="btn-delete-address button submit" data-toggle="modal-dele"
-                                    data-target="#exampleModalCenter">
-                                Xóa tất cả
-                            </button>
-
-
-                        </div>
-                    </div>
 
                 </div>
             </div>
         </div>
         <!-- end content -->
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm địa chỉ mới</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-add-address">
-                            <input class="input" type="text" name="" id="input-name" placeholder="Họ tên">
-                            <input class="input" type="text" name="" id="input-number-phone"
-                                   placeholder="Số điện thoại">
-                            <select class="select-address" name="calc_shipping_provinces" required="">
-                                <option value="">Tỉnh / Thành phố</option>
-                            </select>
-                            <select class="select-address" name="calc_shipping_district" required="">
-                                <option value="">Quận / Huyện</option>
-                            </select>
-                            <input class="billing_address_1" name="" type="hidden" value="">
-                            <input class="billing_address_2" name="" type="hidden" value="">
-                            <input class="input" type="text" name="" id="input-num-house"
-                                   placeholder="Số nhà, tên đường">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save save-address submit">Lưu địa chỉ</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- footer -->
 

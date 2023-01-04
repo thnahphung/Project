@@ -1,0 +1,7 @@
+.tab-content > .tab-pane {
+    display: block;
+}
+
+.contain-address.bd-bottom {
+    display: flex;
+}
