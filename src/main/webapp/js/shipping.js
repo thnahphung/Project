@@ -1,89 +1,41 @@
 $(document).ready(function () {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
     let wayShip = $('.contain-way-ship input:radio:checked').val();
     let feeShip;
-    if (wayShip === 'GHTC') feeShip = 30000;
-    else if (wayShip === 'GHHT') feeShip = 50000;
+    if (wayShip === '1') feeShip = 30000;
+    else if (wayShip === '2') feeShip = 50000;
 
     $('.total-price').text(new Intl.NumberFormat('de-DE').format(parseInt($('.total-price').text().replaceAll('.', '')) + feeShip));
 
     $('.contain-way-ship p').click(function () {
         wayShip = $('.contain-way-ship input:radio:checked').val();
         let oldFeeShip = feeShip;
-        if (wayShip === 'GHTC') feeShip = 30000;
-        else if (wayShip === 'GHHT') feeShip = 50000;
+        if (wayShip === '1') feeShip = 30000;
+        else if (wayShip === '2') feeShip = 50000;
 
         $('.ship-fee').text(new Intl.NumberFormat('de-DE').format(feeShip));
         $('.total-price').text(new Intl.NumberFormat('de-DE').format(parseInt($('.total-price').text().replaceAll('.', '')) - oldFeeShip + feeShip));
+    })
+
+    $('.btn-total').click(function () {
+        if ($('.contain-address input:radio:checked').val() === undefined) {
+            $('#exampleModalCenter').modal({
+                show: true
+            });
+        } else {
+            let idAddress = $('.contain-address input:radio:checked').val();
+            wayShip = $('.contain-way-ship input:radio:checked').val();
+            let payments = $('.contain-pay input:radio:checked').val();
+            let voucher = urlParams.get('voucher');
+            window.location = 'http://localhost:8080/addOrder?idAddress=' + idAddress + '&wayShip=' + wayShip + '&payments=' + payments + '&voucher=' + voucher;
+        }
+
 
     })
 
-    if (address_2 = localStorage.getItem('address_2_saved')) {
-        $('select[name="calc_shipping_district"] option').each(function () {
-            if ($(this).text() == address_2) {
-                $(this).attr('selected', '')
-            }
-        })
-        $('input.billing_address_2').attr('value', address_2)
-    }
-    if (district = localStorage.getItem('district')) {
-        $('select[name="calc_shipping_district"]').html(district)
-        $('select[name="calc_shipping_district"]').on('change', function () {
-            var target = $(this).children('option:selected')
-            target.attr('selected', '')
-            $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
-            address_2 = target.text()
-            $('input.billing_address_2').attr('value', address_2)
-            district = $('select[name="calc_shipping_district"]').html()
-            localStorage.setItem('district', district)
-            localStorage.setItem('address_2_saved', address_2)
-        })
-    }
-    $('select[name="calc_shipping_provinces"]').each(function () {
-        var $this = $(this),
-            stc = ''
-        c.forEach(function (i, e) {
-            e += +1
-            stc += '<option value=' + e + '>' + i + '</option>'
-            $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
-            if (address_1 = localStorage.getItem('address_1_saved')) {
-                $('select[name="calc_shipping_provinces"] option').each(function () {
-                    if ($(this).text() == address_1) {
-                        $(this).attr('selected', '')
-                    }
-                })
-                $('input.billing_address_1').attr('value', address_1)
-            }
-            $this.on('change', function (i) {
-                i = $this.children('option:selected').index() - 1
-                var str = '',
-                    r = $this.val()
-                if (r != '') {
-                    arr[i].forEach(function (el) {
-                        str += '<option value="' + el + '">' + el + '</option>'
-                        $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>' + str)
-                    })
-                    var address_1 = $this.children('option:selected').text()
-                    var district = $('select[name="calc_shipping_district"]').html()
-                    localStorage.setItem('address_1_saved', address_1)
-                    localStorage.setItem('district', district)
-                    $('select[name="calc_shipping_district"]').on('change', function () {
-                        var target = $(this).children('option:selected')
-                        target.attr('selected', '')
-                        $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
-                        var address_2 = target.text()
-                        $('input.billing_address_2').attr('value', address_2)
-                        district = $('select[name="calc_shipping_district"]').html()
-                        localStorage.setItem('district', district)
-                        localStorage.setItem('address_2_saved', address_2)
-                    })
-                } else {
-                    $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>')
-                    district = $('select[name="calc_shipping_district"]').html()
-                    localStorage.setItem('district', district)
-                    localStorage.removeItem('address_1_saved', address_1)
-                }
-            })
-        })
+    $('.btn-add-address').click(function () {
+        window.location = 'http://localhost:8080/showAddress';
     })
 
 

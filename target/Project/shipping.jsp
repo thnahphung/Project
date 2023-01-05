@@ -33,91 +33,42 @@
                 <h6 class="title uppercase"><i class="fa-solid fa-location-dot"></i>Địa chỉ </h6>
 
                 <div class="list-address">
+                    <%
+                        List<Address> addressList = (List<Address>) request.getAttribute("addressList");
+                        for (Address address : addressList) {
+                    %>
                     <div class="contain-address bd-bottom">
                         <p>
-                            <input type="radio" id="test1" name="address" checked>
-                            <label for="test1"><span class="name">Quỳnh Như</span> <span
-                                    class="phone-number">0123456789</span></label>
+                            <input type="radio" id="test<%=address.getAddressId()%>" name="address" checked
+                                   value="<%=address.getAddressId()%>">
+                            <label for="test<%=address.getAddressId()%>"><span
+                                    class="name"><%=address.getName()%></span> <span
+                                    class="phone-number"><%=address.getPhoneNumber()%></span></label>
                         </p>
                         <div class="address">
-                            Kí túc xá khu B đhqg, Đông Hòa, Dĩ An, Bình Dương.
+                            <%AddressDetail addressDetail = address.getAddressDetail();%>
+                            <%=addressDetail.getDetail() + ", " + addressDetail.getDistrict() + ", " + addressDetail.getCity() + "."%>
                         </div>
                     </div>
-                    <div class="contain-address  bd-bottom">
-                        <p>
-                            <input type="radio" id="test2" name="address">
-                            <label for="test2"><span class="name">Thanh Phụng</span> 0123456789</label>
-                        </p>
-                        <div class="address">
-                            Kí túc xá khu B đhqg, Đông Hòa, Dĩ An, Bình Dương.
-                        </div>
-                    </div>
-                    <div class="contain-address">
-                        <p>
-                            <input type="radio" id="test3" name="address">
-                            <label for="test3"><span class="name">Bảo Đặng</span> 0123456789</label>
-                        </p>
-                        <div class="address">
-                            Kí túc xá khu B đhqg, Đông Hòa, Dĩ An, Bình Dương.
-                        </div>
-                    </div>
+                    <%}%>
                 </div>
-                <button type="button" class="btn-add-address button submit" data-toggle="modal"
-                        data-target="#exampleModalCenter">
+                <button type="button" class="btn-add-address button submit" >
                     Thêm địa chỉ mới
                 </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm địa chỉ mới</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-add-address">
-                                    <input class="input" type="text" name="" id="input-name" placeholder="Họ tên">
-                                    <input class="input" type="text" name="" id="input-number-phone"
-                                           placeholder="Số điện thoại">
-                                    <select class="select-address" name="calc_shipping_provinces" required="">
-                                        <option value="">Tỉnh / Thành phố</option>
-                                    </select>
-                                    <select class="select-address" name="calc_shipping_district" required="">
-                                        <option value="">Quận / Huyện</option>
-                                    </select>
-                                    <input class="billing_address_1" name="" type="hidden" value="">
-                                    <input class="billing_address_2" name="" type="hidden" value="">
-                                    <input class="input" type="text" name="" id="input-num-house"
-                                           placeholder="Số nhà, tên đường">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="button button-close submit"
-                                        data-dismiss="modal">Hủy
-                                </button>
-                                <button type="button" class="button submit">Lưu địa chỉ</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
             <div class="way-ship">
                 <h6 class="title uppercase"><i class="fa-solid fa-truck-fast"></i>Hình thức giao hàng </h6>
                 <div class="contain-way-ship">
                     <p class="bd-bottom">
-                        <input type="radio" id="way1" name="way-ship" value="GHTC" checked>
+                        <input type="radio" id="way1" name="way-ship" value="1" checked>
                         <label for="way1">
                             <span class="text">Giao hàng tiêu chuẩn (Từ 2-5 ngày)</span>
                             <span class="text fee">30.000 VND</span>
                         </label>
                     </p>
                     <p>
-                        <input type="radio" id="way2" value="GHHT" name="way-ship">
+                        <input type="radio" id="way2" value="2" name="way-ship">
                         <label for="way2">
                             <span class="text">Giao hàng hỏa tốc (2 giờ)</span>
                             <span class="text fee">50.000 VND</span>
@@ -130,21 +81,15 @@
                 <h6 class="title uppercase"><i class="fa-regular fa-credit-card"></i>Hình thức thanh toán</h6>
                 <div class="contain-pay">
                     <p class="bd-bottom">
-                        <input type="radio" id="pay1" name="pay" checked>
+                        <input type="radio" id="pay1" name="pay" checked value="Thanh toán trực tiếp khi giao hàng">
                         <label for="pay1">
                             <span class="text">Thanh toán trực tiếp khi giao hàng</span>
                         </label>
                     </p>
                     <p class="bd-bottom">
-                        <input type="radio" id="pay2" name="pay">
+                        <input type="radio" id="pay2" name="pay" value="Thanh toán bằng thẻ quốc tế và nội địa (ATM)">
                         <label for="pay2">
                             <span class="text">Thanh toán bằng thẻ quốc tế và nội địa (ATM)</span>
-                        </label>
-                    </p>
-                    <p>
-                        <input type="radio" id="pay3" name="pay">
-                        <label for="pay3">
-                            <span class="text">Thanh toán bằng ví MoMo</span>
                         </label>
                     </p>
                 </div>
@@ -179,7 +124,8 @@
                         </div>
                         <div class="col-8 text">Mã khuyến mãi</div>
                         <%Discount discount = (Discount) request.getAttribute("voucher");%>
-                        <div class="col-4 price text text-right">- <%=discount == null ? 0 : Format.format(discount.getDiscountFee())%>
+                        <div class="col-4 price text text-right">
+                            - <%=discount == null ? 0 : Format.format(discount.getDiscountFee())%>
                             VND
                         </div>
                         <div class="col-8 name-product text">Phí vận chuyển</div>
@@ -195,19 +141,45 @@
                                 class="total-price"><%=Format.format(cart.total())%></span> VND
                         </div>
                     </div>
-                    <button class="btn-total uppercase submit">Tiếp tục thanh toán</button>
+                    <button class="btn-total uppercase submit">thanh toán</button>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm địa chỉ mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-add-address">
+                    Bạn chưa có địa chỉ, thêm địa chỉ mới nhé!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-close submit"
+                        data-dismiss="modal">Hủy
+                </button>
+                <button type="button" class="button submit btn-add-address">Thêm địa chỉ mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%@include file="footer.jsp" %>
 <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
@@ -215,14 +187,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
-<script src="js/shipping.js"></script>
 <script src="js/general.js"></script>
-<script src="js/list-product.js"></script>
+<script src="js/shipping.js"></script>
 </body>
 
 </html>

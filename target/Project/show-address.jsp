@@ -130,10 +130,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <%for(Address address:addressList){%>
                         <div class="form-edit-address">
-                            <input class="input" type="text" name="" id="input-edit-name" placeholder="Họ tên">
-                            <input class="input" type="text" name="" id="input-edit-phone"
-                                   placeholder="Số điện thoại">
+                            <input class="input" type="text" name="" id="input-edit-name" placeholder="Họ tên" value="<%=address.getName()%>">
+                            <input class="input" type="text" name="" id="input-edit-phone" placeholder="Số điện thoại" value="<%=address.getPhoneNumber()%>">
                             <select class="select-address" name="calc_shipping_provinces" id="input-edit-city"
                                     required="">
                                 <option value="">Tỉnh / Thành phố</option>
@@ -142,11 +142,11 @@
                                     required="">
                                 <option value="">Quận / Huyện</option>
                             </select>
-                            <input class="billing_address_1" name="" type="hidden" value="">
-                            <input class="billing_address_2" name="" type="hidden" value="">
-                            <input class="input" type="text" name="" id="input-num-house"
-                                   placeholder="Số nhà, tên đường">
+                            <input class="billing_address_1" name="" type="hidden" value="<%=address.getAddressDetail().getCity()%>">
+                            <input class="billing_address_2" name="" type="hidden" value="<%=address.getAddressDetail().getDistrict()%>">
+                            <input class="input" type="text" name="" id="input-address-detail" placeholder="Số nhà, tên đường" value="<%=address.getAddressDetail().getDetail()%>">
                         </div>
+                        <%}%>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
@@ -157,7 +157,7 @@
         </div>
 
         <%--        end modal edit address--%>
-        <!-- Modal -->
+        <!-- Modal add address-->
         <div class="modal fade" id="example" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -192,7 +192,7 @@
                 </div>
             </div>
         </div>
-
+        <%--end modal add address--%>
         <!-- footer -->
 
         <%@include file="footer.jsp" %>
