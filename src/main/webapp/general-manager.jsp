@@ -25,40 +25,107 @@
 <body>
 <%@include file="header-admin.jsp" %>
 <div class="content">
-    <div class="table-wrapper-scroll-y my-custom-scrollbar table-banner">
-        <h3>Quản lý quản cáo</h3>
-        <p>                    </p>
-        <table class="table table-bordered table-striped mb-0">
-            <thead>
-            <tr>
-                <th>mã quản cáo</th>
-                <th>Tên quản cáo</th>
-                <th>Hình ảnh</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <%
-                List<Banner> bannerList = (List<Banner>) request.getAttribute("listBanner");
-                for (Banner banner : bannerList) {
-            %>
-            <tr>
-                <td><%=banner.getId()%>
-                </td>
-                <td><%=banner.getName()%>
-                </td>
-                <td><img src="<%=banner.getImage_src()%>" alt="" style="width: 200px; height: 100px"></td>
-                <td><button type="button" class="btn btn-indigo btn-sm m-0">Sữa</button> <button type="button" class="btn btn-indigo btn-sm m-0">Xóa</button></td>
-            </tr>
-            <%}%>
+    <div class="manager-banner">
+        <h3>Quản lý ảnh bìa</h3>
+        <button type="button" class="btn-add-address button submit add" data-toggle="modal"
+                data-target="#exampleModalCenter">Thêm
+        </button>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar table-banner">
 
-            </tbody>
-        </table>
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                <tr>
+                    <th>mã ảnh bìa</th>
+                    <th>Tên ảnh bìa</th>
+                    <th>Hình ảnh</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    List<Banner> bannerList = (List<Banner>) request.getAttribute("listBanner");
+                    for (Banner banner : bannerList) {
+                %>
+                <tr class="name<%=banner.getId()%>">
+                    <td><%=banner.getId()%>
+                    </td>
+                    <td><%=banner.getName()%>
+                    </td>
+                    <td><img src="<%=banner.getImage_src()%>" alt="" style="width: 200px; height: 100px"></td>
+                    <td>
+                        <button class="edit-banner" value="<%=banner.getId()%>" data-toggle="modal"
+                                data-target="#exampleModalCenterEdit">
+                            Sửa
+                        </button>
+                        <button type="button" class="delete-banner" class="button btn-indigo btn-sm m-0 delete"
+                                value="<%=banner.getId()%>">Xóa
+                        </button>
+                    </td>
+                </tr>
+                <%}%>
+                </tbody>
+            </table>
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm sản phẩm mới</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-add-address">
+                                <div class="name">
+                                    <label>Tên quản cáo</label>
+                                    <select class="input" type="text" name="name" id="input-name">
+                                        <option value="home">Trang chủ</option>
+                                        <option value="product">Sản phẩm</option>
+                                        <option value="none">Ẩn</option>
+                                    </select></div>
+                                <div class="images">
+                                    <label>Hình ảnh </label>
+                                    <input type="file" name="file-img" id="file-img" class="submit"
+                                           placeholder="Tải ảnh lên">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
+                                    </button>
+                                    <button type="button" class="button button-save submit" id="addBanner"
+                                            value="Lưu sản phẩm">Thêm quản cáo
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title uppercase" id="Title">Thêm sản phẩm mới</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body form-edit">
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 
     </div>
-
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -76,6 +143,7 @@
 <!-- <script src="js/general.js"></script> -->
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/admin.js"></script>
+<script src="js/general-manager.js"></script>
 </body>
 
 </html>

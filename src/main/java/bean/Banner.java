@@ -6,15 +6,17 @@ public class Banner implements Serializable {
     private int id;
     private String name;
     private String image_src;
+    private int stt;
 
     public Banner() {
 
     }
 
-    public Banner(int id, String name, String image_src) {
+    public Banner(int id, String name, String image_src,int stt) {
         this.id = id;
         this.name = name;
         this.image_src = image_src;
+        this.stt=stt;
     }
 
     public int getId() {
@@ -39,6 +41,14 @@ public class Banner implements Serializable {
 
     public void setImage_src(String image_src) {
         this.image_src = image_src;
+    }
+
+    public int getStt() {
+        return stt;
+    }
+
+    public void setStt(int stt) {
+        this.stt = stt;
     }
 
     @Override
