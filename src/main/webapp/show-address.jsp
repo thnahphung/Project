@@ -1,5 +1,5 @@
+<%@ page import="services.OrderService" %>
 <%@ page import="bean.*" %>
-<%@ page import="services.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -18,17 +18,20 @@
     <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> -->
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/user-profile.css">
-    <link rel="stylesheet" href="css/order-detail.css">
+    <link rel="stylesheet" href="css/show-address.css">
 
 </head>
 
 <body>
 <%
-    Order order = (Order) request.getAttribute("order");
-    List<HistoryProduct> historyProducts = (List<HistoryProduct>) request.getAttribute("historyProducts");
-    int total = 0;
+    List<Address> addressList = (List<Address>) request.getAttribute("addressList");
 %>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <div id="container">
     <!-- header -->
     <%@include file="header.jsp" %>
@@ -36,8 +39,9 @@
     <!-- end header -->
 
 
-    <!-- content -->
     <div class="after-header">
+        <!-- content -->
+
         <div id="content">
             <!-- Nav tabs -->
             <div id="title">
@@ -56,8 +60,8 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="address-tab" data-toggle="tab" data-target="#address" type="button"
-                                role="tab" aria-controls="profile" aria-selected="false"><i
-                                class="fa-solid fa-location-dot"></i>Danh sách địa chỉ
+                                role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getUserId()%>">
+                            <i class="fa-solid fa-location-dot"></i>Danh sách địa chỉ
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -70,100 +74,34 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div class="tab-pane active" id="infor" role="tabpanel" aria-labelledby="infor-tab">
-                        <div class="inf">
-                            <h3>Thông tin địa chỉ</h3>
-                            <div class="inf container">
-                                <ul class="inf-left">
-                                    <li><%=order.getAddress().getName()%>
-                                    </li>
-                                    <li><%=order.getAddress().getPhoneNumber()%>
-                                    </li>
-                                    <li><%=order.getAddress().getAddressDetail().getDetail() + ", " + order.getAddress().getAddressDetail().getDistrict() + ", " + order.getAddress().getAddressDetail().getCity()%>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-
-                        <div class="order-detail form">
-                            <table class="table order-detail-table">
-                                <h3>Danh sách đơn hàng</h3>
-                                <thead>
-                                <tr>
-                                    <th scope="col">Tên sản phẩm</th>
-                                    <th scope="col">Đơn giá</th>
-                                    <th scope="col">Số lượng</th>
-                                    <th scope="col">Thành tiền</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%
-                                    List<OrderDetail> orderDetails = order.getOrderDetails();
-                                    for (int i = 0; i < orderDetails.size(); i++) {
-                                %>
-                                <tr>
-                                    <th scope="row"><%=orderDetails.get(i).getProduct().getProductName()%>
-                                    </th>
-                                    <td><%=Format.format(historyProducts.get(i).getPrice())%>
-                                        VND
-                                    </td>
-                                    <td><%=orderDetails.get(i).getQuantity()%>
-                                    </td>
-
-                                    <td><%=Format.format(historyProducts.get(i).getPrice() * orderDetails.get(i).getQuantity())%>
-                                        VND
-                                    </td>
-                                    <%total += historyProducts.get(i).getPrice() * orderDetails.get(i).getQuantity();%>
-                                </tr>
-                                <%}%>
-
-                                </tbody>
-                            </table>
-                            <table class="total-detail">
-                                <tr>
-                                    <td>Tổng tiền hàng:</td>
-                                    <td>Phí vận chuyển:</td>
-                                    <td>Mã giảm giá:</td>
-                                    <td>Thành tiền:</td>
-                                </tr>
-                                <tr>
-                                    <td><%=Format.format(total)%> VND</td>
-                                    <td>+ <%=Format.format(order.getTransportFee())%> VND</td>
-                                    <td>- <%=Format.format(order.getDiscount().getDiscountFee())%> VND</td>
-                                    <td><%=Format.format(total + order.getTransportFee() - order.getDiscount().getDiscountFee()) %>
-                                        VND
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                    </div>
                     <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
                         <div class="choose-address">
                             <h6 class="title uppercase"><i class="fa-solid fa-location-dot"></i>Địa chỉ </h6>
 
                             <div class="list-address">
+                                <%for (Address address : addressList) {%>
                                 <div class="contain-address bd-bottom">
                                     <div class="contain-address left">
                                         <p>
-                                            <label><span class="name"><%=order.getAddress().getName()%></span> <span
-                                                    class="phone-number">0123456789</span></label>
+                                            <label><span class="name"><%=address.getName()%></span> <span
+                                                    class="phone-number"><%=address.getPhoneNumber()%></span></label>
                                         </p>
                                         <div class="address">
-                                            Kí túc xá khu B đhqg, Đông Hòa, Dĩ An, Bình Dương.
+                                            <%=address.formatAddress()%>
                                         </div>
                                     </div>
                                     <div class="contain-address right">
-                                        <button class="btn-add-address button submit" id="edit-address">Sửa</button>
+                                        <button class="btn-add-address button submit" id="edit-address"
+                                                data-toggle="modal" data-target="#exampleEditAddress">Sửa
+                                        </button>
                                         <button class="btn-add-address button submit" id="delete-address">Xóa</button>
                                     </div>
-
                                 </div>
+                                <%}%>
 
                             </div>
                             <button type="button" class="btn-add-address button submit" data-toggle="modal"
-                                    data-target="#exampleModalCenter">
+                                    data-target="#example">
                                 Thêm địa chỉ mới
                             </button>
                             <button type="button" class="btn-delete-address button submit" data-toggle="modal-dele"
@@ -180,14 +118,52 @@
         </div>
         <!-- end content -->
 
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        <%--Modal edit address--%>
+        <div class="modal fade" id="exampleEditAddress" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm địa chỉ mới</h5>
+                        <h5 class="modal-title uppercase" id="exampleModalLongTitle">Sửa địa chỉ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <%for(Address address:addressList){%>
+                        <div class="form-edit-address">
+                            <input class="input" type="text" name="" id="input-edit-name" placeholder="Họ tên" value="<%=address.getName()%>">
+                            <input class="input" type="text" name="" id="input-edit-phone" placeholder="Số điện thoại" value="<%=address.getPhoneNumber()%>">
+                            <select class="select-address" name="calc_shipping_provinces" id="input-edit-city"
+                                    required="">
+                                <option value="">Tỉnh / Thành phố</option>
+                            </select>
+                            <select class="select-address" name="calc_shipping_district" id="input-edit-district"
+                                    required="">
+                                <option value="">Quận / Huyện</option>
+                            </select>
+                            <input class="billing_address_1" name="" type="hidden" value="<%=address.getAddressDetail().getCity()%>">
+                            <input class="billing_address_2" name="" type="hidden" value="<%=address.getAddressDetail().getDistrict()%>">
+                            <input class="input" type="text" name="" id="input-address-detail" placeholder="Số nhà, tên đường" value="<%=address.getAddressDetail().getDetail()%>">
+                        </div>
+                        <%}%>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="button button-save save-address submit">Lưu địa chỉ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%--        end modal edit address--%>
+        <!-- Modal add address-->
+        <div class="modal fade" id="example" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title uppercase" id="exampleModalTitle">Thêm địa chỉ mới</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -211,12 +187,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save submit">Lưu địa chỉ</button>
+                        <button type="button" class="button button-save save-address submit">Lưu địa chỉ</button>
                     </div>
                 </div>
             </div>
         </div>
-
+        <%--end modal add address--%>
         <!-- footer -->
 
         <%@include file="footer.jsp" %>
@@ -224,17 +200,17 @@
         <!-- end footer -->
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
-<script src="js/general.js"></script>
-<script src="js/user-profile.js"></script>
-<script src="js/order-detail.js"></script>
+<script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'/>
+<script>
+    <script src="js/general.js"></script>
+<script src="js/show-address.js"></script>
 </body>
 
 </html>

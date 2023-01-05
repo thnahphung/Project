@@ -83,4 +83,8 @@ public class Address implements Serializable {
                 ", addressDetail=" + addressDetail +
                 '}';
     }
+
+    public String formatAddress() {
+        return getAddressDetail().getDetail() + ", " + getAddressDetail().getDistrict() + ", " + getAddressDetail().getCity() + ".";
+    }
 }

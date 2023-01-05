@@ -58,7 +58,7 @@ $(document).ready(function () {
     }
 
     $('.btn-total').click(function () {
-        window.location = "http://localhost:8080/shipping";
+        window.location = "http://localhost:8080/shipping?voucher="+$('#input-voucher').val();
     })
     $('#submit-voucher').click(function () {
 

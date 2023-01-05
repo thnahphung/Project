@@ -1,29 +1,28 @@
 package controller.userprofile;
 
-import bean.Order;
+import bean.Address;
+import bean.AddressDetail;
 import bean.User;
-import db.DBProperties;
-import services.OrderService;
-import services.UserService;
+import com.mysql.cj.Session;
+import services.AddressDetailService;
+import services.AddressService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.List;
 
-@WebServlet(name = "UserProfile", value = "/userProfile")
-public class UserProfile extends HttpServlet {
-
+@WebServlet(name = "ShowAddress", value = "/showAddress")
+public class ShowAddress extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getUserId());
-        request.setAttribute("orders", orders);
+        List<Address> addressList = AddressService.getInstance().getListAddressByUserId(user.getUserId());
+        request.setAttribute("addressList", addressList);
 
-        request.getRequestDispatcher("user-profile.jsp").forward(request, response);
+        request.getRequestDispatcher("show-address.jsp").forward(request, response);
     }
 
     @Override
