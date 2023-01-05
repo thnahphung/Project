@@ -8,7 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <div class="header-top">
-    <h3 class="title">Quản lý sản phẩm</h3>
+    <%String name = request.getAttribute("name").toString();%>
+    <h3 class="title"><%=name%></h3>
     <div class="right">
         <div class="search item">
             <input type="text" id="search" placeholder="Search..."/>
@@ -33,9 +34,8 @@
                 User user = (User) session.getAttribute("authAdmin");
 
             %>
-            <a class="item-right"> <img class="user-avatar" src="<%=user.getAvatar()%>" alt="">
-                <p><%=user.getFullName()%>
-                </p>
+            <a class="item-right"> <img class="user-avatar" src="<%=user.getAvatar()%>" alt="<%=user.getFullName()%>">
+
             </a>
 
 
@@ -48,10 +48,11 @@
     <img src="images/logo/logo-rmbg1.png" alt="">
     <ul>
 
-        <li><a href="/orderManager">Bản điều khiển</a></li>
-        <li><a href="/ProductManager">Quản lý sản phẩm</a></li>
-        <li><a href="/userManager">Quản lý khách hàng</a></li>
-        <li><a href="">Quản lý tài khoản</a></li>
-        <li><a href="/doLogin" id="logout">Đăng xuất</a></li>
+        <li><a class="nav-item" href="/orderManager">Quản lý đơn hàng</a></li>
+        <li><a class="nav-item" href="/ProductManager">Quản lý sản phẩm</a></li>
+        <li><a class="nav-item" href="/userManager">Quản lý tài khoản</a></li>
+        <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
+        <li><a class="nav-item" href="/doLogin" id="logout">Đăng xuất</a></li>
     </ul>
 </div>
+

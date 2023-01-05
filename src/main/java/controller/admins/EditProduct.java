@@ -26,7 +26,7 @@ public class EditProduct extends HttpServlet {
                 result += "<option value=\"" + pa.getPaCategoryId() + "\">" + pa.getName() + "</option>\n";
             }
         }
-        response.getWriter().println("<form class=\"form-add-address\" >\n" +
+        response.getWriter().println("<form class=\"form-add-address\" action=\"/editProductinForm\">\n" +
                 "                    <div class=\"name\">\n" +
                 "                        <label>Tên sản phẩm</label>\n" +
                 "                        <input class=\"input\" type=\"text\" name=\"name\" id=\"edit-name\" value=" + product.getProductName() + "></div>\n" +

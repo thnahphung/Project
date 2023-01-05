@@ -3,14 +3,14 @@ $(document).ready(function () {
     //
     // })
     $('#addProduct').click(function () {
-        var name = $('#input-name').val().trim();
+        var name = $('#input-name').val();
         var price = $('#input-price').val().trim();
         var priceReal = $('#input-priceReal').val().trim();
-        var inventory = $('#input-inventory').val().trim();
+        var inventory = $('#input-inventory').val();
         // img: $()
         let category = $('.category').find(":selected").val().trim();
-        var detail = $('#input-detail').val().trim();
-        var decription = $('#input-decription').val().trim();
+        var detail = $('#input-detail').val();
+        var decription = $('#input-decription').val();
 
 
         if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
@@ -19,17 +19,35 @@ $(document).ready(function () {
         }
         window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
     })
+    // $('.edit-product').click(function () {
+    //     alert($(this).val())
+    //     $.ajax({
+    //         url: "/admins/editProduct",
+    //         type: "get",
+    //         data: {
+    //             id: $(this).val().trim()
+    //         },
+    //         success: function (response) {
+    //             $(".form-edit").html(response);
+    //
+    //         },
+    //         error: function (xhr) {
+    //         }
+    //     })
+    //
+    // })
     $('.edit-product').click(function () {
-        alert($(this).val())
+
+        var idpr = $(this).val().trim()
+        alert(idpr)
         $.ajax({
             url: "/admins/editProduct",
             type: "get",
             data: {
-                id: $(this).val().trim()
+                id: idpr
             },
             success: function (response) {
                 $(".form-edit").html(response);
-
             },
             error: function (xhr) {
             }
@@ -43,13 +61,33 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         $("#edit-category").html(data);
+
                     },
                     error: function (xhr) {
 
                     }
                 })
             })
-        })
+            $('#editProduct').click(function () {
+                var idpr1 = idpr;
+                var name = $('#edit-name').val();
+                var price = $('#edit-price').val().trim();
+                var priceReal = $('#edit-priceReal').val().trim();
+                var inventory = $('#edit-inventory').val().trim();
+                // img: $()
+                let category = $('.category').find(":selected").val().trim();
+                var detail = $('#edit-detail').val();
+                var decription = $('#edit-decription').val();
+
+                console.log()
+                if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
+                    alert("Vui lòng kiểm tra lại")
+                    return;
+                }
+                window.location = "/admins/editProductinForm?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category + "&id=" + idpr1 + "&stt=0";
+            })
+        }
+        )
 
     })
 

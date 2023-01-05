@@ -17,6 +17,7 @@ import java.util.List;
 public class ProductManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = "Quản lý sản phẩm";
         List<Product> list = ProductService.getInstance().getListProduct();
         List<PaCategory> listPaCategories = PaCategoryService.getInstance().getListCategory();
         List<Category> categoryList  = CaterogyService.getInstance().getListCategory(1);
@@ -25,6 +26,7 @@ public class ProductManager extends HttpServlet {
         request.setAttribute("list", list);
         request.setAttribute("listPacategories", listPaCategories);
         request.setAttribute("listCategory",categoryList);
+        request.setAttribute("name",name);
         request.getRequestDispatcher("product-manager.jsp").forward(request, response);
     }
 
