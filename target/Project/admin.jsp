@@ -23,13 +23,14 @@
 <body>
 <%@include file="header-admin.jsp" %>
 <div class="content">
+    <% List<Order> list = (List<Order>) request.getAttribute("orderList");%>
     <div class="row">
         <div class="col-sm">
             <div class="top">
                 <div class="icon i-gray"><img src="" alt=""><i class="fa-solid fa-cash-register"></i></div>
                 <div class="title-number">
                     <p class="title">Tổng doanh thu</p>
-                    <p class="number">124.342.234 VND</p>
+                    <p class="number"><%=request.getAttribute("total")%> VND</p>
                 </div>
             </div>
             <div class="bottom">
@@ -44,8 +45,8 @@
             <div class="top">
                 <div class="icon i-red"><img src="" alt=""><i class="fa-solid fa-user "></i></div>
                 <div class="title-number">
-                    <p class="title">Khách hàng mới</p>
-                    <p class="number">324 Người</p>
+                    <p class="title">Số lượng khách hàng</p>
+                    <p class="number"><%=request.getAttribute("member")%> Người</p>
                 </div>
             </div>
             <div class="bottom">
@@ -60,8 +61,8 @@
             <div class="top">
                 <div class="icon i-green"><img src="" alt=""><i class="fa-solid fa-cart-shopping"></i></div>
                 <div class="title-number">
-                    <p class="title">Tổng tổng đơn hàng</p>
-                    <p class="number">234 Đơn</p>
+                    <p class="title">Tổng số đơn hàng</p>
+                    <p class="number"><%=list.size()%> Đơn</p>
                 </div>
             </div>
             <div class="bottom">
@@ -105,21 +106,32 @@
                     <th>Ngày tạo HĐ</th>
                     <th>Thành tiền</th>
                     <th>Trạng thái</th>
+                    <th>Tình trạng</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%
-                    List<Order> list = (List<Order>) request.getAttribute("orderList");
+
                     for (Order order : list) {
                 %>
                 <tr>
-                    <td><%=order.getOrderId()%></td>
-                    <td><%=order.getAddress().getName()%></td>
-                    <td><%=order.getAddress().getAddressDetail().getDetail()%>, <%=order.getAddress().getAddressDetail().getDistrict()%>, <%=order.getAddress().getAddressDetail().getCity()%></td>
-                    <td><%=order.getAddress().getPhoneNumber()%></td>
-                    <td><%=order.getOrderDate()%></td>
-                    <td><%=order.total()%></td>
-                    <td><%=order.getSttDelivery()%></td>
+                    <td><%=order.getOrderId()%>
+                    </td>
+                    <td><%=order.getAddress().getName()%>
+                    </td>
+                    <td><%=order.getAddress().getAddressDetail().getDetail()%>
+                        , <%=order.getAddress().getAddressDetail().getDistrict()%>
+                        , <%=order.getAddress().getAddressDetail().getCity()%>
+                    </td>
+                    <td><%=order.getAddress().getPhoneNumber()%>
+                    </td>
+                    <td><%=order.getOrderDate()%>
+                    </td>
+                    <td><%=order.total()%>
+                    </td>
+                    <td><%=order.getPay()   %></td>
+                    <td><%=order.getDelivery()%>
+                    </td>
                 </tr>
                 <%}%>
 

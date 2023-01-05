@@ -279,23 +279,8 @@ public class ProductService {
         });
     }
 
-    // ------------------------- Sua san pham ----------------------------------
-    public void editProduct(Product product) {
-        JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE product SET product_name=?, price=?,price_real=? where product_id=?s)")
-                    .bind("productId", product.getProductId())
-                    .bind("categoryId", product.getCategoryId())
-                    .bind("name", product.getProductName())
-                    .bind("price", product.getPrice())
-                    .bind("priceReal", product.getPriceReal())
-                    .bind("rate", 0)
-                    .bind("imgSrc", product.getImageSrc())
-                    .bind("proDetailId", product.getProductDetail().getProductDetailId())
-                    .execute();
-        });
-    }
-
     //------------------------- Them chi tiet san pham ---------------------------
+
     public void addProductDetail(ProductDetail product) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("INSERT INTO product_detail VALUES (:productDetailId, :decription, :detail, :inventory, :createDate, :updateDate, :stt, :quantitySold,:user)")
@@ -311,6 +296,31 @@ public class ProductService {
                     .execute();
         });
     }
+    // ------------------------- Sua san pham ----------------------------------
+    public void editProduct(int id, String name, int price, int priceReal, int group, String img) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE product SET category_id=?, product_name=?, price=?,price_real=?,image_src=? where product_id= "+id+";")
+                    .bind(0, group)
+                    .bind(1, name)
+                    .bind(2, price)
+                    .bind(3, priceReal)
+                    .bind(4, img)
+                    .execute();
+        });
+    }
+//-------------------------- Sua chi tiet san pham -------------------------------------
+    public void editProductDetail(int id, String decription, String detail, int inventory, int stt, int userId) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE product_detail SET decription=?, detail=?, inventory=?, update_date=?, stt=?, user_id=?")
+                    .bind(0, decription)
+                    .bind(1, detail)
+                    .bind(2, inventory)
+                    .bind(3, LocalDateTime.now())
+                    .bind(4, stt)
+                    .bind(5, userId)
+                    .execute();
+        });
+    }
 
     public List<Product> getNewProducts() {
         return JDBIConnector.get().withHandle(handle -> {
@@ -320,7 +330,7 @@ public class ProductService {
         });
     }
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        System.out.println(ProductService.getInstance().getProductById(9));
 //        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
@@ -345,13 +355,13 @@ public class ProductService {
 //        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
 //        System.out.println(ProductService.getInstance().getListProductInGroupName(0, ""));
-        ProductDetail productDetail = new ProductDetail(getInstance().getListProduct().size() + 1, "ádsa", "ádad", null, 10, LocalDateTime.now(), LocalDateTime.of(2022, 12, 11, 3, 3, 2), 0, 3);
-        ProductService.getInstance().addProductDetail(productDetail);
-        Product product = new Product(getInstance().getListProduct().size() + 1, 1, "dsad", 1312, 13, 0, "", productDetail);
-
-        ProductService.getInstance().addProduct(product);
-
-    }
+//        ProductDetail productDetail = new ProductDetail(getInstance().getListProduct().size() + 1, "ádsa", "ádad", null, 10, LocalDateTime.now(), LocalDateTime.of(2022, 12, 11, 3, 3, 2), 0, 3);
+//        ProductService.getInstance().addProductDetail(productDetail);
+//        Product product = new Product(getInstance().getListProduct().size() + 1, 1, "dsad", 1312, 13, 0, "", productDetail);
+//
+//        ProductService.getInstance().addProduct(product);
+//
+//    }
 
 
 }
