@@ -39,7 +39,7 @@ public class AddressService {
         return JDBIConnector.get().withHandle(handle -> {
             List<Address> result = handle.createQuery("select a.address_id,a.user_id, a.`name`, a.phone_number, a.address_detail_id, a.stt\n" +
                             "from address a\n" +
-                            " WHERE a.user_id = ?;")
+                            " WHERE a.user_id = ? and a.stt not like 1;")
                     .bind(0, id)
                     .mapToBean(Address.class)
                     .stream().collect(Collectors.toList());

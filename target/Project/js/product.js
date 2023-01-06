@@ -49,7 +49,6 @@ $(document).ready(function () {
     $("button.page-link").click(
         function () {
             let page = $(this).text().trim();
-            alert(page);
 
             if (page === 'Previous') {
                 let buttonActive = $('li.active>button');
