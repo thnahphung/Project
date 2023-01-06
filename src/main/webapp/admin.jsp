@@ -114,10 +114,11 @@
 
                     for (Order order : list) {
                 %>
-                <tr>
-                    <td><%=order.getOrderId()%>
+                <tr data-toggle="modal"
+                    data-target="#exampleModalCenterEdit">
+                    <td class="order-id"><%=order.getOrderId()%>
                     </td>
-                    <td><%=order.getAddress().getName()%>
+                    <td class="name"><%=order.getAddress().getName()%>
                     </td>
                     <td><%=order.getAddress().getAddressDetail().getDetail()%>
                         , <%=order.getAddress().getAddressDetail().getDistrict()%>
@@ -129,7 +130,8 @@
                     </td>
                     <td><%=order.total()%>
                     </td>
-                    <td><%=order.getPay()   %></td>
+                    <td><%=order.getPay()   %>
+                    </td>
                     <td><%=order.getDelivery()%>
                     </td>
                 </tr>
@@ -138,6 +140,22 @@
                 </tbody>
             </table>
 
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title uppercase" id="Title">Thêm sản phẩm mới</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-edit">
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
