@@ -147,9 +147,10 @@ public class UserService {
         });
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(UserService.getInstance().checkPhoneEmail("090000005"));
+    public int nextId() {
+        return 1 + JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(`user_id`) as numberOfUser FROM `user`").mapTo(Integer.class).one();
+        });
     }
 
 

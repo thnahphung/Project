@@ -1,6 +1,8 @@
 package controller.userprofile;
 
+import bean.Address;
 import bean.User;
+import services.AddressService;
 import services.UserService;
 
 import javax.servlet.*;
@@ -14,16 +16,28 @@ public class EditAddress extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        String fullName = request.getParameter("fullName");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String email = request.getParameter("email");
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String city = request.getParameter("city");
+        String district = request.getParameter("district");
+        String detail = request.getParameter("detail");
 
 
-        UserService.getInstance().editInfor(user.getUserId(), fullName, phoneNumber, email);
+        AddressService.getInstance().editAddress(id,name, phone,city,district,detail);
 
-        response.getWriter().println("<li>" + fullName + "</li>\n" +
-                "                     <li>" + phoneNumber + "</li>\n" +
-                "                    <li>" + email + "</li>");
+        response.getWriter().println("<div class=\"contain-address"+id+" left\">\n" +
+                "                                        <p>\n" +
+                "                                            <label><span class=\"name\">"+name+"</span> <span\n" +
+                "                                                    class=\"phone-number\">"+phone+"</span></label>\n" +
+                "                                        </p>\n" +
+                "                                        <div class=\"address\">\n" +
+                "                                            "+detail+", "+district+", "+city+".\n" +
+                "                                        </div>\n" +
+                "                                    </div>");
+
+
+
     }
 
     @Override

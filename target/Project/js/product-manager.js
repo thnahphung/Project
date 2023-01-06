@@ -39,7 +39,6 @@ $(document).ready(function () {
     $('.edit-product').click(function () {
 
         var idpr = $(this).val().trim()
-        alert(idpr)
         $.ajax({
             url: "/admins/editProduct",
             type: "get",
@@ -79,7 +78,6 @@ $(document).ready(function () {
                 var detail = $('#edit-detail').val();
                 var decription = $('#edit-decription').val();
 
-                console.log()
                 if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
                     alert("Vui lòng kiểm tra lại")
                     return;
@@ -92,7 +90,6 @@ $(document).ready(function () {
     })
 
     $('#input-pa_category').change(function () {
-        alert($(this).val())
         $.ajax({
             url: "/setParCategoryProduct",
             type: "get",

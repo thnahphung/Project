@@ -19,7 +19,6 @@ $(document).ready(function () {
     });
     $('.nav-item').click(function (){
         const queryString = window.location.search;
-        console.log(queryString);
         if(queryString.endsWith("userManager")){
             $('.title').text("userManager")
         }

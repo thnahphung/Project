@@ -32,7 +32,6 @@
         <div class="user item">
             <%
                 User user = (User) session.getAttribute("authAdmin");
-
             %>
             <a class="item-right"> <img class="user-avatar" src="<%=user.getAvatar()%>" alt="<%=user.getFullName()%>">
 

@@ -25,6 +25,7 @@
 <body>
 <%
     List<Address> addressList = (List<Address>) request.getAttribute("addressList");
+
 %>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -75,13 +76,13 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
-                        <div class="choose-address">
-                            <h6 class="title uppercase"><i class="fa-solid fa-location-dot"></i>Địa chỉ </h6>
+                        <div class="choose-address inf">
+                            <h3>Địa chỉ</h3>
 
-                            <div class="list-address">
-                                <%for (Address address : addressList) {%>
+                            <%for (Address address : addressList) {%>
+                            <div class="list-address<%=address.getAddressId()%>">
                                 <div class="contain-address bd-bottom">
-                                    <div class="contain-address left">
+                                    <div class="contain-address<%=address.getAddressId()%> left">
                                         <p>
                                             <label><span class="name"><%=address.getName()%></span> <span
                                                     class="phone-number"><%=address.getPhoneNumber()%></span></label>
@@ -91,17 +92,19 @@
                                         </div>
                                     </div>
                                     <div class="contain-address right">
-                                        <button class="btn-add-address button submit" id="edit-address"
-                                                data-toggle="modal" data-target="#exampleEditAddress">Sửa
+                                        <button class="btn-address edit-one button submit" id="edit-address"
+                                                data-toggle="modal"
+                                                data-target="#exampleEditAddress<%=address.getAddressId()%>">Sửa
                                         </button>
-                                        <button class="btn-add-address button submit" id="delete-address">Xóa</button>
+                                        <button class="btn-address delete-one button submit" id="delete-address"
+                                                value="<%=address.getAddressId()%>">Xóa
+                                        </button>
                                     </div>
                                 </div>
-                                <%}%>
-
                             </div>
+                            <%}%>
                             <button type="button" class="btn-add-address button submit" data-toggle="modal"
-                                    data-target="#example">
+                                    data-target="#exampleAddAddress">
                                 Thêm địa chỉ mới
                             </button>
                             <button type="button" class="btn-delete-address button submit" data-toggle="modal-dele"
@@ -119,7 +122,8 @@
         <!-- end content -->
 
         <%--Modal edit address--%>
-        <div class="modal fade" id="exampleEditAddress" tabindex="-1" role="dialog"
+        <%for (Address address : addressList) {%>
+        <div class="modal fade" id="exampleEditAddress<%=address.getAddressId()%>" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -130,40 +134,38 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <%for(Address address:addressList){%>
+
                         <div class="form-edit-address">
-                            <input class="input" type="text" name="" id="input-edit-name" placeholder="Họ tên" value="<%=address.getName()%>">
-                            <input class="input" type="text" name="" id="input-edit-phone" placeholder="Số điện thoại" value="<%=address.getPhoneNumber()%>">
-                            <select class="select-address" name="calc_shipping_provinces" id="input-edit-city"
-                                    required="">
-                                <option value="">Tỉnh / Thành phố</option>
-                            </select>
-                            <select class="select-address" name="calc_shipping_district" id="input-edit-district"
-                                    required="">
-                                <option value="">Quận / Huyện</option>
-                            </select>
-                            <input class="billing_address_1" name="" type="hidden" value="<%=address.getAddressDetail().getCity()%>">
-                            <input class="billing_address_2" name="" type="hidden" value="<%=address.getAddressDetail().getDistrict()%>">
-                            <input class="input" type="text" name="" id="input-address-detail" placeholder="Số nhà, tên đường" value="<%=address.getAddressDetail().getDetail()%>">
+                            <input class="input" type="text" name="" id="input-edit-name<%=address.getAddressId()%>"
+                                   placeholder="Họ tên" value="<%=address.getName()%>">
+                            <input class="input" type="text" name="" id="input-edit-phone<%=address.getAddressId()%>"
+                                   placeholder="Số điện thoại" value="<%=address.getPhoneNumber()%>">
+                            <input class="input" type="text" name="" id="input-edit-detail<%=address.getAddressId()%>"
+                                   placeholder="Số nhà, tên đường, thôn, ấp"
+                                   value="<%=address.getAddressDetail().getDetail()%>">
+                            <input class="input" type="text" name="" id="input-edit-district<%=address.getAddressId()%>"
+                                   placeholder="Quận, huyện" value="<%=address.getAddressDetail().getDistrict()%>">
+                            <input class="input" type="text" name="" id="input-edit-city<%=address.getAddressId()%>"
+                                   placeholder="Tỉnh, thành phố" value="<%=address.getAddressDetail().getCity()%>">
                         </div>
-                        <%}%>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save save-address submit">Lưu địa chỉ</button>
+                        <button type="button" class="button button-save btn-save-address submit"
+                                value="<%=address.getAddressId()%>">Lưu địa chỉ</button>
                     </div>
                 </div>
             </div>
         </div>
-
+        <%}%>
         <%--        end modal edit address--%>
         <!-- Modal add address-->
-        <div class="modal fade" id="example" tabindex="-1" role="dialog"
+        <div class="modal fade" id="exampleAddAddress" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title uppercase" id="exampleModalTitle">Thêm địa chỉ mới</h5>
+                        <h5 class="modal-title uppercase" id="exampleAddAddressTitle">Thêm địa chỉ mới</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -171,23 +173,15 @@
                     <div class="modal-body">
                         <div class="form-add-address">
                             <input class="input" type="text" name="" id="input-name" placeholder="Họ tên">
-                            <input class="input" type="text" name="" id="input-number-phone"
-                                   placeholder="Số điện thoại">
-                            <select class="select-address" name="calc_shipping_provinces" required="">
-                                <option value="">Tỉnh / Thành phố</option>
-                            </select>
-                            <select class="select-address" name="calc_shipping_district" required="">
-                                <option value="">Quận / Huyện</option>
-                            </select>
-                            <input class="billing_address_1" name="" type="hidden" value="">
-                            <input class="billing_address_2" name="" type="hidden" value="">
-                            <input class="input" type="text" name="" id="input-num-house"
-                                   placeholder="Số nhà, tên đường">
+                            <input class="input" type="text" name="" id="input-number-phone" placeholder="Số điện thoại">
+                            <input class="input" type="text" name="" id="input-detail" placeholder="Số nhà, tên đường, thôn, ấp">
+                            <input class="input" type="text" name="" id="input-district" placeholder="Quận, huyện">
+                            <input class="input" type="text" name="" id="input-city" placeholder="Thành phố">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save save-address submit">Lưu địa chỉ</button>
+                        <button type="button" class="button button-save save-address btn-save submit">Lưu địa chỉ</button>
                     </div>
                 </div>
             </div>
@@ -207,9 +201,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
-<script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'/>
-<script>
-    <script src="js/general.js"></script>
+<script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
+<script src="js/general.js"></script>
 <script src="js/show-address.js"></script>
 </body>
 
