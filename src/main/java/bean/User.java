@@ -89,6 +89,15 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
+    public String getVarietiesUser(){
+       if(this.varieties==1){
+            return "Cộng tác viên";
+        }
+         if(this.varieties==2){
+            return "Quản lý";
+        }
+         return "Khách hàng";
+    }
 
     @Override
     public String toString() {
