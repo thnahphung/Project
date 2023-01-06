@@ -39,7 +39,6 @@ $(document).ready(function () {
     $('.edit-product').click(function () {
 
         var idpr = $(this).val().trim()
-        alert(idpr)
         $.ajax({
             url: "/admins/editProduct",
             type: "get",
@@ -92,7 +91,6 @@ $(document).ready(function () {
     })
 
     $('#input-pa_category').change(function () {
-        alert($(this).val())
         $.ajax({
             url: "/setParCategoryProduct",
             type: "get",

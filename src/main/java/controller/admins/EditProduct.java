@@ -17,6 +17,7 @@ public class EditProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = ProductService.getInstance().getProductById(id);
+        System.out.println(product);
         List<PaCategory> paCategoryList = PaCategoryService.getInstance().getListCategory();
         String result = "";
         for (PaCategory pa : paCategoryList) {
@@ -29,7 +30,7 @@ public class EditProduct extends HttpServlet {
         response.getWriter().println("<form class=\"form-add-address\" action=\"/editProductinForm\">\n" +
                 "                    <div class=\"name\">\n" +
                 "                        <label>Tên sản phẩm</label>\n" +
-                "                        <input class=\"input\" type=\"text\" name=\"name\" id=\"edit-name\" value=" + product.getProductName() + "></div>\n" +
+                "                        <input class=\"input\" type=\"text\" name=\"name\" id=\"edit-name\" value=\"" + product.getProductName() + "\"></div>\n" +
                 "                    <div class=\"price\">\n" +
                 "                        <label>Giá sản phẩm</label>\n" +
                 "                        <input class=\"input\" type=\"number\" min=\"0\" name=\"price\" id=\"edit-price\"\n" +
