@@ -80,7 +80,7 @@
                             <h3>Địa chỉ</h3>
 
                             <%for (Address address : addressList) {%>
-                            <div class="list-address<%=address.getAddressId()%>">
+                            <div class="list-address<%=address.getAddressId()%> all-address">
                                 <div class="contain-address bd-bottom">
                                     <div class="contain-address<%=address.getAddressId()%> left">
                                         <p>
@@ -107,8 +107,8 @@
                                     data-target="#exampleAddAddress">
                                 Thêm địa chỉ mới
                             </button>
-                            <button type="button" class="btn-delete-address button submit" data-toggle="modal-dele"
-                                    data-target="#exampleModalCenter">
+                            <button type="button" class="btn-delete-address button submit" data-toggle="modal"
+                                    data-target="#exampleDeleteAllAddress">
                                 Xóa tất cả
                             </button>
 
@@ -187,6 +187,24 @@
             </div>
         </div>
         <%--end modal add address--%>
+        <!-- Modal delete all address-->
+        <div class="modal fade" id="exampleDeleteAllAddress" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title uppercase" >Bạn chắc chắn xóa tất cả địa chỉ?</h5>
+                        </button>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="button button-save delete-address btn-delete-all submit">Vẫn xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--end modal delete all address--%>
         <!-- footer -->
 
         <%@include file="footer.jsp" %>
