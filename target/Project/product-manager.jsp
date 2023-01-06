@@ -50,10 +50,8 @@
                 </div>
             </div>
             <div class="bottom">
-
                 <p class="percent red">-10%</p>
                 <p>so với tháng trước</p>
-
             </div>
 
         </div>

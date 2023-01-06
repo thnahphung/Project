@@ -93,7 +93,6 @@ public class OrderService implements Serializable {
     }
 
     public void cartToOrder(Order order){
-        Integer discountId = order.getDiscountId() == 0 ? null : order.getDiscountId();
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE `ord` SET note=:note,total=:total,stt_delivery=:stt_delivery,stt_pay=:stt_pay," +
                             "order_date=:order_date,delivery_date=:delivery_date,address_id=:address_id,transport_id=:transport_id," +
@@ -107,7 +106,7 @@ public class OrderService implements Serializable {
                     .bind("delivery_date", order.getDeliveryDate())
                     .bind("address_id", order.getAddressId())
                     .bind("transport_id", order.getTransportId())
-                    .bind("discount_id", discountId)
+                    .bind("discount_id", order.getDiscountId())
                     .bind("payments", order.getPayments())
                     .execute();
         });
