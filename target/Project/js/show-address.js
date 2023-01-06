@@ -1,13 +1,13 @@
-$(document).ready(function() {
-    $('#infor-tab').click(function() {
+$(document).ready(function () {
+    $('#infor-tab').click(function () {
         window.location = "http://localhost:8080/userProfile";
     })
-    $('#address-tab').click(function() {
-            window.location = "http://localhost:8080/showAddress";
-        })
-        // change information user
+    $('#address-tab').click(function () {
+        window.location = "http://localhost:8080/showAddress";
+    })
+    // change information user
     if (address_2 = localStorage.getItem('address_2_saved')) {
-        $('select[name="calc_shipping_district"] option').each(function() {
+        $('select[name="calc_shipping_district"] option').each(function () {
             if ($(this).text() == address_2) {
                 $(this).attr('selected', '')
             }
@@ -16,7 +16,7 @@ $(document).ready(function() {
     }
     if (district = localStorage.getItem('district')) {
         $('select[name="calc_shipping_district"]').html(district)
-        $('select[name="calc_shipping_district"]').on('change', function() {
+        $('select[name="calc_shipping_district"]').on('change', function () {
             var target = $(this).children('option:selected')
             target.attr('selected', '')
             $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
@@ -27,27 +27,27 @@ $(document).ready(function() {
             localStorage.setItem('address_2_saved', address_2)
         })
     }
-    $('select[name="calc_shipping_provinces"]').each(function() {
+    $('select[name="calc_shipping_provinces"]').each(function () {
         var $this = $(this),
             stc = ''
-        c.forEach(function(i, e) {
+        c.forEach(function (i, e) {
             e += +1
             stc += '<option value=' + e + '>' + i + '</option>'
             $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
             if (address_1 = localStorage.getItem('address_1_saved')) {
-                $('select[name="calc_shipping_provinces"] option').each(function() {
+                $('select[name="calc_shipping_provinces"] option').each(function () {
                     if ($(this).text() == address_1) {
                         $(this).attr('selected', '')
                     }
                 })
                 $('input.billing_address_1').attr('value', address_1)
             }
-            $this.on('change', function(i) {
+            $this.on('change', function (i) {
                 i = $this.children('option:selected').index() - 1
                 var str = '',
                     r = $this.val()
                 if (r != '') {
-                    arr[i].forEach(function(el) {
+                    arr[i].forEach(function (el) {
                         str += '<option value="' + el + '">' + el + '</option>'
                         $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>' + str)
                     })
@@ -55,7 +55,7 @@ $(document).ready(function() {
                     var district = $('select[name="calc_shipping_district"]').html()
                     localStorage.setItem('address_1_saved', address_1)
                     localStorage.setItem('district', district)
-                    $('select[name="calc_shipping_district"]').on('change', function() {
+                    $('select[name="calc_shipping_district"]').on('change', function () {
                         var target = $(this).children('option:selected')
                         target.attr('selected', '')
                         $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
@@ -75,7 +75,7 @@ $(document).ready(function() {
         })
     })
 
-    $('.btn-save-address').click(function() {
+    $('.btn-save-address').click(function () {
         let id = $(this).val();
         let name = $("#input-edit-name" + id).val();
         let phone = $('#input-edit-phone' + id).val();
@@ -99,16 +99,16 @@ $(document).ready(function() {
                 district: district,
                 detail: detail
             },
-            success: function(response) {
+            success: function (response) {
                 $(".contain-address" + id).html(response);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 //Do Something to handle error
             }
         });
         $('#exampleEditAddress' + id).modal('toggle');
     })
-    $('.delete-one').click(function() {
+    $('.delete-one').click(function () {
         let id = $(this).val();
         $.ajax({
             url: "/userprofile/deleteAddress",
@@ -116,21 +116,24 @@ $(document).ready(function() {
             data: {
                 id: id,
             },
-            success: function(response) {
+            success: function (response) {
                 $(".list-address" + id).html(response);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 //Do Something to handle error
             }
         });
     })
-    $('.btn-save').click(function() {
+    $('.btn-save').click(function () {
         let name = $('#input-name').val();
         let phone = $('#input-number-phone').val();
         let city = $('#input-detail').val();
         let district = $('#input-district').val();
         let detail = $("#input-city").val();
+        if (checkNull(name) || checkNull(phone) || checkNull(city) || checkNull(district) || checkNull(detail)) {
 
+            return $(".errorAddAddress").text("không");
+        }
 
         $.ajax({
             url: "/userprofile/addAddress",
@@ -142,16 +145,15 @@ $(document).ready(function() {
                 district: district,
                 detail: detail
             },
-            success: function(response) {
+            success: function (response) {
                 // $(".contain-address" + id).html(response);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 //Do Something to handle error
             }
         });
         $('#exampleAddAddress').modal('toggle');
     })
-
     function checkNull(text) {
         return text.length == 0 || text == null;
     }
