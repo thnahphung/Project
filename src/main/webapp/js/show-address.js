@@ -75,7 +75,87 @@ $(document).ready(function () {
         })
     })
 
+    $('.btn-save-address').click(function () {
+        let id = $(this).val();
+        let name = $("#input-edit-name" + id).val();
+        let phone = $('#input-edit-phone' + id).val();
+        let city = $('#input-edit-city' + id).val();
+        let district = $('#input-edit-district' + id).val();
+        let detail = $("#input-edit-detail" + id).val();
 
+        if (checkNull(name) || checkNull(phone) || checkNull(city) || checkNull(district) || checkNull(detail)) {
 
+            return $(".error").text("không");
+        }
+
+        $.ajax({
+            url: "/userprofile/editAddress",
+            type: "get", //send it through get method
+            data: {
+                id: id,
+                name: name,
+                phone: phone,
+                city: city,
+                district: district,
+                detail: detail
+            },
+            success: function (response) {
+                $(".contain-address" + id).html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+        $('#exampleEditAddress' + id).modal('toggle');
+    })
+    $('.delete-one').click(function () {
+        let id = $(this).val();
+        $.ajax({
+            url: "/userprofile/deleteAddress",
+            type: "get", //send it through get method
+            data: {
+                id: id,
+            },
+            success: function (response) {
+                $(".list-address" + id).html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    })
+    $('.btn-save').click(function () {
+        let name = $('#input-name').val();
+        let phone = $('#input-number-phone').val();
+        let city = $('#input-detail').val();
+        let district = $('#input-district').val();
+        let detail = $("#input-city").val();
+        if (checkNull(name) || checkNull(phone) || checkNull(city) || checkNull(district) || checkNull(detail)) {
+
+            return $(".errorAddAddress").text("không");
+        }
+
+        $.ajax({
+            url: "/userprofile/addAddress",
+            type: "get", //send it through get method
+            data: {
+                name: name,
+                phone: phone,
+                city: city,
+                district: district,
+                detail: detail
+            },
+            success: function (response) {
+                // $(".contain-address" + id).html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+        $('#exampleAddAddress').modal('toggle');
+    })
+    function checkNull(text) {
+        return text.length == 0 || text == null;
+    }
 
 })

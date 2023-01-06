@@ -1,6 +1,7 @@
 package services;
 
 import bean.AddressDetail;
+import bean.OrderDetail;
 import db.JDBIConnector;
 
 import java.util.jar.JarEntry;
@@ -30,4 +31,16 @@ public class AddressDetailService {
                     .one();
         });
     }
+    public void add(AddressDetail addressDetail) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO `address_detail` VALUES (:address_detail_id,:detail,:district,:city)")
+                    .bind("address_detail_id", addressDetail.getAddressDetailId())
+                    .bind("detail", addressDetail.getDetail())
+                    .bind("district", addressDetail.getDistrict())
+                    .bind("city", addressDetail.getCity())
+                    .execute();
+        });
+    }
+
+
 }

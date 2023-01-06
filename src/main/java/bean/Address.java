@@ -10,17 +10,19 @@ public class Address implements Serializable {
 
     private int addressDetailId;
     private AddressDetail addressDetail;
+    private int stt;
 
     public Address() {
     }
 
-    public Address(int addressId, int userId, String name, String phoneNumber, int addressDetailId, AddressDetail addressDetail) {
+    public Address(int addressId, int userId, String name, String phoneNumber, int addressDetailId, AddressDetail addressDetail, int stt) {
         this.addressId = addressId;
         this.userId = userId;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.addressDetailId = addressDetailId;
         this.addressDetail = addressDetail;
+        this.stt = stt;
     }
 
     public int getAddressId() {
@@ -72,15 +74,24 @@ public class Address implements Serializable {
         this.addressDetail = addressDetail;
     }
 
+    public int getStt() {
+        return stt;
+    }
+
+    public void setStt(int stt) {
+        this.stt = stt;
+    }
+
     @Override
     public String toString() {
         return "Address{" +
                 "addressId=" + addressId +
                 ", userId=" + userId +
                 ", name='" + name + '\'' +
-                ", phone='" + phoneNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", addressDetailId=" + addressDetailId +
                 ", addressDetail=" + addressDetail +
+                ", stt=" + stt +
                 '}';
     }
 

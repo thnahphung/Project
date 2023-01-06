@@ -19,7 +19,8 @@ public class ShowAddress extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        List<Address> addressList = AddressService.getInstance().getListAddressByUserId(user.getUserId());
+        List<Address> addressList = AddressService.getInstance().getListAddressExistOfUser(user.getUserId());
+
         request.setAttribute("addressList", addressList);
 
         request.getRequestDispatcher("show-address.jsp").forward(request, response);

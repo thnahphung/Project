@@ -4,4 +4,8 @@
 
 .contain-address.bd-bottom {
     display: flex;
+    padding-bottom: 20px;
+}
+.choose-address {
+    padding: 0;
 }
