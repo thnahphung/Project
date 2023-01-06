@@ -4,14 +4,7 @@ $(document).ready(function () {
         "scrollY": 200,
     });
     $('.dataTables_length').addClass('bs-select');
-});
-
-
-$(document).ready(function () {
-    $('#dtHorizontalVerticalExample').DataTable();
-});
-//------------------ select all ------------------------
-$(document).ready(function () {
+    //------------------ select all ------------------------
     $('#select-all').click(function (event) {
         if (this.checked) {
             // Iterate each checkbox
@@ -24,4 +17,23 @@ $(document).ready(function () {
             });
         }
     });
+    $('.nav-item').click(function (){
+        const queryString = window.location.search;
+        if(queryString.endsWith("userManager")){
+            $('.title').text("userManager")
+        }
+        else if (queryString.endsWith("ProductManager")){
+            $('.title').text("asddadsnager")
+        }
+        else if(queryString.endsWith("orderManager")){
+            $('.title').text("ewr5435")
+        }
+    })
 });
+
+
+// $(document).ready(function () {
+//     $('#dtHorizontalVerticalExample').DataTable();
+// });
+
+

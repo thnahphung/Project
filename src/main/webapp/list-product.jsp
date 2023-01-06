@@ -101,19 +101,21 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
+                <%
+                    List<Banner> listbanner = (List<Banner>) request.getAttribute("listBanner");
+                    for (int i = 0; i < 3; i++) {
+                %>
+                <%if (i == 0) {%>
                 <div class="carousel-item active">
-                    <a href=""><img class="d-block w-100" src="images/list-product/cms-banner.jpg"
+                    <a href=""><img class="d-block w-100" src="<%=listbanner.get(i).getImage_src()%>"
                                     alt="First slide"></a>
                 </div>
-                <div class="carousel-item">
-                    <a href=""> <img class="d-block w-100" src="images/list-product/BIOPHILIA_10.jpg"
-                                     alt="Second slide"></a>
+                <%}%>
+                <div class="carousel-item ">
+                    <a href=""><img class="d-block w-100" src="<%=listbanner.get(i).getImage_src()%>"
+                                    alt="Second slide"></a>
                 </div>
-                <div class="carousel-item">
-                    <a href=""><img class="d-block w-100 "
-                                    src="https://i.etsystatic.com/15645889/r/il/12a570/1253369484/il_794xN.1253369484_12vn.jpg"
-                                    alt="Third slide"></a>
-                </div>
+                <%}%>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -142,7 +144,8 @@
                         <div class="button">
                             <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
                                class="buy-now"> Mua ngay</a>
-                            <button  class="wish-list btn-add-cart" value="<%= product.getProductId()%>"><i class="fa-solid fa-cart-plus"></i></button>
+                            <button class="wish-list btn-add-cart" value="<%= product.getProductId()%>"><i
+                                    class="fa-solid fa-cart-plus"></i></button>
 
                         </div>
                         <div class="caption">

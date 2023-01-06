@@ -6,7 +6,6 @@ import services.ProductService;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Serializable {
@@ -31,14 +30,20 @@ public class Order implements Serializable {
     private List<OrderDetail> orderDetails;
     private int addressId;
     private Address address;
-    private int transportFee;
+    private int transportId;
     private int discountId;
+
+    private Transport transport;
+
+    private String payments;
+
+
     private Discount discount;
 
     public Order() {
     }
 
-    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails, int addressId, Address address, int transportFee, int discountId, Discount discount) {
+    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails, int addressId, Address address, int transportId, int discountId, String payments, Discount discount) {
         this.orderId = orderId;
         this.userId = userId;
         this.total = total;
@@ -50,8 +55,9 @@ public class Order implements Serializable {
         this.orderDetails = orderDetails;
         this.addressId = addressId;
         this.address = address;
-        this.transportFee = transportFee;
+        this.transportId = transportId;
         this.discountId = discountId;
+        this.payments = payments;
         this.discount = discount;
     }
 
@@ -166,12 +172,12 @@ public class Order implements Serializable {
         this.address = address;
     }
 
-    public int getTransportFee() {
-        return transportFee;
+    public int getTransportId() {
+        return transportId;
     }
 
-    public void setTransportFee(int transportFee) {
-        this.transportFee = transportFee;
+    public void setTransportId(int transportId) {
+        this.transportId = transportId;
     }
 
     public int getDiscountId() {
@@ -204,7 +210,7 @@ public class Order implements Serializable {
                 ", orderDetails=" + orderDetails +
                 ", addressId=" + addressId +
                 ", address=" + address +
-                ", transportFee=" + transportFee +
+                ", transportFee=" + transportId +
                 ", discountId=" + discountId +
                 ", discount=" + discount +
                 '}';
@@ -258,6 +264,14 @@ public class Order implements Serializable {
         return null;
     }
 
+    public Transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
+    }
+
     public void addProduct(int idProduct, int amount) {
         OrderDetail orderDetail;
         if (contain(idProduct)) {
@@ -287,4 +301,11 @@ public class Order implements Serializable {
     }
 
 
+    public String getPayments() {
+        return payments;
+    }
+
+    public void setPayments(String payments) {
+        this.payments = payments;
+    }
 }
