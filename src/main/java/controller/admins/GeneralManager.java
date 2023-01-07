@@ -20,8 +20,11 @@ public class GeneralManager extends HttpServlet {
         String name = "Quản lý chung";
         List<Banner> bannerList = BannerService.getInstance().getListBanner();
         List<PaCategory> paCategoryList = PaCategoryService.getInstance().getListCategory();
-
+        List<Category> categoryList = CaterogyService.getInstance().getListCategoryAll();
         request.setAttribute("listBanner",bannerList);
+        request.setAttribute("listPaCategory",paCategoryList);
+        System.out.println("oke");
+        request.setAttribute("listCategory",categoryList);
         request.setAttribute("name", name);
         request.getRequestDispatcher("general-manager.jsp").forward(request,response);
     }

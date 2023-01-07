@@ -52,5 +52,17 @@ $(document).ready(function () {
             }
         })
     })
-
+    $('#addPacategory').click(function () {
+         var name = $('#input-pa').val().trim();
+         alert(name)
+         if(name==null){
+             alert("kiểm tra lại");
+             return;
+         }
+         window.location ="/addPaCategory?idSet=1&nameSet="+name+"&id=0";
+    })
+    $('.delete-pa').click(function (){
+        var id = $(this).val().trim();
+        window.location ="/addPaCategory?idSet=3&nameSet=khong&id="+id;
+    })
 })
