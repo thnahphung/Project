@@ -3,22 +3,21 @@ $(document).ready(function () {
     //
     // })
     $('#addProduct').click(function () {
-        // var name = $('#input-name').val();
-        // var price = $('#input-price').val().trim();
-        // var priceReal = $('#input-priceReal').val().trim();
-        // var inventory = $('#input-inventory').val();
-        // // img: $()
-        // let category = $('.category').find(":selected").val().trim();
-        // var detail = $('#input-detail').val();
-        // var decription = $('#input-decription').val();
-        //
-        //
-        // if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
-        //     alert("Vui lòng kiểm tra lại")
-        //     return;
-        // }
-        // window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
-        // window.location = "/admins/uploadImageProduct";
+        var name = $('#input-name').val();
+        var price = $('#input-price').val().trim();
+        var priceReal = $('#input-priceReal').val().trim();
+        var inventory = $('#input-inventory').val();
+        // img: $()
+        let category = $('.category').find(":selected").val().trim();
+        var detail = $('#input-detail').val();
+        var decription = $('#input-decription').val();
+
+
+        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
+            alert("Vui lòng kiểm tra lại")
+            return;
+        }
+        window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
 
         $('.btn-submit-img').click();
 
