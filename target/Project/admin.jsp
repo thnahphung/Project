@@ -116,9 +116,9 @@
                 %>
                 <tr data-toggle="modal"
                     data-target="#exampleModalCenterEdit">
-                    <td><%=order.getOrderId()%>
+                    <td class="order-id"><%=order.getOrderId()%>
                     </td>
-                    <td><%=order.getAddress().getName()%>
+                    <td class="name"><%=order.getAddress().getName()%>
                     </td>
                     <td><%=order.getAddress().getAddressDetail().getDetail()%>
                         , <%=order.getAddress().getAddressDetail().getDistrict()%>
@@ -155,10 +155,6 @@
                 <div class="modal-body form-edit">
 
                 </div>
-
-                <%--                <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>--%>
-                <%--                <button type="button" class="button button-save submit" id="addProduct">Lưu sản phẩm</button>--%>
-
             </div>
         </div>
     </div>

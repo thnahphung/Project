@@ -157,7 +157,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-add-address">
+                <div class="form-add-address">
                     <div class="name">
                         <label>Tên sản phẩm</label>
                         <input class="input" type="text" name="name" id="input-name" placeholder="Tên sản phẩm"></div>
@@ -186,9 +186,12 @@
                     <div class="group">
                         <label>Nhóm sản phẩm</label>
                         <select class="input category" name="category" id="category">
-                            <%List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");
-                                for (Category ca: categoryList) {%>
-                            <option value="<%=ca.getCategoryId()%>" selected><%=ca.getName()%></option>
+                            <%
+                                List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");
+                                for (Category ca : categoryList) {
+                            %>
+                            <option value="<%=ca.getCategoryId()%>" selected><%=ca.getName()%>
+                            </option>
                             <%}%>
                         </select>
                     </div>
@@ -198,9 +201,15 @@
                                placeholder="Số lượng ...">
                     </div>
                     <div class="images">
-                        <label>Hình ảnh sản phẩm</label>
-                        <button class="submit" id="submit-img">Tải ảnh lên</button>
-                        <input type="file" name="file-img" id="file-img" class="submit" placeholder="Tải ảnh lên">
+                        <form action="/admins/uploadImageProduct" method="post" class="upload" enctype="multipart/form-data">
+                            <label>Hình ảnh sản phẩm (Tối thiểu 5 ảnh)</label>
+                            <div class="row">
+                                <input type="file" name="file-img1" id="file-img1" class="input-img submit"
+                                       accept="image/png">
+                            </div>
+                            <button type="submit" class="btn-submit-img">submit</button>
+                        </form>
+
                     </div>
                     <div class="detail">
                         <label>Thông số sản phẩm</label>
@@ -214,7 +223,7 @@
                                 value="Lưu sản phẩm">Thêm sản phẩm
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
 
             <%--                <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>--%>

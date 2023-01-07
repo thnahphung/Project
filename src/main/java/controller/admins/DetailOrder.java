@@ -15,7 +15,6 @@ public class DetailOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Order order = OrderService.getInstance().getOrderByOrderId(id);
-        List<O>
     }
 
     @Override
