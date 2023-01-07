@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class AddProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String name = request.getParameter("name");
         int size = ProductService.getInstance().getListProduct().size();
         int price = Integer.parseInt(request.getParameter("price"));
@@ -28,7 +29,9 @@ public class AddProduct extends HttpServlet {
         ProductService.getInstance().addProductDetail(productDetail);
         Product product = new Product(size + 1, group, name, price, priceReal, 0, imgSrc, productDetail);
         ProductService.getInstance().addProduct(product);
-        response.sendRedirect("/ProductManager");
+        System.out.println("đã thêm");
+//        response.sendRedirect("/admins/uploadImageProduct");
+
     }
 
     @Override

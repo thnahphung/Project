@@ -85,16 +85,17 @@
                                             <Ẩn></Ẩn>
                                         </option>
                                     </select></div>
-                                <div class="images">
+                                <form action="/admins/uploadImageProduct" method="post" class="upload" enctype="multipart/form-data">
                                     <label>Hình ảnh </label>
                                     <input type="file" name="file-img" id="file-img" class="submit"
                                            placeholder="Tải ảnh lên">
-                                </div>
+                                    <button type="submit" style="display: none" class="dowload-image"></button>
+                                </form>
                                 <div class="modal-footer">
                                     <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
                                     </button>
                                     <button type="button" class="button button-save submit" id="addBanner"
-                                            value="Lưu sản phẩm">Thêm quản cáo
+                                            value="Lưu sản phẩm">Thêm ảnh bìa
                                     </button>
                                 </div>
                             </form>

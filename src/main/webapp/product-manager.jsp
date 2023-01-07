@@ -124,7 +124,7 @@
                     </td>
                     <td><%=Format.format(product.getPrice())%>
                     </td>
-                    <td><%=product.getRate()%>
+                    <td><%=product.getProductDetail().getCreateDate()%>
                     </td>
                     <td><%=product.getProductDetail().getInventory()%>
                     </td>
