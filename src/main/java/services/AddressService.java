@@ -109,10 +109,18 @@ public class AddressService {
         });
     }
 
+    public void deleteAllAddress() {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE address SET `stt`=1;")
+                    .execute();
+        });
+    }
+
     public static void main(String[] args) {
         AddressDetail addressDetail = new AddressDetail(AddressService.getInstance().nextId(), "112 thon 1", "quan 1", " HCM");
 
         Address address = new Address(addressDetail.getAddressDetailId(), 3, "hung", "0819541", addressDetail.getAddressDetailId(), addressDetail, 0);
         AddressService.getInstance().addNewAddress(address);
+        AddressService.getInstance().deleteAllAddress();
     }
 }

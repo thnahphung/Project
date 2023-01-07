@@ -157,5 +157,22 @@ $(document).ready(function () {
     function checkNull(text) {
         return text.length == 0 || text == null;
     }
+    $('.btn-delete-all').click(function () {
 
+        $.ajax({
+            url: "/userprofile/deleteAllAddress",
+            type: "get", //send it through get method
+            data: {
+
+            },
+            success: function (response) {
+                $(".all-address").html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+        $('#exampleDeleteAllAddress').modal('toggle');
+
+    })
 })

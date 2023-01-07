@@ -67,6 +67,7 @@ public class OrderService implements Serializable {
         });
     }
 
+
     public void add(Order order) {
         Integer discountId = order.getDiscountId() == 0 ? null : order.getDiscountId();
         JDBIConnector.get().withHandle(handle -> {
@@ -146,7 +147,8 @@ public class OrderService implements Serializable {
     }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getOrderListByUserId(3));
+//        System.out.println(getInstance().getOrderListByUserId(3));
+        System.out.println(getInstance().getOrderByOrderId(1));
     }
 
 }
