@@ -24,8 +24,6 @@ public class AddProduct extends HttpServlet {
         String imgSrc = "";
         String detail = request.getParameter("detail");
         String decription = request.getParameter("decription");
-//        Part file = request.getPart("img");
-//        String img = file.getSubmittedFileName();
 
         ProductDetail productDetail = new ProductDetail(size + 1, decription, detail, null, inventory, LocalDateTime.now(), null, 0, 3);
         ProductService.getInstance().addProductDetail(productDetail);
