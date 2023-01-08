@@ -66,9 +66,8 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <!-- <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Đăng xuất</button> -->
-                        <a class="nav-link" href="home-page.jsp"><i class="fa-solid fa-right-from-bracket"></i>Đăng
-                            xuất</a>
+                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
+
                     </li>
 
                 </ul>
@@ -78,7 +77,7 @@
                     <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
                         <div class="choose-address inf">
                             <h3>Địa chỉ</h3>
-
+                            <div class="contain-list-address">
                             <%for (Address address : addressList) {%>
                             <div class="list-address<%=address.getAddressId()%> all-address">
                                 <div class="contain-address bd-bottom">
@@ -103,6 +102,7 @@
                                 </div>
                             </div>
                             <%}%>
+                            </div>
                             <button type="button" class="btn-add-address button submit" data-toggle="modal"
                                     data-target="#exampleAddAddress">
                                 Thêm địa chỉ mới

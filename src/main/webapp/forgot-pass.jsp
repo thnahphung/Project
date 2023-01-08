@@ -33,7 +33,7 @@
                 <input type="text" id="phonemail" class="input phone" placeholder="Số điện thoại hoặc email">
                 <button class="uppercase send-code">Gửi mã</button>
             </div>
-            <p id="code"></p>
+
             <input type="text" id="input-code" class="input" placeholder="Nhập mã xác nhận">
             <input type="password" id="input-pass" class="input" placeholder="Mật khẩu mới">
             <input type="password" id="input-passAgain" class="input" placeholder="Nhập lại mật khẩu mới">

@@ -23,6 +23,7 @@ public class DiscountService implements Serializable {
     }
 
     public Discount getDiscountByDiscountId(int discountId) {
+        if (discountId == 0) return null;
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery(
                             "select discount_id, `code`, discount_fee, start_date, end_date, quantity, `condition`\n" +

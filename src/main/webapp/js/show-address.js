@@ -2,9 +2,7 @@ $(document).ready(function () {
     $('#infor-tab').click(function () {
         window.location = "http://localhost:8080/userProfile";
     })
-    $('#address-tab').click(function () {
-        window.location = "http://localhost:8080/showAddress";
-    })
+
     // change information user
     if (address_2 = localStorage.getItem('address_2_saved')) {
         $('select[name="calc_shipping_district"] option').each(function () {
@@ -75,7 +73,8 @@ $(document).ready(function () {
         })
     })
 
-    $('.btn-save-address').click(function () {
+
+    $(document).on("click", ".btn-save-address", function (e) {
         let id = $(this).val();
         let name = $("#input-edit-name" + id).val();
         let phone = $('#input-edit-phone' + id).val();
@@ -108,7 +107,7 @@ $(document).ready(function () {
         });
         $('#exampleEditAddress' + id).modal('toggle');
     })
-    $('.delete-one').click(function () {
+    $(document).on("click", ".delete-one", function (e) {
         let id = $(this).val();
         $.ajax({
             url: "/userprofile/deleteAddress",
@@ -125,6 +124,7 @@ $(document).ready(function () {
         });
     })
     $('.btn-save').click(function () {
+        let id
         let name = $('#input-name').val();
         let phone = $('#input-number-phone').val();
         let city = $('#input-detail').val();
@@ -146,25 +146,29 @@ $(document).ready(function () {
                 detail: detail
             },
             success: function (response) {
-                // $(".contain-address" + id).html(response);
+                $(".contain-list-address").append(response);
             },
             error: function (xhr) {
                 //Do Something to handle error
             }
-        });
-        $('#exampleAddAddress').modal('toggle');
+        }).done(function () {
+            $('#exampleAddAddress').modal('toggle');
+            window.location = "http://localhost:8080/showAddress";
+        })
+        ;
+
     })
+
     function checkNull(text) {
         return text.length == 0 || text == null;
     }
+
     $('.btn-delete-all').click(function () {
 
         $.ajax({
             url: "/userprofile/deleteAllAddress",
             type: "get", //send it through get method
-            data: {
-
-            },
+            data: {},
             success: function (response) {
                 $(".all-address").html(response);
             },
@@ -174,5 +178,8 @@ $(document).ready(function () {
         });
         $('#exampleDeleteAllAddress').modal('toggle');
 
+    })
+    $('#logout-tab').click(function (){
+        window.location = "http://localhost:8080/logOut";
     })
 })

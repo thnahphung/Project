@@ -25,6 +25,29 @@ public class AddAddress extends HttpServlet {
         AddressDetail addressDetail = new AddressDetail(AddressService.getInstance().nextId(), detail, district, city);
         Address address = new Address(addressDetail.getAddressDetailId(), user.getUserId(), name, phone, addressDetail.getAddressDetailId(), addressDetail, 0);
         AddressService.getInstance().addNewAddress(address);
+
+        response.getWriter().println("<div class=\"list-address"+addressDetail.getAddressDetailId()+" all-address\">\n" +
+                "                                <div class=\"contain-address bd-bottom\">\n" +
+                "                                    <div class=\"contain-address"+addressDetail.getAddressDetailId()+" left\">\n" +
+                "                                        <p>\n" +
+                "                                            <label><span class=\"name\">"+address.getName()+"</span> <span\n" +
+                "                                                    class=\"phone-number\">"+address.getPhoneNumber()+"</span></label>\n" +
+                "                                        </p>\n" +
+                "                                        <div class=\"address\">\n" +
+                "                                            "+address.formatAddress()+"\n" +
+                "                                        </div>\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"contain-address right\">\n" +
+                "                                        <button class=\"btn-address edit-one button submit\" id=\"edit-address\"\n" +
+                "                                                data-toggle=\"modal\"\n" +
+                "                                                data-target=\"#exampleEditAddress"+address.getAddressId()+"\">Sửa\n" +
+                "                                        </button>\n" +
+                "                                        <button class=\"btn-address delete-one button submit\" id=\"delete-address\"\n" +
+                "                                                value=\""+address.getAddressId()+"\">Xóa\n" +
+                "                                        </button>\n" +
+                "                                    </div>\n" +
+                "                                </div>\n" +
+                "                            </div>");
     }
 
     @Override

@@ -37,4 +37,7 @@ $(document).ready(function () {
     $('#address-tab').click(function (){
         window.location = "http://localhost:8080/showAddress";
     })
+    $('#logout-tab').click(function (){
+        window.location = "http://localhost:8080/logOut";
+    })
 });

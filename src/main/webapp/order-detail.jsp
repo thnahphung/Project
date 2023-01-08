@@ -130,10 +130,17 @@
                                 <tr>
                                     <td><%=Format.format(total)%> VND</td>
                                     <td>+ <%=Format.format(order.getTransportId())%> VND</td>
-                                    <td>- <%=Format.format(order.getDiscount().getDiscountFee())%> VND</td>
-                                    <td><%=Format.format(total + order.getTransportId() - order.getDiscount().getDiscountFee()) %>
+                                    <%if(order.getDiscountId() ==0){%>
+                                    <td>- 0 VND</td>
+                                    <td><%=Format.format(total + order.getTransport().getTransportFee()) %>
                                         VND
                                     </td>
+                                    <%} else{%>
+                                    <td>- <%=Format.format(order.getDiscount().getDiscountFee())%> VND</td>
+                                    <td><%=Format.format(total + order.getTransport().getTransportFee() - order.getDiscount().getDiscountFee()) %>
+                                        VND
+                                    </td>
+                                    <%}%>
                                 </tr>
                             </table>
                         </div>

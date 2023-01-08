@@ -57,9 +57,9 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <!-- <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Đăng xuất</button> -->
-                        <a class="nav-link" href="home-page.jsp"><i class="fa-solid fa-right-from-bracket"></i>Đăng
-                            xuất</a>
+                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
+<%--                        <a class="nav-link log-out"><i class="fa-solid fa-right-from-bracket"></i>Đăng--%>
+<%--                            xuất</a>--%>
                     </li>
 
                 </ul>

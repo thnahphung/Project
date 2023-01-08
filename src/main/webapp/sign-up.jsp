@@ -31,7 +31,12 @@
     email = (email == null ? "" : email);
 
     String pass = (String) request.getAttribute("pass");
+    pass = (pass == null ? "" : pass);
+
     String passAgain = (String) request.getAttribute("passAgain");
+    passAgain = (passAgain == null ? "" : passAgain);
+
+
 
 
 %>

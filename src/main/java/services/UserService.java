@@ -129,8 +129,8 @@ public class UserService {
 
     public void changePass(String phoneEmail, String newPass){
          JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE `user` SET pass=?  WHERE phone_number=?;")
-                    .bind(0, newPass)
+            return handle.createUpdate("UPDATE `user` SET pass=?  WHERE email=?;")
+                    .bind(0, UserService.getInstance().hashPassword(newPass))
                     .bind(1, phoneEmail)
                     .execute();
         });
