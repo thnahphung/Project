@@ -1,6 +1,7 @@
 package controller;
 
 import bean.User;
+import services.MailService;
 import services.UserService;
 
 import javax.servlet.*;
@@ -49,7 +50,19 @@ public class SignUp extends HttpServlet {
             request.setAttribute("email", email);
             request.getRequestDispatcher("sign-up.jsp").forward(request, response);
         } else {
-            response.sendRedirect("login.jsp");
+            request.setAttribute("error", "Đăng ký thành công, mời bạn đăng nhập!");
+            User user = new User();
+            user.setUserId(UserService.getInstance().nextId());
+            user.setFullName(fullName);
+            user.setPhoneNumber(phone);
+            user.setEmail(email);
+            user.setPass(UserService.getInstance().hashPassword(pass));
+            user.setVarieties(0);
+            UserService.getInstance().addUser(user);
+           MailService.sendMail("Đăng ký tài khoản","T lam xong roi do m thay chua ",email);
+            request.getRequestDispatcher("sign-up.jsp").forward(request, response);
+
         }
+
     }
 }

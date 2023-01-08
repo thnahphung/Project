@@ -14,6 +14,8 @@ $(document).ready(function () {
                 phoneEmail: phoneEmail,
             },
             success: function (response) {
+                code = response;
+
             },
             error: function (xhr) {
                 //Do Something to handle error
@@ -37,7 +39,7 @@ $(document).ready(function () {
                 phoneEmail: phoneEmail,
             },
             success: function (response) {
-                $('#error').text(response);
+                 $("#error").text(response);
             },
             error: function (xhr) {
                 //Do Something to handle error

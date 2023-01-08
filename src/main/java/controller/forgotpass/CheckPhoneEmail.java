@@ -1,5 +1,6 @@
 package controller.forgotpass;
 
+import services.MailService;
 import services.UserService;
 
 import javax.servlet.*;
@@ -22,6 +23,7 @@ public class CheckPhoneEmail extends HttpServlet {
         int code = 0;
         if (check) {
             code = random();
+            MailService.sendMail("Doi mat khau", "Ma xac nhan la:"+code, phoneEmail);
         }
         response.getWriter().println(code);
 

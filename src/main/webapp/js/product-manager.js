@@ -125,7 +125,6 @@ $(document).ready(function () {
         })
     })
     $(document).on("change", ".input-img", function (e) {
-
         let input = this;
         if (input.files && input.files[0]) {
             let idItem = $('.input-img').length + 1;

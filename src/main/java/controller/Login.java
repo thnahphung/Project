@@ -21,7 +21,7 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("user");
         String password = request.getParameter("password");
-        User user = UserService.getInstance().checkLogin(username, password);
+        User user = UserService.getInstance().checkLogin(username, UserService.getInstance().hashPassword(password));
         if (user == null) {
             request.setAttribute("error", "Sai tài khoản hoặc mật khẩu");
             request.getRequestDispatcher("login.jsp").forward(request, response);

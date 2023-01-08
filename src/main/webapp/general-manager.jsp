@@ -85,11 +85,14 @@
                                             <Ẩn></Ẩn>
                                         </option>
                                     </select></div>
-                                <form action="/admins/uploadImageProduct" method="post" class="upload" enctype="multipart/form-data">
+                                <form action="/admins/uploadImageBanner" method="post" class="upload" enctype="multipart/form-data">
                                     <label>Hình ảnh </label>
-                                    <input type="file" name="file-img" id="file-img" class="submit"
-                                           placeholder="Tải ảnh lên">
-                                    <button type="submit" style="display: none" class="dowload-image"></button>
+                                    <div class="row">
+                                        <img src="#" class="images" style="width: 98px; height: 100px">
+                                        <input type="file" name="img-banner" id="file-img" class="input-img submit"
+                                               accept="image/png">
+                                    </div>
+                                    <button type="submit" style="display: none" class="download-image"></button>
                                 </form>
                                 <div class="modal-footer">
                                     <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
@@ -147,7 +150,7 @@
                     List<PaCategory> paCategoryList = (List<PaCategory>) request.getAttribute("listPaCategory");
                     for (PaCategory pa : paCategoryList) {
                 %>
-                <tr class="name">
+                <tr class="name<%=pa.getPaCategoryId()%>">
                     <td><%=pa.getPaCategoryId()%></td>
                     <td><%=pa.getName()%></td>
                     <td>
@@ -175,6 +178,7 @@
                             <form class="form-add-address">
                                 <div class="name">
                                     <label>Tên quản cáo</label>
+
                                     <input type="text" id="input-pa" >
                                    </div>
                                 <div class="modal-footer">
@@ -200,9 +204,9 @@
 <%--        <button type="button" class="btn-add-address button submit add" data-toggle="modal"--%>
 <%--                data-target="#exampleModalCenterGroup">Thêm--%>
 <%--        </button>--%>
-<%--        <div class="table-wrapper-scroll-y my-custom-scrollbar table-banner">--%>
+<%--        <div class=" table-group">--%>
 
-<%--            <table class="table table-bordered table-striped mb-0">--%>
+<%--            <table class="table">--%>
 <%--                <thead>--%>
 <%--                <tr>--%>
 <%--                    <th>Mã nhóm sản phẩm</th>--%>
@@ -222,7 +226,7 @@
 <%--                    <td><%=ca.getPaCategory().getName()%></td>--%>
 <%--                    <td>--%>
 <%--                        &lt;%&ndash;                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>&ndash;%&gt;--%>
-<%--                        <button type="button" class="delete-pa" class="button btn-indigo btn-sm m-0 delete"--%>
+<%--                        <button class="delete-ca"--%>
 <%--                                value="<%=ca.getCategoryId()%>">Xóa--%>
 <%--                        </button>--%>
 
@@ -231,34 +235,6 @@
 <%--                <%}%>--%>
 <%--                </tbody>--%>
 <%--            </table>--%>
-<%--            <div class="modal fade" id="exampleModalCenterGroup" tabindex="-1" role="dialog"--%>
-<%--                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">--%>
-<%--                <div class="modal-dialog modal-dialog-centered" role="document">--%>
-<%--                    <div class="modal-content">--%>
-<%--                        <div class="modal-header">--%>
-<%--                            <h5 class="modal-title uppercase" id="exampleModalLongTitleGroup">Thêm nhóm sản phẩm mới</h5>--%>
-<%--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                                <span aria-hidden="true">&times;</span>--%>
-<%--                            </button>--%>
-<%--                        </div>--%>
-<%--                        <div class="modal-body">--%>
-<%--                            <form class="form-add-address">--%>
-<%--                                <div class="name">--%>
-<%--                                    <label>Tên nhóm sản phẩm</label>--%>
-<%--                                    <input type="text" id="input-ca" >--%>
-<%--                                </div>--%>
-<%--                                <div class="modal-footer">--%>
-<%--                                    <button type="button" class="button button-close submit" data-dismiss="modal">Hủy--%>
-<%--                                    </button>--%>
-<%--                                    <button type="button" class="button button-save submit" id="addCategory"--%>
-<%--                                            value="Lưu sản phẩm">Thêm nhóm sản phẩm--%>
-<%--                                    </button>--%>
-<%--                                </div>--%>
-<%--                            </form>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
 
 
 <%--        </div>--%>
@@ -269,9 +245,11 @@
 </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"

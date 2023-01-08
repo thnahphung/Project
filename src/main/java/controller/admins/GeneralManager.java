@@ -23,8 +23,8 @@ public class GeneralManager extends HttpServlet {
         List<Category> categoryList = CaterogyService.getInstance().getListCategoryAll();
         request.setAttribute("listBanner",bannerList);
         request.setAttribute("listPaCategory",paCategoryList);
-        System.out.println("oke");
         request.setAttribute("listCategory",categoryList);
+        System.out.println("oke");
         request.setAttribute("name", name);
         request.getRequestDispatcher("general-manager.jsp").forward(request,response);
     }
