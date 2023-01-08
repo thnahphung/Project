@@ -51,7 +51,7 @@
         <li><a class="nav-item" href="/ProductManager">Quản lý sản phẩm</a></li>
         <li><a class="nav-item" href="/userManager">Quản lý tài khoản</a></li>
         <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
-        <li><a class="nav-item" href="/doLogin" id="logout">Đăng xuất</a></li>
+        <li><a class="nav-item" href="/logOut" id="logout">Đăng xuất</a></li>
     </ul>
 </div>
 
