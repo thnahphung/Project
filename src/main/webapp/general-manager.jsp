@@ -85,7 +85,8 @@
                                             <Ẩn></Ẩn>
                                         </option>
                                     </select></div>
-                                <form action="/admins/uploadImageBanner" method="post" class="upload" enctype="multipart/form-data">
+                                <form action="/admins/uploadImageBanner" method="post" class="upload"
+                                      enctype="multipart/form-data">
                                     <label>Hình ảnh </label>
                                     <div class="row">
                                         <img src="#" class="images" style="width: 98px; height: 100px">
@@ -151,10 +152,12 @@
                     for (PaCategory pa : paCategoryList) {
                 %>
                 <tr class="name<%=pa.getPaCategoryId()%>">
-                    <td><%=pa.getPaCategoryId()%></td>
-                    <td><%=pa.getName()%></td>
+                    <td><%=pa.getPaCategoryId()%>
+                    </td>
+                    <td><%=pa.getName()%>
+                    </td>
                     <td>
-<%--                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>--%>
+                        <%--                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>--%>
                         <button type="button" class="delete-pa" class="button btn-indigo btn-sm m-0 delete"
                                 value="<%=pa.getPaCategoryId()%>">Xóa
                         </button>
@@ -179,8 +182,8 @@
                                 <div class="name">
                                     <label>Tên quản cáo</label>
 
-                                    <input type="text" id="input-pa" >
-                                   </div>
+                                    <input type="text" id="input-pa">
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
                                     </button>
@@ -199,48 +202,48 @@
 
 
     </div>
-<%--    <div class="manager-groupProduct">--%>
-<%--        <h3>Quản lý nhóm sản phẩm</h3>--%>
-<%--        <button type="button" class="btn-add-address button submit add" data-toggle="modal"--%>
-<%--                data-target="#exampleModalCenterGroup">Thêm--%>
-<%--        </button>--%>
-<%--        <div class=" table-group">--%>
+    <%--    <div class="manager-groupProduct">--%>
+    <%--        <h3>Quản lý nhóm sản phẩm</h3>--%>
+    <%--        <button type="button" class="btn-add-address button submit add" data-toggle="modal"--%>
+    <%--                data-target="#exampleModalCenterGroup">Thêm--%>
+    <%--        </button>--%>
+    <%--        <div class=" table-group">--%>
 
-<%--            <table class="table">--%>
-<%--                <thead>--%>
-<%--                <tr>--%>
-<%--                    <th>Mã nhóm sản phẩm</th>--%>
-<%--                    <th>Nhóm sản phẩm</th>--%>
-<%--                    <th>Tên danh mục</th>--%>
-<%--                    <th></th>--%>
-<%--                </tr>--%>
-<%--                </thead>--%>
-<%--                <tbody>--%>
-<%--                <%--%>
-<%--                    List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");--%>
-<%--                    for (Category ca : categoryList) {--%>
-<%--                %>--%>
-<%--                <tr class="name">--%>
-<%--                    <td><%=ca.getCategoryId()%></td>--%>
-<%--                    <td><%=ca.getName()%></td>--%>
-<%--                    <td><%=ca.getPaCategory().getName()%></td>--%>
-<%--                    <td>--%>
-<%--                        &lt;%&ndash;                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>&ndash;%&gt;--%>
-<%--                        <button class="delete-ca"--%>
-<%--                                value="<%=ca.getCategoryId()%>">Xóa--%>
-<%--                        </button>--%>
+    <%--            <table class="table">--%>
+    <%--                <thead>--%>
+    <%--                <tr>--%>
+    <%--                    <th>Mã nhóm sản phẩm</th>--%>
+    <%--                    <th>Nhóm sản phẩm</th>--%>
+    <%--                    <th>Tên danh mục</th>--%>
+    <%--                    <th></th>--%>
+    <%--                </tr>--%>
+    <%--                </thead>--%>
+    <%--                <tbody>--%>
+    <%--                <%--%>
+    <%--                    List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");--%>
+    <%--                    for (Category ca : categoryList) {--%>
+    <%--                %>--%>
+    <%--                <tr class="name">--%>
+    <%--                    <td><%=ca.getCategoryId()%></td>--%>
+    <%--                    <td><%=ca.getName()%></td>--%>
+    <%--                    <td><%=ca.getPaCategory().getName()%></td>--%>
+    <%--                    <td>--%>
+    <%--                        &lt;%&ndash;                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>&ndash;%&gt;--%>
+    <%--                        <button class="delete-ca"--%>
+    <%--                                value="<%=ca.getCategoryId()%>">Xóa--%>
+    <%--                        </button>--%>
 
-<%--                    </td>--%>
-<%--                </tr>--%>
-<%--                <%}%>--%>
-<%--                </tbody>--%>
-<%--            </table>--%>
-
-
-<%--        </div>--%>
+    <%--                    </td>--%>
+    <%--                </tr>--%>
+    <%--                <%}%>--%>
+    <%--                </tbody>--%>
+    <%--            </table>--%>
 
 
-<%--    </div>--%>
+    <%--        </div>--%>
+
+
+    <%--    </div>--%>
 
 </div>
 </div>
