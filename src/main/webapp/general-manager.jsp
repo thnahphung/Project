@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="bean.Order" %>
-<%@ page import="bean.Banner" %>
+<%@ page import="bean.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 >
 <html lang="en">
@@ -70,7 +69,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm sản phẩm mới</h5>
+                            <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm quản cáo mới</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -82,18 +81,24 @@
                                     <select class="input" type="text" name="name" id="input-name">
                                         <option value="home">Trang chủ</option>
                                         <option value="product">Sản phẩm</option>
-                                        <option value="none">Ẩn</option>
+                                        <option value="none">
+                                            <Ẩn></Ẩn>
+                                        </option>
                                     </select></div>
-                                <div class="images">
+                                <form action="/admins/uploadImageBanner" method="post" class="upload" enctype="multipart/form-data">
                                     <label>Hình ảnh </label>
-                                    <input type="file" name="file-img" id="file-img" class="submit"
-                                           placeholder="Tải ảnh lên">
-                                </div>
+                                    <div class="row">
+                                        <img src="#" class="images" style="width: 98px; height: 100px">
+                                        <input type="file" name="img-banner" id="file-img" class="input-img submit"
+                                               accept="image/png">
+                                    </div>
+                                    <button type="submit" style="display: none" class="download-image"></button>
+                                </form>
                                 <div class="modal-footer">
                                     <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
                                     </button>
                                     <button type="button" class="button button-save submit" id="addBanner"
-                                            value="Lưu sản phẩm">Thêm quản cáo
+                                            value="Lưu sản phẩm">Thêm ảnh bìa
                                     </button>
                                 </div>
                             </form>
@@ -125,11 +130,126 @@
 
 
     </div>
+    <div class="manager-kindProduct">
+        <h3>Quản lý danh mục sản phẩm</h3>
+        <button type="button" class="btn-add-address button submit add" data-toggle="modal"
+                data-target="#exampleModalCenterDanhMuc">Thêm
+        </button>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar table-banner">
+
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                <tr>
+                    <th>Mã danh mục</th>
+                    <th>Tên danh mục</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    List<PaCategory> paCategoryList = (List<PaCategory>) request.getAttribute("listPaCategory");
+                    for (PaCategory pa : paCategoryList) {
+                %>
+                <tr class="name<%=pa.getPaCategoryId()%>">
+                    <td><%=pa.getPaCategoryId()%></td>
+                    <td><%=pa.getName()%></td>
+                    <td>
+<%--                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>--%>
+                        <button type="button" class="delete-pa" class="button btn-indigo btn-sm m-0 delete"
+                                value="<%=pa.getPaCategoryId()%>">Xóa
+                        </button>
+
+                    </td>
+                </tr>
+                <%}%>
+                </tbody>
+            </table>
+            <div class="modal fade" id="exampleModalCenterDanhMuc" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title uppercase" id="exampleModalLongTitleDanhMuc">Thêm danh mục mới</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-add-address">
+                                <div class="name">
+                                    <label>Tên quản cáo</label>
+
+                                    <input type="text" id="input-pa" >
+                                   </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
+                                    </button>
+                                    <button type="button" class="button button-save submit" id="addPacategory"
+                                            value="Lưu sản phẩm">Thêm Danh mục
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+<%--    <div class="manager-groupProduct">--%>
+<%--        <h3>Quản lý nhóm sản phẩm</h3>--%>
+<%--        <button type="button" class="btn-add-address button submit add" data-toggle="modal"--%>
+<%--                data-target="#exampleModalCenterGroup">Thêm--%>
+<%--        </button>--%>
+<%--        <div class=" table-group">--%>
+
+<%--            <table class="table">--%>
+<%--                <thead>--%>
+<%--                <tr>--%>
+<%--                    <th>Mã nhóm sản phẩm</th>--%>
+<%--                    <th>Nhóm sản phẩm</th>--%>
+<%--                    <th>Tên danh mục</th>--%>
+<%--                    <th></th>--%>
+<%--                </tr>--%>
+<%--                </thead>--%>
+<%--                <tbody>--%>
+<%--                <%--%>
+<%--                    List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");--%>
+<%--                    for (Category ca : categoryList) {--%>
+<%--                %>--%>
+<%--                <tr class="name">--%>
+<%--                    <td><%=ca.getCategoryId()%></td>--%>
+<%--                    <td><%=ca.getName()%></td>--%>
+<%--                    <td><%=ca.getPaCategory().getName()%></td>--%>
+<%--                    <td>--%>
+<%--                        &lt;%&ndash;                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>&ndash;%&gt;--%>
+<%--                        <button class="delete-ca"--%>
+<%--                                value="<%=ca.getCategoryId()%>">Xóa--%>
+<%--                        </button>--%>
+
+<%--                    </td>--%>
+<%--                </tr>--%>
+<%--                <%}%>--%>
+<%--                </tbody>--%>
+<%--            </table>--%>
+
+
+<%--        </div>--%>
+
+
+<%--    </div>--%>
+
 </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"

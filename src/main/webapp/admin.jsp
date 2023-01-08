@@ -107,6 +107,7 @@
                     <th>Thành tiền</th>
                     <th>Trạng thái</th>
                     <th>Tình trạng</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -115,7 +116,7 @@
                     for (Order order : list) {
                 %>
                 <tr data-toggle="modal"
-                    data-target="#exampleModalCenterEdit">
+                    data-target="#exampleModalCenterEdit" >
                     <td class="order-id"><%=order.getOrderId()%>
                     </td>
                     <td class="name"><%=order.getAddress().getName()%>
@@ -134,6 +135,7 @@
                     </td>
                     <td><%=order.getDelivery()%>
                     </td>
+                    <td> <button class="detail-order" value="<%=order.getOrderId()%>">xem chi tiết</button></td>
                 </tr>
                 <%}%>
 
@@ -143,17 +145,16 @@
         </div>
     </div>
     <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100%;">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title uppercase" id="Title">Thêm sản phẩm mới</h5>
+                    <h5 class="modal-title uppercase" id="Title">Chi tiết đơn hàng</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body form-edit">
-
+                <div class="modal-body form-detail">
                 </div>
             </div>
         </div>

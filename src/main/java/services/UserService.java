@@ -153,5 +153,16 @@ public class UserService {
         });
     }
 
+    public void editVarietiesUser(int id, int varieties) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `user` SET varieties=? where user_id= " + id + " ;")
+                    .bind(0, varieties)
+                    .execute();
+        });
+    }
+
+    public static void main(String[] args) {
+        getInstance().editVarietiesUser(1,0);
+    }
 
 }

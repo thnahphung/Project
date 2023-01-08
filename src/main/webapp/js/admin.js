@@ -17,17 +17,31 @@ $(document).ready(function () {
             });
         }
     });
-    $('.nav-item').click(function (){
+    $('.nav-item').click(function () {
         const queryString = window.location.search;
-        if(queryString.endsWith("userManager")){
+        if (queryString.endsWith("userManager")) {
             $('.title').text("userManager")
-        }
-        else if (queryString.endsWith("ProductManager")){
+        } else if (queryString.endsWith("ProductManager")) {
             $('.title').text("asddadsnager")
-        }
-        else if(queryString.endsWith("orderManager")){
+        } else if (queryString.endsWith("orderManager")) {
             $('.title').text("ewr5435")
         }
+    })
+    $('.detail-order').click(function () {
+        alert($(this).val().trim())
+        $.ajax({
+            url: "/detailOrder",
+            type: "get",
+            data: {
+                id: $(this).val().trim()
+            },
+            success: function (data) {
+                $('.form-detail').html(data)
+            },
+            error: function (xhr) {
+
+            }
+        })
     })
 });
 

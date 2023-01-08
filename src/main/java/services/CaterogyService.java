@@ -40,4 +40,36 @@ public class CaterogyService {
         });
     }
 
+    public List<Category> getListCategoryAll() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+        });
+    }
+    public int nextID(){
+        return 1+ JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(`category_id`) as numberCategory FROM `category`").mapTo(Integer.class).one();
+        });
+    }
+    public void addCategory(String name, int paCategory){
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO category VALUES (category_id=?,pa_category_id=?,name=?)")
+                    .bind(0,nextID())
+                    .bind(1,paCategory)
+                    .bind(2,name)
+                    .execute();
+        });
+    }
+    public void editCategory(int id, int paCategory){
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE category SET pa_category_id where category_id="+id+";")
+                    .bind(0,paCategory)
+                    .execute();
+        });
+    }
+    public void deleteCategory(int id){
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("DELETE from `category` where category_id=?")
+                    .bind(0, id).execute();
+        });
+    }
 }
