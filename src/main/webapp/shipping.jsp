@@ -94,6 +94,10 @@
                     </p>
                 </div>
             </div>
+            <div class="pay">
+                <h6 class="title uppercase"><i class="fa-regular fa-credit-card"></i>Ghi Chú</h6>
+                <textarea class="input" rows="10" cols="10"></textarea>
+            </div>
         </div>
         <div class="col-5 bill p-0">
             <div class="contain-bill p-4">
