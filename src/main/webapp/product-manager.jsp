@@ -207,7 +207,7 @@
                                 <input type="file" name="file-img1" id="file-img1" class="input-img submit"
                                        accept="image/png">
                             </div>
-                            <button type="submit" class="btn-submit-img">submit</button>
+                            <button type="submit" class="btn-submit-img" style="display: none">submit</button>
                         </form>
 
                     </div>
