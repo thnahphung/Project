@@ -1,5 +1,6 @@
 package controller.admins;
 
+import bean.Image;
 import bean.PaCategory;
 import bean.Product;
 import services.PaCategoryService;
@@ -17,7 +18,6 @@ public class EditProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = ProductService.getInstance().getProductById(id);
-        System.out.println(product);
         List<PaCategory> paCategoryList = PaCategoryService.getInstance().getListCategory();
         String result = "";
         for (PaCategory pa : paCategoryList) {
@@ -26,6 +26,20 @@ public class EditProduct extends HttpServlet {
             } else {
                 result += "<option value=\"" + pa.getPaCategoryId() + "\">" + pa.getName() + "</option>\n";
             }
+        }
+        List<String> images = ProductService.getInstance().getImageOfProductById(id);
+        int index = 1;
+        String htmlImg = "<div class=\"col-4 item" + index + "\">\n" +
+                "                                            <img class=\"img-load image-item\" " + index + "\" src=\"" + product.getImageSrc() + "\" alt=\"\">\n" +
+                "                                            <button class=\"remove-img\" value=\"" + index + "\">X</button>\n" +
+                "                                       </div>";
+        for (String src : images) {
+            index++;
+            htmlImg += " <div class=\"col-4 item" + index + "\">\n" +
+                    "                                <img class=\"img-load image-item" + index + "\" src=\"" + src + "\" alt=\"\">\n" +
+                    "                                <button class=\"remove-img\" value=\"" + index + "\">X</button>\n" +
+                    "                            </div>";
+
         }
         response.getWriter().println("<form class=\"form-add-address\" action=\"/editProductinForm\">\n" +
                 "                    <div class=\"name\">\n" +
@@ -62,9 +76,14 @@ public class EditProduct extends HttpServlet {
                 "                               value=\"" + product.getProductDetail().getStt() + "\">\n" +
                 "                    </div>\n" +
                 "                    <div class=\"images\">\n" +
-                "                        <label>Hình ảnh sản phẩm</label>\n" +
-                "                        <img src=\"" + product.getImageSrc() + "\" alt=\"\" style=\"width: 50px; height: 50px\">\n" +
-                "                        <button class=\"submit\">Tải ảnh lên</button>\n" +
+                "                        <form action=\"/admins/uploadImageProduct\" method=\"post\" class=\"upload\" enctype=\"multipart/form-data\">\n" +
+                "                            <label>Hình ảnh sản phẩm (Tối thiểu 5 ảnh)</label>\n" +
+                "                            <div class=\"row\">\n" +
+                htmlImg + "<input type=\"file\" name=\"file-img1\" id=\"file-img1\" class=\"input-img submit\"\n" +
+                "                                       accept=\"image/png\">" +
+                "                            </div>\n" +
+                "                            <button type=\"submit\" class=\"btn-submit-img\">submit</button>\n" +
+                "                        </form>" +
                 "                    </div>\n" +
                 "                    <div class=\"detail\">\n" +
                 "                        <label>Thông số sản phẩm</label>\n" +

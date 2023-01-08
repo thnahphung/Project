@@ -1,5 +1,8 @@
 package controller.admins;
 
+import services.ImageService;
+import services.ProductService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -8,8 +11,8 @@ import java.util.Collection;
 
 @WebServlet(name = "UploadImageProduct", value = "/admins/uploadImageProduct")
 @MultipartConfig(
-//        location = "D:\\Git\\Project\\src\\main\\webapp\\images\\image-product",
-        location = "C:\\Users\\DELL\\Documents\\GitHub\\Project\\src\\main\\webapp\\images\\image-product",
+        location = "D:\\Git\\Project\\src\\main\\webapp\\images\\image-product",
+//        location = "C:\\Users\\DELL\\Documents\\GitHub\\Project\\src\\main\\webapp\\images\\image-product",
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 101
@@ -24,14 +27,19 @@ public class UploadImageProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Collection<Part> parts = request.getParts();
+            boolean isImageProduct = true;
+            int productId = ProductService.getInstance().nextId() - 1;
             for (Part part : parts) {
                 String fileName = getFileName(part);
-                if (fileName != null)
+                if (fileName != null) {
                     part.write(fileName);
+                }
+                if (isImageProduct)
+                    ProductService.getInstance().editImageProduct(productId, "images/image-product/" + fileName);
+                else
+                    ImageService.getInstance().addImageByIdProduct(productId, "images/image-product/" + fileName);
+                isImageProduct = false;
             }
-//            Part  part= request.getPart("image-banner");
-//            part.write(getFileName(part));
-
         } catch (Exception e) {
 
         }

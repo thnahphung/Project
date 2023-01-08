@@ -33,9 +33,9 @@
         <div class="address-book">
             <span><a href="/homepage">Trang chủ</a></span><span>|</span>
             <span><a
-                    href="list-product.jsp"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
-            <span><a href="list-product.jsp"><%=product.getCategory().getName()%></a></span><span>|</span>
-            <span><a href="product.jsp"><%=product.getProductName()%></a></span>
+                    href="http://localhost:8080/listProduct?kind=0"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
+            <span><a href="http://localhost:8080/listProduct?kind=0"><%=product.getCategory().getName()%></a></span><span>|</span>
+            <span><a href="#"><%=product.getProductName()%></a></span>
         </div>
     </div>
 

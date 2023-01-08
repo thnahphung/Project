@@ -13,29 +13,28 @@ $(document).ready(function () {
         var decription = $('#input-decription').val();
 
 
-        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
+        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "" || $('.image-item').length < 5) {
             alert("Vui lòng kiểm tra lại")
             return;
         }
         $.ajax({
             url: "/admins/addProduct",
-            type:"get",
-            data:{
-                name:name,
-                price:price,
-                priceReal:priceReal,
-                inventory:inventory,
-                detail:detail,
+            type: "get",
+            data: {
+                name: name,
+                price: price,
+                priceReal: priceReal,
+                inventory: inventory,
+                detail: detail,
                 decription: decription,
-                category:category
-            },success: function (data) {
-                
+                category: category
+            }, success: function (data) {
+
             }
         }).done(function () {
             $('.btn-submit-img').click();
         })
         // window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
-
 
 
     })
@@ -98,7 +97,7 @@ $(document).ready(function () {
                     var detail = $('#edit-detail').val();
                     var decription = $('#edit-decription').val();
 
-                    if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
+                    if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "" || $('.image-item').length < 5) {
                         alert("Vui lòng kiểm tra lại")
                         return;
                     }
@@ -132,7 +131,7 @@ $(document).ready(function () {
             let idItem = $('.input-img').length + 1;
             $('.upload .row').append(" <div class=\"col-4 item" + (idItem - 1) + "\">\n" +
                 "                                <img class=\"img-load image-item" + (idItem - 1) + "\" src=\"#\" alt=\"\">\n" +
-                "                                <button class=\"remove-img\" value=\"" + (idItem -1) + "\">X</button>\n" +
+                "                                <button class=\"remove-img\" value=\"" + (idItem - 1) + "\">X</button>\n" +
                 "                            </div>" +
                 "<input type=\"file\" name=\"file-img" + idItem + "\" id=\"file-img" + idItem + "\" class=\"input-img submit\"\n" +
                 "                                           accept=\"image/png\">");
@@ -152,7 +151,7 @@ $(document).ready(function () {
         $('#file-img' + id).remove();
     })
 
-    
+
 })
 
 

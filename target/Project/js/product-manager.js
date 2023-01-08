@@ -13,7 +13,7 @@ $(document).ready(function () {
         var decription = $('#input-decription').val();
 
 
-        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
+        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "" || $('.image-item').length < 5) {
             alert("Vui lòng kiểm tra lại")
             return;
         }
@@ -35,7 +35,6 @@ $(document).ready(function () {
             $('.btn-submit-img').click();
         })
         // window.location = "/admins/addProduct?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category;
-
 
 
     })
@@ -71,40 +70,40 @@ $(document).ready(function () {
             error: function (xhr) {
             }
         }).done(function () {
-            $('#edit-pa_category').change(function () {
-                $.ajax({
-                    url: "/setCategory",
-                    type: "get",
-                    data: {
-                        idcategory: $(this).val().trim()
-                    },
-                    success: function (data) {
-                        $("#edit-category").html(data);
+                $('#edit-pa_category').change(function () {
+                    $.ajax({
+                        url: "/setCategory",
+                        type: "get",
+                        data: {
+                            idcategory: $(this).val().trim()
+                        },
+                        success: function (data) {
+                            $("#edit-category").html(data);
 
-                    },
-                    error: function (xhr) {
+                        },
+                        error: function (xhr) {
 
-                    }
+                        }
+                    })
                 })
-            })
-            $('#editProduct').click(function () {
-                var idpr1 = idpr;
-                var name = $('#edit-name').val();
-                var price = $('#edit-price').val().trim();
-                var priceReal = $('#edit-priceReal').val().trim();
-                var inventory = $('#edit-inventory').val().trim();
-                // img: $()
-                let category = $('.category').find(":selected").val().trim();
-                var detail = $('#edit-detail').val();
-                var decription = $('#edit-decription').val();
+                $('#editProduct').click(function () {
+                    var idpr1 = idpr;
+                    var name = $('#edit-name').val();
+                    var price = $('#edit-price').val().trim();
+                    var priceReal = $('#edit-priceReal').val().trim();
+                    var inventory = $('#edit-inventory').val().trim();
+                    // img: $()
+                    let category = $('.category').find(":selected").val().trim();
+                    var detail = $('#edit-detail').val();
+                    var decription = $('#edit-decription').val();
 
-                if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "") {
-                    alert("Vui lòng kiểm tra lại")
-                    return;
-                }
-                window.location = "/admins/editProductinForm?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category + "&id=" + idpr1 + "&stt=0";
-            })
-        }
+                    if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "" || $('.image-item').length < 5) {
+                        alert("Vui lòng kiểm tra lại")
+                        return;
+                    }
+                    window.location = "/admins/editProductinForm?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category + "&id=" + idpr1 + "&stt=0";
+                })
+            }
         )
 
     })

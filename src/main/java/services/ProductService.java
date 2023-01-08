@@ -296,10 +296,11 @@ public class ProductService {
                     .execute();
         });
     }
+
     // ------------------------- Sua san pham ----------------------------------
     public void editProduct(int id, String name, int price, int priceReal, int group, String img) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE product SET category_id=?, product_name=?, price=?,price_real=?,image_src=? where product_id= "+id+";")
+            return handle.createUpdate("UPDATE product SET category_id=?, product_name=?, price=?,price_real=?,image_src=? where product_id= " + id + ";")
                     .bind(0, group)
                     .bind(1, name)
                     .bind(2, price)
@@ -308,7 +309,8 @@ public class ProductService {
                     .execute();
         });
     }
-//-------------------------- Sua chi tiet san pham -------------------------------------
+
+    //-------------------------- Sua chi tiet san pham -------------------------------------
     public void editProductDetail(int id, String decription, String detail, int inventory, int stt, int userId) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE product_detail SET decription=?, detail=?, inventory=?, update_date=?, stt=?, user_id=?")
@@ -330,6 +332,14 @@ public class ProductService {
         });
     }
 
+    public void editImageProduct(int id, String src) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE product SET image_src =:src where product_id=:id")
+                    .bind("src", src)
+                    .bind("id", id)
+                    .execute();
+        });
+    }
 //    public static void main(String[] args) {
 //        System.out.println(ProductService.getInstance().getProductById(9));
 //        System.out.println(ProductService.getInstance().getListProduct());

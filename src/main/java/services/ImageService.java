@@ -38,4 +38,16 @@ public class ImageService {
 
     }
 
+    public void addImageByIdProduct(int idProduct, String srcImage) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO image VALUES (:image_id,:product_id,:image_src)")
+                    .bind("image_id", nextId())
+                    .bind("product_id", idProduct)
+                    .bind("image_src", srcImage)
+                    .execute();
+        });
+
+
+    }
+
 }
