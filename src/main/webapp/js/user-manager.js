@@ -1,9 +1,7 @@
 $(document).ready(function () {
     $('.edit-user').click(function () {
-        var iduer = $(this).val().trim();
-        var varieties = $('.input-varieties').val().trim();
-        alert(varieties)
-        window.location = "/editUserManager?id=" + iduer + "&varieties=" + varieties;
-
+        let idUer = $(this).val().trim();
+        let varieties = $('.user-varieties' + $(this).val()).val().trim();
+        window.location = "/editUserManager?id=" + idUer + "&varieties=" + varieties;
     })
 })

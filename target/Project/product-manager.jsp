@@ -35,7 +35,7 @@
             </div>
             <div class="bottom">
 
-                <p class="percent green">+55%</p>
+                <p class="percent green">+15%</p>
                 <p>so với hôm qua</p>
 
             </div>
@@ -60,12 +60,12 @@
                 <div class="icon i-green"><i class="fa-solid fa-cart-shopping"></i></div>
                 <div class="title-number">
                     <p class="title">Sản phẩm hết hàng</p>
-                    <p class="number">50 sản phẩm</p>
+                    <p class="number">10 sản phẩm</p>
                 </div>
             </div>
             <div class="bottom">
 
-                <p class="percent green">+25%</p>
+                <p class="percent green">+5%</p>
                 <p>so với hôm qua</p>
 
             </div>
@@ -76,7 +76,7 @@
                 <div class="icon i-blue"><i class="fa-solid fa-eye"></i></div>
                 <div class="title-number">
                     <p class="title">Số lượt đánh giá</p>
-                    <p class="number">720.203 lượt</p>
+                    <p class="number">80 lượt</p>
                 </div>
             </div>
             <div class="bottom">

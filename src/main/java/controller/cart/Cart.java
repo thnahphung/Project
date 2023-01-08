@@ -13,7 +13,12 @@ import java.io.IOException;
 public class Cart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        User user = (User) request.getSession().getAttribute("auth");
+        if (user != null) {
+            request.getRequestDispatcher("cart.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/doLogin");
+        }
     }
 
     @Override

@@ -63,7 +63,7 @@
                 <td>
                     <%--                            <p class="text-xs font-weight-bold mb-0"><%=list.get(i).getVarieties()%></p>--%>
 
-                    <select class="input-varieties">
+                    <select class="input-varieties user-varieties<%=list.get(i).getUserId()%>">
                         <option value="2" <%=list.get(i).getVarieties() == 2 ? "selected" : " "%>>Quản lý</option>
                         <option value="1" <%=list.get(i).getVarieties() == 1 ? "selected" : " "%>>Cộng tác viên</option>
                         <option value="0" <%=list.get(i).getVarieties() == 0 ? "selected" : " "%>>Khách hàng</option>
