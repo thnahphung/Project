@@ -149,7 +149,22 @@ $(document).ready(function () {
         $('.item' + id).remove();
         $('#file-img' + id).remove();
     })
+    $('.delete').click(function () {
+        var testval = [];
+        $('.checkbox-product:checked').each(function () {
+            $.ajax({
+                url: "/deleteProduct",
+                type: "get",
+                data: {
+                    id: $(this).val().trim()
+                }, success: function (data) {
 
+                }
+            })
+            $('.product-' + $(this).val().trim()).css('display', 'none');
+        });
+
+    })
 
 })
 

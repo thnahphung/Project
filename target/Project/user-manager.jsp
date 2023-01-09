@@ -63,7 +63,7 @@
                 <td>
                     <%--                            <p class="text-xs font-weight-bold mb-0"><%=list.get(i).getVarieties()%></p>--%>
 
-                    <select class="input-varieties">
+                    <select class="input-varieties user-varieties<%=list.get(i).getUserId()%>">
                         <option value="2" <%=list.get(i).getVarieties() == 2 ? "selected" : " "%>>Quản lý</option>
                         <option value="1" <%=list.get(i).getVarieties() == 1 ? "selected" : " "%>>Cộng tác viên</option>
                         <option value="0" <%=list.get(i).getVarieties() == 0 ? "selected" : " "%>>Khách hàng</option>
@@ -76,7 +76,7 @@
                     <span class="text-secondary text-xs font-weight-bold"><%=list.get(i).getPhoneNumber()%></span>
                 </td>
                 <td class="align-middle">
-                    <button class="edit-user" value="<%=list.get(i).getUserId()%>">
+                    <button class="edit-user submit" value="<%=list.get(i).getUserId()%>" style="width: 150px">
                         Lưu thay đổi
                     </button>
                 </td>

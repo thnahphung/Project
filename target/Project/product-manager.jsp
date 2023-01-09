@@ -35,7 +35,7 @@
             </div>
             <div class="bottom">
 
-                <p class="percent green">+55%</p>
+                <p class="percent green">+15%</p>
                 <p>so với hôm qua</p>
 
             </div>
@@ -60,12 +60,12 @@
                 <div class="icon i-green"><i class="fa-solid fa-cart-shopping"></i></div>
                 <div class="title-number">
                     <p class="title">Sản phẩm hết hàng</p>
-                    <p class="number">50 sản phẩm</p>
+                    <p class="number">10 sản phẩm</p>
                 </div>
             </div>
             <div class="bottom">
 
-                <p class="percent green">+25%</p>
+                <p class="percent green">+5%</p>
                 <p>so với hôm qua</p>
 
             </div>
@@ -76,7 +76,7 @@
                 <div class="icon i-blue"><i class="fa-solid fa-eye"></i></div>
                 <div class="title-number">
                     <p class="title">Số lượt đánh giá</p>
-                    <p class="number">720.203 lượt</p>
+                    <p class="number">80 lượt</p>
                 </div>
             </div>
             <div class="bottom">
@@ -97,7 +97,7 @@
                 <button type="button" class="btn-add-address button submit add" data-toggle="modal"
                         data-target="#exampleModalCenter">Thêm
                 </button>
-                <button class="delete">Xóa</button>
+                <button class="delete button submit">Xóa</button>
             </div>
 
             <table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm "
@@ -116,20 +116,20 @@
                 <tbody>
                 <% List<Product> list = (List<Product>) request.getAttribute("list");
                     for (Product product : list) {%>
-                <tr>
-                    <td><input type="checkbox"></td>
+                <tr class="product-<%=product.getProductId()%>">
+                    <td><input type="checkbox" value="<%=product.getProductId()%>" class="checkbox-product"></td>
                     <td><img class="avatar" src="<%=product.getImageSrc()%>" alt="<%=product.getProductName()%>">
                     </td>
                     <td><%=product.getProductName()%>
                     </td>
-                    <td><%=Format.format(product.getPrice())%>
+                    <td><%=Format.format(product.getPrice())%> VND
                     </td>
                     <td><%=product.getProductDetail().getCreateDate()%>
                     </td>
                     <td><%=product.getProductDetail().getInventory()%>
                     </td>
                     <td>
-                        <button class="edit-product" value="<%=product.getProductId()%>" data-toggle="modal"
+                        <button class="edit-product button submit" value="<%=product.getProductId()%>" data-toggle="modal"
                                 data-target="#exampleModalCenterEdit">
                             Sửa
                         </button>
@@ -201,7 +201,8 @@
                                placeholder="Số lượng ...">
                     </div>
                     <div class="images">
-                        <form action="/admins/uploadImageProduct" method="post" class="upload" enctype="multipart/form-data">
+                        <form action="/admins/uploadImageProduct" method="post" class="upload"
+                              enctype="multipart/form-data">
                             <label>Hình ảnh sản phẩm (Tối thiểu 5 ảnh)</label>
                             <div class="row">
                                 <input type="file" name="file-img1" id="file-img1" class="input-img submit"

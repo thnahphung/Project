@@ -19,15 +19,16 @@
     </div>
     <div class="col-2">
         <div class="title">Liên hệ</div>
-        <div><a href="">Facebook</a></div>
-        <div><a href="">Istagram</a></div>
-        <div><a href="">Twiter</a></div>
+        <div><a href="#">Facebook</a></div>
+        <div><a href="#">Istagram</a></div>
+        <div><a href="#">Twiter</a></div>
     </div>
     <div class="col-2">
         <div class="title">Hỗ trợ</div>
         <div><a href="">Thông tin bảo hành</a></div>
         <div><a href="">Thông tin đổi trả</a></div>
         <div><a href="">Liên hệ nhân viên chăm sóc</a></div>
+        <div><a href="Contact.jsp">Gửi phản hồi</a></div>
     </div>
 
     <div class="col-1"></div>

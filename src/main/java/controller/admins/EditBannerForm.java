@@ -35,9 +35,9 @@ public class EditBannerForm extends HttpServlet {
                 "                                           placeholder=\"Tải ảnh lên\">\n" +
                 "                                </div>\n" +
                 "                                <div class=\"modal-footer\">\n" +
-                "                                    <button type=\"button\" class=\"button button-close submit\" data-dismiss=\"modal\">Hủy\n" +
+                "                                    <button type=\"button\" class=\"button button-close\" data-dismiss=\"modal\">Hủy\n" +
                 "                                    </button>\n" +
-                "                                    <button type=\"button\" class=\"button button-save submit\" id=\"save-editBanner\"\n" +
+                "                                    <button type=\"button\" class=\"button button-save\" id=\"save-editBanner\"\n" +
                 "                                            value=\"Lưu thay đổi\">Lưu thay đổi\n" +
                 "                                    </button>\n" +
                 "                                </div>\n" +
