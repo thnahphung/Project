@@ -46,4 +46,10 @@ public class ContactService {
         System.out.println(getInstance().nextID());
 //        getInstance().addContact("dang","trang wweb oke");
     }
+
+    public void deleteContact(int id) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("DELETE FROM contact where id="+id+";").execute();
+        });
+    }
 }

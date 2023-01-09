@@ -256,6 +256,10 @@ public class ProductService {
         return list;
     }
 
+    public static void main(String[] args) {
+        System.out.println(getInstance().getListProductInSearch("Cú"));
+    }
+
     //--------------------- Lay id lon nhat trong ban ----------------------------
     public int nextId() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
