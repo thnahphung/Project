@@ -28,7 +28,6 @@ $(document).ready(function () {
         }
     })
     $('.detail-order').click(function () {
-        alert($(this).val().trim())
         $.ajax({
             url: "/detailOrder",
             type: "get",

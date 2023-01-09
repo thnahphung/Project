@@ -25,7 +25,6 @@ $(document).ready(function () {
     })
     $('.edit-banner').click(function () {
         var idbanner = $(this).val().trim();
-        alert(idbanner)
         $.ajax({
             url: "/admins/editBannerForm",
             type: "get",

@@ -76,7 +76,7 @@
                     <span class="text-secondary text-xs font-weight-bold"><%=list.get(i).getPhoneNumber()%></span>
                 </td>
                 <td class="align-middle">
-                    <button class="edit-user" value="<%=list.get(i).getUserId()%>">
+                    <button class="edit-user submit" value="<%=list.get(i).getUserId()%>" style="width: 150px">
                         Lưu thay đổi
                     </button>
                 </td>

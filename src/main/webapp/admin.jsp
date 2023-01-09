@@ -136,7 +136,7 @@
                     </td>
                     <td><%=order.getDelivery()%>
                     </td>
-                    <td> <button class="detail-order" value="<%=order.getOrderId()%>">xem chi tiết</button></td>
+                    <td> <button class="detail-order submit" style="width: 130px" value="<%=order.getOrderId()%>">Xem chi tiết</button></td>
                 </tr>
                 <%}%>
 

@@ -34,7 +34,7 @@
             <table class="table table-bordered table-striped mb-0">
                 <thead>
                 <tr>
-                    <th>mã ảnh bìa</th>
+                    <th>Mã ảnh bìa</th>
                     <th>Tên ảnh bìa</th>
                     <th>Hình ảnh</th>
                     <th></th>
@@ -52,11 +52,11 @@
                     </td>
                     <td><img src="<%=banner.getImage_src()%>" alt="" style="width: 200px; height: 100px"></td>
                     <td>
-                        <button class="edit-banner" value="<%=banner.getId()%>" data-toggle="modal"
+                        <button class="edit-banner button submit" value="<%=banner.getId()%>" data-toggle="modal"
                                 data-target="#exampleModalCenterEdit">
                             Sửa
                         </button>
-                        <button type="button" class="delete-banner" class="button btn-indigo btn-sm m-0 delete"
+                        <button type="button" class="delete-banner button submit" class="button btn-indigo btn-sm m-0 delete button submit"
                                 value="<%=banner.getId()%>">Xóa
                         </button>
                     </td>
@@ -69,7 +69,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm quản cáo mới</h5>
+                            <h5 class="modal-title uppercase" id="exampleModalLongTitle">Thêm quảng cáo mới</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -77,7 +77,7 @@
                         <div class="modal-body">
                             <form class="form-add-address">
                                 <div class="name">
-                                    <label>Tên quản cáo</label>
+                                    <label>Tên quảng cáo</label>
                                     <select class="input" type="text" name="name" id="input-name">
                                         <option value="home">Trang chủ</option>
                                         <option value="product">Sản phẩm</option>
@@ -90,15 +90,15 @@
                                     <label>Hình ảnh </label>
                                     <div class="row">
                                         <img src="#" class="images" style="width: 98px; height: 100px">
-                                        <input type="file" name="img-banner" id="file-img" class="input-img submit"
+                                        <input type="file" name="img-banner" id="file-img" class="input-img"
                                                accept="image/png">
                                     </div>
                                     <button type="submit" style="display: none" class="download-image"></button>
                                 </form>
                                 <div class="modal-footer">
-                                    <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
+                                    <button type="button" class="button button-close" data-dismiss="modal">Hủy
                                     </button>
-                                    <button type="button" class="button button-save submit" id="addBanner"
+                                    <button type="button" class="button button-save" id="addBanner"
                                             value="Lưu sản phẩm">Thêm ảnh bìa
                                     </button>
                                 </div>
@@ -158,7 +158,7 @@
                     </td>
                     <td>
                         <%--                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>--%>
-                        <button type="button" class="delete-pa" class="button btn-indigo btn-sm m-0 delete"
+                        <button type="button" class="delete-pa submit" class="button btn-indigo btn-sm m-0 delete"
                                 value="<%=pa.getPaCategoryId()%>">Xóa
                         </button>
 
@@ -180,15 +180,15 @@
                         <div class="modal-body">
                             <form class="form-add-address">
                                 <div class="name">
-                                    <label>Tên quản cáo</label>
+                                    <label>Tên quảng cáo</label>
 
                                     <input type="text" id="input-pa">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="button button-close submit" data-dismiss="modal">Hủy
+                                    <button type="button" class="button button-close" data-dismiss="modal">Hủy
                                     </button>
-                                    <button type="button" class="button button-save submit" id="addPacategory"
-                                            value="Lưu sản phẩm">Thêm Danh mục
+                                    <button type="button" class="button button-save" id="addPacategory"
+                                            value="Lưu sản phẩm">Thêm danh mục
                                     </button>
                                 </div>
                             </form>
