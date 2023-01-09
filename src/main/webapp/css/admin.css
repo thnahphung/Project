@@ -293,3 +293,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 .width-card{
     width: 500px;
 }
+.dataTables_scrollBody{
+    max-height: 500px !important;
+    height: 500px !important;
+}

@@ -11,7 +11,8 @@ import java.util.Collection;
 
 @WebServlet(name = "UploadImageProduct", value = "/admins/uploadImageProduct")
 @MultipartConfig(
-        location = "D:\\Git\\Project\\src\\main\\webapp\\images\\image-product",
+//        location = "D:\\Git\\Project\\src\\main\\webapp\\images\\image-product",
+        location = "E:\\LTWeb\\project\\Project\\src\\main\\webapp\\images\\image-product",
 //        location = "C:\\Users\\DELL\\Documents\\GitHub\\Project\\src\\main\\webapp\\images\\image-product",
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10,

@@ -11,7 +11,7 @@
     <%String name = request.getAttribute("name").toString();%>
     <h3 class="title"><%=name%></h3>
     <div class="right">
-        <div class="search item">
+        <div class="search item" style="visibility: hidden;">
             <input type="text" id="search" placeholder="Search..."/>
             <span class="icon"><i class="fa fa-search"></i></span>
         </div>

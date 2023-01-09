@@ -70,7 +70,11 @@
                     </select>
                 </td>
                 <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-success">Trực tuyến</span>
+                    <select class="input-stt user-stt<%=list.get(i).getUserId()%>">
+                        <option value="2" <%=list.get(i).getStt() == 2 ? "selected" : " "%>>Khóa vĩnh viễn</option>
+                        <option value="1" <%=list.get(i).getStt() == 1 ? "selected" : " "%>>Tạm khóa</option>
+                        <option value="0" <%=list.get(i).getStt() == 0 ? "selected" : " "%>>Đang hoạt động</option>
+                    </select>
                 </td>
                 <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold"><%=list.get(i).getPhoneNumber()%></span>

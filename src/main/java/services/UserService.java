@@ -26,13 +26,13 @@ public class UserService {
 
     public List<User> getListUser() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
     }
 
     public User getUserById(int id) {
         List<User> users = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar  FROM user where user_id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt  FROM user where user_id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
         });
         if (users.size() != 1) return null;
         return users.get(0);
@@ -40,7 +40,7 @@ public class UserService {
 
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar from user where email=? or phone_number=?")
+                handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar, stt from user where email=? or phone_number=?")
                         .bind(0, userName).bind(1, userName)
                         .mapToBean(User.class)
                         .stream()
@@ -160,7 +160,13 @@ public class UserService {
                     .execute();
         });
     }
-
+    public void editSttUser(int id, int stt) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `user` SET stt=? where user_id= " + id + " ;")
+                    .bind(0, stt)
+                    .execute();
+        });
+    }
     public static void main(String[] args) {
         getInstance().editVarietiesUser(1,0);
     }

@@ -23,18 +23,33 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         User user = UserService.getInstance().checkLogin(username, UserService.getInstance().hashPassword(password));
         if (user == null) {
-            request.setAttribute("error", "Sai tài khoản hoặc mật khẩu");
+            request.setAttribute("error", "Sai tài khoản hoặc mật khẩu.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else if (user.getVarieties() > 0) {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("authAdmin", user);
-            response.sendRedirect("orderManager");
-
+            if(user.getStt()==0){
+                HttpSession session = request.getSession(true);
+                session.setAttribute("authAdmin", user);
+                response.sendRedirect("orderManager");
+            }else if(user.getStt()==1){
+                request.setAttribute("error", "Tài khoản đang tạm bị khóa.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else if (user.getStt()==2) {
+                request.setAttribute("error", "Tài khoản đã bị khóa vĩnh viễn, hãy tạo tài khoản mới.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
         } else {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("auth", user);
-            session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getUserId()));
-            response.sendRedirect("homepage");
+            if(user.getStt()==0){
+                HttpSession session = request.getSession(true);
+                session.setAttribute("auth", user);
+                session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getUserId()));
+                response.sendRedirect("homepage");
+            }else if(user.getStt()==1){
+                request.setAttribute("error", "Tài khoản đang tạm bị khóa.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else if (user.getStt()==2) {
+                request.setAttribute("error", "Tài khoản đã bị khóa vĩnh viễn, hãy tạo tài khoản mới.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
 
         }
 

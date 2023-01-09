@@ -12,12 +12,13 @@ public class User implements Serializable {
     private String pass;
     private int varieties;
     private String avatar;
+    private int stt;
 
     public User() {
 
     }
 
-    public User(int userId, String fullName, String email, String phoneNumber, String pass, int varieties, String avatar) {
+    public User(int userId, String fullName, String email, String phoneNumber, String pass, int varieties, String avatar, int stt) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
@@ -25,6 +26,15 @@ public class User implements Serializable {
         this.pass = pass;
         this.varieties = varieties;
         this.avatar = avatar;
+        this.stt = stt;
+    }
+
+    public int getStt() {
+        return stt;
+    }
+
+    public void setStt(int stt) {
+        this.stt = stt;
     }
 
     public User(int userId, String fullName, String avatar) {
@@ -89,14 +99,14 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getVarietiesUser(){
-       if(this.varieties==1){
+    public String getVarietiesUser() {
+        if (this.varieties == 1) {
             return "Cộng tác viên";
         }
-         if(this.varieties==2){
+        if (this.varieties == 2) {
             return "Quản lý";
         }
-         return "Khách hàng";
+        return "Khách hàng";
     }
 
     @Override

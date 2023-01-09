@@ -4,10 +4,7 @@ import bean.Discount;
 import bean.Order;
 import bean.User;
 import controller.cart.Cart;
-import services.AddressService;
-import services.DiscountService;
-import services.OrderService;
-import services.TransportService;
+import services.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -26,7 +23,7 @@ public class AddOrder extends HttpServlet {
         String voucher = request.getParameter("voucher");
 
         Order order = (Order) request.getSession().getAttribute("cart");
-
+        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.getTotal(), user.getEmail());
         order.setAddressId(idAddress);
         order.setTransportId(wayShip);
         order.setPayments(payments);
