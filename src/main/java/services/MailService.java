@@ -1,11 +1,14 @@
 package services;
+import filter.UTF8;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+
+import java.nio.charset.Charset;
 import java.util.Properties;
 
 public class MailService {
-    public static void sendMail(String subject, String content, String sendTo) {
+    public static void sendMail(String from, String content, String send) {
         final String username = "20130356@st.hcmuaf.edu.vn";
         final String password = "ulnojephxsdbgtes";
 
@@ -29,11 +32,10 @@ public class MailService {
             message.setFrom(new InternetAddress("20130356@st.hcmuaf.edu.vn"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse(sendTo)
+                    InternetAddress.parse(send)
             );
-            message.setSubject(subject);
-            message.setText(content);
-
+            message.setSubject(from);
+          message.setText(content);
             Transport.send(message);
 
             System.out.println("Done");

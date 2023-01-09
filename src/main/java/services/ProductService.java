@@ -43,7 +43,7 @@ public class ProductService {
 
     public List<Product> getListProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> list = handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, image_src, rate  FROM product").mapToBean(Product.class).stream().collect(Collectors.toList());
+            List<Product> list = handle.createQuery("SELECT p.product_id, p.category_id, p.product_name, p.price, p.price_real, p.image_src, p.rate FROM product p join product_detail pd on p.product_detail_id= pd.product_detail_id where pd.stt not like 1").mapToBean(Product.class).stream().collect(Collectors.toList());
             for (Product product : list) {
                 ProductDetail productDetail = handle.createQuery("SELECT product_detail_id,decription,detail,inventory,create_date,update_date,stt,quantity_sold,user_id FROM product_detail where product_detail_id = ?").bind(0, product.getProductId()).mapToBean(ProductDetail.class).stream().collect(Collectors.toList()).get(0);
                 product.setProductDetail(productDetail);
@@ -344,7 +344,15 @@ public class ProductService {
                     .execute();
         });
     }
-//    public static void main(String[] args) {
+    public void deleteProduct(int id){
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE product_detail SET stt =1 where product_detail_id=:id")
+                    .bind("id", id)
+                    .execute();
+        });
+    }
+    public static void main(String[] args) {
+//        getInstance().deleteProduct(1);
 //        System.out.println(ProductService.getInstance().getProductById(9));
 //        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
@@ -375,7 +383,7 @@ public class ProductService {
 //
 //        ProductService.getInstance().addProduct(product);
 //
-//    }
+    }
 
 
 }

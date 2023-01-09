@@ -28,10 +28,10 @@ error= error==null?"":error;%>
                 <p class="error"><%= error%></p>
                 <input type="text" name="user" class="name input" placeholder="Email hoặc số điện thoại">
                 <input type="password" name="password" class="pass input" placeholder="Mật khẩu">
-                <a href="forgot-pass.jsp" class="forget"> Bạn quên mật khẩu?</a>
+                <a href="http://localhost:8080/forgotPass" class="forget"> Bạn quên mật khẩu?</a>
 
                 <input type="submit" name="submit" class="submit" value="Đăng nhập">
-                <p class="sgin-up">Tạo tài khoản mới miễn phí <a href="sign-up.jsp">tại đây</a> </p>
+                <p class="sgin-up">Tạo tài khoản mới miễn phí <a href="http://localhost:8080/doSignUp">tại đây</a> </p>
             </div>
         </form>
     </div>

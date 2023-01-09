@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="bean.Order" %>
+<%@ page import="bean.Format" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 >
 <html lang="en">
@@ -30,7 +31,7 @@
                 <div class="icon i-gray"><img src="" alt=""><i class="fa-solid fa-cash-register"></i></div>
                 <div class="title-number">
                     <p class="title">Tổng doanh thu</p>
-                    <p class="number"><%=request.getAttribute("total")%> VND</p>
+                    <p class="number"><%=Format.format((Integer) request.getAttribute("total"))%> VND</p>
                 </div>
             </div>
             <div class="bottom">
@@ -78,7 +79,7 @@
                 <div class="icon i-blue"><img src="" alt=""><i class="fa-solid fa-eye"></i></div>
                 <div class="title-number">
                     <p class="title">Số lượt xem trang web</p>
-                    <p class="number">720.203 lượt</p>
+                    <p class="number">720 lượt</p>
                 </div>
             </div>
             <div class="bottom">
@@ -135,7 +136,7 @@
                     </td>
                     <td><%=order.getDelivery()%>
                     </td>
-                    <td> <button class="detail-order" value="<%=order.getOrderId()%>">xem chi tiết</button></td>
+                    <td> <button class="detail-order submit" style="width: 130px" value="<%=order.getOrderId()%>">Xem chi tiết</button></td>
                 </tr>
                 <%}%>
 
