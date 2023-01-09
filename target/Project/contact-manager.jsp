@@ -57,7 +57,7 @@
                     <span class="text-secondary text-xs font-weight-bold"><%=c.getContent()%></span>
                 </td>
                 <td class="align-middle">
-                    <button class="delete-contact" onclick="deleteContact()" value="<%=c.getContent()%>">
+                    <button class="delete-contact" value="<%=c.getId()%>">
                         Xóa
                     </button>
                 </td>
@@ -70,20 +70,7 @@
     </div>
 </div>
 
-<script>
-    function deleteContact() {
-        $.ajax({
-            url:"/deleteContact",
-            type:"get",
-            data:{
-                id: $(this).val().trim()
-            },
-            success: function (){
-            $('.contactS'+$(this).val()).remove()
-            }
-        })
-    }
-</script>
+
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -99,6 +86,21 @@
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/admin.js"></script>
 <script src="js/user-manager.js"></script>
+<script>
+    $('.delete-contact').click(function () {
+        $.ajax({
+            url: "/admins/deleteContact",
+            type: "get",
+            data: {
+                id: $(this).val().trim()
+            },
+            success: function () {
+                window.location='http://localhost:8080/contactManager';
+            }
+        })
+
+    })
+</script>
 </body>
 
 </html>

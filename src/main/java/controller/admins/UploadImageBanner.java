@@ -8,8 +8,7 @@ import java.util.Collection;
 
 @WebServlet(name = "UploadImageBanner", value = "/admins/uploadImageBanner")
 @MultipartConfig(
-//        location = "D:\\Git\\Project\\src\\main\\webapp\\images\\image-product",
-        location = "C:\\Users\\DELL\\Documents\\GitHub\\Project\\src\\main\\webapp\\images\\image-banner",
+        location = "E:\\LTWeb\\project\\Project\\src\\main\\webapp\\images\\image-banner",
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 101
