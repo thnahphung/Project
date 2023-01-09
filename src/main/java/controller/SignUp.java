@@ -13,6 +13,7 @@ import java.io.IOException;
 public class SignUp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("sign-up.jsp").forward(request, response);
 
     }
 
@@ -59,7 +60,7 @@ public class SignUp extends HttpServlet {
             user.setPass(UserService.getInstance().hashPassword(pass));
             user.setVarieties(0);
             UserService.getInstance().addUser(user);
-           MailService.sendMail("Đăng ký tài khoản","T lam xong roi do m thay chua ",email);
+           MailService.sendMail("Đăng ký tài khoản","Bạn đã đăng ký tài khoản thành công, chào mừng đến với CRAFTS, chúc bạn có một trải nghiệm mua sắm vui vẻ!",email);
             request.getRequestDispatcher("sign-up.jsp").forward(request, response);
 
         }
