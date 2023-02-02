@@ -55,7 +55,7 @@
 
         </a>
         <%} else {%>
-        <a href="login.jsp" class="item-right">
+        <a href="http://localhost:8080/doLogin" class="item-right">
             <i class="fa-solid fa-user"></i>
             <p>Đăng nhập</p>
         </a>

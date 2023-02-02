@@ -23,7 +23,7 @@ public class AddOrder extends HttpServlet {
         String voucher = request.getParameter("voucher");
 
         Order order = (Order) request.getSession().getAttribute("cart");
-        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.getTotal(), user.getEmail());
+
         order.setAddressId(idAddress);
         order.setTransportId(wayShip);
         order.setPayments(payments);
@@ -32,12 +32,13 @@ public class AddOrder extends HttpServlet {
         if (discount != null) {
             order.setDiscountId(DiscountService.getInstance().getDiscountByCode(voucher).getDiscountId());
             order.setTotal(order.total() - DiscountService.getInstance().getDiscountByCode(voucher).getDiscountFee());
+
         } else {
             order.setDiscountId(0);
             order.setTotal(order.total());
         }
         order.setSttDelivery(1);
-
+        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.total()+" VND", user.getEmail());
         OrderService.getInstance().cartToOrder(order);
         request.getSession().setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getUserId()));
 

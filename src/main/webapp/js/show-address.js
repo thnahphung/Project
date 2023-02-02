@@ -124,15 +124,14 @@ $(document).ready(function () {
         });
     })
     $('.btn-save').click(function () {
-        let id
         let name = $('#input-name').val();
         let phone = $('#input-number-phone').val();
-        let city = $('#input-detail').val();
+        let city = $('#input-city').val();
         let district = $('#input-district').val();
-        let detail = $("#input-city").val();
+        let detail = $("#input-detail").val();
         if (checkNull(name) || checkNull(phone) || checkNull(city) || checkNull(district) || checkNull(detail)) {
 
-            return $(".errorAddAddress").text("không");
+            return $(".errorAddAddress").text("Chưa điền đủ thông tin");
         }
 
         $.ajax({
