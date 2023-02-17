@@ -256,6 +256,10 @@ public class ProductService {
         return list;
     }
 
+    public static void main(String[] args) {
+        System.out.println(getInstance().getListProductInSearch("Cú"));
+    }
+
     //--------------------- Lay id lon nhat trong ban ----------------------------
     public int nextId() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
@@ -347,7 +351,7 @@ public class ProductService {
                     .execute();
         });
     }
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        getInstance().deleteProduct(1);
 //        System.out.println(ProductService.getInstance().getProductById(9));
 //        System.out.println(ProductService.getInstance().getListProduct());
@@ -379,7 +383,7 @@ public class ProductService {
 //
 //        ProductService.getInstance().addProduct(product);
 //
-    }
+//    }
 
 
 }

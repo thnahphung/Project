@@ -16,11 +16,13 @@ public class EditUserManager extends HttpServlet {
         String name = "Quản lý tài khoản";
         int id = Integer.parseInt(request.getParameter("id"));
         int varieties = Integer.parseInt(request.getParameter("varieties"));
+        int stt = Integer.parseInt(request.getParameter("stt"));
         UserService.getInstance().editVarietiesUser(id, varieties);
+        UserService.getInstance().editSttUser(id, stt);
         List<User> list = UserService.getInstance().getListUser();
-        request.setAttribute("listUser",list);
-        request.setAttribute("name",name);
-        request.getRequestDispatcher("user-manager.jsp").forward(request,response);
+        request.setAttribute("listUser", list);
+        request.setAttribute("name", name);
+        request.getRequestDispatcher("user-manager.jsp").forward(request, response);
     }
 
     @Override

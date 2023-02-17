@@ -11,21 +11,21 @@
     <%String name = request.getAttribute("name").toString();%>
     <h3 class="title"><%=name%></h3>
     <div class="right">
-        <div class="search item">
+        <div class="search item" style="visibility: hidden;">
             <input type="text" id="search" placeholder="Search..."/>
             <span class="icon"><i class="fa fa-search"></i></span>
         </div>
         <div class="notifi ">
-            <div class="item notifi-item">
+            <a class="item notifi-item" href="/contactManager">
                 <i class="fa-solid fa-bell"></i>
                 <p>thông báo</p>
                 <p style="color: red;">(1)</p>
-            </div>
+            </a>
             <div class="notifi-table">
-                <a href="">Có một cái gì đó mới </a>
-                <a href="">Ai đó đã mua hàng</a>
-                <a href="">Có một thành viên mới</a>
-                <a href="">Có một thành viên mới</a>
+                <a href="">Anh vừa phản hồi</a>
+<%--                <a href="">Ai đó đã mua hàng</a>--%>
+<%--                <a href="">Có một thành viên mới</a>--%>
+<%--                <a href="">Có một thành viên mới</a>--%>
 
             </div>
         </div>

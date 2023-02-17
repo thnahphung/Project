@@ -13,7 +13,7 @@ $(document).ready(function () {
         var decription = $('#input-decription').val();
 
 
-        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "" || $('.image-item').length < 5) {
+        if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "" || $('.remove-img').length < 5) {
             alert("Vui lòng kiểm tra lại")
             return;
         }
@@ -150,7 +150,6 @@ $(document).ready(function () {
         $('#file-img' + id).remove();
     })
     $('.delete').click(function () {
-        var testval = [];
         $('.checkbox-product:checked').each(function () {
             $.ajax({
                 url: "/deleteProduct",

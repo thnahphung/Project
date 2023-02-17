@@ -30,7 +30,7 @@ $(document).ready(function () {
                 amount: amountAdd
             },
             success: function (response) {
-                $('.amount-product').text(response);
+                $('.amount-product').text(response.trim()   );
             },
             error: function (xhr) {
 

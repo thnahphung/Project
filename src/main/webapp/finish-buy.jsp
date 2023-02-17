@@ -27,7 +27,7 @@
     <div class="list-product" style="justify-content: center">
         <ul class="container-list-product">
             <li class="notification bd-bottom pb-4 pt-4 uppercase">
-                Cảm ơn bạn đã mua hàng, thông tin hóa đơn sẽ được gửi đến email của bạn.
+                Cảm ơn bạn đã mua hàng, Cafts đã nhận được đơn hàng của bạn.
             </li>
         </ul>
         <div class="contain-btn " style="justify-content: center">
