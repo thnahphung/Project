@@ -50,7 +50,7 @@ $(document).ready(function () {
         $('.list-product').removeClass('col-8');
         $('.list-product').addClass('col-12');
         $('.container-list-product').html('<li class="notification bd-bottom pb-4 pt-4 uppercase">\n' +
-            '            Giỏ hàng của bạn đang trống, quay lại mua hàng nhé!\n' +
+            '            Giá» hĂ ng cá»§a báº¡n Ä‘ang trá»‘ng, quay láº¡i mua hĂ ng nhĂ©!\n' +
             '        </li>');
         $('.delete-all').remove();
         $('.contain-btn').css('justify-content', 'center');

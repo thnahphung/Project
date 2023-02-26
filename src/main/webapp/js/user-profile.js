@@ -34,10 +34,31 @@ $(document).ready(function () {
     }
 
 
-    $('#address-tab').click(function (){
+    $('#address-tab').click(function () {
         window.location = "http://localhost:8080/showAddress";
     })
-    $('#logout-tab').click(function (){
+    $('#logout-tab').click(function () {
         window.location = "http://localhost:8080/logOut";
     })
+
+    $('#input-avt-user').change(function () {
+            let formData = new FormData();
+            formData.append('imageUpload', $('#input-avt-user')[0].files[0]);
+            console.log("done")
+            $.ajax({
+                url: '/userprofile/editAvatarUser',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    let imageUrl = response;
+                    console.log(imageUrl)
+                    $('.avatar').attr('src', imageUrl);
+                    sessionStorage.setItem('imageUrl', imageUrl);
+                }
+            });
+        }
+    )
+
 });

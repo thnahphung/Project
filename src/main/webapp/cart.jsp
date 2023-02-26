@@ -158,7 +158,7 @@
             integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/general.js"></script>
-    <script src="js/cart.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/cart.js" charset="UTF-8"></script>
 </body>
 
 </html>

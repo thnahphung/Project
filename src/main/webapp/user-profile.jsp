@@ -57,9 +57,12 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
-<%--                        <a class="nav-link log-out"><i class="fa-solid fa-right-from-bracket"></i>Đăng--%>
-<%--                            xuất</a>--%>
+                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button"
+                                role="tab" aria-controls="messages" aria-selected="false"><i
+                                class="fa-solid fa-right-from-bracket"></i>Đăng xuất
+                        </button>
+                        <%--                        <a class="nav-link log-out"><i class="fa-solid fa-right-from-bracket"></i>Đăng--%>
+                        <%--                            xuất</a>--%>
                     </li>
 
                 </ul>
@@ -71,6 +74,12 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
+                                    <li id="avatar-user">
+                                        <label for="input-avt-user">
+                                            <img class="avatar" src="<%=user.getAvatar()%>" alt="Ảnh đại diện của bạn">
+                                        </label>
+                                        <input id="input-avt-user" type="file">
+                                    </li>
                                     <li><%=user.getFullName()%>
                                     </li>
                                     <li><%=user.getPhoneNumber()%>
