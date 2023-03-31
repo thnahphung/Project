@@ -54,7 +54,6 @@ public class Sort extends HttpServlet {
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                    </div>");
-
         }
     }
 

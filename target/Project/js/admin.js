@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+
     $('#dtHorizontalVerticalExample').DataTable({
         "scrollX": true,
         "scrollY": 200,
