@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-scope" content ="profile email">
+    <meta name="google-signin-client_id"
+          content="1034647834889-tosk1o80dfq9tm8pcm5r0utorrj977io.apps.googleusercontent.com">
     <title>login</title>
     <link rel="stylesheet" href="css/reset.css">
 
@@ -38,17 +41,15 @@
             <!-- <button  type="button" class="btn btn-sm btn-primary">Facebook</button> -->
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
             </fb:login-button>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <div id="status"></div>
             <p class="sign-up">Tạo tài khoản mới miễn phí <a href="http://localhost:8080/doSignUp">tại đây</a></p>
         </div>
     </form>
 </div>
 
-
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js">
-    <%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"--%>
-    <%--        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"--%>
-    <%--        crossorigin="anonymous"></script>--%>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
@@ -59,19 +60,22 @@
 <script src="js/general.js"></script>
 <script>
     // $(function () {
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         FB.init({
-            appId      : '530919699225104',
-            xfbml      : true,
-            version    : 'v16.0'
+            appId: '530919699225104',
+            xfbml: true,
+            version: 'v16.0'
         });
         FB.AppEvents.logPageView();
     };
 
-    (function(d, s, id){
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
@@ -111,9 +115,68 @@
                 'Thanks for logging in, ' + response.name + '!';
         });
     }
+    function onSignIn(googleUser){
+        console.log('hghg')
+        var profile = googleUser.getBasicProfile();
+        console.log(profile.getId());
+        console.log(profile.getName());
+        console.log(profile.getEmail());
+        var id_token = googleUser.getAuthResponse().id_token;
 
-    // });
+    };
+    // function login() {
+    //     var myParams = {
+    //         'clientid': '204961060808-udtiudh6h2h1469ivjh84nsksh6h9sfq.apps.googleusercontent.com',
+    //         'cookiepolicy': 'single_host_origin',
+    //         'callback': 'loginCallback',
+    //         'approvalprompt': 'force',
+    //         'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+    //     };
+    //     gapi.auth.signIn(myParams);
+    // }
+
+    // function loginCallback(result) {
+    //     if (result['status']['signed_in']) {
+    //         var request = gapi.client.plus.people.get(
+    //             {
+    //                 'userId': 'me'
+    //             });
+    //         request.execute(function (resp) {
+    //             console.log(resp);
+    //             if (resp != null) {
+    //                 window.location.href = 'Login?action=Google&name=' + resp.name.givenName + '&email=' + resp.emails[0].value + '&id=' + resp.id + '&fullName=' + resp.displayName + '&image=' + resp.image.url + '&age=' + resp.ageRange.max + '&etag=' + resp.etag;
+    //             }
+    //             var email = '';
+    //             if (resp['emails']) {
+    //                 for (i = 0; i < resp['emails'].length; i++) {
+    //                     if (resp['emails'][i]['type'] == 'account') {
+    //                         email = resp['emails'][i]['value'];//here is required email id
+    //                     }
+    //                 }
+    //             }
+    //             var usersname = resp['displayName'];//required name
+    //         });
+    //     }
+    // }
+
+    // function onLoadCallback() {
+    //     gapi.client.setApiKey('AIzaSyBvKg3asprpxMgAVhaonZOjJ_O-bcEoGxw');
+    //     gapi.client.load('plus', 'v1', function () {
+    //     });
+    // }
+
+
 </script>
+<%--<script type="text/javascript">--%>
+<%--    (function () {--%>
+<%--        var po = document.createElement('script');--%>
+<%--        po.type = 'text/javascript';--%>
+<%--        po.async = true;--%>
+<%--        po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';--%>
+<%--        var s = document.getElementsByTagName('script')[0];--%>
+<%--        s.parentNode.insertBefore(po, s);--%>
+<%--    })();--%>
+<%--</script>--%>
 </body>
 
 </html>
