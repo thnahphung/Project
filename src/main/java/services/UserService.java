@@ -206,6 +206,17 @@ public class UserService {
                     .bind("id3rd", user.getId3rd())
                     .execute();
         });
+    public void editAvatar(int id, String url) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
+                    .bind(0, url)
+                    .bind(1, id)
+                    .execute();
+        });
+    }
+
+    public static void main(String[] args) {
+
     }
 
     public void changeName(String name, String id3rd) {
