@@ -57,9 +57,12 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
-<%--                        <a class="nav-link log-out"><i class="fa-solid fa-right-from-bracket"></i>Đăng--%>
-<%--                            xuất</a>--%>
+                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button"
+                                role="tab" aria-controls="messages" aria-selected="false"><i
+                                class="fa-solid fa-right-from-bracket"></i>Đăng xuất
+                        </button>
+                        <%--                        <a class="nav-link log-out"><i class="fa-solid fa-right-from-bracket"></i>Đăng--%>
+                        <%--                            xuất</a>--%>
                     </li>
 
                 </ul>
@@ -71,11 +74,19 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li><%=user.getFullName()%>
+                                    <li>Họ tên: <%=user.getFullName()%>
                                     </li>
-                                    <li><%=user.getPhoneNumber()%>
+                                    <li>Số điện thoại:  <%if (user.getPhoneNumber() == null) {%>
+                                        <%=""%>
+                                        <%} else {%>
+                                        <%=user.getPhoneNumber()%>
+                                        <%}%>
                                     </li>
-                                    <li><%=user.getEmail()%>
+                                    <li>Email:  <%if (user.getEmail() == null) {%>
+                                        <%=""%>
+                                        <%} else {%>
+                                        <%=user.getEmail()%>
+                                        <%}%>
                                     </li>
                                 </ul>
 
@@ -102,7 +113,7 @@
                                                                placeholder="Họ tên" value="<%=user.getFullName()%>">
                                                         <input class="input" type="text" name="input-edit-phone"
                                                                id="input-edit-phone"
-                                                               placeholder="Số điện thoại"
+                                                               placeholder="    Số điện thoại"
                                                                value="<%=user.getPhoneNumber()%>">
                                                         <input class="input" type="email" name="input-edit-email"
                                                                id="input-edit-email"
