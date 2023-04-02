@@ -74,17 +74,19 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li id="avatar-user">
-                                        <label for="input-avt-user">
-                                            <img class="avatar" src="<%=user.getAvatar()%>" alt="Ảnh đại diện của bạn">
-                                        </label>
-                                        <input id="input-avt-user" type="file">
+                                    <li>Họ tên: <%=user.getFullName()%>
                                     </li>
-                                    <li><%=user.getFullName()%>
+                                    <li>Số điện thoại:  <%if (user.getPhoneNumber() == null) {%>
+                                        <%=""%>
+                                        <%} else {%>
+                                        <%=user.getPhoneNumber()%>
+                                        <%}%>
                                     </li>
-                                    <li><%=user.getPhoneNumber()%>
-                                    </li>
-                                    <li><%=user.getEmail()%>
+                                    <li>Email:  <%if (user.getEmail() == null) {%>
+                                        <%=""%>
+                                        <%} else {%>
+                                        <%=user.getEmail()%>
+                                        <%}%>
                                     </li>
                                 </ul>
 
@@ -111,7 +113,7 @@
                                                                placeholder="Họ tên" value="<%=user.getFullName()%>">
                                                         <input class="input" type="text" name="input-edit-phone"
                                                                id="input-edit-phone"
-                                                               placeholder="Số điện thoại"
+                                                               placeholder="    Số điện thoại"
                                                                value="<%=user.getPhoneNumber()%>">
                                                         <input class="input" type="email" name="input-edit-email"
                                                                id="input-edit-email"
