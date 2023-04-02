@@ -127,8 +127,8 @@ public class UserService {
         });
     }
 
-    public void changePass(String phoneEmail, String newPass){
-         JDBIConnector.get().withHandle(handle -> {
+    public void changePass(String phoneEmail, String newPass) {
+        JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE `user` SET pass=?  WHERE email=?;")
                     .bind(0, UserService.getInstance().hashPassword(newPass))
                     .bind(1, phoneEmail)
@@ -160,6 +160,7 @@ public class UserService {
                     .execute();
         });
     }
+
     public void editSttUser(int id, int stt) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE `user` SET stt=? where user_id= " + id + " ;")
@@ -167,8 +168,18 @@ public class UserService {
                     .execute();
         });
     }
+
+    public void editAvatar(int id, String url) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
+                    .bind(0, url)
+                    .bind(1, id)
+                    .execute();
+        });
+    }
+
     public static void main(String[] args) {
-        getInstance().editVarietiesUser(1,0);
+
     }
 
 }
