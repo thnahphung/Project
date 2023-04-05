@@ -25,6 +25,7 @@
 <body>
 <%@include file="header-admin.jsp" %>
 <div class="content">
+<%--    <p style="display: none"> <%List<Integer> wood = (List<Integer>) request.getAttribute("wood");%></p>--%>
     <div class="row">
         <div class="col-sm">
             <div class="top">
@@ -282,8 +283,8 @@
 <script>
     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const canvas = document.getElementById('canvas');
-    let wood = element.getAttribute("wood");
-    console.log(wood);
+    attribute = element.getAttribute("wood");
+    console.log(attribute);
     const data = {
         labels: labels,
         datasets: [

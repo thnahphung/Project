@@ -1,10 +1,6 @@
 package services;
 
-import bean.AddressDetail;
-import bean.OrderDetail;
 import db.JDBIConnector;
-
-import java.util.jar.JarEntry;
 
 public class AddressDetailService {
     private static AddressDetailService instance;

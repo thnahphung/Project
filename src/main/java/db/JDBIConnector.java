@@ -2,10 +2,8 @@ package db;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.jdbi.v3.core.Jdbi;
-import bean.User;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.stream.Collectors;
 

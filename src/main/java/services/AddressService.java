@@ -1,8 +1,5 @@
 package services;
 
-import bean.Address;
-import bean.AddressDetail;
-import bean.OrderDetail;
 import db.JDBIConnector;
 
 import java.util.List;

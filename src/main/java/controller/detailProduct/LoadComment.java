@@ -1,8 +1,5 @@
 package controller.detailProduct;
 
-import bean.Comment;
-import bean.Product;
-import bean.User;
 import services.CommentService;
 
 import javax.servlet.*;

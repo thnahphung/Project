@@ -1,88 +1,45 @@
 package bean;
-
-import services.OrderDetailService;
-import services.OrderService;
-import services.ProductService;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Order implements Serializable {
-    public static final int ORDERRECEIVED = 1;
-    public static final int CANCELLED = 2;
-    public static final int SHIPPING = 3;
-    public static final int SUCCESSFUL = 4;
-    public static final int UNSUCCESSFUL = 5;
-
-    public static final int UNPAID = 0;
-    public static final int PAID = 1;
-
-    private int orderId;
-    private int userId;
-    private int total;
+public class Order {
+    private int id;
     private String note;
-
-    private int sttDelivery;
-    private boolean sttPay;
-    private LocalDateTime orderDate;
-    private LocalDateTime deliveryDate;
-    private List<OrderDetail> orderDetails;
-    private int addressId;
-    private Address address;
-    private int transportId;
-    private int discountId;
-
+    private int total;
+    private List<LineItem> listOrderItem;
+    private List<Discount> listDiscount;
     private Transport transport;
+    private int statusDelivery;
+    private int paymentMethod;
+    private LocalDateTime deliveryDate;
+    private LocalDateTime receivingDate;
+    private boolean isPayment;
+    private int status;
 
-    private String payments;
-
-
-    private Discount discount;
+    public Order(int id, String note, int total, List<LineItem> listOrderItem, List<Discount> listDiscount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, boolean isPayment, int status) {
+        this.id = id;
+        this.note = note;
+        this.total = total;
+        this.listOrderItem = listOrderItem;
+        this.listDiscount = listDiscount;
+        this.transport = transport;
+        this.statusDelivery = statusDelivery;
+        this.paymentMethod = paymentMethod;
+        this.deliveryDate = deliveryDate;
+        this.receivingDate = receivingDate;
+        this.isPayment = isPayment;
+        this.status = status;
+    }
 
     public Order() {
     }
 
-    public Order(int orderId, int userId, int total, String note, int sttDelivery, boolean sttPay, LocalDateTime orderDate, LocalDateTime deliveryDate, List<OrderDetail> orderDetails, int addressId, Address address, int transportId, int discountId, String payments, Discount discount) {
-        this.orderId = orderId;
-        this.userId = userId;
-        this.total = total;
-        this.note = note;
-        this.sttDelivery = sttDelivery;
-        this.sttPay = sttPay;
-        this.orderDate = orderDate;
-        this.deliveryDate = deliveryDate;
-        this.orderDetails = orderDetails;
-        this.addressId = addressId;
-        this.address = address;
-        this.transportId = transportId;
-        this.discountId = discountId;
-        this.payments = payments;
-        this.discount = discount;
+    public int getId() {
+        return id;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNote() {
@@ -93,175 +50,28 @@ public class Order implements Serializable {
         this.note = note;
     }
 
-    public int getSttDelivery() {
-        return sttDelivery;
-    }
-
-    public String getDelivery() {
-        switch (getSttDelivery()) {
-            case ORDERRECEIVED:
-                return "Đã nhận đơn";
-            case CANCELLED:
-                return "Đã hủy";
-            case SHIPPING:
-                return "Đang giao hàng";
-            case SUCCESSFUL:
-                return "Giao hàng thành công";
-            case UNSUCCESSFUL:
-                return "Giao hàng không thành công";
-
-            default:
-                return null;
-        }
-    }
-
-    public void setSttDelivery(int sttDelivery) {
-        this.sttDelivery = sttDelivery;
-    }
-
-    public boolean isSttPay() {
-        return sttPay;
-    }
-
-    public String getPay() {
-        if (isSttPay()) return "Đã thanh toán";
-        else return "Chưa thanh toán";
-    }
-
-    public void setSttPay(boolean sttPay) {
-        this.sttPay = sttPay;
-    }
-
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public LocalDateTime getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(LocalDateTime deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public int getTransportId() {
-        return transportId;
-    }
-
-    public void setTransportId(int transportId) {
-        this.transportId = transportId;
-    }
-
-    public int getDiscountId() {
-        return discountId;
-    }
-
-    public void setDiscountId(int discountId) {
-        this.discountId = discountId;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", userId=" + userId +
-                ", total=" + total +
-                ", note='" + note + '\'' +
-                ", sttDelivery=" + sttDelivery +
-                ", sttPay=" + sttPay +
-                ", orderDate=" + orderDate +
-                ", deliveryDate=" + deliveryDate +
-                ", orderDetails=" + orderDetails +
-                ", addressId=" + addressId +
-                ", address=" + address +
-                ", transportFee=" + transportId +
-                ", discountId=" + discountId +
-                ", discount=" + discount +
-                '}';
-    }
-
-    public int total() {
-        int total = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            total += orderDetail.total();
-        }
+    public int getTotal() {
         return total;
     }
 
-    public int totalReal() {
-        int total = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            total += Math.max(orderDetail.total(), orderDetail.totalSale());
-        }
-        return total;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
-    public int amount() {
-        int amount = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            amount += orderDetail.getQuantity();
-        }
-        return amount;
+    public List<LineItem> getListOrderItem() {
+        return listOrderItem;
     }
 
-    public boolean contain(int idProduct) {
-        for (OrderDetail orderDetail : orderDetails) {
-            if (orderDetail.getProduct().getProductId() == idProduct)
-                return true;
-        }
-        return false;
+    public void setListOrderItem(List<LineItem> listOrderItem) {
+        this.listOrderItem = listOrderItem;
     }
 
-    public OrderDetail getOderDetail(int idProduct) {
-        for (OrderDetail orderDetail : orderDetails) {
-            if (orderDetail.getProduct().getProductId() == idProduct)
-                return orderDetail;
-        }
-        return null;
+    public List<Discount> getListDiscount() {
+        return listDiscount;
     }
 
-    public OrderDetail getOderDetailByIdDetail(int idDetail) {
-        for (OrderDetail orderDetail : orderDetails) {
-            if (orderDetail.getOrderDetailId() == idDetail)
-                return orderDetail;
-        }
-        return null;
+    public void setListDiscount(List<Discount> listDiscount) {
+        this.listDiscount = listDiscount;
     }
 
     public Transport getTransport() {
@@ -272,40 +82,52 @@ public class Order implements Serializable {
         this.transport = transport;
     }
 
-    public void addProduct(int idProduct, int amount) {
-        OrderDetail orderDetail;
-        if (contain(idProduct)) {
-            orderDetail = getOderDetail(idProduct);
-            orderDetail.setQuantity(orderDetail.getQuantity() + amount);
-            OrderDetailService.getInstance().update(orderDetail);
-        } else {
-            orderDetail = new OrderDetail();
-            orderDetail.setOrderDetailId(OrderDetailService.getInstance().nextId());
-            orderDetail.setOrderId(this.getOrderId());
-            orderDetail.setProductId(idProduct);
-            orderDetail.setProduct(ProductService.getInstance().getProductById(idProduct));
-            orderDetail.setQuantity(amount);
-            OrderDetailService.getInstance().add(orderDetail);
-            orderDetails.add(orderDetail);
-        }
+    public int getStatusDelivery() {
+        return statusDelivery;
     }
 
-    public void removeDetail(int id) {
-        orderDetails.remove(getOderDetailByIdDetail(id));
-        OrderDetailService.getInstance().remove(id);
+    public void setStatusDelivery(int statusDelivery) {
+        this.statusDelivery = statusDelivery;
     }
 
-    public void removeAll() {
-        OrderService.getInstance().removeAllDetailByOrderId(this.orderId);
-        orderDetails.clear();
+    public int getPaymentMethod() {
+        return paymentMethod;
     }
 
-
-    public String getPayments() {
-        return payments;
+    public void setPaymentMethod(int paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public void setPayments(String payments) {
-        this.payments = payments;
+    public LocalDateTime getDeliveryDate() {
+        return deliveryDate;
     }
+
+    public void setDeliveryDate(LocalDateTime deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public LocalDateTime getReceivingDate() {
+        return receivingDate;
+    }
+
+    public void setReceivingDate(LocalDateTime receivingDate) {
+        this.receivingDate = receivingDate;
+    }
+
+    public boolean isPayment() {
+        return isPayment;
+    }
+
+    public void setPayment(boolean payment) {
+        isPayment = payment;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 }
