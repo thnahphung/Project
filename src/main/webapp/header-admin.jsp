@@ -9,7 +9,8 @@
 
 <div class="header-top">
     <%String name = request.getAttribute("name").toString();%>
-    <h3 class="title"><%=name%></h3>
+    <h3 class="title"><%=name%>
+    </h3>
     <div class="right">
         <div class="search item" style="visibility: hidden;">
             <input type="text" id="search" placeholder="Search..."/>
@@ -23,9 +24,9 @@
             </a>
             <div class="notifi-table">
                 <a href="">Anh vừa phản hồi</a>
-<%--                <a href="">Ai đó đã mua hàng</a>--%>
-<%--                <a href="">Có một thành viên mới</a>--%>
-<%--                <a href="">Có một thành viên mới</a>--%>
+                <%--                <a href="">Ai đó đã mua hàng</a>--%>
+                <%--                <a href="">Có một thành viên mới</a>--%>
+                <%--                <a href="">Có một thành viên mới</a>--%>
 
             </div>
         </div>
@@ -43,15 +44,40 @@
 
     </div>
 </div>
+
+<%if (user.getVarieties() == 1) {%>
 <div class="header-left">
     <img src="images/logo/logo-rmbg1.png" alt="">
     <ul>
-
         <li><a class="nav-item" href="/orderManager">Quản lý đơn hàng</a></li>
         <li><a class="nav-item" href="/ProductManager">Quản lý sản phẩm</a></li>
         <li><a class="nav-item" href="/userManager">Quản lý tài khoản</a></li>
         <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
-        <li><a class="nav-item" href="/logOut" id="logout">Đăng xuất</a></li>
+        <li><a class="nav-item logout" href="/logOut" id="logout">Đăng xuất</a></li>
     </ul>
 </div>
-
+<%
+    }
+    if (user.getVarieties() == 2) {
+%>
+<div class="header-left">
+    <img src="images/logo/logo-rmbg1.png" alt="">
+    <ul>
+        <li><a class="nav-item" href="/ProductManager">Quản lý sản phẩm</a></li>
+        <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
+        <li><a class="nav-item logout" href="/logOut">Đăng xuất</a></li>
+    </ul>
+</div>
+<%
+    }
+    if (user.getVarieties() == 3) {
+%>
+<div class="header-left">
+    <img src="images/logo/logo-rmbg1.png" alt="">
+    <ul>
+        <li><a class="nav-item" href="/orderManager">Quản lý đơn hàng</a></li>
+        <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
+        <li><a class="nav-item logout" href="/logOut">Đăng xuất</a></li>
+    </ul>
+</div>
+<%}%>

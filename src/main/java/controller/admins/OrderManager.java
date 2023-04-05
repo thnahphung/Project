@@ -1,6 +1,7 @@
 package controller.admins;
 
 import bean.Order;
+import bean.User;
 import services.OrderService;
 import services.UserService;
 
@@ -14,6 +15,10 @@ import java.util.List;
 public class OrderManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("authAdmin");
+        if (user.getVarieties() != 1 && user.getVarieties() != 3) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         String name = "Quản lý đơn hàng";
         List<Order> list = OrderService.getInstance().getOrderList();
         int member = UserService.getInstance().getListUser().size();

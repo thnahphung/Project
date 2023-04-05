@@ -13,6 +13,10 @@ import java.util.List;
 public class UserManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("authAdmin");
+        if (user.getVarieties() != 1 && user.getVarieties() != 3) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         String name = "Quản lý tài khoản";
         List<User> list = UserService.getInstance().getListUser();
         request.setAttribute("listUser",list);

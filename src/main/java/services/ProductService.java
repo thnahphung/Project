@@ -120,7 +120,6 @@ public class ProductService {
             if (product.getCategory().getName().equals(group)) {
                 listResult.add(product);
             }
-
         }
 
         return listResult;
@@ -132,6 +131,7 @@ public class ProductService {
 
     public List<Product> getListProductInPageName(int kind, String group, String page) {
         List<Product> list = getListProductInGroupName(kind, group);
+//        List<Product> list = getSortListProductName(kind, group, sort);
         List<Product> listResult = new ArrayList<Product>();
         int pageInt = Integer.parseInt(page);
         int start = (pageInt - 1) * 15 < 0 ? 0 : (pageInt - 1) * 15;
@@ -237,6 +237,7 @@ public class ProductService {
                     }
                 });
                 break;
+
         }
 
         return list;
@@ -344,7 +345,8 @@ public class ProductService {
                     .execute();
         });
     }
-    public void deleteProduct(int id){
+
+    public void deleteProduct(int id) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE product_detail SET stt =1 where product_detail_id=:id")
                     .bind("id", id)

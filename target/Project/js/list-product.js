@@ -60,7 +60,6 @@ $('.item-groupProduct').click(function () {
 $("button.page-link").click(
 function () {
     let page = $(this).text().trim();
-
     if (page === 'Previous') {
         let buttonActive = $('li.active>button');
         page = buttonActive.text() - 1 <= 0 ? 1 : buttonActive.text() - 1;
@@ -85,7 +84,8 @@ function () {
         data: {
             page: page,
             kind: urlParams.get('kind'),
-            group: $('.active-navbar-left').text()
+            group: $('.active-navbar-left').text(),
+            sort: $('.sort-table').val.trim()
         },
         success: function (response) {
             $(".list-product .row").html(response);
@@ -102,7 +102,6 @@ function () {
 //================ Sap xep =====================
 $('.sort-table').change(function () {
     // alert($(this).val().trim())
-
     $.ajax({
         url: "/listProducts/sort",
         type: "get",
