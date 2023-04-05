@@ -12,18 +12,20 @@
     <link rel="stylesheet" href="css/reset.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <link rel="stylesheet" href="https://mdbootstrap.com/docs/b4/jquery/getting-started/cdn/">
+    <%--    <link rel="stylesheet" href="https://mdbootstrap.com/docs/b4/jquery/getting-started/cdn/">--%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/product-manager.css">
+
 </head>
 
 <body>
 <%@include file="header-admin.jsp" %>
 <div class="content">
+<%--    <p style="display: none"> <%List<Integer> wood = (List<Integer>) request.getAttribute("wood");%></p>--%>
     <div class="row">
         <div class="col-sm">
             <div class="top">
@@ -90,6 +92,9 @@
 
 
     </div>
+    <div class="statistics">
+        <canvas id="canvas"></canvas>
+    </div>
     <div class="table">
         <div class="table-cart">
             <h2>Danh sách sản phẩm</h2>
@@ -129,7 +134,8 @@
                     <td><%=product.getProductDetail().getInventory()%>
                     </td>
                     <td>
-                        <button class="edit-product button submit" value="<%=product.getProductId()%>" data-toggle="modal"
+                        <button class="edit-product button submit" value="<%=product.getProductId()%>"
+                                data-toggle="modal"
                                 data-target="#exampleModalCenterEdit">
                             Sửa
                         </button>
@@ -253,13 +259,7 @@
         </div>
     </div>
 </div>
-<script>
-    // $('#submit-img').click(function () {
-    //     alert($('#file-img').val())
-    // })
-
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -274,10 +274,47 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- <script src="js/general.js"></script> -->
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/admin.js"></script>
 <script src="js/product-manager.js"></script>
+
+<script>
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const canvas = document.getElementById('canvas');
+    attribute = element.getAttribute("wood");
+    console.log(attribute);
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Gỗ',
+                borderColor: '#CC0000',
+                data: [10, 30, 40, 10, 30, 40, 40, 50, 50, 0, 10, 50],
+                fill: false,
+                tension: 0.1
+            },
+            {
+                label: 'Gốm',
+                borderColor: '#0066CC',
+                data: [10, 35, 40, 56, 73, 50, 30, 30, 20, 50, 30, 30],
+                fill: false,
+                tension: 0.1
+            },
+            {
+                label: 'green',
+                borderColor: '#00CC66',
+                data: [20, 30, 40, 50, 60, 20, 40, 30, 50, 20, 10, 10],
+                fill: false,
+                tension: 0.1
+            },
+        ],
+    }
+    let config = {
+        type: 'line',
+        data: data,
+    };
+    const chart = new Chart(canvas, config);
+</script>
 </body>
 
 </html>
