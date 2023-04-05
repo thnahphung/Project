@@ -1,5 +1,6 @@
 package services;
 
+import bean.Address;
 import db.JDBIConnector;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class AddressService {
 
     public Address getAddressByAddressId(int addressId) {
         return JDBIConnector.get().withHandle(handle -> {
-            Address address = handle.createQuery("select a.address_id,a.user_id, a.`name`, a.phone_number, a.address_detail_id, a.stt\n" +
+            Address address = handle.createQuery("select a.address_id, a.address_detail_id, a.stt\n" +
                             "from address a " +
                             "WHERE a.address_id = ?;")
                     .bind(0, addressId)

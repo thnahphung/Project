@@ -1,5 +1,7 @@
 package controller.userprofile;
 
+import bean.User;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;

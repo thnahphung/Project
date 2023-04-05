@@ -1,5 +1,6 @@
 package controller.admins;
 
+import bean.Banner;
 import services.BannerService;
 import services.CaterogyService;
 import services.PaCategoryService;

@@ -1,5 +1,6 @@
 package services;
 
+import bean.User;
 import db.JDBIConnector;
 
 import java.math.BigInteger;
@@ -103,7 +104,6 @@ public class UserService {
         return false;
 
     }
-
     public boolean checkExistId3rd(String id3rd) {
         List<String> id3rds = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt, id3rd \n" +
@@ -205,9 +205,7 @@ public class UserService {
                     .bind("stt", 0)
                     .bind("id3rd", user.getId3rd())
                     .execute();
-        });
-    }
-
+        });}
     public void editAvatar(int id, String url) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
@@ -216,6 +214,8 @@ public class UserService {
                     .execute();
         });
     }
+
+
 
     public void changeName(String name, String id3rd) {
         JDBIConnector.get().withHandle(handle -> {
@@ -227,15 +227,12 @@ public class UserService {
     }
 
     public static void main(String[] args) {
-//        User user = new User();
-//        user.setUserId(UserService.getInstance().nextId());
-//        user.setFullName(null);
-//        user.setPhoneNumber(null);
-//        user.setEmail(null);
-//        user.setId3rd("234");
-//        System.out.println(UserService.getInstance().checkExistId3rd("234"));
-
+        User user = new User();
+        user.setUserId(UserService.getInstance().nextId());
+        user.setFullName(null);
+        user.setPhoneNumber(null);
+        user.setEmail(null);
+        user.setId3rd("234");
+        System.out.println(UserService.getInstance().checkExistId3rd("234"));
     }
-
-
 }
