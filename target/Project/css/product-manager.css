@@ -75,10 +75,6 @@ img {
     height: 25px !important;
 }
 
-.input-img {
-
-}
-
 .file-upload {
     display: flex;
     align-items: center;
@@ -87,19 +83,21 @@ img {
 }
 
 .col-4.item {
-    position: relative;
-    padding: 10px;
     width: 100px;
     height: 100px;
+    margin: 10px 0;
 }
 
 .img-load {
     width: 100px;
-    height: auto;
+    max-width: 100%;
+    height: 100px;
+    object-fit: cover;
 }
 
 .remove-img {
     position: absolute;
+<<<<<<< HEAD
     right: 55px;
 }
 
@@ -108,9 +106,30 @@ img {
     height: 30px;
 }
 
+=======
+    right: 44px;
+    background-color: var(--color1);
+    color: var(--color4);
+    border: 2px solid var(--color4);
+}
+
+.input-img {
+    display: none;
+}
+
+#icon-add-img {
+    font-size: 30px;
+    color: var(--color4);
+    border: 2px solid var(--color4);
+    padding: 2px 5px;
+    margin: 10px 0 10px 44px;
+}
+
+>>>>>>> 5476b2255b630edc235b0d54291136ff029bdfc1
 form .row {
     margin-left: 3px;
     margin-bottom: 10px;
+    align-items: center;
 }
 
 .edit-product {

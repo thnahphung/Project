@@ -213,7 +213,9 @@
                             <div class="row">
                                 <input type="file" name="file-img1" id="file-img1" class="input-img submit"
                                        accept="image/png">
+                                <label id="label-icon-add-img" for="file-img1"> <i id="icon-add-img" class="fa-sharp fa-solid fa-plus "></i></label>
                             </div>
+
                             <button type="submit" class="btn-submit-img" style="display: none">submit</button>
                         </form>
 

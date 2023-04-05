@@ -38,6 +38,14 @@ public class UserService {
         return users.get(0);
     }
 
+    public User getUserById3rd(String id) {
+        List<User> users = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt  FROM user where id3rd " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
+        });
+        if (users.size() != 1) return null;
+        return users.get(0);
+    }
+
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar, stt from user where email=? or phone_number=?")
@@ -96,6 +104,20 @@ public class UserService {
         return false;
 
     }
+    public boolean checkExistId3rd(String id3rd) {
+        List<String> id3rds = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt, id3rd \n" +
+                            "from user\n" +
+                            " where id3rd=?").bind(0, id3rd)
+                    .mapTo(String.class).stream().collect(Collectors.toList());
+        });
+        if (id3rds.size() != 0) {
+
+            return true;
+        }
+        return false;
+
+    }
 
     public boolean checkSamePass(String pass, String passAgain) {
         return pass.equals(passAgain);
@@ -104,7 +126,7 @@ public class UserService {
 
     public void addUser(User user) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone, :pass, :varieties, :ava)")
+            return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone, :pass, :varieties, :ava,0, 0)")
                     .bind("id", user.getUserId())
                     .bind("name", user.getFullName())
                     .bind("email", user.getEmail())
@@ -127,8 +149,8 @@ public class UserService {
         });
     }
 
-    public void changePass(String phoneEmail, String newPass){
-         JDBIConnector.get().withHandle(handle -> {
+    public void changePass(String phoneEmail, String newPass) {
+        JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE `user` SET pass=?  WHERE email=?;")
                     .bind(0, UserService.getInstance().hashPassword(newPass))
                     .bind(1, phoneEmail)
@@ -160,6 +182,7 @@ public class UserService {
                     .execute();
         });
     }
+
     public void editSttUser(int id, int stt) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE `user` SET stt=? where user_id= " + id + " ;")
@@ -167,8 +190,51 @@ public class UserService {
                     .execute();
         });
     }
-    public static void main(String[] args) {
-        getInstance().editVarietiesUser(1,0);
+
+
+    public void addUserLoginBy3rdParty(User user) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone,:pass, :varieties, :ava,:stt, :id3rd)")
+                    .bind("id", user.getUserId())
+                    .bind("name", user.getFullName())
+                    .bind("email", user.getEmail())
+                    .bind("phone", user.getPhoneNumber())
+                    .bind("pass", user.getPass())
+                    .bind("varieties", 0)
+                    .bind("ava", user.getAvatar())
+                    .bind("stt", 0)
+                    .bind("id3rd", user.getId3rd())
+                    .execute();
+        });
+    public void editAvatar(int id, String url) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
+                    .bind(0, url)
+                    .bind(1, id)
+                    .execute();
+        });
     }
 
+    public static void main(String[] args) {
+
+    }
+
+    public void changeName(String name, String id3rd) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE user set full_name = :name where id3rd = :id3rd")
+                    .bind("name", name)
+                    .bind("id3rd", id3rd)
+                    .execute();
+        });
+    }
+
+    public static void main(String[] args) {
+        User user = new User();
+        user.setUserId(UserService.getInstance().nextId());
+        user.setFullName(null);
+        user.setPhoneNumber(null);
+        user.setEmail(null);
+        user.setId3rd("234");
+        System.out.println(UserService.getInstance().checkExistId3rd("234"));
+    }
 }
