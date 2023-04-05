@@ -1,9 +1,6 @@
 package controller.userprofile;
 
-import bean.Address;
-import bean.User;
 import services.AddressService;
-import services.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

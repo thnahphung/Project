@@ -1,8 +1,5 @@
 package controller.forgotpass;
 
-import bean.User;
-import services.UserService;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;

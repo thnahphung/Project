@@ -1,6 +1,5 @@
 package controller;
 
-import bean.User;
 import services.MailService;
 import services.UserService;
 
