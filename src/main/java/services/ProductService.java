@@ -257,9 +257,6 @@ public class ProductService {
         return list;
     }
 
-    public static void main(String[] args) {
-        System.out.println(getInstance().getListProductInSearch("Cú"));
-    }
 
     //--------------------- Lay id lon nhat trong ban ----------------------------
     public int nextId() {
@@ -352,6 +349,27 @@ public class ProductService {
                     .bind("id", id)
                     .execute();
         });
+    }
+
+    public List<Integer> statisticalProduct(int kind) {
+        List<Integer> result = new ArrayList<>();
+        int sum = 0;
+        for (int i = 1; i < 12; i++) {
+            sum = statisticalProductInMonth(kind, i);
+            result.add(sum);
+        }
+        return result;
+    }
+
+    public int statisticalProductInMonth(int kind, int month) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("Select count(*) from ord o join  order_detail od on o.order_id=od.order_id join product pd on od.product_id = pd.product_id join category c on pd.category_id =c.category_id join pa_category pc on c.pa_category_id = pc.pa_category_id where ( MONTH(o.order_date)=" + month + ") and pc.pa_category_id= " + kind + ";").mapTo(Integer.class).one();
+        });
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getInstance().statisticalProduct(1));
+//        System.out.println(getInstance().statisticalProductInMonth(1,1));
     }
 //    public static void main(String[] args) {
 //        getInstance().deleteProduct(1);

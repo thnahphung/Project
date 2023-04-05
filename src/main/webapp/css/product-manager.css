@@ -97,6 +97,16 @@ img {
 
 .remove-img {
     position: absolute;
+<<<<<<< HEAD
+    right: 55px;
+}
+
+.input-img {
+    width: 98px;
+    height: 30px;
+}
+
+=======
     right: 44px;
     background-color: var(--color1);
     color: var(--color4);
@@ -115,6 +125,7 @@ img {
     margin: 10px 0 10px 44px;
 }
 
+>>>>>>> 5476b2255b630edc235b0d54291136ff029bdfc1
 form .row {
     margin-left: 3px;
     margin-bottom: 10px;
@@ -123,4 +134,13 @@ form .row {
 
 .edit-product {
     width: 60px;
+}
+
+.statistics {
+    height: 500px;
+    background: white;
+    margin-bottom: 20px;
+}
+#canvas{
+    width: 100px;
 }
