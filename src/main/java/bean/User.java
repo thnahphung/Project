@@ -13,12 +13,13 @@ public class User implements Serializable {
     private int varieties;
     private String avatar;
     private int stt;
+    private String id3rd;
 
     public User() {
 
     }
 
-    public User(int userId, String fullName, String email, String phoneNumber, String pass, int varieties, String avatar, int stt) {
+    public User(int userId, String fullName, String email, String phoneNumber, String pass, int varieties, String avatar, int stt, String id3rd) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
@@ -27,6 +28,7 @@ public class User implements Serializable {
         this.varieties = varieties;
         this.avatar = avatar;
         this.stt = stt;
+        this.id3rd = id3rd;
     }
 
     public int getStt() {
@@ -109,16 +111,26 @@ public class User implements Serializable {
         return "Khách hàng";
     }
 
+    public String getId3rd() {
+        return id3rd;
+    }
+
+    public void setId3rd(String id3rd) {
+        this.id3rd = id3rd;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userId +
+                "userId=" + userId +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", pass='" + pass + '\'' +
-                ", varieties='" + varieties + '\'' +
+                ", varieties=" + varieties +
                 ", avatar='" + avatar + '\'' +
+                ", stt=" + stt +
+                ", id3rd=" + id3rd +
                 '}';
     }
 }
