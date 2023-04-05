@@ -52,11 +52,11 @@ public class SignUp extends HttpServlet {
         } else {
             request.setAttribute("error", "Đăng ký thành công, mời bạn đăng nhập!");
             User user = new User();
-            user.setUserId(UserService.getInstance().nextId());
-            user.setFullName(fullName);
-            user.setPhoneNumber(phone);
+            user.setId(UserService.getInstance().nextId());
+            user.setName(fullName);
+            user.setPhone(phone);
             user.setEmail(email);
-            user.setPass(UserService.getInstance().hashPassword(pass));
+            user.setPassword(UserService.getInstance().hashPassword(pass));
             user.setVarieties(0);
             UserService.getInstance().addUser(user);
            MailService.sendMail("Đăng ký tài khoản","Bạn đã đăng ký tài khoản thành công, chào mừng đến với CRAFTS, chúc bạn có một trải nghiệm mua sắm vui vẻ!",email);

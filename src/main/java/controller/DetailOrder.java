@@ -1,5 +1,6 @@
 package controller;
 
+import bean.User;
 import services.OrderService;
 import services.UserService;
 
@@ -40,7 +41,7 @@ public class DetailOrder extends HttpServlet {
                 "                                    <div class=\"card  width-card\" style=\"width: 490px\">\n" +
                 "                                        <div class=\"card-body p-5\">\n" +
                 "\n" +
-                "                                            <p class=\"lead fw-bold mb-5\">" + user.getFullName() + "</p>\n" +
+                "                                            <p class=\"lead fw-bold mb-5\">" + user.getName() + "</p>\n" +
                 "\n" +
                 "                                            <div class=\"row\">\n" +
                 "                                                <div class=\"col mb-3\">\n" +

@@ -1,5 +1,6 @@
 package controller.userprofile;
 
+import bean.User;
 import services.OrderService;
 
 import javax.servlet.*;
@@ -15,7 +16,7 @@ public class UserProfile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getUserId());
+        List<Order> orders = OrderService.getInstance().getOrderListByUserId(user.getId());
         request.setAttribute("orders", orders);
 
         request.getRequestDispatcher("user-profile.jsp").forward(request, response);

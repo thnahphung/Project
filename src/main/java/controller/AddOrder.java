@@ -1,5 +1,6 @@
 package controller;
 
+import bean.User;
 import services.*;
 
 import javax.servlet.*;
@@ -36,7 +37,7 @@ public class AddOrder extends HttpServlet {
         order.setSttDelivery(1);
         MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.total()+" VND", user.getEmail());
         OrderService.getInstance().cartToOrder(order);
-        request.getSession().setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getUserId()));
+        request.getSession().setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getId()));
 
         request.getRequestDispatcher("finish-buy.jsp").forward(request, response);
 

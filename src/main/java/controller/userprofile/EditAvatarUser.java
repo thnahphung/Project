@@ -38,7 +38,7 @@ public class EditAvatarUser extends HttpServlet {
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         user.setAvatar(imageUrl);
-        UserService.getInstance().editAvatar(user.getUserId(), imageUrl);
+        UserService.getInstance().editAvatar(user.getId(), imageUrl);
         response.getWriter().write(imageUrl);
     }
 

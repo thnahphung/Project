@@ -1,5 +1,7 @@
 package controller.shipping;
 
+import bean.Address;
+import bean.User;
 import services.AddressService;
 import services.DiscountService;
 
@@ -15,7 +17,7 @@ public class Shipping extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
         Discount discount = DiscountService.getInstance().getDiscountByCode(request.getParameter("voucher"));
-        List<Address> addressList = AddressService.getInstance().getListAddressByUserId(user.getUserId());
+        List<Address> addressList = AddressService.getInstance().getListAddressByUserId(user.getId());
 
         request.setAttribute("voucher", discount);
         request.setAttribute("addressList", addressList);
