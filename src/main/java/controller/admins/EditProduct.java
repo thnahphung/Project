@@ -1,6 +1,5 @@
 package controller.admins;
 
-import bean.Product;
 import services.PaCategoryService;
 import services.ProductService;
 

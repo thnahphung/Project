@@ -207,31 +207,35 @@ public class UserService {
                     .execute();
         });
     }
-        public void editAvatar ( int id, String url){
-            JDBIConnector.get().withHandle(handle -> {
-                return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
-                        .bind(0, url)
-                        .bind(1, id)
-                        .execute();
-            });
-        }
 
-        public void changeName (String name, String id3rd){
-            JDBIConnector.get().withHandle(handle -> {
-                return handle.createUpdate("UPDATE user set full_name = :name where id3rd = :id3rd")
-                        .bind("name", name)
-                        .bind("id3rd", id3rd)
-                        .execute();
-            });
-        }
-
-        public static void main (String[]args){
-            User user = new User();
-            user.setUserId(UserService.getInstance().nextId());
-            user.setFullName(null);
-            user.setPhoneNumber(null);
-            user.setEmail(null);
-            user.setId3rd("234");
-            System.out.println(UserService.getInstance().checkExistId3rd("234"));
-        }
+    public void editAvatar(int id, String url) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
+                    .bind(0, url)
+                    .bind(1, id)
+                    .execute();
+        });
     }
+
+    public void changeName(String name, String id3rd) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE user set full_name = :name where id3rd = :id3rd")
+                    .bind("name", name)
+                    .bind("id3rd", id3rd)
+                    .execute();
+        });
+    }
+
+    public static void main(String[] args) {
+//        User user = new User();
+//        user.setUserId(UserService.getInstance().nextId());
+//        user.setFullName(null);
+//        user.setPhoneNumber(null);
+//        user.setEmail(null);
+//        user.setId3rd("234");
+//        System.out.println(UserService.getInstance().checkExistId3rd("234"));
+
+    }
+
+
+}

@@ -1,7 +1,5 @@
 package controller;
 
-import bean.Category;
-import bean.Product;
 import services.CaterogyService;
 import services.PaCategoryService;
 import services.ProductService;

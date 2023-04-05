@@ -1,6 +1,5 @@
 package services;
 
-import bean.Discount;
 import db.JDBIConnector;
 
 import java.io.Serializable;

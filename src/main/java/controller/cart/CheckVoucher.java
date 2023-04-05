@@ -1,6 +1,5 @@
 package controller.cart;
 
-import bean.Discount;
 import services.DiscountService;
 
 import javax.servlet.*;

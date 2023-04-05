@@ -1,6 +1,5 @@
 package controller.admins;
 
-import bean.Product;
 import services.ProductService;
 
 import javax.servlet.*;
