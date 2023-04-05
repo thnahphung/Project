@@ -1,16 +1,11 @@
 package controller.userprofile;
 
-import bean.Order;
-import bean.User;
-import db.DBProperties;
 import services.OrderService;
-import services.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.List;
 
 @WebServlet(name = "UserProfile", value = "/userProfile")

@@ -1,6 +1,5 @@
 package controller.admins;
 
-import bean.Category;
 import services.CaterogyService;
 
 import javax.servlet.*;

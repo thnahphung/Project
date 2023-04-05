@@ -1,7 +1,5 @@
 package controller.admins;
 
-import bean.Order;
-import bean.User;
 import services.OrderService;
 import services.UserService;
 

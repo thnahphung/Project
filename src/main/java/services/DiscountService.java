@@ -1,12 +1,8 @@
 package services;
 
-import bean.Discount;
-import bean.OrderDetail;
 import db.JDBIConnector;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class DiscountService implements Serializable {
     private static DiscountService instance;

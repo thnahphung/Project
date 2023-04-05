@@ -1,10 +1,5 @@
 package controller.userprofile;
 
-import bean.Address;
-import bean.AddressDetail;
-import bean.User;
-import com.mysql.cj.Session;
-import services.AddressDetailService;
 import services.AddressService;
 
 import javax.servlet.*;

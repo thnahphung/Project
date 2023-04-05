@@ -1,7 +1,5 @@
 package controller.listProducts;
 
-import bean.Format;
-import bean.Product;
 import services.ProductService;
 
 import javax.servlet.*;

@@ -5,12 +5,13 @@ import java.io.Serializable;
 public class Transport implements Serializable {
     private int id;
     private String name;
-    private int transportFee;
+    private int fee;
+    private int time;
 
-    public Transport(int id, String name, int transportFee) {
+    public Transport(int id, String name, int fee) {
         this.id = id;
         this.name = name;
-        this.transportFee = transportFee;
+        this.fee = fee;
     }
 
     public Transport() {
@@ -33,12 +34,20 @@ public class Transport implements Serializable {
         this.name = name;
     }
 
-    public int getTransportFee() {
-        return transportFee;
+    public int getFee() {
+        return fee;
     }
 
-    public void setTransportFee(int transportFee) {
-        this.transportFee = transportFee;
+    public void setFee(int fee) {
+        this.fee = fee;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     @Override
@@ -46,7 +55,7 @@ public class Transport implements Serializable {
         return "Transport{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", transportFee=" + transportFee +
+                ", transportFee=" + fee +
                 '}';
     }
 }

@@ -1,12 +1,9 @@
 package services;
 
-import bean.Category;
-import bean.PaCategory;
 import db.JDBIConnector;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 public class PaCategoryService implements Serializable {
