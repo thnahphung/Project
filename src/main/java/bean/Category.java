@@ -13,43 +13,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Category implements Serializable {
-    private int categoryId;
-    private int paCategoryId;
-    private String name;
+    private int id;
+   private String name;
+   private int paCategory;
+   private  int status;
 
-    private PaCategory paCategory;
-
-    public Category() {
-    }
-
-    public Category(int categoryId, String name) {
-        this.categoryId = categoryId;
+    public Category(int id, String name, int paCategory, int status) {
+        this.id = id;
         this.name = name;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public int getPaCategoryId() {
-        return paCategoryId;
-    }
-
-    public void setPaCategoryId(int paCategoryId) {
-        this.paCategoryId = paCategoryId;
-    }
-    @Nested("pa")
-    public void setPaCategory(PaCategory paCategory) {
         this.paCategory = paCategory;
+        this.status = status;
     }
 
-    @Nested("pa")
-    public PaCategory getPaCategory() {
-        return paCategory;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -60,20 +41,30 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+    public int getPaCategory() {
+        return paCategory;
+    }
+
+    public void setPaCategory(int paCategory) {
+        this.paCategory = paCategory;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
-                "categoryId=" + categoryId +
-                ", paCategoryId=" + paCategoryId +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", paCategory=" + paCategory +
+                ", status=" + status +
                 '}';
     }
-
-    public static void main(String[] args) {
-        
-    }
-
-
 }
 

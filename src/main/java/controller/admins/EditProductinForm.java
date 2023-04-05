@@ -1,15 +1,11 @@
 package controller.admins;
 
-import bean.Product;
-import bean.ProductDetail;
-import bean.User;
 import services.ProductService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @WebServlet(name = "EditProductinForm", value = "/admins/editProductinForm")
 public class EditProductinForm extends HttpServlet {

@@ -1,9 +1,7 @@
 package controller;
 
 import bean.Category;
-import bean.PaCategory;
 import bean.Product;
-import bean.User;
 import services.CaterogyService;
 import services.PaCategoryService;
 import services.ProductService;

@@ -268,7 +268,7 @@ public class ProductService {
     //    --------------------------- Them san pham ----------------------------
     public void addProduct(Product product) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO product VALUES (:productId, :categoryId, :name, :price, :priceReal, :rate, :imgSrc, :proDetailId)")
+            return handle.createUpdate("INSERT INTO product VALUES (:productI33d, :categoryId, :name, :price, :priceReal, :rate, :imgSrc, :proDetailId)")
                     .bind("productId", nextId())
                     .bind("categoryId", product.getCategoryId())
                     .bind("name", product.getProductName())
@@ -367,13 +367,13 @@ public class ProductService {
         });
     }
 
-    public static void main(String[] args) {
-        System.out.println(getInstance().statisticalProduct(1));
-//        System.out.println(getInstance().statisticalProductInMonth(1,1));
-    }
 //    public static void main(String[] args) {
+//        System.out.println(getInstance().statisticalProduct(1));
+//        System.out.println(getInstance().statisticalProductInMonth(1,1));
+//    }
+    public static void main(String[] args) {
 //        getInstance().deleteProduct(1);
-//        System.out.println(ProductService.getInstance().getProductById(9));
+        System.out.println(ProductService.getInstance().getProductById(9));
 //        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
 
@@ -403,7 +403,7 @@ public class ProductService {
 //
 //        ProductService.getInstance().addProduct(product);
 //
-//    }
+    }
 
 
 }

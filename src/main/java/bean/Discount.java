@@ -2,35 +2,35 @@ package bean;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Discount implements Serializable {
-    private int discountId;
+    private int id;
     private String code;
-    private int discountFee;
+    private int value;
+    private int condition;
+    private int quantity;
+    private List<Product> listProduct;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private int quantity;
-    private int condition;
 
-    public Discount() {
-    }
-
-    public Discount(int discountId, String code, int discountFee, LocalDateTime startDate, LocalDateTime endDate, int quantity, int condition) {
-        this.discountId = discountId;
+    public Discount(int id, String code, int value, int condition, int quantity, List<Product> listProduct, LocalDateTime startDate, LocalDateTime endDate) {
+        this.id = id;
         this.code = code;
-        this.discountFee = discountFee;
+        this.value = value;
+        this.condition = condition;
+        this.quantity = quantity;
+        this.listProduct = listProduct;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.quantity = quantity;
-        this.condition = condition;
     }
 
-    public int getDiscountId() {
-        return discountId;
+    public int getId() {
+        return id;
     }
 
-    public void setDiscountId(int discountId) {
-        this.discountId = discountId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCode() {
@@ -41,12 +41,36 @@ public class Discount implements Serializable {
         this.code = code;
     }
 
-    public int getDiscountFee() {
-        return discountFee;
+    public int getValue() {
+        return value;
     }
 
-    public void setDiscountFee(int discountFee) {
-        this.discountFee = discountFee;
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getCondition() {
+        return condition;
+    }
+
+    public void setCondition(int condition) {
+        this.condition = condition;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public List<Product> getListProduct() {
+        return listProduct;
+    }
+
+    public void setListProduct(List<Product> listProduct) {
+        this.listProduct = listProduct;
     }
 
     public LocalDateTime getStartDate() {
@@ -65,40 +89,17 @@ public class Discount implements Serializable {
         this.endDate = endDate;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getCondition() {
-        return condition;
-    }
-
-    public void setCondition(int condition) {
-        this.condition = condition;
-    }
-
-    public boolean checkTime() {
-        return endDate.isBefore(LocalDateTime.now());
-    }
-
-    public boolean checkQuantity() {
-        return quantity > 0;
-    }
-
     @Override
     public String toString() {
         return "Discount{" +
-                "discountId=" + discountId +
+                "id=" + id +
                 ", code='" + code + '\'' +
-                ", discountFee=" + discountFee +
+                ", value=" + value +
+                ", condition=" + condition +
+                ", quantity=" + quantity +
+                ", listProduct=" + listProduct +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", quantity=" + quantity +
-                ", condition=" + condition +
                 '}';
     }
 }

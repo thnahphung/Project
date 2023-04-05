@@ -1,6 +1,5 @@
 package controller.userprofile;
 
-import bean.User;
 import services.UserService;
 
 import javax.servlet.*;

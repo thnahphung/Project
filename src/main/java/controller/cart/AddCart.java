@@ -1,11 +1,5 @@
 package controller.cart;
 
-import bean.Order;
-import bean.User;
-import services.OrderDetailService;
-import services.OrderService;
-import services.ProductService;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;

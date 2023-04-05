@@ -1,9 +1,6 @@
 package controller;
 
 import bean.Discount;
-import bean.Order;
-import bean.User;
-import controller.cart.Cart;
 import services.*;
 
 import javax.servlet.*;

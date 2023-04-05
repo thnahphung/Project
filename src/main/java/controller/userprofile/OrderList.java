@@ -1,16 +1,9 @@
 package controller.userprofile;
 
-import bean.Order;
-import bean.OrderDetail;
-import bean.User;
-import services.OrderService;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "OrderList", value = "/userprofile/OrderList")
 public class OrderList extends HttpServlet {

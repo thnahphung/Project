@@ -1,9 +1,5 @@
 package controller;
 
-import bean.Order;
-import bean.OrderDetail;
-import bean.Product;
-import bean.User;
 import services.OrderService;
 import services.UserService;
 

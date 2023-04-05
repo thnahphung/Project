@@ -1,6 +1,5 @@
 package services;
 
-import bean.Transport;
 import db.JDBIConnector;
 
 public class TransportService {
