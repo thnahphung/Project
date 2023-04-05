@@ -1,6 +1,5 @@
 package controller.homepage;
 
-import bean.Product;
 import services.ProductService;
 
 import javax.servlet.*;

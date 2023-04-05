@@ -1,64 +1,57 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private int userId;
-    private String fullName;
+    private int id;
+    private String name;
     private String email;
-    private String phoneNumber;
-    private String pass;
-    private int varieties;
+    private String phone;
+    private String password;
     private String avatar;
-    private int stt;
-    private String id3rd;
+    private List<Information> listInformation;
+    private List<LineItem> listCartItem;
+    private List<Order> listOrder;
+    private String idThirdParty;
+    private int varieties;
+    private int status;
+
 
     public User() {
 
     }
 
-    public User(int userId, String fullName, String email, String phoneNumber, String pass, int varieties, String avatar, int stt, String id3rd) {
-        this.userId = userId;
-        this.fullName = fullName;
+    public User(int id, String name, String email, String phone, String password, String avatar, List<Information> listInformation, List<LineItem> listCartItem, List<Order> listOrder, String idThirdParty, int varieties, int status) {
+        this.id = id;
+        this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.pass = pass;
+        this.phone = phone;
+        this.password = password;
+        this.avatar = avatar;
+        this.listInformation = listInformation;
+        this.listCartItem = listCartItem;
+        this.listOrder = listOrder;
+        this.idThirdParty = idThirdParty;
         this.varieties = varieties;
-        this.avatar = avatar;
-        this.stt = stt;
-        this.id3rd = id3rd;
+        this.status = status;
     }
 
-    public int getStt() {
-        return stt;
+    public int getId() {
+        return id;
     }
 
-    public void setStt(int stt) {
-        this.stt = stt;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public User(int userId, String fullName, String avatar) {
-        this.userId = userId;
-        this.fullName = fullName;
-        this.avatar = avatar;
+    public String getName() {
+        return name;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -69,20 +62,60 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public List<Information> getListInformation() {
+        return listInformation;
+    }
+
+    public void setListInformation(List<Information> listInformation) {
+        this.listInformation = listInformation;
+    }
+
+    public List<LineItem> getListCartItem() {
+        return listCartItem;
+    }
+
+    public void setListCartItem(List<LineItem> listCartItem) {
+        this.listCartItem = listCartItem;
+    }
+
+    public List<Order> getListOrder() {
+        return listOrder;
+    }
+
+    public void setListOrder(List<Order> listOrder) {
+        this.listOrder = listOrder;
+    }
+
+    public String getIdThirdParty() {
+        return idThirdParty;
+    }
+
+    public void setIdThirdParty(String idThirdParty) {
+        this.idThirdParty = idThirdParty;
     }
 
     public int getVarieties() {
@@ -93,12 +126,12 @@ public class User implements Serializable {
         this.varieties = varieties;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public int getStatus() {
+        return status;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getVarietiesUser() {
@@ -111,26 +144,21 @@ public class User implements Serializable {
         return "Khách hàng";
     }
 
-    public String getId3rd() {
-        return id3rd;
-    }
-
-    public void setId3rd(String id3rd) {
-        this.id3rd = id3rd;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
-                ", fullName='" + fullName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", pass='" + pass + '\'' +
-                ", varieties=" + varieties +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
                 ", avatar='" + avatar + '\'' +
-                ", stt=" + stt +
-                ", id3rd=" + id3rd +
+                ", listInformation=" + listInformation +
+                ", listCartItem=" + listCartItem +
+                ", listOrder=" + listOrder +
+                ", idThirdParty='" + idThirdParty + '\'' +
+                ", varieties=" + varieties +
+                ", status=" + status +
                 '}';
     }
 }

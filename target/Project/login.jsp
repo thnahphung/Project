@@ -108,21 +108,18 @@
                     id: response.id
                 },
                 success: function (response) {
-                    window.location = "http://localhost:8080/homepage";
+                    // window.location = "http://localhost:8080/homepage";
                 }
             });
             document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name + '!';
+                'Thanks for logging in, ' + response.name +response.email+ '!';
         });
     }
     function onSignIn(googleUser){
-        console.log('hghg')
         var profile = googleUser.getBasicProfile();
         console.log(profile.getId());
         console.log(profile.getName());
         console.log(profile.getEmail());
-        var id_token = googleUser.getAuthResponse().id_token;
-
     };
     // function login() {
     //     var myParams = {

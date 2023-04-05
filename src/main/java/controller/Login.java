@@ -26,27 +26,27 @@ public class Login extends HttpServlet {
             request.setAttribute("error", "Sai tài khoản hoặc mật khẩu.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else if (user.getVarieties() > 0) {
-            if(user.getStt()==0){
+            if(user.getStatus()==0){
                 HttpSession session = request.getSession(true);
                 session.setAttribute("authAdmin", user);
                 response.sendRedirect("orderManager");
-            }else if(user.getStt()==1){
+            }else if(user.getStatus()==1){
                 request.setAttribute("error", "Tài khoản đang tạm bị khóa.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
-            } else if (user.getStt()==2) {
+            } else if (user.getStatus()==2) {
                 request.setAttribute("error", "Tài khoản đã bị khóa vĩnh viễn, hãy tạo tài khoản mới.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } else {
-            if(user.getStt()==0){
+            if(user.getStatus()==0){
                 HttpSession session = request.getSession(true);
                 session.setAttribute("auth", user);
-                session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getUserId()));
+                session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getId()));
                 response.sendRedirect("homepage");
-            }else if(user.getStt()==1){
+            }else if(user.getStatus()==1){
                 request.setAttribute("error", "Tài khoản đang tạm bị khóa.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
-            } else if (user.getStt()==2) {
+            } else if (user.getStatus()==2) {
                 request.setAttribute("error", "Tài khoản đã bị khóa vĩnh viễn, hãy tạo tài khoản mới.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }

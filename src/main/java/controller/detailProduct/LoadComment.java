@@ -1,7 +1,5 @@
 package controller.detailProduct;
 
-import bean.Comment;
-import bean.Product;
 import bean.User;
 import services.CommentService;
 
@@ -38,7 +36,7 @@ public class LoadComment extends HttpServlet {
                     "                            <img src=\"" + user.getAvatar() + "\"\n" +
                     "                                alt=\"\" class=\"img-user-cmt\">\n" +
                     "                            <div>\n" +
-                    "                                <div class=\"name-user-cmt\">" + user.getFullName() + "</div>\n" +
+                    "                                <div class=\"name-user-cmt\">" + user.getName() + "</div>\n" +
                     "                                <div class=\"ratting rate-user\">\n" +
                     rate +
                     "                                </div>\n" +

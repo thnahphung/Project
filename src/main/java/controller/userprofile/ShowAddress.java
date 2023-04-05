@@ -1,10 +1,7 @@
 package controller.userprofile;
 
 import bean.Address;
-import bean.AddressDetail;
 import bean.User;
-import com.mysql.cj.Session;
-import services.AddressDetailService;
 import services.AddressService;
 
 import javax.servlet.*;
@@ -19,7 +16,7 @@ public class ShowAddress extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        List<Address> addressList = AddressService.getInstance().getListAddressExistOfUser(user.getUserId());
+        List<Address> addressList = AddressService.getInstance().getListAddressExistOfUser(user.getId());
 
         request.setAttribute("addressList", addressList);
 

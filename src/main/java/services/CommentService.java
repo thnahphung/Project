@@ -1,6 +1,5 @@
 package services;
 
-import bean.Comment;
 import db.JDBIConnector;
 
 import java.util.ArrayList;

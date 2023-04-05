@@ -1,7 +1,5 @@
 package services;
 
-import bean.Category;
-import bean.Product;
 import db.JDBIConnector;
 
 import java.util.List;

@@ -1,8 +1,5 @@
 package controller.admins;
 
-import bean.Image;
-import bean.PaCategory;
-import bean.Product;
 import services.PaCategoryService;
 import services.ProductService;
 

@@ -1,9 +1,6 @@
 package controller.admins;
 
-import bean.Category;
-import bean.PaCategory;
 import services.CaterogyService;
-import services.PaCategoryService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

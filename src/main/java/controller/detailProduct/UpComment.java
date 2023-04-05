@@ -1,6 +1,5 @@
 package controller.detailProduct;
 
-import bean.Comment;
 import bean.User;
 import services.CommentService;
 
@@ -40,7 +39,7 @@ public class UpComment extends HttpServlet {
                 "                            <img src=\"" + user.getAvatar() + "\"\n" +
                 "                                alt=\"\" class=\"img-user-cmt\">\n" +
                 "                            <div>\n" +
-                "                                <div class=\"name-user-cmt\">" + user.getFullName() + "</div>\n" +
+                "                                <div class=\"name-user-cmt\">" + user.getName() + "</div>\n" +
                 "                                <div class=\"ratting rate-user\">\n" +
                 rateHtml +
                 "                                </div>\n" +
@@ -55,7 +54,7 @@ public class UpComment extends HttpServlet {
                 "\n" +
                 "                    </li>");
 
-        Comment comment = new Comment(id, user, user.getUserId(), text, rate, now);
+        Comment comment = new Comment(id, user, user.getId(), text, rate, now);
         CommentService.getInstance().addComment(comment, idProduct);
     }
 

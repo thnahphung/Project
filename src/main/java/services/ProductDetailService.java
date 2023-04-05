@@ -1,6 +1,5 @@
 package services;
 
-import bean.ProductDetail;
 import db.JDBIConnector;
 
 public class ProductDetailService {

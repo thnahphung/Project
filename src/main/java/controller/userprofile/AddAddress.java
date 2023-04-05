@@ -1,10 +1,8 @@
 package controller.userprofile;
 
 import bean.Address;
-import bean.AddressDetail;
 import bean.User;
 import services.AddressService;
-import services.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,16 +20,14 @@ public class AddAddress extends HttpServlet {
         String district = request.getParameter("district");
         String detail = request.getParameter("detail");
 
-        AddressDetail addressDetail = new AddressDetail(AddressService.getInstance().nextId(), detail, district, city);
-        Address address = new Address(addressDetail.getAddressDetailId(), user.getUserId(), name, phone, addressDetail.getAddressDetailId(), addressDetail, 0);
-        AddressService.getInstance().addNewAddress(address);
+        Address address = new Address(AddressService.getInstance().nextId(), detail, district, city);
 
-        response.getWriter().println("<div class=\"list-address"+addressDetail.getAddressDetailId()+" all-address\">\n" +
+        response.getWriter().println("<div class=\"list-address"+address.getId()+" all-address\">\n" +
                 "                                <div class=\"contain-address bd-bottom\">\n" +
-                "                                    <div class=\"contain-address"+addressDetail.getAddressDetailId()+" left\">\n" +
+                "                                    <div class=\"contain-address"+detail+" left\">\n" +
                 "                                        <p>\n" +
-                "                                            <label><span class=\"name\">"+address.getName()+"</span> <span\n" +
-                "                                                    class=\"phone-number\">"+address.getPhoneNumber()+"</span></label>\n" +
+                "                                            <label><span class=\"name\">"+detail+"</span> <span\n" +
+                "                                                    class=\"phone-number\">"+detail+"</span></label>\n" +
                 "                                        </p>\n" +
                 "                                        <div class=\"address\">\n" +
                 "                                            "+address.formatAddress()+"\n" +
@@ -40,10 +36,10 @@ public class AddAddress extends HttpServlet {
                 "                                    <div class=\"contain-address right\">\n" +
                 "                                        <button class=\"btn-address edit-one button submit\" id=\"edit-address\"\n" +
                 "                                                data-toggle=\"modal\"\n" +
-                "                                                data-target=\"#exampleEditAddress"+address.getAddressId()+"\">Sửa\n" +
+                "                                                data-target=\"#exampleEditAddress"+address.getId()+"\">Sửa\n" +
                 "                                        </button>\n" +
                 "                                        <button class=\"btn-address delete-one button submit\" id=\"delete-address\"\n" +
-                "                                                value=\""+address.getAddressId()+"\">Xóa\n" +
+                "                                                value=\""+address.getId()+"\">Xóa\n" +
                 "                                        </button>\n" +
                 "                                    </div>\n" +
                 "                                </div>\n" +

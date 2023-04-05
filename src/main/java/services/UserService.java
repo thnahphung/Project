@@ -205,7 +205,7 @@ public class UserService {
                     .bind("stt", 0)
                     .bind("id3rd", user.getId3rd())
                     .execute();
-        });
+        });}
     public void editAvatar(int id, String url) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
@@ -215,9 +215,7 @@ public class UserService {
         });
     }
 
-    public static void main(String[] args) {
 
-    }
 
     public void changeName(String name, String id3rd) {
         JDBIConnector.get().withHandle(handle -> {

@@ -19,7 +19,7 @@ public class EditUser extends HttpServlet {
         String email = request.getParameter("email");
 
 
-        UserService.getInstance().editInfor(user.getUserId(), fullName, phoneNumber, email);
+        UserService.getInstance().editInfor(user.getId(), fullName, phoneNumber, email);
 
         response.getWriter().println("<li>" + fullName + "</li>\n" +
                 "                     <li>" + phoneNumber + "</li>\n" +

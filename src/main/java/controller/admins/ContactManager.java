@@ -1,6 +1,5 @@
 package controller.admins;
 
-import bean.Contact;
 import services.ContactService;
 
 import javax.servlet.*;

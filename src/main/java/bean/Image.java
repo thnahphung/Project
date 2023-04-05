@@ -3,40 +3,38 @@ package bean;
 import java.io.Serializable;
 
 public class Image implements Serializable {
-    private int imageId;
-    private int productId;
-    private String imageSrc;
+    private int id;
+    private String source;
 
     public Image() {
     }
 
-    public int getImageId() {
-        return imageId;
+    public Image(int id, String source) {
+        this.id = id;
+        this.source = source;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public int getId() {
+        return id;
     }
 
-    public int getProductId() {
-        return productId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public String getSource() {
+        return source;
     }
 
-    public String getImageSrc() {
-        return imageSrc;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public void setImageSrc(String imageSrc) {
-        this.imageSrc = imageSrc;
-    }
-
-    public Image(int imageId, int productId, String imageSrc) {
-        this.imageId = imageId;
-        this.productId = productId;
-        this.imageSrc = imageSrc;
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", source='" + source + '\'' +
+                '}';
     }
 }

@@ -1,7 +1,5 @@
 package services;
 
-import bean.Order;
-import bean.OrderDetail;
 import db.JDBIConnector;
 
 import java.io.Serializable;

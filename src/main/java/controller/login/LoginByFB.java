@@ -26,13 +26,13 @@ public class LoginByFB extends HttpServlet {
         User user = new User();
         System.out.println(UserService.getInstance().checkExistId3rd(id3rd));
         if (!UserService.getInstance().checkExistId3rd(id3rd)) {
-            user.setUserId(UserService.getInstance().nextId());
-            user.setFullName(name);
+            user.setId(UserService.getInstance().nextId());
+            user.setName(name);
             user.setEmail(null);
-            user.setPhoneNumber(null);
-            user.setPass(null);
+            user.setPhone(null);
+            user.setPassword(null);
             user.setAvatar(null);
-            user.setId3rd(id3rd);
+            user.setIdThirdParty(id3rd);
             UserService.getInstance().addUserLoginBy3rdParty(user);
         } else {
             user = UserService.getInstance().getUserById3rd(id3rd);
@@ -42,7 +42,7 @@ public class LoginByFB extends HttpServlet {
         System.out.println(user);
         HttpSession session = request.getSession(true);
         session.setAttribute("auth", user);
-        session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getUserId()));
+        session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getId()));
         response.getWriter().print(true);
     }
 }

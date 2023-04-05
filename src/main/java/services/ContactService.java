@@ -1,6 +1,5 @@
 package services;
 
-import bean.Contact;
 import db.JDBIConnector;
 
 import java.util.List;
