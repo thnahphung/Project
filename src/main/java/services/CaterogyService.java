@@ -23,12 +23,12 @@ public class CaterogyService {
     public List<Category> getListCategory(int kind) {
         if (kind == ProductService.ALL && kind == ProductService.SALE) {
             return JDBIConnector.get().withHandle(handle -> {
-                return handle.createQuery("SELECT id, name, pa_category_id, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+                return handle.createQuery("SELECT id, name, pa_category, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
             });
         }
 
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT  id, name, pa_category_id, status  FROM category where pa_category_id=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT  id, name, pa_category, status  FROM category where pa_category=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
         });
     }
 
