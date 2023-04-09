@@ -54,7 +54,7 @@ public class CommentService {
         return JDBIConnector.get().withHandle(handle -> {
             List<Comment> listResult = handle.createQuery("SELECT cmt.comment_id, cmt.rate,cmt.document,cmt.date_comment,u.user_id from `comment` cmt join `user` u on cmt.user_id= u.user_id WHERE cmt.product_id = ? ORDER BY  comment_id DESC LIMIT ?,5").bind(0, id).bind(1, page * 5 - 5).mapToBean(Comment.class).stream().collect(Collectors.toList());
             for (Comment comment : listResult) {
-                comment.setUser(UserService.getInstance().getUserById(comment.getUserId()));
+                comment.setUser(UserService.getInstance().getUserByReviewId(co));
             }
             return listResult;
         });

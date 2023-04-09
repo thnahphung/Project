@@ -1,7 +1,10 @@
 package controller.detailProduct;
 
+import bean.Review;
 import bean.User;
 import services.CommentService;
+import services.ProductService;
+import services.ReviewService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -54,8 +57,8 @@ public class UpComment extends HttpServlet {
                 "\n" +
                 "                    </li>");
 
-        Comment comment = new Comment(id, user, user.getId(), text, rate, now);
-        CommentService.getInstance().addComment(comment, idProduct);
+        Review review = new Review(id, text, rate, user, ProductService.getInstance().getProductById(idProduct), now, 0);
+        ReviewService.getInstance().addReview(review);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package controller.detailProduct;
 
+import bean.Review;
 import bean.User;
 import services.CommentService;
+import services.ReviewService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,13 +17,11 @@ public class LoadComment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         int page = Integer.parseInt(request.getParameter("page"));
-        List<Comment> commentList = CommentService.getInstance().getCommentByPage(id, page);
-
-        for (Comment comment : commentList) {
-            User user = comment.getUser();
-
+        List<Review> reviews = ReviewService.getInstance().getListReviewByPage(id, page);
+        for (Review review : reviews) {
+            User user = review.getUser();
             StringBuilder rate = new StringBuilder();
-            int count = comment.getRate();
+            int count = review.getRate();
             for (int i = 0; i < 5; i++) {
                 if (count > 0) {
                     rate.append("<i class=\"fa fa-star yellow\"></i>\n");
@@ -42,16 +42,15 @@ public class LoadComment extends HttpServlet {
                     "                                </div>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
-                    "                        <div class=\"date-cmt\">" + comment.getDateComment().getDayOfMonth() + "/" + comment.getDateComment().getMonthValue() + "/" + comment.getDateComment().getYear() + "</div>\n" +
+                    "                        <div class=\"date-cmt\">" + review.getCreateDate().getDayOfMonth() + "/" + review.getCreateDate().getMonthValue() + "/" + review.getCreateDate().getYear() + "</div>\n" +
                     "                        <div class=\"comment\">\n" +
                     "                            <p>\n" +
-                    comment.getDocument() +
+                    review.getComment() +
                     "                            </p>\n" +
                     "                        </div>\n" +
                     "\n" +
                     "                    </li>");
         }
-
 
     }
 

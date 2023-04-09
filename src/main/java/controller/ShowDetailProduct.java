@@ -1,5 +1,6 @@
 package controller;
 
+import bean.Product;
 import services.CommentService;
 import services.ProductService;
 

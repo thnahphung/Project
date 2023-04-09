@@ -2,6 +2,7 @@ package controller.login;
 
 import bean.ThirdParty;
 import bean.User;
+import services.CartService;
 import services.OrderService;
 import services.ThirdPartyService;
 import services.UserService;
@@ -39,7 +40,7 @@ public class LoginByFB extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         session.setAttribute("auth", user);
-        session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getId()));
+        session.setAttribute("cart", CartService.getInstance().getItemCartUserId(user.getId()));
         response.getWriter().print(true);
     }
 }

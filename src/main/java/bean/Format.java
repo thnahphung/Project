@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 public class Format {
-
     private static DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
     public static String format(int num) {

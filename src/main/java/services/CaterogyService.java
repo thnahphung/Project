@@ -26,6 +26,7 @@ public class CaterogyService {
                 return handle.createQuery("SELECT id, name, pa_category, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
             });
         }
+
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT  id, name, pa_category, status  FROM category where pa_category=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
         });
@@ -33,8 +34,8 @@ public class CaterogyService {
 
     public Category getCategoryById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            Category category = handle.createQuery("SELECT id, `name`, pa_category, status FROM category WHERE id=:id").bind("id", id).mapToBean(Category.class).one();
-            return category;
+            return handle.createQuery("SELECT id, `name`, pa_category,status FROM category WHERE id=:id").bind("id", id).mapToBean(Category.class).one();
+
         });
     }
 
@@ -43,31 +44,34 @@ public class CaterogyService {
             return handle.createQuery("SELECT id, name, pa_category, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
         });
     }
-    public int nextID(){
-        return 1+ JDBIConnector.get().withHandle(handle -> {
+
+    public int nextID() {
+        return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT MAX(id) as numberCategory FROM `category`").mapTo(Integer.class).one();
         });
     }
-    public void addCategory(String name, int paCategory){
+
+    public void addCategory(String name, int paCategory) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO category VALUES (id=?, name=?, pa_category=?,status=?)")
-                    .bind(0,nextID())
-                    .bind(1,name)
-                    .bind(2,paCategory)
-                    .bind(3,0)
+            return handle.createUpdate("INSERT INTO category VALUES (name=?, pa_category=?,status=?)")
+                    .bind(1, name)
+                    .bind(2, paCategory)
+                    .bind(3, 0)
                     .execute();
         });
     }
-    public void editCategory(int id, int paCategory){
+
+    public void editCategory(int id, int paCategory) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE category SET pa_category where id="+id+";")
-                    .bind(0,paCategory)
+            return handle.createUpdate("UPDATE category SET pa_category where id=" + id + ";")
+                    .bind(0, paCategory)
                     .execute();
         });
     }
-    public void deleteCategory(int id){
+
+    public void deleteCategory(int id) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("DELETE from `category` where id=?")
+            return handle.createUpdate("UPDATE category set `status` =1 WHERE id = ?;")
                     .bind(0, id).execute();
         });
     }
