@@ -84,7 +84,7 @@ public class ProductService {
                 List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join history_price hp on hp.product_id=pd.id where hp.price_sale is not null ").mapToBean(Product.class).stream().collect(Collectors.toList());
                 for (Product product : productList) {
                     product.setCategory(handle.createQuery("SELECT id, `name`, pa_category, status FROM category where category_id=" + product.getCategory().getId()).mapToBean(Category.class).stream().collect(Collectors.toList()).get(0));
-                    product.setListHistoryPrice(handle.createQuery("SELECT hp.id, hp.price, hp.price_sale, hp.create_date, hp.`status` FROM history_price hp join product pd on hp.product_id=pd.id where(pd.id=" + product.getId() + "and where pd.id="+maxId()+")").mapToBean(HistoryPrice.class).stream().collect(Collectors.toList()));
+                    product.setListHistoryPrice(handle.createQuery("SELECT hp.id, hp.price, hp.price_sale, hp.create_date, hp.`status` FROM history_price hp join product pd on hp.product_id=pd.id where(pd.id=" + product.getId() + "and  pd.id="+maxId()+")").mapToBean(HistoryPrice.class).stream().collect(Collectors.toList()));
                     product.setListImage(handle.createQuery("SELECT i.id, i.source FROM product_image pi join image i on pi.image_id = i.id where pi.product_id= " + product.getId() + ";").mapToBean(Image.class).stream().collect(Collectors.toList()));
                 }
                 return productList;
@@ -105,8 +105,8 @@ public class ProductService {
         return JDBIConnector.get().withHandle(handle -> {
             List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join category c on pd.category_id = c.id WHERE c.pa_category = " + kind).mapToBean(Product.class).stream().collect(Collectors.toList());
             for (Product product : productList) {
-                product.setCategory(handle.createQuery("SELECT id, `name`, pa_category, status FROM category where category_id=" + product.getCategory().getId()).mapToBean(Category.class).stream().collect(Collectors.toList()).get(0));
-                product.setListHistoryPrice(handle.createQuery("SELECT hp.id, hp.price, hp.price_sale, hp.create_date, hp.`status` FROM history_price hp join product pd on hp.product_id=pd.id where(pd.id=" + product.getId() + "and where pd.id="+maxId()+")").mapToBean(HistoryPrice.class).stream().collect(Collectors.toList()));
+                product.setCategory(CaterogyService.getInstance().getCategoryById(product.getId()));
+                product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
                 product.setListImage(handle.createQuery("SELECT i.id, i.source FROM product_image pi join image i on pi.image_id = i.id where pi.product_id= " + product.getId() + ";").mapToBean(Image.class).stream().collect(Collectors.toList()));
             }
             return productList;
@@ -115,6 +115,8 @@ public class ProductService {
 
 
     }
+
+    public
 
     // -------------------- Loc san pham theo nhom --------------------------------
     public List<Product> getListProductInGroupName(int kind, String group) {
@@ -293,14 +295,15 @@ public class ProductService {
     }
 
     // ------------------------- Sua san pham ----------------------------------
-    public void editProduct(int id, String name, int category, String descriptin, String detail, int status) {
+    public void editProduct(int id, String name, Category category, String descriptin, String detail, User user,int status) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE product SET name=?,description=?, detail=?,category_id=?,status=? where id= " + id + ";")
+            return handle.createUpdate("UPDATE product SET name=?,description=?, detail=?,category_id=?,user_add_id=?,status=? where id= " + id + ";")
                     .bind(0, name)
                     .bind(1, descriptin)
                     .bind(2, detail)
-                    .bind(3, category)
-                    .bind(4, status)
+                    .bind(3, category.getId())
+                    .bind(4,user.getId())
+                    .bind(5, status)
                     .execute();
         });
     }
