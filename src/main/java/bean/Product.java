@@ -1,6 +1,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -9,16 +10,23 @@ public class Product implements Serializable {
     private String description;
     private String detail;
     private int rate;
+    private List<HistoryPrice> listHistoryPrice;
+    private List<Image> listImage;
     private Category category;
     private User userAdd;
     private int status;
 
-    public Product(int id, String name, String description, String detail, int rate, Category category, User userAdd, int status) {
+    public Product() {
+    }
+
+    public Product(int id, String name, String description, String detail, int rate, List<HistoryPrice> listHistoryPrice, List<Image> listImage, Category category, User userAdd, int status) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.detail = detail;
         this.rate = rate;
+        this.listHistoryPrice = listHistoryPrice;
+        this.listImage = listImage;
         this.category = category;
         this.userAdd = userAdd;
         this.status = status;
@@ -64,6 +72,22 @@ public class Product implements Serializable {
         this.rate = rate;
     }
 
+    public List<HistoryPrice> getListHistoryPrice() {
+        return listHistoryPrice;
+    }
+
+    public void setListHistoryPrice(List<HistoryPrice> listHistoryPrice) {
+        this.listHistoryPrice = listHistoryPrice;
+    }
+
+    public List<Image> getListImage() {
+        return listImage;
+    }
+
+    public void setListImage(List<Image> listImage) {
+        this.listImage = listImage;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -96,6 +120,8 @@ public class Product implements Serializable {
                 ", description='" + description + '\'' +
                 ", detail='" + detail + '\'' +
                 ", rate=" + rate +
+                ", listHistoryPrice=" + listHistoryPrice +
+                ", listImage=" + listImage +
                 ", category=" + category +
                 ", userAdd=" + userAdd +
                 ", status=" + status +

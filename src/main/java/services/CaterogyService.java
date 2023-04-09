@@ -1,5 +1,6 @@
 package services;
 
+import bean.Category;
 import db.JDBIConnector;
 
 import java.util.List;
@@ -22,11 +23,11 @@ public class CaterogyService {
     public List<Category> getListCategory(int kind) {
         if (kind == ProductService.ALL && kind == ProductService.SALE) {
             return JDBIConnector.get().withHandle(handle -> {
-                return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+                return handle.createQuery("SELECT id, name, pa_category_id, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
             });
         }
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category where pa_category_id=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT  id, name, pa_category_id, status  FROM category where pa_category_id=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
         });
     }
 
@@ -40,33 +41,34 @@ public class CaterogyService {
 
     public List<Category> getListCategoryAll() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT category_id, pa_category_id, name  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, name, pa_category_id, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
         });
     }
     public int nextID(){
         return 1+ JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT MAX(`category_id`) as numberCategory FROM `category`").mapTo(Integer.class).one();
+            return handle.createQuery("SELECT MAX(id) as numberCategory FROM `category`").mapTo(Integer.class).one();
         });
     }
     public void addCategory(String name, int paCategory){
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO category VALUES (category_id=?,pa_category_id=?,name=?)")
+            return handle.createUpdate("INSERT INTO category VALUES (id=?, name=?, pa_category_id=?,status=?)")
                     .bind(0,nextID())
-                    .bind(1,paCategory)
-                    .bind(2,name)
+                    .bind(1,name)
+                    .bind(2,paCategory)
+                    .bind(3,0)
                     .execute();
         });
     }
     public void editCategory(int id, int paCategory){
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE category SET pa_category_id where category_id="+id+";")
+            return handle.createUpdate("UPDATE category SET pa_category_id where id="+id+";")
                     .bind(0,paCategory)
                     .execute();
         });
     }
     public void deleteCategory(int id){
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("DELETE from `category` where category_id=?")
+            return handle.createUpdate("DELETE from `category` where id=?")
                     .bind(0, id).execute();
         });
     }
