@@ -1,5 +1,6 @@
 package services;
 
+import controller.Contact;
 import db.JDBIConnector;
 
 import java.util.List;
