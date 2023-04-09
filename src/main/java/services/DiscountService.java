@@ -6,6 +6,7 @@ import db.JDBIConnector;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DiscountService implements Serializable {
     private static DiscountService instance;
@@ -59,5 +60,14 @@ public class DiscountService implements Serializable {
 
     public int totalDiscount(List<Discount> discountList) {
         return 0;
+    }
+
+    public List<Discount> getListDiscountByOrderId(int id){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select d.id, d.code, d.value, d.condition, d.quantity, d.start_date, d.end_date from discount d join discount_order do on d.id = do.discount_id where order_id = ?")
+                    .bind(0, id)
+                    .mapToBean(Discount.class)
+                    .stream().collect(Collectors.toList());
+        });
     }
 }

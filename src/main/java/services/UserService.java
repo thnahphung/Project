@@ -237,4 +237,13 @@ public class UserService {
                     .one();
         });
     }
+    public User getUserAddProductByProductId(int id){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select u.id, u.name, u.phone, u.email, u.avatar, u.variety, u.status from `user` u join product p on u.id = p.user_add_id WHERE p.id = ?; ")
+                    .bind(0, id)
+                    .mapToBean(User.class)
+                    .one();
+        });
+    }
+
 }

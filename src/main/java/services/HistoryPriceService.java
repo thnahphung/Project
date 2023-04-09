@@ -45,4 +45,12 @@ public class HistoryPriceService {
             return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price where(product_id= "+productId+") order by create_date dest limit 1").mapToBean(HistoryPrice.class).stream().collect(Collectors.toList());
         });
     }
+    public List<HistoryPrice> getListHistoryPriceByProductId(int productId){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price WHERE product_id = ?")
+                    .bind(0, productId)
+                    .mapToBean(HistoryPrice.class)
+                    .stream().collect(Collectors.toList());
+        });
+    }
 }
