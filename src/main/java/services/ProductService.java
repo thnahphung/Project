@@ -43,8 +43,10 @@ public class ProductService {
 
     public List<Product> getListProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> list = handle.createQuery("SELECT p.product_id, p.category_id, p.product_name, p.price, p.price_real, p.image_src, p.rate FROM product p join product_detail pd on p.product_detail_id= pd.product_detail_id where pd.stt not like 1").mapToBean(Product.class).stream().collect(Collectors.toList());
+            List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.status not like 1").mapToBean(Product.class).stream().collect(Collectors.toList());
             for (Product product : list) {
+                ProductService.getInstance()
+
                 ProductDetail productDetail = handle.createQuery("SELECT product_detail_id,decription,detail,inventory,create_date,update_date,stt,quantity_sold,user_id FROM product_detail where product_detail_id = ?").bind(0, product.getProductId()).mapToBean(ProductDetail.class).stream().collect(Collectors.toList()).get(0);
                 product.setProductDetail(productDetail);
                 Category category = handle.createQuery("SELECT category_id,pa_category_id,name FROM category WHERE category_id=?").bind(0, product.getCategoryId()).mapToBean(Category.class).collect(Collectors.toList()).get(0);

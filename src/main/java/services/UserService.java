@@ -229,4 +229,12 @@ public class UserService {
         });
     }
 
+    public User getUserByReviewId(int id){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select u.id, u.name, u.phone, u.email, u.avatar, u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
+                    .bind(0, id)
+                    .mapToBean(User.class)
+                    .one();
+        });
+    }
 }

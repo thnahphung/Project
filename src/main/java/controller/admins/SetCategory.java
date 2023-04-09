@@ -1,5 +1,6 @@
 package controller.admins;
 
+import bean.Category;
 import services.CaterogyService;
 
 import javax.servlet.*;
@@ -15,7 +16,7 @@ public class SetCategory extends HttpServlet {
         int categoryId =Integer.parseInt(request.getParameter("idcategory"));
         List<Category> categoryList = CaterogyService.getInstance().getListCategory(categoryId);
         for (Category ca: categoryList) {
-            response.getWriter().println("<option value=\""+ca.getCategoryId()+"\">"+ca.getName()+"</option>\n");
+            response.getWriter().println("<option value=\""+ca.getId()+"\">"+ca.getName()+"</option>\n");
         }
     }
 
