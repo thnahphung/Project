@@ -33,8 +33,7 @@ public class CaterogyService {
 
     public Category getCategoryById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            Category category = handle.createQuery("SELECT category_id, `name`, pa_category_id FROM category WHERE category_id=:id").bind("id", id).mapToBean(Category.class).one();
-            category.setPaCategory(PaCategoryService.getInstance().getPaCategoryById(category.getPaCategoryId()));
+            Category category = handle.createQuery("SELECT id, `name`, pa_category, status FROM category WHERE id=:id").bind("id", id).mapToBean(Category.class).one();
             return category;
         });
     }
