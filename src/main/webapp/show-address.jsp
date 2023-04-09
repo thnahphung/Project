@@ -24,7 +24,7 @@
 
 <body>
 <%
-    List<Address> addressList = (List<Address>) request.getAttribute("addressList");
+    List<Information> informationList = (List<Information>) request.getAttribute("informationList");
 
 %>
 
@@ -61,12 +61,15 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="address-tab" data-toggle="tab" data-target="#address" type="button"
-                                role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getUserId()%>">
+                                role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getId()%>">
                             <i class="fa-solid fa-location-dot"></i>Danh sách địa chỉ
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
+                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button"
+                                role="tab" aria-controls="messages" aria-selected="false"><i
+                                class="fa-solid fa-right-from-bracket"></i>Đăng xuất
+                        </button>
 
                     </li>
 
@@ -78,30 +81,26 @@
                         <div class="choose-address inf">
                             <h3>Địa chỉ</h3>
                             <div class="contain-list-address">
-                            <%for (Address address : addressList) {%>
-                            <div class="list-address<%=address.getAddressId()%> all-address">
-                                <div class="contain-address bd-bottom">
-                                    <div class="contain-address<%=address.getAddressId()%> left">
-                                        <p>
-                                            <label><span class="name"><%=address.getName()%></span> <span
-                                                    class="phone-number"><%=address.getPhoneNumber()%></span></label>
-                                        </p>
-                                        <div class="address">
-                                            <%=address.formatAddress()%>
+                                <%for (Information information : informationList) {%>
+                                <div class="list-address<%=information.getId()%> all-address">
+                                    <div class="contain-address bd-bottom">
+                                        <div class="contain-address<%=information.getId()%> left">
+                                            <p>
+                                                <label><span class="name"><%=information.getName()%></span> <span
+                                                        class="phone-number"><%=information.getPhone()%></span></label>
+                                            </p>
+                                            <div class="address">
+                                                <%=information.getAddress().formatAddress()%>
+                                            </div>
+                                        </div>
+                                        <div class="contain-address right">
+                                            <button class="btn-address delete-one button submit" id="delete-address"
+                                                    value="<%=information.getId()%>">Xóa
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="contain-address right">
-                                        <button class="btn-address edit-one button submit" id="edit-address"
-                                                data-toggle="modal"
-                                                data-target="#exampleEditAddress<%=address.getAddressId()%>">Sửa
-                                        </button>
-                                        <button class="btn-address delete-one button submit" id="delete-address"
-                                                value="<%=address.getAddressId()%>">Xóa
-                                        </button>
-                                    </div>
                                 </div>
-                            </div>
-                            <%}%>
+                                <%}%>
                             </div>
                             <button type="button" class="btn-add-address button submit" data-toggle="modal"
                                     data-target="#exampleAddAddress">
@@ -121,44 +120,6 @@
         </div>
         <!-- end content -->
 
-        <%--Modal edit address--%>
-        <%for (Address address : addressList) {%>
-        <div class="modal fade" id="exampleEditAddress<%=address.getAddressId()%>" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title uppercase" id="exampleModalLongTitle">Sửa địa chỉ</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="form-edit-address">
-                            <input class="input" type="text" name="" id="input-edit-name<%=address.getAddressId()%>"
-                                   placeholder="Họ tên" value="<%=address.getName()%>">
-                            <input class="input" type="text" name="" id="input-edit-phone<%=address.getAddressId()%>"
-                                   placeholder="Số điện thoại" value="<%=address.getPhoneNumber()%>">
-                            <input class="input" type="text" name="" id="input-edit-detail<%=address.getAddressId()%>"
-                                   placeholder="Số nhà, tên đường, thôn, ấp"
-                                   value="<%=address.getAddressDetail().getDetail()%>">
-                            <input class="input" type="text" name="" id="input-edit-district<%=address.getAddressId()%>"
-                                   placeholder="Quận, huyện" value="<%=address.getAddressDetail().getDistrict()%>">
-                            <input class="input" type="text" name="" id="input-edit-city<%=address.getAddressId()%>"
-                                   placeholder="Tỉnh, thành phố" value="<%=address.getAddressDetail().getCity()%>">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save btn-save-address submit"
-                                value="<%=address.getAddressId()%>">Lưu địa chỉ</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <%}%>
-        <%--        end modal edit address--%>
         <!-- Modal add address-->
         <div class="modal fade" id="exampleAddAddress" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -173,15 +134,18 @@
                     <div class="modal-body">
                         <div class="form-add-address">
                             <input class="input" type="text" name="" id="input-name" placeholder="Họ tên">
-                            <input class="input" type="text" name="" id="input-number-phone" placeholder="Số điện thoại">
-                            <input class="input" type="text" name="" id="input-detail" placeholder="Số nhà, tên đường, thôn, ấp">
+                            <input class="input" type="text" name="" id="input-number-phone"
+                                   placeholder="Số điện thoại">
+                            <input class="input" type="text" name="" id="input-detail"
+                                   placeholder="Số nhà, tên đường, thôn, ấp">
                             <input class="input" type="text" name="" id="input-district" placeholder="Quận, huyện">
                             <input class="input" type="text" name="" id="input-city" placeholder="Thành phố">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save save-address btn-save submit">Lưu địa chỉ</button>
+                        <button type="button" class="button button-save save-address btn-save submit">Lưu địa chỉ
+                        </button>
                     </div>
                 </div>
             </div>
@@ -193,13 +157,14 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title uppercase" >Bạn chắc chắn xóa tất cả địa chỉ?</h5>
+                        <h5 class="modal-title uppercase">Bạn chắc chắn xóa tất cả địa chỉ?</h5>
                         </button>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save delete-address btn-delete-all submit">Vẫn xóa</button>
+                        <button type="button" class="button button-save delete-address btn-delete-all submit">Vẫn xóa
+                        </button>
                     </div>
                 </div>
             </div>

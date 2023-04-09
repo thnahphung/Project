@@ -153,10 +153,7 @@ public class ProductService {
     public List<Product> getListFavouriteProduct() {
         return JDBIConnector.get().withHandle(handle -> {
 
-            return handle.createQuery("SELECT product_id, category_id, product_name, price, price_real, rate, image_src, product_detail_id\n" +
-                    "FROM product \n" +
-                    "ORDER BY rate DESC\n" +
-                    "LIMIT 3;").mapToBean(Product.class).stream().collect(Collectors.toList());
+            return handle.createQuery("select id, name, description, detail, rate, category_id, user_add_id, status from product order by rate desc limit 3;").mapToBean(Product.class).stream().collect(Collectors.toList());
 
 
         });
