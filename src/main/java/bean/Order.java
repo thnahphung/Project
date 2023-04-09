@@ -1,8 +1,10 @@
 package bean;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
     private int id;
     private String note;
     private int total;
@@ -13,10 +15,13 @@ public class Order {
     private int paymentMethod;
     private LocalDateTime deliveryDate;
     private LocalDateTime receivingDate;
+    private LocalDateTime createDate;
     private boolean isPayment;
+    private User user;
+    private Information information;
     private int status;
 
-    public Order(int id, String note, int total, List<LineItem> listOrderItem, List<Discount> listDiscount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, boolean isPayment, int status) {
+    public Order(int id, String note, int total, List<LineItem> listOrderItem, List<Discount> listDiscount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, LocalDateTime createDate, boolean isPayment, User user, Information information, int status) {
         this.id = id;
         this.note = note;
         this.total = total;
@@ -27,11 +32,38 @@ public class Order {
         this.paymentMethod = paymentMethod;
         this.deliveryDate = deliveryDate;
         this.receivingDate = receivingDate;
+        this.createDate = createDate;
         this.isPayment = isPayment;
+        this.user = user;
+        this.information = information;
         this.status = status;
     }
 
+    public Information getInformation() {
+        return information;
+    }
+
+    public void setInformation(Information information) {
+        this.information = information;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
     public Order() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {
@@ -130,4 +162,7 @@ public class Order {
         this.status = status;
     }
 
+    public int total() {
+        return 0;
+    }
 }

@@ -1,8 +1,10 @@
 package services;
 
+import bean.Discount;
 import db.JDBIConnector;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class DiscountService implements Serializable {
     private static DiscountService instance;
@@ -44,5 +46,9 @@ public class DiscountService implements Serializable {
                 return null;
             }
         });
+    }
+
+    public int totalDiscount(List<Discount> discountList){
+        return 0;
     }
 }

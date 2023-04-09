@@ -1,9 +1,10 @@
 package bean;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Export {
+public class Export implements Serializable {
     private int id;
     private User user;
     private List<LineItem> listLineItem;

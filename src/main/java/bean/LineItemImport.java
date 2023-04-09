@@ -1,6 +1,8 @@
 package bean;
 
-public class LineItemImport extends LineItem {
+import java.io.Serializable;
+
+public class LineItemImport extends LineItem implements Serializable {
     private int priceImport;
 
     public LineItemImport(int id, Product product, int quantity, int priceImport) {
