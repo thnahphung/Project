@@ -10,15 +10,16 @@ import java.util.List;
 public class EditBannerinForm extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String namepage = "Quản lý chung";
-        String name = request.getParameter("name");
-        String imgSrc = request.getParameter("imgSrc");
-        int id = Integer.parseInt(request.getParameter("id"));
-        BannerService.getInstance().editBanner(id, name, imgSrc);
-        List<Banner> bannerList = BannerService.getInstance().getListBanner();
-        request.setAttribute("listBanner",bannerList);
-        request.setAttribute("name",namepage);
-        request.getRequestDispatcher("general-manager.jsp").forward(request, response);
+        // TODO: 4/9/2023
+//        String namepage = "Quản lý chung";
+//        String name = request.getParameter("name");
+//        String imgSrc = request.getParameter("imgSrc");
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        BannerService.getInstance().editBanner(id, name, imgSrc);
+//        List<Banner> bannerList = BannerService.getInstance().getListBanner();
+//        request.setAttribute("listBanner",bannerList);
+//        request.setAttribute("name",namepage);
+//        request.getRequestDispatcher("general-manager.jsp").forward(request, response);
     }
 
     @Override

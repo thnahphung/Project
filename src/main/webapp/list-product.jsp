@@ -107,12 +107,12 @@
                 %>
                 <%if (i == 0) {%>
                 <div class="carousel-item active">
-                    <a href=""><img class="d-block w-100" src="<%=listbanner.get(i).getImage_src()%>"
+                    <a href=""><img class="d-block w-100" src=" <% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"
                                     alt="First slide"></a>
                 </div>
                 <%}%>
                 <div class="carousel-item ">
-                    <a href=""><img class="d-block w-100" src="<%=listbanner.get(i).getImage_src()%>"
+                    <a href=""><img class="d-block w-100" src="<% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"
                                     alt="Second slide"></a>
                 </div>
                 <%}%>
@@ -137,20 +137,20 @@
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><img
-                                    src="<%= product.getImageSrc()%>" alt="">
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"><img
+                                    src="<%= product.getListImage().get(0).getSource()%>" alt="">
                             </a>
                         </div>
                         <div class="button">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"
+                            <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"
                                class="buy-now"> Mua ngay</a>
-                            <button class="wish-list btn-add-cart" value="<%= product.getProductId()%>"><i
+                            <button class="wish-list btn-add-cart" value="<%= product.getId()%>"><i
                                     class="fa-solid fa-cart-plus"></i></button>
 
                         </div>
                         <div class="caption">
                             <h3>
-                                <a href="http://localhost:8080/detail-product?id=<%= product.getProductId()%>"><%= product.getProductName()%>
+                                <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"><%= product.getName()%>
                                 </a></h3>
                             <div class="ratting">
                                 <% int count = product.getRate();
@@ -168,8 +168,8 @@
                             </div>
                             <h3 class="price">
                                 <%= Format.format(product.getPrice())%> VND
-                                <% if (product.getPriceReal() != 0) {%>
-                                <span class="price-real"><%= Format.format(product.getPriceReal())%> VND</span>
+                                <% if (product.getPriceSale() != 0) {%>
+                                <span class="price-real"><%= Format.format(product.getPriceSale())%> VND</span>
                                 <%}%>
                             </h3>
                         </div>
