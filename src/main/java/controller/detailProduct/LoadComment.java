@@ -2,7 +2,6 @@ package controller.detailProduct;
 
 import bean.Review;
 import bean.User;
-import services.CommentService;
 import services.ReviewService;
 
 import javax.servlet.*;

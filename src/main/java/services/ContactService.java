@@ -20,12 +20,6 @@ public class ContactService {
         return instance;
     }
 
-    public List<Contact> getListContact() {
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, content FROM contact").mapToBean(Contact.class).stream().collect(Collectors.toList());
-        });
-    }
-
     public int nextID() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT MAX(`id`) as numberContact FROM contact").mapTo(Integer.class).one();

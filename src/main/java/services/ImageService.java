@@ -1,6 +1,5 @@
 package services;
 
-import bean.HistoryPrice;
 import bean.Image;
 import db.JDBIConnector;
 
@@ -50,13 +49,13 @@ public class ImageService {
                     .execute();
         });
     }
-    public List<Image> getListImageByProductId(int id){
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select i.id, i.source from image i join product_image pi on i.id = pi.image_id WHERE pi.product_id = ?")
-                    .bind(0, id)
-                    .mapToBean(Image.class)
-                    .stream().collect(Collectors.toList());
-        });
+
+    public List<Image> getListImageByProductId(int idProduct) {
+        return JDBIConnector.get().withHandle(
+                handle -> handle.createQuery("SELECT i.id, i.source FROM product_image pi join image i on pi.image_id = i.id where pi.product_id= :idProduct;")
+                        .bind("idProduct", idProduct)
+                        .mapToBean(Image.class).stream()
+                        .collect(Collectors.toList()));
     }
 
 }

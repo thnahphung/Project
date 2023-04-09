@@ -98,49 +98,9 @@ public class OrderService implements Serializable {
 
     }
 
-    public void cartToOrder(Order order) {
-        JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE `ord` SET note=:note,total=:total,stt_delivery=:stt_delivery,stt_pay=:stt_pay," +
-                            "order_date=:order_date,delivery_date=:delivery_date,address_id=:address_id,transport_id=:transport_id," +
-                            "discount_id=:discount_id,payments=:payments WHERE order_id=:order_id")
-                    .bind("order_id", order.getOrderId())
-                    .bind("total", order.getTotal())
-                    .bind("note", order.getNote())
-                    .bind("stt_delivery", order.getSttDelivery())
-                    .bind("stt_pay", order.isSttPay())
-                    .bind("order_date", order.getOrderDate())
-                    .bind("delivery_date", order.getDeliveryDate())
-                    .bind("address_id", order.getAddressId())
-                    .bind("transport_id", order.getTransportId())
-                    .bind("discount_id", order.getDiscountId())
-                    .bind("payments", order.getPayments())
-                    .execute();
-        });
-
-    }
-
     public int nextId() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT MAX(`order_id`) as numberOfOrder FROM `ord`").mapTo(Integer.class).one();
-        });
-    }
-
-    public Order getCartByUserId(int userId) {
-        return JDBIConnector.get().withHandle(handle -> {
-            Order order = null;
-            try {
-                order = handle.createQuery("SELECT order_id,user_id,total FROM ord WHERE stt_delivery =0  and user_id= :user_id")
-                        .bind("user_id", userId)
-                        .mapToBean(Order.class).one();
-                order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
-            } catch (IllegalStateException e) {
-                order = new Order();
-                order.setOrderId(OrderService.getInstance().nextId());
-                order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
-                order.setUserId(userId);
-                OrderService.getInstance().add(order);
-            }
-            return order;
         });
     }
 

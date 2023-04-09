@@ -2,8 +2,8 @@ package controller;
 
 import bean.Product;
 import bean.Review;
-import services.CommentService;
 import services.ProductService;
+import services.ReviewService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,18 +15,18 @@ import java.util.List;
 public class ShowDetailProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int idProduct = Integer.parseInt(request.getParameter("id"));
 
-        Product product = ProductService.getInstance().getProductById(id);
+        Product product = ProductService.getInstance().getProductById(idProduct);
         request.setAttribute("product", product);
 
-        List<String> listImg = ProductService.getInstance().getImageOfProductById(id);
+        List<String> listImg = ProductService.getInstance().getImageOfProductById(idProduct);
         request.setAttribute("listImg", listImg);
 
-        List<Review> listCmt = ReviewService.getInstance().getReviewByPage(id, 1);
+        List<Review> listCmt = ReviewService.getInstance().getListReviewByPage(idProduct, 1);
         request.setAttribute("listCmt", listCmt);
 
-        int countPage = CommentService.getInstance().getCountPageById(id);
+        int countPage = ReviewService.getInstance().getCountPageById(idProduct);
         request.setAttribute("countPage", countPage);
 
         List<Product> listSameProduct = ProductService.getInstance().getListSameProduct(product.getCategory().getPaCategory().getId());
