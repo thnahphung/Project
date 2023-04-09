@@ -8,7 +8,7 @@ public class Order implements Serializable {
     private int id;
     private String note;
     private int total;
-    private List<LineItem> listOrderItem;
+    private List<LineItem> listOrderItem;  // chi tiết đơn hàng
     private List<Discount> listDiscount;
     private Transport transport;
     private int statusDelivery;

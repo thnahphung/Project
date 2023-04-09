@@ -23,16 +23,15 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderListByUserId(int userId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orders = handle.createQuery("select order_id, user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id, o.transport_id, o.discount_id,o.payments\n" +
-                            "from ord\n" +
-                            "WHERE user_id = ? and stt_delivery not like 0\n" +
-                            "ORDER BY order_date ASC;")
+            List<Order> orders = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from order where user_id = ?")
                     .bind(0, userId)
                     .mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orders) {
-                order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
-                order.setAddress(AddressService.getInstance().getAddressByAddressId(order.getAddressId()));
-                order.setTransport(TransportService.getInstance().getTransportById(order.getTransportId()));
+                order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(order.getId()));
+                order.setListDiscount(DiscountService.getInstance().getListDiscountByOrderId(order.getId()));
+                order.setUser(UserService.getInstance().getUserById(userId));
+                order.setTransport(TransportService.getInstance().getTransportByOrderId(order.getId()));
+                order.setInformation(InformationService.getInstance().getInformationByOrderId(order.getId()));
             }
             return orders;
         });

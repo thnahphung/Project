@@ -1,5 +1,6 @@
 package services;
 
+import bean.Address;
 import bean.Category;
 import db.JDBIConnector;
 
@@ -76,6 +77,14 @@ public class CaterogyService {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE category set `status` =1 WHERE id = ?;")
                     .bind(0, id).execute();
+        });
+    }
+    public Category getCategoryByProductId(int id) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select c.id, c.name, c.pa_category, c.`status` from category c join product p on c.id = p.category_id WHERE p.id = ?")
+                    .bind(0, id)
+                    .mapToBean(Category.class)
+                    .one();
         });
     }
 }

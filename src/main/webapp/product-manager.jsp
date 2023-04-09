@@ -121,20 +121,20 @@
                 <tbody>
                 <% List<Product> list = (List<Product>) request.getAttribute("list");
                     for (Product product : list) {%>
-                <tr class="product-<%=product.getProductId()%>">
-                    <td><input type="checkbox" value="<%=product.getProductId()%>" class="checkbox-product"></td>
-                    <td><img class="avatar" src="<%=product.getImageSrc()%>" alt="<%=product.getProductName()%>">
+                <tr class="product-<%=product.getId()%>">
+                    <td><input type="checkbox" value="<%=product.getId()%>" class="checkbox-product"></td>
+                    <td><img class="avatar" src="<%=product.getListImage().get(0).getSource()%>" alt="<%=product.getName()%>">
                     </td>
-                    <td><%=product.getProductName()%>
+                    <td><%=product.getName()%>
                     </td>
                     <td><%=Format.format(product.getPrice())%> VND
                     </td>
-                    <td><%=product.getProductDetail().getCreateDate()%>
+                    <td><%=product.getListHistoryPrice().get(0).getCreateDate()%>
                     </td>
-                    <td><%=product.getProductDetail().getInventory()%>
+                    <td><%=product.getRate()%>
                     </td>
                     <td>
-                        <button class="edit-product button submit" value="<%=product.getProductId()%>"
+                        <button class="edit-product button submit" value="<%=product.getId()%>"
                                 data-toggle="modal"
                                 data-target="#exampleModalCenterEdit">
                             Sửa
@@ -179,11 +179,11 @@
                         <label>Loại sản phẩm</label>
                         <select class="input" name="pa_category" id="input-pa_category">
                             <%
-                                List<PaCategory> paCategoryList = (List<PaCategory>) request.getAttribute("listPacategories");
+                                List<Category> paCategoryList = (List<Category>) request.getAttribute("listPacategories");
 
-                                for (PaCategory pa : paCategoryList) {
+                                for (Category pa : paCategoryList) {
                             %>
-                            <option value="<%=pa.getPaCategoryId()%>"><%=pa.getName()%>
+                            <option value="<%=pa.getId()%>"><%=pa.getName()%>
                             </option>
 
                             <%}%>
@@ -196,7 +196,7 @@
                                 List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");
                                 for (Category ca : categoryList) {
                             %>
-                            <option value="<%=ca.getCategoryId()%>" selected><%=ca.getName()%>
+                            <option value="<%=ca.getId()%>" selected><%=ca.getName()%>
                             </option>
                             <%}%>
                         </select>

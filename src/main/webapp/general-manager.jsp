@@ -41,27 +41,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <%
-                    List<Banner> bannerList = (List<Banner>) request.getAttribute("listBanner");
-                    for (Banner banner : bannerList) {
-                %>
-                <tr class="name<%=banner.getId()%>">
-                    <td><%=banner.getId()%>
-                    </td>
-                    <td><%=banner.getName()%>
-                    </td>
-                    <td><img src="<%=banner.getImage_src()%>" alt="" style="width: 200px; height: 100px"></td>
-                    <td>
-                        <button class="edit-banner button submit" value="<%=banner.getId()%>" data-toggle="modal"
-                                data-target="#exampleModalCenterEdit">
-                            Sửa
-                        </button>
-                        <button type="button" class="delete-banner button submit" class="button btn-indigo btn-sm m-0 delete button submit"
-                                value="<%=banner.getId()%>">Xóa
-                        </button>
-                    </td>
-                </tr>
-                <%}%>
+<%--                <%--%>
+<%--                    List<Banner> bannerList = (List<Banner>) request.getAttribute("listBanner");--%>
+<%--                    for (Banner banner : bannerList) {--%>
+<%--                %>--%>
+<%--                <tr class="name<%=banner.getId()%>">--%>
+<%--                    <td><%=banner.getId()%>--%>
+<%--                    </td>--%>
+<%--                    <td><%=banner.getName()%>--%>
+<%--                    </td>--%>
+<%--                    <td><img src="<%=banner.getImage_src()%>" alt="" style="width: 200px; height: 100px"></td>--%>
+<%--                    <td>--%>
+<%--                        <button class="edit-banner button submit" value="<%=banner.getId()%>" data-toggle="modal"--%>
+<%--                                data-target="#exampleModalCenterEdit">--%>
+<%--                            Sửa--%>
+<%--                        </button>--%>
+<%--                        <button type="button" class="delete-banner button submit" class="button btn-indigo btn-sm m-0 delete button submit"--%>
+<%--                                value="<%=banner.getId()%>">Xóa--%>
+<%--                        </button>--%>
+<%--                    </td>--%>
+<%--                </tr>--%>
+<%--                <%}%>--%>
                 </tbody>
             </table>
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -148,18 +148,18 @@
                 </thead>
                 <tbody>
                 <%
-                    List<PaCategory> paCategoryList = (List<PaCategory>) request.getAttribute("listPaCategory");
-                    for (PaCategory pa : paCategoryList) {
+                    List<Category> paCategoryList = (List<Category>) request.getAttribute("listPaCategory");
+                    for (Category pa : paCategoryList) {
                 %>
-                <tr class="name<%=pa.getPaCategoryId()%>">
-                    <td><%=pa.getPaCategoryId()%>
+                <tr class="name<%=pa.getPaCategory()%>">
+                    <td><%=pa.getPaCategory()%>
                     </td>
                     <td><%=pa.getName()%>
                     </td>
                     <td>
                         <%--                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>--%>
                         <button type="button" class="delete-pa submit" class="button btn-indigo btn-sm m-0 delete"
-                                value="<%=pa.getPaCategoryId()%>">Xóa
+                                value="<%=pa.getPaCategory()%>">Xóa
                         </button>
 
                     </td>

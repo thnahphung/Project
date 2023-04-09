@@ -47,9 +47,10 @@ public class ProductService {
                     .mapToBean(Product.class).stream()
                     .collect(Collectors.toList());
             for (Product product : list) {
-                product.setCategory(CaterogyService.getInstance().getCategoryById(product.getId()));
-                product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
+                product.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(product.getId()));
                 product.setListImage(ImageService.getInstance().getListImageByProductId(product.getId()));
+                product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
+                product.setUserAdd(UserService.getInstance().getUserAddProductByProductId(product.getId()));
             }
             return list;
         });
@@ -57,12 +58,11 @@ public class ProductService {
 
     public Product getProductById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            Product product = handle.createQuery("SELECT id, pd.`name`, pd.description, pd.detail, pd.rate, pd.category_id, pd.user_add_id, pd.status \n" +
-                            "from product pd where pd.status = 0")
-                    .mapToBean(Product.class).one();
-            product.setCategory(CaterogyService.getInstance().getCategoryById(product.getId()));
-            product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
+            Product product = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.id" + "=" + id).mapToBean(Product.class).one();
+            product.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(product.getId()));
             product.setListImage(ImageService.getInstance().getListImageByProductId(product.getId()));
+            product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
+            product.setUserAdd(UserService.getInstance().getUserAddProductByProductId(product.getId()));
             return product;
         });
     }
@@ -117,6 +117,8 @@ public class ProductService {
 
 
     }
+
+
 
     // -------------------- Loc san pham theo nhom --------------------------------
     public List<Product> getListProductInGroupName(int kind, String group) {
