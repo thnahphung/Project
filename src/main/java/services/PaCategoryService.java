@@ -1,5 +1,6 @@
 package services;
 
+import bean.Category;
 import db.JDBIConnector;
 
 import java.io.Serializable;
@@ -20,32 +21,33 @@ public class PaCategoryService implements Serializable {
         return instance;
     }
 
-    public PaCategory getPaCategoryById(int id) {
+    public Category getPaCategoryById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT pa_category_id, `name` from pa_category WHERE pa_category_id = :id")
+            return handle.createQuery("SELECT id, `name`,pa_catrgry,status from pa_category WHERE pa_category = :id")
                     .bind("id", id)
-                    .mapToBean(PaCategory.class).one();
+                    .mapToBean(Category.class).one();
         });
     }
 
-    public List<PaCategory> getListCategory() {
+    public List<Category> getListPaCategory() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT pa_category_id, `name`  from  pa_category").mapToBean(PaCategory.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, `name`, pa_catrgory,status  from  pa_category where pa_category is null").mapToBean(Category.class).stream().collect(Collectors.toList());
 
         });
     }
 
     public int nextId() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT MAX(`pa_category_id`) as numberPaCategory FROM `pa_category`").mapTo(Integer.class).one();
+            return handle.createQuery("SELECT MAX(id) as numberPaCategory FROM category").mapTo(Integer.class).one();
         });
     }
 
     public void addPaCategory(String name) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO `pa_category` VALUES (:pa_category_id,:name)")
+            return handle.createUpdate("INSERT INTO category VALUES (:id,:name, :pa_category,:status)")
                     .bind("pa_category_id",nextId())
                     .bind("name", name)
+                    .bind("status",0)
                     .execute();
         });
     }

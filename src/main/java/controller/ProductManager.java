@@ -1,5 +1,7 @@
 package controller;
 
+import bean.Category;
+import bean.Product;
 import bean.User;
 import services.CaterogyService;
 import services.PaCategoryService;
@@ -21,7 +23,7 @@ public class ProductManager extends HttpServlet {
         }
         String name = "Quản lý sản phẩm";
         List<Product> list = ProductService.getInstance().getListProduct();
-        List<PaCategory> listPaCategories = PaCategoryService.getInstance().getListCategory();
+        List<Category> listPaCategories = PaCategoryService.getInstance().getListCategory();
         List<Category> categoryList = CaterogyService.getInstance().getListCategory(1);
         int quantity = list.size();
         List<Integer> wood = ProductService.getInstance().statisticalProduct(1);

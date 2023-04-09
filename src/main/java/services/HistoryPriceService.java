@@ -1,9 +1,13 @@
 package services;
 
 import bean.HistoryPrice;
+import bean.Product;
 import db.JDBIConnector;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HistoryPriceService {
     private static HistoryPriceService instance;
@@ -18,7 +22,6 @@ public class HistoryPriceService {
         }
         return instance;
     }
-
     public int nextId() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("Select max('id') as maxNumber from history_price").mapTo(Integer.class).one();
@@ -32,9 +35,14 @@ public class HistoryPriceService {
                     .bind("price", historyPrice.getPrice())
                     .bind("price_sale", historyPrice.getPriceSale())
                     .bind("product_id", idProduct)
-                    .bind("create_date", LocalDateTime.now())
+                    .bind("create_date", historyPrice.getCreateDate())
                     .bind("status", historyPrice.getStatus())
                     .execute();
+        });
+    }
+    public List<HistoryPrice> getPriceNow(int productId){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price where(product_id= "+productId+") order by create_date dest limit 1").mapToBean(HistoryPrice.class).stream().collect(Collectors.toList());
         });
     }
 }

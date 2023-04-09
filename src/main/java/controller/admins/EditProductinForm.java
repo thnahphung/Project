@@ -1,6 +1,8 @@
 package controller.admins;
 
+import bean.Category;
 import bean.User;
+import services.CaterogyService;
 import services.ProductService;
 
 import javax.servlet.*;
@@ -23,8 +25,8 @@ public class EditProductinForm extends HttpServlet {
         String imgSrc = "";
         String detail = request.getParameter("detail");
         String decription = request.getParameter("decription");
-        ProductService.getInstance().editProductDetail(id, decription, detail, inventory, stt, uer.getId());
-        ProductService.getInstance().editProduct(id, name,price,priceReal,group,imgSrc);
+        Category category = CaterogyService.getInstance().getCategoryById(group);
+        ProductService.getInstance().editProduct(id, name,category,decription,detail,uer,stt);
         response.sendRedirect("/ProductManager");
     }
 
