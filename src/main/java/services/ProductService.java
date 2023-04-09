@@ -45,14 +45,10 @@ public class ProductService {
         return JDBIConnector.get().withHandle(handle -> {
             List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.status not like 1").mapToBean(Product.class).stream().collect(Collectors.toList());
             for (Product product : list) {
-                ProductService.getInstance()
-
-                ProductDetail productDetail = handle.createQuery("SELECT product_detail_id,decription,detail,inventory,create_date,update_date,stt,quantity_sold,user_id FROM product_detail where product_detail_id = ?").bind(0, product.getProductId()).mapToBean(ProductDetail.class).stream().collect(Collectors.toList()).get(0);
-                product.setProductDetail(productDetail);
-                Category category = handle.createQuery("SELECT category_id,pa_category_id,name FROM category WHERE category_id=?").bind(0, product.getCategoryId()).mapToBean(Category.class).collect(Collectors.toList()).get(0);
-                product.setCategory(category);
-                PaCategory paCategory = handle.createQuery("SELECT pa_category_id,name FROM category WHERE category_id=?").bind(0, product.getCategory().getPaCategoryId()).mapToBean(PaCategory.class).collect(Collectors.toList()).get(0);
-                product.getCategory().setPaCategory(paCategory);
+                product.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(product.getId()));
+                product.setListImage(ImageService.getInstance().getListImageByProductId(product.getId()));
+                product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
+                product.setUserAdd(UserService.getInstance().getUserAddProductByProductId(product.getId()));
             }
             return list;
         });
@@ -60,9 +56,11 @@ public class ProductService {
 
     public Product getProductById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            Product product = handle.createQuery("select product_id, category_id, product_name, price, price_real, image_src, rate from product where product_id " + "=" + id).mapToBean(Product.class).one();
-            product.setCategory(CaterogyService.getInstance().getCategoryById(product.getCategoryId()));
-            product.setProductDetail(ProductDetailService.getInstance().getById(id));
+            Product product = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.id" + "=" + id).mapToBean(Product.class).one();
+            product.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(product.getId()));
+            product.setListImage(ImageService.getInstance().getListImageByProductId(product.getId()));
+            product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
+            product.setUserAdd(UserService.getInstance().getUserAddProductByProductId(product.getId()));
             return product;
         });
     }
@@ -118,7 +116,7 @@ public class ProductService {
 
     }
 
-    public
+
 
     // -------------------- Loc san pham theo nhom --------------------------------
     public List<Product> getListProductInGroupName(int kind, String group) {

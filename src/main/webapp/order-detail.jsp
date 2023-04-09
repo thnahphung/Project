@@ -75,11 +75,11 @@
                             <h3>Thông tin địa chỉ</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li><%=order.getAddress().getName()%>
+                                    <li><%=order.getInformation().getName()%>
                                     </li>
-                                    <li><%=order.getAddress().getPhoneNumber()%>
+                                    <li><%=order.getInformation().getPhone()%>
                                     </li>
-                                    <li><%=order.getAddress().getAddressDetail().getDetail() + ", " + order.getAddress().getAddressDetail().getDistrict() + ", " + order.getAddress().getAddressDetail().getCity()%>
+                                    <li><%=order.getInformation().getAddress().getDetail() + ", " + order.getInformation().getAddress().getDistrict() + ", " + order.getInformation().getAddress().getCity()%>
                                     </li>
                                 </ul>
 

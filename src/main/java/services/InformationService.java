@@ -87,5 +87,13 @@ public class InformationService {
                     .execute();
         });
     }
+    public Information getInformationByOrderId(int id){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select i.id, i.name, i.phone, i.status from information i join order o on i.id = o.information_id where o.id =?")
+                    .bind(0, id)
+                    .mapToBean(Information.class)
+                    .one();
+        });
+    }
 }
 
