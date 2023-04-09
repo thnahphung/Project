@@ -1,6 +1,8 @@
 package controller;
 
 import bean.Banner;
+import bean.Category;
+import bean.Product;
 import services.BannerService;
 import services.CaterogyService;
 import services.ProductService;
@@ -23,7 +25,7 @@ public class Searches extends HttpServlet {
         int size = ProductService.getInstance().getCountProduct(kind, group) / 15;
         int count = ProductService.getInstance().getCountProduct(kind, group) % 15 > 0 ? size + 1 : size;
         List<Product> list = ProductService.getInstance().getListProductInSearch(search);// danh sach san pham theo trang
-        List<Banner> listBanner = BannerService.getInstance().getListBanner();
+//        List<Banner> listBanner = BannerService.getInstance().getListBanner();
 //        List<Product> listSearch = ProductService.getInstance().getListProductInSearch(search);
 
         request.setAttribute("list", list);
@@ -32,7 +34,7 @@ public class Searches extends HttpServlet {
         request.setAttribute("sort", sort);
         request.setAttribute("count", count);
         request.setAttribute("group", group);
-        request.setAttribute("listBanner",listBanner);
+//        request.setAttribute("listBanner",listBanner);
 //        request.setAttribute("txName", search);
         List<Category> categories = CaterogyService.getInstance().getListCategory(kind);
         request.setAttribute("categories", categories);
