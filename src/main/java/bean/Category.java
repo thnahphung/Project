@@ -15,10 +15,13 @@ import java.util.stream.Collectors;
 public class Category implements Serializable {
     private int id;
    private String name;
-   private int paCategory;
+   private Category paCategory;
    private  int status;
 
-    public Category(int id, String name, int paCategory, int status) {
+    public Category() {
+    }
+
+    public Category(int id, String name, Category paCategory, int status) {
         this.id = id;
         this.name = name;
         this.paCategory = paCategory;
@@ -41,11 +44,11 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public int getPaCategory() {
+    public Category getPaCategory() {
         return paCategory;
     }
 
-    public void setPaCategory(int paCategory) {
+    public void setPaCategory(Category paCategory) {
         this.paCategory = paCategory;
     }
 
