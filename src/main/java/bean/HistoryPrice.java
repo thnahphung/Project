@@ -10,6 +10,9 @@ public class HistoryPrice implements Serializable {
     private LocalDateTime createDate;
     private int status;
 
+    public HistoryPrice() {
+    }
+
     public HistoryPrice(int id, int price, int priceSale, LocalDateTime createDate, int status) {
         this.id = id;
         this.price = price;

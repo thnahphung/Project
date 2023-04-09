@@ -14,6 +14,9 @@ public class Discount implements Serializable {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    public Discount() {
+    }
+
     public Discount(int id, String code, int value, int condition, int quantity, List<Product> listProduct, LocalDateTime startDate, LocalDateTime endDate) {
         this.id = id;
         this.code = code;
