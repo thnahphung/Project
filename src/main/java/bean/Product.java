@@ -123,6 +123,14 @@ public class Product implements Serializable {
         this.status = status;
     }
 
+    public int getPrice() {
+        return listHistoryPrice.get(0).getPrice();
+    }
+
+    public int getPriceSale() {
+        return listHistoryPrice.get(0).getPriceSale();
+    }
+
     @Override
     public String toString() {
         return "Product{" +

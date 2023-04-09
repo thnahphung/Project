@@ -23,7 +23,14 @@ public class PaCategoryService implements Serializable {
 
     public Category getPaCategoryById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`,pa_catrgry,status from pa_category WHERE pa_category = :id")
+            return handle.createQuery("SELECT id, `name`,pa_category,status from pa_category WHERE pa_category = :id")
+                    .bind("id", id)
+                    .mapToBean(Category.class).one();
+        });
+    }
+    public Category getPaCategoryByIdCa(int id) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT id, `name`,pa_category,status from pa_category WHERE id = :id")
                     .bind("id", id)
                     .mapToBean(Category.class).one();
         });
@@ -31,7 +38,7 @@ public class PaCategoryService implements Serializable {
 
     public List<Category> getListPaCategory() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`, pa_catrgory,status  from  pa_category where pa_category is null").mapToBean(Category.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, `name`, pa_category, status  from  pa_category where pa_category is null").mapToBean(Category.class).stream().collect(Collectors.toList());
 
         });
     }

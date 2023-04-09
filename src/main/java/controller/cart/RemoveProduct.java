@@ -1,8 +1,10 @@
 package controller.cart;
 
 import bean.Cart;
+import bean.Format;
 import bean.Product;
 import bean.User;
+import services.CartService;
 import services.ProductService;
 
 import javax.servlet.*;
@@ -17,13 +19,12 @@ public class RemoveProduct extends HttpServlet {
         int idProduct = Integer.parseInt(request.getParameter("idProduct"));
         User user = (User) request.getSession().getAttribute("auth");
         Product product = ProductService.getInstance().getProductById(idProduct);
-
         user.setListCartItem(Cart.removeItemCart(user.getListCartItem(), product));
 
-        response.getWriter().println(Format.format(cart.total()));
-        response.getWriter().println(Format.format(cart.totalReal() - cart.total()));
-        response.getWriter().println(Format.format(cart.totalReal()));
-        response.getWriter().println(cart.amount());
+        response.getWriter().println(Format.format(Cart.totalPrice(user.getListCartItem())));
+        response.getWriter().println(Format.format(Cart.totalPriceSale(user.getListCartItem())));
+        response.getWriter().println(Format.format(Cart.total(user.getListCartItem())));
+        response.getWriter().println(Cart.sumQuantity(user.getListCartItem()));
 
     }
 

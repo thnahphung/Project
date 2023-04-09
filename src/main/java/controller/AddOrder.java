@@ -27,21 +27,22 @@ public class AddOrder extends HttpServlet {
         order.setTransport(new Transport());
         order.setPaymentMethod(1);
         order.setCreateDate(LocalDateTime.now());
+        order.setListOrderItem(user.getListCartItem());
         Discount discount = DiscountService.getInstance().getDiscountByCode(voucher);
         List<Discount> discountList = new ArrayList<>();
         discountList.add(discount);
         if (discount != null) {
             order.setListDiscount(discountList);
             order.setTotal(order.total() - DiscountService.getInstance().totalDiscount(discountList));
-
         } else {
             order.setListDiscount(null);
             order.setTotal(order.total());
         }
         order.setStatusDelivery(1);
-        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.total()+" VND", user.getEmail());
-        OrderService.getInstance().cartToOrder(order);
-        request.getSession().setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getId()));
+        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.total() + " VND", user.getEmail());
+
+        user.setListCartItem(new ArrayList<>());
+        CartService.getInstance().removeAllProductByUserId(user.getId());
 
         request.getRequestDispatcher("finish-buy.jsp").forward(request, response);
 

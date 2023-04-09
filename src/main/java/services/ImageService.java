@@ -1,8 +1,10 @@
 package services;
 
+import bean.Image;
 import db.JDBIConnector;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ImageService {
     private static ImageService instance;
@@ -46,8 +48,14 @@ public class ImageService {
                     .bind("image_src", srcImage)
                     .execute();
         });
+    }
 
-
+    public List<Image> getListImageByProductId(int idProduct) {
+        return JDBIConnector.get().withHandle(
+                handle -> handle.createQuery("SELECT i.id, i.source FROM product_image pi join image i on pi.image_id = i.id where pi.product_id= :idProduct;")
+                        .bind("idProduct", idProduct)
+                        .mapToBean(Image.class).stream()
+                        .collect(Collectors.toList()));
     }
 
 }
