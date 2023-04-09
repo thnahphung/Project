@@ -138,4 +138,8 @@ public class Product implements Serializable {
                 ", status=" + status +
                 '}';
     }
+
+    public boolean equals(Product product) {
+        return this.id == product.id;
+    }
 }

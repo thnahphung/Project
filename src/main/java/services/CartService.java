@@ -23,6 +23,16 @@ public class CartService {
         return instance;
     }
 
+    public void addCartItem(int userId, LineItem lineItem) {
+        JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("INSERT INTO cart_item VALUES (:user_id, :product_id, :quantity);")
+                        .bind("user_id", userId)
+                        .bind("product_id", lineItem.getProduct().getId())
+                        .bind("quantity", lineItem.getQuantity())
+                        .execute());
+
+    }
+
     public List<LineItem> getItemCartUserId(int userId) {
         List<Integer> productIds = JDBIConnector.get().withHandle(handle -> handle.createQuery("select product_id\n" +
                         "from cart_item\n" +
@@ -44,5 +54,13 @@ public class CartService {
             result.get(i).setProduct(products.get(i));
         }
         return result;
+    }
+
+    public void removeAllProductByUserId(int userId) {
+        JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("DELETE FROM cart_item WHERE user_id = :user_id;")
+                        .bind("user_id", userId)
+                        .execute()
+        );
     }
 }

@@ -1,10 +1,16 @@
 package controller.cart;
 
+import bean.Cart;
+import bean.LineItem;
+import bean.Product;
 import bean.User;
+import services.CartService;
+import services.ProductService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import javax.sound.sampled.Line;
 import java.io.IOException;
 
 @WebServlet(name = "AddCart", value = "/cart/addCart")
@@ -21,10 +27,14 @@ public class AddCart extends HttpServlet {
 
         int amount = Integer.parseInt(request.getParameter("amount"));
 
-        Order cart = (Order) request.getSession().getAttribute("cart");
+        Product product = ProductService.getInstance().getProductById(idProduct);
 
-        cart.addProduct(idProduct, amount);
-        response.getWriter().println(cart.amount());
+        LineItem lineItem = new LineItem(product, amount);
+
+        user.getListCartItem().add(lineItem);
+        CartService.getInstance().addCartItem(user.getId(), lineItem);
+
+        response.getWriter().println(Cart.sumQuantity(user.getListCartItem()));
 
     }
 

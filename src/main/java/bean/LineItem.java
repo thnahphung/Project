@@ -13,6 +13,11 @@ public class LineItem implements Serializable {
         this.quantity = quantity;
     }
 
+    public LineItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
     public LineItem() {
 
     }
@@ -39,5 +44,9 @@ public class LineItem implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int totalPrice() {
+        return this.product.getListHistoryPrice().get(0).getPrice() * this.quantity;
     }
 }
