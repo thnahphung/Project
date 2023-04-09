@@ -3,29 +3,20 @@ package bean;
 import java.io.Serializable;
 
 public class Address implements Serializable {
-    private int id;
     private String detail;
     private String district;
 
-    private int city;
+    private String city;
 
     public Address() {
     }
 
-    public Address(int id, String detail, String district, int city) {
-        this.id = id;
+    public Address( String detail, String district, String city) {
         this.detail = detail;
         this.district = district;
         this.city = city;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getDetail() {
         return detail;
@@ -43,18 +34,17 @@ public class Address implements Serializable {
         this.district = district;
     }
 
-    public int getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(int city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
                 ", detail='" + detail + '\'' +
                 ", district='" + district + '\'' +
                 ", city=" + city +

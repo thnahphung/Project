@@ -1,5 +1,6 @@
 package controller;
 
+import bean.User;
 import services.MailService;
 import services.UserService;
 
@@ -52,14 +53,13 @@ public class SignUp extends HttpServlet {
         } else {
             request.setAttribute("error", "Đăng ký thành công, mời bạn đăng nhập!");
             User user = new User();
-            user.setId(UserService.getInstance().nextId());
             user.setName(fullName);
-            user.setPhone(phone);
             user.setEmail(email);
+            user.setPhone(phone);
             user.setPassword(UserService.getInstance().hashPassword(pass));
             user.setVarieties(0);
             UserService.getInstance().addUser(user);
-           MailService.sendMail("Đăng ký tài khoản","Bạn đã đăng ký tài khoản thành công, chào mừng đến với CRAFTS, chúc bạn có một trải nghiệm mua sắm vui vẻ!",email);
+            MailService.sendMail("Đăng ký tài khoản", "Bạn đã đăng ký tài khoản thành công, chào mừng đến với CRAFTS, chúc bạn có một trải nghiệm mua sắm vui vẻ!", email);
             request.getRequestDispatcher("sign-up.jsp").forward(request, response);
 
         }

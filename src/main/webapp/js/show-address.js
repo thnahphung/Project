@@ -73,7 +73,7 @@ $(document).ready(function () {
         })
     })
 
-
+    // SỬA ĐỊA CHỈ
     $(document).on("click", ".btn-save-address", function (e) {
         let id = $(this).val();
         let name = $("#input-edit-name" + id).val();
@@ -88,7 +88,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: "/userprofile/editAddress",
+            url: "/userprofile/editInformation",
             type: "get", //send it through get method
             data: {
                 id: id,
@@ -107,10 +107,11 @@ $(document).ready(function () {
         });
         $('#exampleEditAddress' + id).modal('toggle');
     })
+    // XÓA ĐỊA CHỈ
     $(document).on("click", ".delete-one", function (e) {
         let id = $(this).val();
         $.ajax({
-            url: "/userprofile/deleteAddress",
+            url: "/userprofile/deleteInformation",
             type: "get", //send it through get method
             data: {
                 id: id,
@@ -123,6 +124,7 @@ $(document).ready(function () {
             }
         });
     })
+    // THÊM ĐỊA CHỈ
     $('.btn-save').click(function () {
         let name = $('#input-name').val();
         let phone = $('#input-number-phone').val();
@@ -135,7 +137,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: "/userprofile/addAddress",
+            url: "/userprofile/addInformation",
             type: "get", //send it through get method
             data: {
                 name: name,
@@ -165,7 +167,7 @@ $(document).ready(function () {
     $('.btn-delete-all').click(function () {
 
         $.ajax({
-            url: "/userprofile/deleteAllAddress",
+            url: "/userprofile/deleteAllInformation",
             type: "get", //send it through get method
             data: {},
             success: function (response) {

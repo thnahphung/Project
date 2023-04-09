@@ -11,10 +11,10 @@ public class User implements Serializable {
     private String phone;
     private String password;
     private String avatar;
-    private List<Information> listInformation;
+    private List<Information> listOrderInformation;
     private List<LineItem> listCartItem;
     private List<Order> listOrder;
-    private String idThirdParty;
+    private ThirdParty idThirdParty;
     private int varieties;
     private int status;
 
@@ -23,14 +23,14 @@ public class User implements Serializable {
 
     }
 
-    public User(int id, String name, String email, String phone, String password, String avatar, List<Information> listInformation, List<LineItem> listCartItem, List<Order> listOrder, String idThirdParty, int varieties, int status) {
+    public User(int id, String name, String email, String phone, String password, String avatar, List<Information> listOrderInformation, List<LineItem> listCartItem, List<Order> listOrder, ThirdParty idThirdParty, int varieties, int status) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.avatar = avatar;
-        this.listInformation = listInformation;
+        this.listOrderInformation = listOrderInformation;
         this.listCartItem = listCartItem;
         this.listOrder = listOrder;
         this.idThirdParty = idThirdParty;
@@ -86,12 +86,12 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
-    public List<Information> getListInformation() {
-        return listInformation;
+    public List<Information> getListOrderInformation() {
+        return listOrderInformation;
     }
 
-    public void setListInformation(List<Information> listInformation) {
-        this.listInformation = listInformation;
+    public void setListOrderInformation(List<Information> listOrderInformation) {
+        this.listOrderInformation = listOrderInformation;
     }
 
     public List<LineItem> getListCartItem() {
@@ -110,11 +110,11 @@ public class User implements Serializable {
         this.listOrder = listOrder;
     }
 
-    public String getIdThirdParty() {
+    public ThirdParty getIdThirdParty() {
         return idThirdParty;
     }
 
-    public void setIdThirdParty(String idThirdParty) {
+    public void setIdThirdParty(ThirdParty idThirdParty) {
         this.idThirdParty = idThirdParty;
     }
 
@@ -153,7 +153,7 @@ public class User implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", avatar='" + avatar + '\'' +
-                ", listInformation=" + listInformation +
+                ", listInformation=" + listOrderInformation +
                 ", listCartItem=" + listCartItem +
                 ", listOrder=" + listOrder +
                 ", idThirdParty='" + idThirdParty + '\'' +

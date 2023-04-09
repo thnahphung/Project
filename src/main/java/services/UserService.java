@@ -1,5 +1,6 @@
 package services;
 
+import bean.ThirdParty;
 import bean.User;
 import db.JDBIConnector;
 
@@ -26,29 +27,35 @@ public class UserService {
 
     public List<User> getListUser() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
     }
 
     public User getUserById(int id) {
         List<User> users = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt  FROM user where user_id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
         });
         if (users.size() != 1) return null;
         return users.get(0);
     }
 
-    public User getUserById3rd(String id) {
-        List<User> users = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt  FROM user where id3rd " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
+    public User getUserById3rd(String id3rd) {
+        ThirdParty thirdParty = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id, name, value from third_party where value=?")
+                    .bind(0, id3rd)
+                    .mapToBean(ThirdParty.class)
+                    .one();
         });
-        if (users.size() != 1) return null;
-        return users.get(0);
+        User user = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT u.id, u.name, u.phone, u.email, u.avatar,u.variety, u.`status`, t.name, t.`value` FROM `user`u WHERE u.id_third_party =?").bind(0, thirdParty.getId()).mapToBean(User.class).one();
+        });
+        user.setIdThirdParty(thirdParty);
+        return user;
     }
 
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user_id, full_name, email, phone_number, pass, varieties, avatar, stt from user where email=? or phone_number=?")
+                handle.createQuery("select id,  phone, email, `password` from user where email=? or phone=?")
                         .bind(0, userName).bind(1, userName)
                         .mapToBean(User.class)
                         .stream()
@@ -56,8 +63,8 @@ public class UserService {
         );
         if (users.size() != 1) return null;
         User user = users.get(0);
-        if (!user.getPass().equals((password))
-                || !(user.getEmail().equals(userName) || user.getPhoneNumber().equals(userName))) {
+        if (!user.getPassword().equals((password))
+                || !(user.getEmail().equals(userName) || user.getPhone().equals(userName))) {
             return null;
         }
         return user;
@@ -77,7 +84,7 @@ public class UserService {
 
     public boolean checkExistEmail(String email) {
         List<String> emails = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar \n" +
+            return handle.createQuery("SELECT  email \n" +
                             "from user\n" +
                             " where email=?").bind(0, email)
                     .mapTo(String.class).stream().collect(Collectors.toList());
@@ -92,9 +99,9 @@ public class UserService {
 
     public boolean checkExistPhone(String phone) {
         List<String> phones = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar \n" +
+            return handle.createQuery("SELECT phone \n" +
                             "from user\n" +
-                            " where phone_number=?").bind(0, phone)
+                            " where phone=?").bind(0, phone)
                     .mapTo(String.class).stream().collect(Collectors.toList());
         });
         if (phones.size() != 0) {
@@ -104,11 +111,10 @@ public class UserService {
         return false;
 
     }
+
     public boolean checkExistId3rd(String id3rd) {
         List<String> id3rds = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT user_id, full_name, email, phone_number, pass, varieties, avatar,stt, id3rd \n" +
-                            "from user\n" +
-                            " where id3rd=?").bind(0, id3rd)
+            return handle.createQuery("select value from third_party where value =?").bind(0, id3rd)
                     .mapTo(String.class).stream().collect(Collectors.toList());
         });
         if (id3rds.size() != 0) {
@@ -126,21 +132,21 @@ public class UserService {
 
     public void addUser(User user) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone, :pass, :varieties, :ava,0, 0)")
-                    .bind("id", user.getUserId())
-                    .bind("name", user.getFullName())
+            return handle.createUpdate("INSERT INTO user(id, name, phone, email, password, variety, status) values (:id, :name, :phone, :email, :pass, :variety, :status)")
+                    .bind("id", user.getId())
+                    .bind("name", user.getName())
                     .bind("email", user.getEmail())
-                    .bind("phone", user.getPhoneNumber())
-                    .bind("pass", user.getPass())
-                    .bind("varieties", user.getVarieties())
-                    .bind("ava", user.getAvatar())
+                    .bind("phone", user.getPhone())
+                    .bind("pass", user.getPassword())
+                    .bind("varieties", 0)
+                    .bind("status", 0)
                     .execute();
         });
     }
 
     public void editInfor(int id, String fName, String phone, String mail) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE user SET full_name=?, email=?, phone_number=? WHERE user_id=?;")
+            return handle.createUpdate("UPDATE user SET name=?, email=?, phone=? WHERE id=?;")
                     .bind(0, fName)
                     .bind(1, mail)
                     .bind(2, phone)
@@ -151,7 +157,7 @@ public class UserService {
 
     public void changePass(String phoneEmail, String newPass) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE `user` SET pass=?  WHERE email=?;")
+            return handle.createUpdate("UPDATE `user` SET password=?  WHERE email=?;")
                     .bind(0, UserService.getInstance().hashPassword(newPass))
                     .bind(1, phoneEmail)
                     .execute();
@@ -160,7 +166,7 @@ public class UserService {
 
     public boolean checkPhoneEmail(String phoneEmail) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT COUNT(user_id)  FROM `user` WHERE phone_number = ? OR email = ?;")
+            return handle.createQuery("SELECT COUNT(id)  FROM `user` WHERE phone = ? OR email = ?;")
                     .bind(0, phoneEmail)
                     .bind(1, phoneEmail)
                     .mapTo(Integer.class)
@@ -169,15 +175,9 @@ public class UserService {
         });
     }
 
-    public int nextId() {
-        return 1 + JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT MAX(`user_id`) as numberOfUser FROM `user`").mapTo(Integer.class).one();
-        });
-    }
-
     public void editVarietiesUser(int id, int varieties) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE `user` SET varieties=? where user_id= " + id + " ;")
+            return handle.createUpdate("UPDATE `user` SET variety=? where id= " + id + " ;")
                     .bind(0, varieties)
                     .execute();
         });
@@ -185,7 +185,7 @@ public class UserService {
 
     public void editSttUser(int id, int stt) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE `user` SET stt=? where user_id= " + id + " ;")
+            return handle.createUpdate("UPDATE `user` SET status=? where id= " + id + " ;")
                     .bind(0, stt)
                     .execute();
         });
@@ -194,21 +194,25 @@ public class UserService {
 
     public void addUserLoginBy3rdParty(User user) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO user values (:id, :name, :email, :phone,:pass, :varieties, :ava,:stt, :id3rd)")
-                    .bind("id", user.getUserId())
-                    .bind("name", user.getFullName())
-                    .bind("email", user.getEmail())
-                    .bind("phone", user.getPhoneNumber())
-                    .bind("pass", user.getPass())
-                    .bind("varieties", 0)
-                    .bind("ava", user.getAvatar())
-                    .bind("stt", 0)
-                    .bind("id3rd", user.getId3rd())
+            return handle.createUpdate("insert into third_party(name, value) values ( :name, :value)")
+                    .bind("name", user.getIdThirdParty().getName())
+                    .bind("value", user.getIdThirdParty().getValue())
                     .execute();
-        });}
+        });
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("insert into `user`(name, id_third_party, variety, status) values ( :name,:id_third_party, :varieties, :stt)")
+                    .bind("name", user.getName())
+                    .bind("id_third_party", ThirdPartyService.getInstance().maxId())
+                    .bind("varieties", 0)
+                    .bind("stt", 0)
+                    .execute();
+        });
+
+    }
+
     public void editAvatar(int id, String url) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE `user` SET avatar=? where user_id= ? ;")
+            return handle.createUpdate("UPDATE `user` SET avatar=? where id= ? ;")
                     .bind(0, url)
                     .bind(1, id)
                     .execute();
@@ -216,23 +220,13 @@ public class UserService {
     }
 
 
-
     public void changeName(String name, String id3rd) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE user set full_name = :name where id3rd = :id3rd")
+            return handle.createUpdate("UPDATE user u join third_party t on u.id_third_party = t.id set u.name = :name where t.value =:value;")
                     .bind("name", name)
-                    .bind("id3rd", id3rd)
+                    .bind("value", id3rd)
                     .execute();
         });
     }
 
-    public static void main(String[] args) {
-        User user = new User();
-        user.setUserId(UserService.getInstance().nextId());
-        user.setFullName(null);
-        user.setPhoneNumber(null);
-        user.setEmail(null);
-        user.setId3rd("234");
-        System.out.println(UserService.getInstance().checkExistId3rd("234"));
-    }
 }
