@@ -1,9 +1,10 @@
 package bean;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Import {
+public class Import implements Serializable {
     private int id;
     private Vendor vendor;
     private List<LineItemImport> listLineItem;

@@ -1,6 +1,8 @@
 package bean;
 
-public class LineItem {
+import java.io.Serializable;
+
+public class LineItem implements Serializable {
     private int id;
     private Product product;
     private int quantity;

@@ -1,6 +1,6 @@
 package controller;
 
-import bean.User;
+import bean.*;
 import services.*;
 
 import javax.servlet.*;
@@ -8,6 +8,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "AddOrder", value = "/addOrder")
 public class AddOrder extends HttpServlet {
@@ -21,20 +23,22 @@ public class AddOrder extends HttpServlet {
 
         Order order = (Order) request.getSession().getAttribute("cart");
 
-        order.setAddressId(idAddress);
-        order.setTransportId(wayShip);
-        order.setPayments(payments);
-        order.setOrderDate(LocalDateTime.now());
+        order.setInformation(new Information());
+        order.setTransport(new Transport());
+        order.setPaymentMethod(1);
+        order.setCreateDate(LocalDateTime.now());
         Discount discount = DiscountService.getInstance().getDiscountByCode(voucher);
+        List<Discount> discountList = new ArrayList<>();
+        discountList.add(discount);
         if (discount != null) {
-            order.setDiscountId(DiscountService.getInstance().getDiscountByCode(voucher).getDiscountId());
-            order.setTotal(order.total() - DiscountService.getInstance().getDiscountByCode(voucher).getDiscountFee());
+            order.setListDiscount(discountList);
+            order.setTotal(order.total() - DiscountService.getInstance().totalDiscount(discountList));
 
         } else {
-            order.setDiscountId(0);
+            order.setListDiscount(null);
             order.setTotal(order.total());
         }
-        order.setSttDelivery(1);
+        order.setStatusDelivery(1);
         MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.total()+" VND", user.getEmail());
         OrderService.getInstance().cartToOrder(order);
         request.getSession().setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getId()));
