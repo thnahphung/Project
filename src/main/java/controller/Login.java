@@ -1,6 +1,8 @@
 package controller;
 
 import bean.User;
+import controller.cart.Cart;
+import services.CartService;
 import services.OrderService;
 import services.UserService;
 
@@ -40,7 +42,7 @@ public class Login extends HttpServlet {
             if(user.getStatus()==0){
                 HttpSession session = request.getSession(true);
                 session.setAttribute("auth", user);
-                session.setAttribute("cart", OrderService.getInstance().getCartByUserId(user.getId()));
+                session.setAttribute("cart", CartService.getInstance().getItemCartUserId(user.getId()));
                 response.sendRedirect("homepage");
             }else if(user.getStatus()==1){
                 request.setAttribute("error", "Tài khoản đang tạm bị khóa.");

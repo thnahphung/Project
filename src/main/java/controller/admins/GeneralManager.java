@@ -1,15 +1,9 @@
 package controller.admins;
 
-import bean.Banner;
-import services.BannerService;
-import services.CaterogyService;
-import services.PaCategoryService;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "GeneralManager", value = "/generalManager")
 public class GeneralManager extends HttpServlet {
@@ -22,7 +16,6 @@ public class GeneralManager extends HttpServlet {
 //        request.setAttribute("listBanner",bannerList);
 //        request.setAttribute("listPaCategory",paCategoryList);
 //        request.setAttribute("listCategory",categoryList);
-        System.out.println("oke");
         request.setAttribute("name", name);
         request.getRequestDispatcher("general-manager.jsp").forward(request,response);
     }

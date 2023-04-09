@@ -1,5 +1,7 @@
 package controller.listProducts;
 
+import bean.Format;
+import bean.Product;
 import services.ProductService;
 
 import javax.servlet.*;
@@ -26,7 +28,7 @@ public class Search extends HttpServlet {
                     rate.append(" <i class=\"fa fa-star  \"></i>\n");
                 }
             }
-                if (product.getPriceReal() != 0) {
+                if (product.getListHistoryPrice() != 0) {
                     priceReal.append(" <span class=\\\"price-real\\\">" + Format.format(product.getPriceReal()) + " VND</span>");
                 }
 
