@@ -1,5 +1,6 @@
 package controller.admins;
 
+import bean.Category;
 import bean.Product;
 import services.PaCategoryService;
 import services.ProductService;
@@ -16,19 +17,19 @@ public class EditProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = ProductService.getInstance().getProductById(id);
-        List<PaCategory> paCategoryList = PaCategoryService.getInstance().getListCategory();
+        List<Category> paCategoryList = PaCategoryService.getInstance().getListPaCategory();// Pa_Category_list
         String result = "";
-        for (PaCategory pa : paCategoryList) {
-            if (product.getCategory().getPaCategoryId() == pa.getPaCategoryId()) {
-                result += "<option value=\"" + pa.getPaCategoryId() + "\" selected>" + pa.getName() + "</option>\n";
+        for (Category pa : paCategoryList) {
+            if (product.getCategory().getPaCategory().getId() == pa.getPaCategory().getId()) {
+                result += "<option value=\"" + pa.getPaCategory().getId() + "\" selected>" + pa.getName() + "</option>\n";
             } else {
-                result += "<option value=\"" + pa.getPaCategoryId() + "\">" + pa.getName() + "</option>\n";
+                result += "<option value=\"" + pa.getPaCategory().getId() + "\">" + pa.getName() + "</option>\n";
             }
         }
         List<String> images = ProductService.getInstance().getImageOfProductById(id);
         int index = 1;
         String htmlImg = "<div class=\"col-4 item" + index + "\">\n" +
-                "                                            <img class=\"img-load image-item\" " + index + "\" src=\"" + product.getImageSrc() + "\" alt=\"\">\n" +
+                "                                            <img class=\"img-load image-item\" " + index + "\" src=\"" +// TODO: 4/9/2023   product.getListImage().get(0) + "\" alt=\"\">\n" +
                 "                                            <button class=\"remove-img\" value=\"" + index + "\">X</button>\n" +
                 "                                       </div>";
         for (String src : images) {
@@ -42,15 +43,15 @@ public class EditProduct extends HttpServlet {
         response.getWriter().println("<form class=\"form-add-address\" action=\"/editProductinForm\">\n" +
                 "                    <div class=\"name\">\n" +
                 "                        <label>Tên sản phẩm</label>\n" +
-                "                        <input class=\"input\" type=\"text\" name=\"name\" id=\"edit-name\" value=\"" + product.getProductName() + "\"></div>\n" +
+                "                        <input class=\"input\" type=\"text\" name=\"name\" id=\"edit-name\" value=\"" + product.getName() + "\"></div>\n" +
                 "                    <div class=\"price\">\n" +
                 "                        <label>Giá sản phẩm</label>\n" +
                 "                        <input class=\"input\" type=\"number\" min=\"0\" name=\"price\" id=\"edit-price\"\n" +
-                "                               value=\"" + product.getPrice() + "\"></div>\n" +
+                "                               value=\"" + product.getListHistoryPrice().get(0).getPrice() + "\"></div>\n" +
                 "                    <div class=\"priceReal\">\n" +
                 "                        <label>Giá khuyến mãi</label>\n" +
                 "                        <input class=\"input\" type=\"number\" min=\"0\" name=\"priceReal\" id=\"edit-priceReal\"\n" +
-                "                               value=\"" + product.getPriceReal() + "\"></div>\n" +
+                "                               value=\"" + product.getListHistoryPrice().get(0).getPriceSale() + "\"></div>\n" +
                 "                    <div class=\"type\">\n" +
                 "                        <label>Loại sản phẩm</label>\n" +
                 "                        <select class=\"input\" name=\"pa_category\" id=\"edit-pa_category\" >\n" +
@@ -60,18 +61,18 @@ public class EditProduct extends HttpServlet {
                 "                    <div class=\"group\">\n" +
                 "                        <label>Nhóm sản phẩm</label>\n" +
                 "                        <select class=\"input category\" name=\"category\" id=\"edit-category\">\n" +
-                "                           <option value=\"" + product.getCategory().getCategoryId() + "\">" + product.getCategory().getName() + "</option>" +
+                "                           <option value=\"" + product.getCategory().getId() + "\">" + product.getCategory().getName() + "</option>" +
                 "                        </select>\n" +
                 "                    </div>\n" +
                 "                    <div class=\"inventory\">\n" +
                 "                        <label>Số lượng</label>\n" +
                 "                        <input class=\"input\" type=\"number\" min=\"0\" name=\"inventory\" id=\"edit-inventory\"\n" +
-                "                               value=\"" + product.getProductDetail().getInventory() + "\">\n" +
+                "                               value=\"" + // TODO: 4/9/2023   product.getInventory() + "\">\n" +
                 "                    </div>\n" +
                 "                    <div class=\"stt\">\n" +
-                "                        <label>Số lượng</label>\n" +
+                "                        <label>Trạng thái</label>\n" +
                 "                        <input class=\"input\" type=\"number\" min=\"0\" name=\"stt\" id=\"edit-stt\"\n" +
-                "                               value=\"" + product.getProductDetail().getStt() + "\">\n" +
+                "                               value=\"" +// TODO: 4/9/2023   product.getProductDetail().getStt() + "\">\n" +
                 "                    </div>\n" +
                 "                    <div class=\"images\">\n" +
                 "                        <form action=\"/admins/uploadImageProduct\" method=\"post\" class=\"upload\" enctype=\"multipart/form-data\">\n" +
@@ -85,14 +86,14 @@ public class EditProduct extends HttpServlet {
                 "                    </div>\n" +
                 "                    <div class=\"detail\">\n" +
                 "                        <label>Thông số sản phẩm</label>\n" +
-                "                        <textarea class=\"input\" name=\"detail\" id=\"edit-detail\">" + product.getProductDetail().getDetail() + "</textarea></div>\n" +
+                "                        <textarea class=\"input\" name=\"detail\" id=\"edit-detail\">" + product.getDetail() + "</textarea></div>\n" +
                 "                    <div class=\"decription\">\n" +
                 "                        <label>Mô tả sản phẩm</label>\n" +
-                "                        <textarea class=\"input\" name=\"decription\" id=\"edit-decription\">" + product.getProductDetail().getDecription() + "</textarea></div>\n" +
+                "                        <textarea class=\"input\" name=\"decription\" id=\"edit-decription\">" + product.getDescription() + "</textarea></div>\n" +
                 "                    <div class=\"modal-footer\">\n" +
                 "                    <div class=\"updateDate\">\n" +
                 "                        <label>Mô tả sản phẩm</label>\n" +
-                "                        <p class=\"input\" name=\"update\" id=\"edit-updateDate\">" + product.getProductDetail().getCreateDate() + "</p></div>\n" +
+                "                        <p class=\"input\" name=\"update\" id=\"edit-updateDate\">" + product.getListHistoryPrice().get(0).getCreateDate() + "</p></div>\n" +
                 "                    <div class=\"modal-footer\">\n" +
                 "                        <button type=\"button\" class=\"button button-close submit\" data-dismiss=\"modal\">Hủy</button>\n" +
                 "                        <button type=\"button\" class=\"button button-save submit\" id=\"editProduct\"\n" +
