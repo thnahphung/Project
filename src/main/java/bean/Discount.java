@@ -92,6 +92,15 @@ public class Discount implements Serializable {
         this.endDate = endDate;
     }
 
+    public boolean checkTime() {
+        return endDate.isBefore(LocalDateTime.now());
+    }
+
+    public boolean checkQuantity() {
+        return quantity > 0;
+    }
+
+
     @Override
     public String toString() {
         return "Discount{" +
@@ -104,5 +113,16 @@ public class Discount implements Serializable {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';
+    }
+
+
+    public boolean checkListProductAccept(List<LineItem> listCartItem) {
+        for (Product product : listProduct) {
+            for (LineItem lineItem : listCartItem) {
+                if (product.equals(lineItem.getProduct()))
+                    return true;
+            }
+        }
+        return false;
     }
 }

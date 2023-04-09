@@ -4,6 +4,7 @@ import bean.Discount;
 import db.JDBIConnector;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscountService implements Serializable {
@@ -48,7 +49,15 @@ public class DiscountService implements Serializable {
         });
     }
 
-    public int totalDiscount(List<Discount> discountList){
+    public List<Discount> getListDiscountByListCode(List<String> listCode) {
+        List<Discount> list = new ArrayList<>();
+        for (String code : listCode) {
+            list.add(getDiscountByCode(code));
+        }
+        return list;
+    }
+
+    public int totalDiscount(List<Discount> discountList) {
         return 0;
     }
 }

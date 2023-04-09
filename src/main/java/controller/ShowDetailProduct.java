@@ -1,5 +1,7 @@
 package controller;
 
+import bean.Product;
+import bean.Review;
 import services.CommentService;
 import services.ProductService;
 
@@ -21,13 +23,13 @@ public class ShowDetailProduct extends HttpServlet {
         List<String> listImg = ProductService.getInstance().getImageOfProductById(id);
         request.setAttribute("listImg", listImg);
 
-        List<Comment> listCmt = CommentService.getInstance().getCommentByPage(id, 1);
+        List<Review> listCmt = ReviewService.getInstance().getReviewByPage(id, 1);
         request.setAttribute("listCmt", listCmt);
 
         int countPage = CommentService.getInstance().getCountPageById(id);
         request.setAttribute("countPage", countPage);
 
-        List<Product> listSameProduct = ProductService.getInstance().getListSameProduct(product.getCategory().getPaCategoryId());
+        List<Product> listSameProduct = ProductService.getInstance().getListSameProduct(product.getCategory().getPaCategory().getId());
         request.setAttribute("listSameProduct", listSameProduct);
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
