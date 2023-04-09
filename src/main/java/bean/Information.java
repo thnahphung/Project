@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Information implements Serializable {
     private int id;
     private String name;
-    private String email;
     private String phone;
     private Address address;
     private int status;
@@ -13,10 +12,9 @@ public class Information implements Serializable {
     public Information() {
     }
 
-    public Information(int id, String name, String email, String phone, Address address, int status) {
+    public Information(int id, String name, String phone, Address address, int status) {
         this.id = id;
         this.name = name;
-        this.email = email;
         this.phone = phone;
         this.address = address;
         this.status = status;
@@ -38,13 +36,6 @@ public class Information implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPhone() {
         return phone;
@@ -75,7 +66,6 @@ public class Information implements Serializable {
         return "Information{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address=" + address +
                 ", status=" + status +

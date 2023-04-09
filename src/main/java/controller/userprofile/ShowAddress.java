@@ -1,8 +1,10 @@
 package controller.userprofile;
 
 import bean.Address;
+import bean.Information;
 import bean.User;
 import services.AddressService;
+import services.InformationService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,9 +18,9 @@ public class ShowAddress extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        List<Address> addressList = AddressService.getInstance().getListAddressExistOfUser(user.getId());
+        List<Information> informationList = InformationService.getInstance().getListInformationByUserId(user.getId());
 
-        request.setAttribute("addressList", addressList);
+       request.setAttribute("informationList", informationList);
 
         request.getRequestDispatcher("show-address.jsp").forward(request, response);
     }

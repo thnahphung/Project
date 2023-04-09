@@ -1,6 +1,7 @@
 package controller;
 
 import bean.Banner;
+import bean.Product;
 import services.BannerService;
 import services.CaterogyService;
 import services.ProductService;

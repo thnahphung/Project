@@ -1,5 +1,6 @@
 package controller;
 
+import bean.User;
 import services.OrderService;
 import services.UserService;
 
