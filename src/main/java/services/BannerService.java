@@ -1,5 +1,6 @@
 package services;
 
+import bean.Banner;
 import db.JDBIConnector;
 
 import java.util.List;
