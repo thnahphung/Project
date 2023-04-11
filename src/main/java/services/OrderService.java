@@ -39,11 +39,13 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderList() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orderList = handle.createQuery("select o.order_id, o.user_id, o.total, o.note, o.stt_delivery, o.stt_pay, o.order_date, o.delivery_date,o.address_id from ord o where stt_delivery not like 0;").mapToBean(Order.class).stream().collect(Collectors.toList());
+            List<Order> orderList = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from order where status_delivery=0;").mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orderList) {
-                order.setOrderDetails(OrderDetailService.getInstance().getListOrderDetailByOrderId(order.getOrderId()));
-                order.setAddress(AddressService.getInstance().getAddressByAddressId(order.getAddressId()));
-
+                order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(order.getId()));
+                order.setListDiscount(DiscountService.getInstance().getListDiscountByOrderId(order.getId()));
+                order.setUser(UserService.getInstance().getUserById(order.getUser().getId()));
+                order.setTransport(TransportService.getInstance().getTransportByOrderId(order.getId()));
+                order.setInformation(InformationService.getInstance().getInformationByOrderId(order.getId()));
             }
             return orderList;
         });
