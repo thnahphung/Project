@@ -23,7 +23,7 @@ public class ProductManager extends HttpServlet {
         }
         String name = "Quản lý sản phẩm";
         List<Product> list = ProductService.getInstance().getListProduct();
-        List<Category> listPaCategories = PaCategoryService.getInstance().getListCategory();
+        List<Category> listPaCategories = PaCategoryService.getInstance().getListPaCategory();
         List<Category> categoryList = CaterogyService.getInstance().getListCategory(1);
         int quantity = list.size();
         List<Integer> wood = ProductService.getInstance().statisticalProduct(1);

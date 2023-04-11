@@ -22,12 +22,12 @@ public class ListProduct extends HttpServlet {
         int size = ProductService.getInstance().getCountProduct(kind, group) / 15;
         int count = ProductService.getInstance().getCountProduct(kind, group) % 15 > 0 ? size + 1 : size;
         List<Product> list = ProductService.getInstance().getListProductInPageName(kind, group,page);// danh sach san pham theo trang
-        List<Banner> listbanner = BannerService.getInstance().getListBannerInPage("product");
+//        List<Banner> listbanner = BannerService.getInstance().getListBannerInPage("product");
         request.setAttribute("list", list);
         request.setAttribute("kind", kind);
         request.setAttribute("group", group);
         request.setAttribute("count", count);
-        request.setAttribute("listBanner",listbanner);
+//        request.setAttribute("listBanner",listbanner);
         List<Category> categories = CaterogyService.getInstance().getListCategory(kind);
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("list-product.jsp").forward(request, response);

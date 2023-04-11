@@ -78,4 +78,5 @@ public class PaCategoryService implements Serializable {
         System.out.println(getInstance().nextId());;
     }
 
+
 }
