@@ -1,12 +1,14 @@
 package controller.userprofile;
 
 import bean.*;
+import services.HistoryPriceService;
 import services.OrderService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +21,13 @@ public class ShowOrderDetail extends HttpServlet {
         Order order = OrderService.getInstance().getOrderByOrderId(orderId);
         request.setAttribute("order", order);
 
-        List<HistoryProduct> historyProducts = new ArrayList<>();
-        for (OrderDetail orderDetail : order.getOrderDetails()) {
-            historyProducts.add(HistoryProductService.getInstance().getHistoryProductAtTheTime(orderDetail.getProductId(), order.getOrderDate()));
+        List<HistoryPrice> listPrice = new ArrayList<>();
+
+        for(LineItem lineItem: order.getListOrderItem()){
+            listPrice.add(HistoryPriceService.getInstance().getPriceOfProductAtTime(lineItem.getProduct().getId(), order.getCreateDate()));
         }
-        request.setAttribute("historyProducts", historyProducts);
+
+        request.setAttribute("listPrice", listPrice);
 
         request.getRequestDispatcher("order-detail.jsp").forward(request, response);
     }

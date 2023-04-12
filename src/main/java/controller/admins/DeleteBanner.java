@@ -10,7 +10,7 @@ public class DeleteBanner extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        BannerService.getInstance().deleteBannerById(id);
+//        BannerService.getInstance().deleteBannerById(id);
     }
 
     @Override
