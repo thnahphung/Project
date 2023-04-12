@@ -14,10 +14,10 @@ public class ContactManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = "Quản lý phản hồi";
-        List<Contact> listContact = ContactService.getInstance().getListContact();
-        request.setAttribute("name", name);
-        request.setAttribute("listContact", listContact);
-        request.getRequestDispatcher("contact-manager.jsp").forward(request,response);
+//        List<Contact> listContact = ContactService.getInstance().getListContact();
+//        request.setAttribute("name", name);
+//        request.setAttribute("listContact", listContact);
+//        request.getRequestDispatcher("contact-manager.jsp").forward(request,response);
     }
 
     @Override
