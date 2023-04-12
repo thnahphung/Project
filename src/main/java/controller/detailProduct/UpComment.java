@@ -20,7 +20,6 @@ public class UpComment extends HttpServlet {
         String text = request.getParameter("text");
         int idProduct = Integer.parseInt(request.getParameter("idProduct"));
         int rate = Integer.parseInt(request.getParameter("rate"));
-        int id = CommentService.getInstance().nextId();
         LocalDateTime now = LocalDateTime.now();
 
 
@@ -56,7 +55,7 @@ public class UpComment extends HttpServlet {
                 "\n" +
                 "                    </li>");
 
-        Review review = new Review(id, text, rate, user, ProductService.getInstance().getProductById(idProduct), now, 0);
+        Review review = new Review(text, rate, user, ProductService.getInstance().getProductById(idProduct), now, 0);
         ReviewService.getInstance().addReview(review);
     }
 
