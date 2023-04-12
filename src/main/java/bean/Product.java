@@ -131,6 +131,10 @@ public class Product implements Serializable {
         return listHistoryPrice.get(0).getPriceSale();
     }
 
+    public Image getMainImage() {
+        return listImage.get(0);
+    }
+
     @Override
     public String toString() {
         return "Product{" +

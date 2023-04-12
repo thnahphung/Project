@@ -24,7 +24,14 @@ public class Review implements Serializable {
         this.createDate = createDate;
         this.status = status;
     }
-
+    public Review(String comment, int rate, User user, Product product, LocalDateTime createDate, int status) {
+        this.comment = comment;
+        this.rate = rate;
+        this.user = user;
+        this.product = product;
+        this.createDate = createDate;
+        this.status = status;
+    }
     public int getId() {
         return id;
     }
