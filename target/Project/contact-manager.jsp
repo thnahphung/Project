@@ -38,31 +38,31 @@
             </tr>
             </thead>
             <tbody>
-            <%
-                List<Contact> list = (List<Contact>) request.getAttribute("listContact");
-                for (Contact c : list) {
-            %>
-            <tr class="contactS<%=c.getId()%>">
-                <td>
-                    <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><%=c.getName()%>
-                            </h6>
-                        </div>
-                    </div>
-                </td>
+<%--            <%--%>
+<%--                List<Contact> list = (List<Contact>) request.getAttribute("listContact");--%>
+<%--                for (Contact c : list) {--%>
+<%--            %>--%>
+<%--            <tr class="contactS<%=c.getId()%>">--%>
+<%--                <td>--%>
+<%--                    <div class="d-flex px-2 py-1">--%>
+<%--                        <div class="d-flex flex-column justify-content-center">--%>
+<%--                            <h6 class="mb-0 text-sm"><%=c.getName()%>--%>
+<%--                            </h6>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </td>--%>
 
 
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"><%=c.getContent()%></span>
-                </td>
-                <td class="align-middle">
-                    <button class="delete-contact" value="<%=c.getId()%>">
-                        Xóa
-                    </button>
-                </td>
-            </tr>
-            <%}%>
+<%--                <td class="align-middle text-center">--%>
+<%--                    <span class="text-secondary text-xs font-weight-bold"><%=c.getContent()%></span>--%>
+<%--                </td>--%>
+<%--                <td class="align-middle">--%>
+<%--                    <button class="delete-contact" value="<%=c.getId()%>">--%>
+<%--                        Xóa--%>
+<%--                    </button>--%>
+<%--                </td>--%>
+<%--            </tr>--%>
+<%--            <%}%>--%>
 
 
             </tbody>

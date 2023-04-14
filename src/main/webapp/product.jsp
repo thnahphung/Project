@@ -34,8 +34,9 @@
             <span><a href="/homepage">Trang chủ</a></span><span>|</span>
             <span><a
                     href="http://localhost:8080/listProduct?kind=0"><%=product.getCategory().getPaCategory().getName()%></a></span><span>|</span>
-            <span><a href="http://localhost:8080/listProduct?kind=0"><%=product.getCategory().getName()%></a></span><span>|</span>
-            <span><a href="#"><%=product.getProductName()%></a></span>
+            <span><a
+                    href="http://localhost:8080/listProduct?kind=0"><%=product.getCategory().getName()%></a></span><span>|</span>
+            <span><a href="#"><%=product.getName()%></a></span>
         </div>
     </div>
 
@@ -45,28 +46,27 @@
     <div class="row">
         <div class="col-sm left">
             <div class="slider-show-img">
-                <%List<String> listImg = (List<String>) request.getAttribute("listImg");%>
-                <div><img src="<%=product.getImageSrc()%>" alt=""></div>
-                <%for (String url : listImg) {%>
-                <div><img src="<%=url%>" alt=""></div>
+                <%List<Image> listImg = product.getListImage();%>
+                <%for (Image image : listImg) {%>
+                <div><img src="<%=image.getSource()%>" alt=""></div>
                 <%}%>
             </div>
             <div class="slider-img">
-                <div class="image"><img src="<%=product.getImageSrc()%>" alt=""></div>
-                <%for (String url : listImg) {%>
-                <div class="image"><img src="<%=url%>" alt=""></div>
+                <%for (Image image : listImg) {%>
+                <div class="image"><img src="<%=image.getSource()%>" alt=""></div>
                 <%}%>
             </div>
         </div>
         <div class="col-sm right">
             <div class="top bd-bottom">
-                <h3 class="name-product uppercase"><%=product.getProductName()%>
+                <h3 class="name-product uppercase"><%=product.getName()%>
                 </h3>
                 <div class="cost">
-
+                    <%if (product.getPriceSale() != 0) {%>
                     <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>
-                    <%if (product.getPriceReal() != 0) {%>
-                    <span class="sale uppercase"><%=Format.format(product.getPriceReal())%> VND</span>
+                    <span class="sale uppercase"><%=Format.format(product.getPriceSale())%> VND</span>
+                    <%} else {%>
+                    <span class="sale uppercase"><%=Format.format(product.getPrice())%> VND</span>
                     <%}%>
                 </div>
                 <div class="ratting">
@@ -87,7 +87,7 @@
                 <h5 class="text uppercase">số lượng</h5>
                 <input type="number" id="quantity" class="input" name="quantity" min="1" max="20" placeholder=" "
                        value="1">
-                <button class="btn-add-cart uppercase submit" value="<%=product.getProductId()%>">thêm vào giỏ hàng
+                <button class="btn-add-cart uppercase submit" value="<%=product.getId()%>">thêm vào giỏ hàng
                 </button>
                 <button class="btn-buy uppercase submit">thanh toán</button>
             </div>
@@ -165,7 +165,7 @@
 
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <p class="card-body">
-                            <%=product.getProductDetail().getDetail()%>
+                            <%=product.getDetail()%>
                         </p>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <p class="card-body">
-                            <%=product.getProductDetail().getDecription()%>
+                            <%=product.getDescription()%>
                         </p>
                     </div>
                 </div>
@@ -214,15 +214,15 @@
         <div class="product">
             <div class="thumbnail">
                 <div class="cont-item ">
-                    <a href="http://localhost:8080/detail-product?id=<%=productItem.getProductId()%>"><img
-                            src="<%=productItem.getImageSrc()%>"
+                    <a href="http://localhost:8080/detail-product?id=<%=productItem.getId()%>"><img
+                            src="<%=productItem.getMainImage().getSource()%>"
                             alt="">
                     </a>
                 </div>
 
                 <div class="caption">
                     <h3>
-                        <a href="http://localhost:8080/detail-product?id=<%=productItem.getProductId()%>"><%=productItem.getProductName()%>
+                        <a href="http://localhost:8080/detail-product?id=<%=productItem.getId()%>"><%=productItem.getName()%>
                         </a></h3>
                     <div class="ratting">
                         <% count = productItem.getRate();
@@ -238,10 +238,17 @@
                         <%}%>
                     </div>
                     <h3 class="price">
-                        <%=Format.format(productItem.getPrice())%> VND
-                        <%if (productItem.getPriceReal() != 0) {%>
-                        <span class="price-real"><%=Format.format(productItem.getPriceReal())%> VND</span>
+                        <%if (product.getPriceSale() != 0) {%>
+                        <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>
+                        <span class="sale uppercase"><%=Format.format(product.getPriceSale())%> VND</span>
+                        <%} else {%>
+                        <span class="sale uppercase"><%=Format.format(product.getPrice())%> VND</span>
                         <%}%>
+
+<%--                        <%=Format.format(productItem.getPrice())%> VND--%>
+<%--                        <%if (productItem.getPriceReal() != 0) {%>--%>
+<%--                        <span class="price-real"><%=Format.format(productItem.getPriceReal())%> VND</span>--%>
+<%--                        <%}%>--%>
                     </h3>
                 </div>
             </div>

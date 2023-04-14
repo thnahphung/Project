@@ -40,19 +40,19 @@
 
 
         <% User user = (User) session.getAttribute("auth");
-            Order cart = (Order) session.getAttribute("cart");%>
+            List<LineItem> cartItems = user.getListCartItem();%>
         <a href="/cart" class="item-right"><i
                 class="fa-solid fa-cart-shopping"></i>
-            <%if (cart != null) {%>
-            <p>Giỏ hàng (<span class="amount-product"><%=cart.amount()%></span>)</p>
-            <%} else {%>
-            <p>Giỏ hàng (<span class="amount-product">0</span>)</p>
-            <%}%>
+            <%--            <%if (cartItems != null) {%>--%>
+            <p>Giỏ hàng (<span class="amount-product"><%=Cart.sumQuantity(cartItems)%></span>)</p>
+            <%--            <%}--%>
+            <%--            else {%>--%>
+            <%--            <p>Giỏ hàng (<span class="amount-product">0</span>)</p>--%>
+            <%--            <%}%>--%>
         </a>
-         <%   if (user != null) {%>
+        <% if (user != null) {%>
         <a href="/userProfile" class="item-right">
             <img src="<%=user.getAvatar()%>" alt="">
-
         </a>
         <%} else {%>
         <a href="http://localhost:8080/doLogin" class="item-right">

@@ -25,7 +25,7 @@
 <body>
 <%
     Order order = (Order) request.getAttribute("order");
-    List<HistoryProduct> historyProducts = (List<HistoryProduct>) request.getAttribute("historyProducts");
+    List<HistoryPrice> listPrice = (List<HistoryPrice>) request.getAttribute("listPrice");
     int total = 0;
 %>
 
@@ -99,22 +99,22 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                    List<OrderDetail> orderDetails = order.getOrderDetails();
-                                    for (int i = 0; i < orderDetails.size(); i++) {
+                                    List<LineItem> orderItems = order.getListOrderItem();
+                                    for (int i = 0; i < orderItems.size(); i++) {
                                 %>
                                 <tr>
-                                    <th scope="row"><%=orderDetails.get(i).getProduct().getProductName()%>
+                                    <th scope="row"><%=orderItems.get(i).getProduct().getName()%>
                                     </th>
-                                    <td><%=Format.format(historyProducts.get(i).getPrice())%>
+                                    <td><%=Format.format(listPrice.get(i).getPrice())%>
                                         VND
                                     </td>
-                                    <td><%=orderDetails.get(i).getQuantity()%>
+                                    <td><%=orderItems.get(i).getQuantity()%>
                                     </td>
 
-                                    <td><%=Format.format(historyProducts.get(i).getPrice() * orderDetails.get(i).getQuantity())%>
+                                    <td><%=Format.format(listPrice.get(i).getPrice() * orderItems.get(i).getQuantity())%>
                                         VND
                                     </td>
-                                    <%total += historyProducts.get(i).getPrice() * orderDetails.get(i).getQuantity();%>
+                                    <%total += listPrice.get(i).getPrice() * orderItems.get(i).getQuantity();%>
                                 </tr>
                                 <%}%>
 
@@ -129,18 +129,23 @@
                                 </tr>
                                 <tr>
                                     <td><%=Format.format(total)%> VND</td>
-                                    <td>+ <%=Format.format(order.getTransportId())%> VND</td>
-                                    <%if(order.getDiscountId() ==0){%>
+                                    <td>+ <%=Format.format(order.getTransport().getFee())%> VND</td>
+                                    <%if (order.getListDiscount().size() == 0) {%>
                                     <td>- 0 VND</td>
-                                    <td><%=Format.format(total + order.getTransport().getTransportFee()) %>
+                                    <td><%=Format.format(total + order.getTransport().getFee()) %>
                                         VND
                                     </td>
-                                    <%} else{%>
-                                    <td>- <%=Format.format(order.getDiscount().getDiscountFee())%> VND</td>
-                                    <td><%=Format.format(total + order.getTransport().getTransportFee() - order.getDiscount().getDiscountFee()) %>
+                                    <%
+                                    } else {
+                                    %>
+                                    <td>- <%=Format.format(order.getListDiscount().get(0).getValue())%> VND</td>
+                                    <td><%=Format.format(total + order.getTransport().getFee() - order.getListDiscount().get(0).getValue()) %>
                                         VND
                                     </td>
-                                    <%}%>
+                                    <%
+
+                                        }
+                                    %>
                                 </tr>
                             </table>
                         </div>
@@ -154,7 +159,7 @@
                                 <div class="contain-address bd-bottom">
                                     <div class="contain-address left">
                                         <p>
-                                            <label><span class="name"><%=order.getAddress().getName()%></span> <span
+                                            <label><span class="name"><%=order.getInformation().getName()%></span> <span
                                                     class="phone-number">0123456789</span></label>
                                         </p>
                                         <div class="address">
