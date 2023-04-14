@@ -79,12 +79,15 @@ public class CaterogyService {
                     .bind(0, id).execute();
         });
     }
+
     public Category getCategoryByProductId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select c.id, c.name, c.pa_category, c.`status` from category c join product p on c.id = p.category_id WHERE p.id = ?")
+            Category c = handle.createQuery("select c.id, c.name,  c.`status` from category c join product p on c.id = p.category_id WHERE p.id = ?")
                     .bind(0, id)
                     .mapToBean(Category.class)
                     .one();
+            c.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(c.getId()));
+            return c;
         });
     }
 }
