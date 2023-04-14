@@ -50,7 +50,7 @@ public class HistoryPriceService {
 
     public List<HistoryPrice> getListHistoryPriceByProductId(int productId) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price WHERE product_id = ?")
+            return handle.createQuery("select id, price, price_sale, product_id, create_date from history_price WHERE product_id = ?")
                     .bind(0, productId)
                     .mapToBean(HistoryPrice.class)
                     .stream().collect(Collectors.toList());

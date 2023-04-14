@@ -218,7 +218,7 @@
                     <div class="cont-item ">
 
                         <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>&page=1"><img
-                                src="<%=product.getImageSrc()%>"></a>
+                                src="<%=product.getListImage().get(0)%>"></a>
                     </div>
 
                     <div class="caption">

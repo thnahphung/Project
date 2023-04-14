@@ -30,7 +30,7 @@ public class PaCategoryService implements Serializable {
     }
     public Category getPaCategoryByIdCa(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`,pa_category,status from pa_category WHERE id = :id")
+            return handle.createQuery("SELECT id, `name`,status from category WHERE id = :id")
                     .bind("id", id)
                     .mapToBean(Category.class).one();
         });
