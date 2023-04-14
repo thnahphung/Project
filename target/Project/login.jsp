@@ -115,6 +115,7 @@
                 'Thanks for logging in, ' + response.name +response.email+ '!';
         });
     }
+
     function onSignIn(googleUser){
         var profile = googleUser.getBasicProfile();
         console.log(profile.getId());

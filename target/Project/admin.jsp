@@ -118,25 +118,25 @@
                 %>
                 <tr data-toggle="modal"
                     data-target="#exampleModalCenterEdit" >
-                    <td class="order-id"><%=order.getOrderId()%>
+                    <td class="order-id"><%=order.getId()%>
                     </td>
-                    <td class="name"><%=order.getAddress().getName()%>
+                    <td class="name"><%=order.getUser().getName()%>
                     </td>
-                    <td><%=order.getAddress().getAddressDetail().getDetail()%>
-                        , <%=order.getAddress().getAddressDetail().getDistrict()%>
-                        , <%=order.getAddress().getAddressDetail().getCity()%>
+                    <td><%=order.getInformation().getAddress().getDetail()%>
+                        , <%=order.getInformation().getAddress().getDistrict()%>
+                        , <%=order.getInformation().getAddress().getCity()%>
                     </td>
-                    <td><%=order.getAddress().getPhoneNumber()%>
+                    <td><%=order.getInformation().getPhone()%>
                     </td>
-                    <td><%=order.getOrderDate()%>
+                    <td><%=order.getCreateDate()%>
                     </td>
                     <td><%=order.total()%>
                     </td>
-                    <td><%=order.getPay()   %>
+                    <td><%=order.isPayment()   %>
                     </td>
-                    <td><%=order.getDelivery()%>
+                    <td><%=order.getStatusDelivery()%>
                     </td>
-                    <td> <button class="detail-order submit" style="width: 130px" value="<%=order.getOrderId()%>">Xem chi tiết</button></td>
+                    <td> <button class="detail-order submit" style="width: 130px" value="<%=order.getId()%>">Xem chi tiết</button></td>
                 </tr>
                 <%}%>
 

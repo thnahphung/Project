@@ -38,12 +38,6 @@ public class JDBIConnector {
     }
 
 
-    public static void main(String[] args) {
-        List<User> users = JDBIConnector.get().withHandle(handle -> {
-           return handle.createQuery("select * from user").mapToBean(User.class).stream().collect(Collectors.toList());
-        });
-        System.out.println(users);
-    }
 }
 
 

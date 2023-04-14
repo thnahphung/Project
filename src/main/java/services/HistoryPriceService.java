@@ -22,6 +22,7 @@ public class HistoryPriceService {
         }
         return instance;
     }
+
     public int nextId() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("Select max('id') as maxNumber from history_price").mapTo(Integer.class).one();
@@ -40,17 +41,29 @@ public class HistoryPriceService {
                     .execute();
         });
     }
-    public List<HistoryPrice> getPriceNow(int productId){
+
+    public List<HistoryPrice> getPriceNow(int productId) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price where(product_id= "+productId+") order by create_date dest limit 1").mapToBean(HistoryPrice.class).stream().collect(Collectors.toList());
+            return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price where(product_id= " + productId + ") order by create_date desc limit 1").mapToBean(HistoryPrice.class).stream().collect(Collectors.toList());
         });
     }
-    public List<HistoryPrice> getListHistoryPriceByProductId(int productId){
+
+    public List<HistoryPrice> getListHistoryPriceByProductId(int productId) {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price WHERE product_id = ?")
                     .bind(0, productId)
                     .mapToBean(HistoryPrice.class)
                     .stream().collect(Collectors.toList());
+        });
+    }
+
+    public HistoryPrice getPriceOfProductAtTime(int productId, LocalDateTime time) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price WHERE product_id = ? and create_date <= ? order by create_date desc limit 1")
+                    .bind(0, productId)
+                    .bind(1, time)
+                    .mapToBean(HistoryPrice.class)
+                    .one();
         });
     }
 }
