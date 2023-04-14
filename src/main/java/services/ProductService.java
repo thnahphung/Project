@@ -178,7 +178,7 @@ public class ProductService {
             for(Product p: result){
                 int id = p.getId();
                 p.setListImage(ImageService.getInstance().getListImageByProductId(id));
-                p.setCategory(CaterogyService.getInstance().getCategoryByProductId(id)); 
+                p.setCategory(CaterogyService.getInstance().getCategoryByProductId(id));
                 p.setUserAdd(UserService.getInstance().getUserAddProductByProductId(id));
                 p.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(id));
             }
@@ -375,7 +375,7 @@ public class ProductService {
 
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getNewProducts().get(0).getListHistoryPrice().get(0));
+
     }
 
 
