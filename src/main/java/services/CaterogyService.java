@@ -45,10 +45,13 @@ public class CaterogyService {
 
     public List<Category> getListCategoryAll() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, pa_category, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+            List<Category> categoryList= handle.createQuery("SELECT id, name, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+            for (Category category: categoryList) {
+                category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
+            }
+            return categoryList;
         });
     }
-
     public int nextID() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT MAX(id) as numberCategory FROM `category`").mapTo(Integer.class).one();
