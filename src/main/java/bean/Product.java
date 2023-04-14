@@ -1,6 +1,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Product implements Serializable {
@@ -9,6 +10,7 @@ public class Product implements Serializable {
     private String name;
     private String description;
     private String detail;
+    private LocalDateTime createDate;
     private int rate;
     private List<HistoryPrice> listHistoryPrice;
     private List<Image> listImage;
@@ -19,11 +21,12 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(int id, String name, String description, String detail, int rate, List<HistoryPrice> listHistoryPrice, List<Image> listImage, Category category, User userAdd, int status) {
+    public Product(int id, String name, String description, String detail, LocalDateTime createDate, int rate, List<HistoryPrice> listHistoryPrice, List<Image> listImage, Category category, User userAdd, int status) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.detail = detail;
+        this.createDate = createDate;
         this.rate = rate;
         this.listHistoryPrice = listHistoryPrice;
         this.listImage = listImage;
@@ -73,6 +76,14 @@ public class Product implements Serializable {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
     }
 
     public int getRate() {
@@ -142,6 +153,7 @@ public class Product implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", detail='" + detail + '\'' +
+                ", createDate=" + createDate +
                 ", rate=" + rate +
                 ", listHistoryPrice=" + listHistoryPrice +
                 ", listImage=" + listImage +
