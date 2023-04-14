@@ -23,14 +23,14 @@ public class PaCategoryService implements Serializable {
 
     public Category getPaCategoryById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`,pa_category,status from pa_category WHERE pa_category = :id")
+            return handle.createQuery("SELECT id, `name`,status from category WHERE pa_category = :id")
                     .bind("id", id)
                     .mapToBean(Category.class).one();
         });
     }
     public Category getPaCategoryByIdCa(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`,pa_category,status from pa_category WHERE id = :id")
+            return handle.createQuery("SELECT id, `name`,status from category WHERE id = :id")
                     .bind("id", id)
                     .mapToBean(Category.class).one();
         });
@@ -38,7 +38,7 @@ public class PaCategoryService implements Serializable {
 
     public List<Category> getListPaCategory() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`, pa_category, status  from  pa_category where pa_category is null").mapToBean(Category.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, `name`, pa_category, status  from  category where pa_category is null").mapToBean(Category.class).stream().collect(Collectors.toList());
 
         });
     }
@@ -51,7 +51,7 @@ public class PaCategoryService implements Serializable {
 
     public void addPaCategory(String name) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO category VALUES (:id,:name, :pa_category,:status)")
+            return handle.createUpdate("INSERT INTO category VALUES (:id,:name, :category,:status)")
                     .bind("pa_category_id",nextId())
                     .bind("name", name)
                     .bind("status",0)
