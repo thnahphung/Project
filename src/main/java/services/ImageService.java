@@ -52,10 +52,13 @@ public class ImageService {
 
     public List<Image> getListImageByProductId(int idProduct) {
         return JDBIConnector.get().withHandle(
-                handle -> handle.createQuery("SELECT i.id, i.source FROM product_image pi join image i on pi.image_id = i.id where pi.product_id= :idProduct;")
-                        .bind("idProduct", idProduct)
+                handle -> handle.createQuery("SELECT i.id, i.source FROM product_image pi join image i on pi.image_id = i.id where pi.product_id= ?;")
+                        .bind(0, idProduct)
                         .mapToBean(Image.class).stream()
                         .collect(Collectors.toList()));
     }
 
+    public static void main(String[] args) {
+        System.out.println(getInstance().getListImageByProductId(2).get(0).getSource());
+    }
 }
