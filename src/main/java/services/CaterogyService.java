@@ -45,10 +45,13 @@ public class CaterogyService {
 
     public List<Category> getListCategoryAll() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, pa_category, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+            List<Category> categoryList= handle.createQuery("SELECT id, name, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+            for (Category category: categoryList) {
+                category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
+            }
+            return categoryList;
         });
     }
-
     public int nextID() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT MAX(id) as numberCategory FROM `category`").mapTo(Integer.class).one();
@@ -79,12 +82,15 @@ public class CaterogyService {
                     .bind(0, id).execute();
         });
     }
+
     public Category getCategoryByProductId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select c.id, c.name, c.pa_category, c.`status` from category c join product p on c.id = p.category_id WHERE p.id = ?")
+            Category c = handle.createQuery("select c.id, c.name,  c.`status` from category c join product p on c.id = p.category_id WHERE p.id = ?")
                     .bind(0, id)
                     .mapToBean(Category.class)
                     .one();
+            c.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(c.getId()));
+            return c;
         });
     }
 }

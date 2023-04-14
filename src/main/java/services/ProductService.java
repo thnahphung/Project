@@ -358,7 +358,7 @@ public class ProductService {
     public static void main(String[] args) {
 //        getInstance().deleteProduct(1);
 //        System.out.println(ProductService.getInstance().getProductById(9));
-//        System.out.println(ProductService.getInstance().getListProduct());
+        System.out.println(ProductService.getInstance().getListProduct());
 //        System.out.println(ProductService.getInstance().getListTopProduct());
 
 //        System.out.println(ProductService.getInstance().getProductById(1));
@@ -371,7 +371,7 @@ public class ProductService {
 
 
 //        System.out.println(ProductService.getInstance().getTopWoodProducts());
-        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
+//        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
 
 //        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
