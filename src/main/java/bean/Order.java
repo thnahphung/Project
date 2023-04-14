@@ -39,6 +39,8 @@ public class Order implements Serializable {
         this.status = status;
     }
 
+
+
     public Information getInformation() {
         return information;
     }
