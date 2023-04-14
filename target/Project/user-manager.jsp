@@ -53,7 +53,7 @@
                                  alt="user1">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><%=list.get(i).getFullName()%>
+                            <h6 class="mb-0 text-sm"><%=list.get(i).getName()%>
                             </h6>
                             <p class="text-xs text-secondary mb-0"><%=list.get(i).getEmail()%>
                             </p>
@@ -63,24 +63,24 @@
                 <td>
                     <%--                            <p class="text-xs font-weight-bold mb-0"><%=list.get(i).getVarieties()%></p>--%>
 
-                    <select class="input-varieties user-varieties<%=list.get(i).getUserId()%>">
+                    <select class="input-varieties user-varieties<%=list.get(i).getId()%>">
                         <option value="2" <%=list.get(i).getVarieties() == 2 ? "selected" : " "%>>Quản lý</option>
                         <option value="1" <%=list.get(i).getVarieties() == 1 ? "selected" : " "%>>Cộng tác viên</option>
                         <option value="0" <%=list.get(i).getVarieties() == 0 ? "selected" : " "%>>Khách hàng</option>
                     </select>
                 </td>
                 <td class="align-middle text-center text-sm">
-                    <select class="input-stt user-stt<%=list.get(i).getUserId()%>">
-                        <option value="2" <%=list.get(i).getStt() == 2 ? "selected" : " "%>>Khóa vĩnh viễn</option>
-                        <option value="1" <%=list.get(i).getStt() == 1 ? "selected" : " "%>>Tạm khóa</option>
-                        <option value="0" <%=list.get(i).getStt() == 0 ? "selected" : " "%>>Đang hoạt động</option>
+                    <select class="input-stt user-stt<%=list.get(i).getId()%>">
+                        <option value="2" <%=list.get(i).getStatus() == 2 ? "selected" : " "%>>Khóa vĩnh viễn</option>
+                        <option value="1" <%=list.get(i).getStatus() == 1 ? "selected" : " "%>>Tạm khóa</option>
+                        <option value="0" <%=list.get(i).getStatus() == 0 ? "selected" : " "%>>Đang hoạt động</option>
                     </select>
                 </td>
                 <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"><%=list.get(i).getPhoneNumber()%></span>
+                    <span class="text-secondary text-xs font-weight-bold"><%=list.get(i).getPhone()%></span>
                 </td>
                 <td class="align-middle">
-                    <button class="edit-user submit" value="<%=list.get(i).getUserId()%>" style="width: 150px">
+                    <button class="edit-user submit" value="<%=list.get(i).getId()%>" style="width: 150px">
                         Lưu thay đổi
                     </button>
                 </td>

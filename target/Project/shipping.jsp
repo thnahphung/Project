@@ -34,25 +34,25 @@
 
                 <div class="list-address">
                     <%
-                        List<Address> addressList = (List<Address>) request.getAttribute("addressList");
-                        for (Address address : addressList) {
+                        List<Information> informations = (List<Information>) request.getAttribute("informations");
+                        for (Information informaton : informations) {
                     %>
                     <div class="contain-address bd-bottom">
                         <p>
-                            <input type="radio" id="test<%=address.getAddressId()%>" name="address" checked
-                                   value="<%=address.getAddressId()%>">
-                            <label for="test<%=address.getAddressId()%>"><span
-                                    class="name"><%=address.getName()%></span> <span
-                                    class="phone-number"><%=address.getPhoneNumber()%></span></label>
+                            <input type="radio" id="test<%=informaton.getId()%>" name="address" checked
+                                   value="<%=informaton.getId()%>">
+                            <label for="test<%=informaton.getId()%>"><span
+                                    class="name"><%=informaton.getName()%></span>
+                                <span class="phone-number"><%=informaton.getPhone()%></span></label>
                         </p>
                         <div class="address">
-                            <%AddressDetail addressDetail = address.getAddressDetail();%>
-                            <%=addressDetail.getDetail() + ", " + addressDetail.getDistrict() + ", " + addressDetail.getCity() + "."%>
+                            <%Address address = informaton.getAddress();%>
+                            <%=address.getDetail() + ", " + address.getDistrict() + ", " + address.getCity() + "."%>
                         </div>
                     </div>
                     <%}%>
                 </div>
-                <button type="button" class="btn-add-address button submit" >
+                <button type="button" class="btn-add-address button submit">
                     Thêm địa chỉ mới
                 </button>
 
@@ -105,15 +105,15 @@
                 <div class="top bd-bottom">
 
                     <%
-                        for (OrderDetail orderDetail : cart.getOrderDetails()) {
+                        for (LineItem lineItem : cartItems) {
                     %>
                     <div class="product-price row ">
-                        <div class="col-8 name-product text "><%=orderDetail.getProduct().getProductName()%>
+                        <div class="col-8 name-product text "><%=lineItem.getProduct().getName()%>
                         </div>
-                        <div class="col-4 amount text text-right">x <%=orderDetail.getQuantity()%>
+                        <div class="col-4 amount text text-right">x <%=lineItem.getQuantity()%>
                         </div>
                         <div class="col-8 text"></div>
-                        <div class="col-4 price text text-right"><%=Format.format(orderDetail.total())%> VND</div>
+                        <div class="col-4 price text text-right"><%=Format.format(lineItem.totalPrice())%> VND</div>
                     </div>
                     <%}%>
                 </div>
@@ -121,15 +121,15 @@
                 <div class="mid bd-bottom">
                     <div class="total row">
                         <div class="col-8 name-product text">Tổng đơn hàng</div>
-                        <div class="col-4  text text-right"><%=Format.format(cart.totalReal())%> VND</div>
+                        <div class="col-4  text text-right"><%=Format.format(Cart.totalPrice(cartItems))%> VND</div>
                         <div class="col-8 text">Giảm</div>
-                        <div class="col-4 price text text-right">- <%=Format.format(cart.totalReal() - cart.total())%>
+                        <div class="col-4 price text text-right">- <%=Format.format(Cart.totalPriceSale(cartItems))%>
                             VND
                         </div>
                         <div class="col-8 text">Mã khuyến mãi</div>
-                        <%Discount discount = (Discount) request.getAttribute("voucher");%>
+                        <%int sumDiscountFee = (int) request.getAttribute("sumDiscountFee");%>
                         <div class="col-4 price text text-right">
-                            - <%=discount == null ? 0 : Format.format(discount.getDiscountFee())%>
+                            - <%=Format.format(sumDiscountFee)%>
                             VND
                         </div>
                         <div class="col-8 name-product text">Phí vận chuyển</div>
@@ -142,7 +142,7 @@
                     <div class="row">
                         <div class="col-6 text uppercase">Tổng cộng</div>
                         <div class="col-6 text text-right"><span
-                                class="total-price"><%=Format.format(cart.total())%></span> VND
+                                class="total-price"><%=Format.format(Cart.total(cartItems, sumDiscountFee))%></span> VND
                         </div>
                     </div>
                     <button class="btn-total uppercase submit">thanh toán</button>

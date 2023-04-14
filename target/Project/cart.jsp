@@ -25,53 +25,55 @@
 <%@include file="header.jsp" %>
 <div class="container content">
     <div class="row">
-        <div class="<%=cart.getOrderDetails().isEmpty()?"col-12":"col-8"%> list-product">
+        <div class="<%=cartItems.size()==0?"col-12":"col-8"%> list-product">
             <h5 class="title uppercase">giỏ hàng</h5>
             <ul class="container-list-product">
                 <%
-                    if (!cart.getOrderDetails().isEmpty()) {
-                        for (OrderDetail cartDetail : cart.getOrderDetails()) {
-                            Product product = cartDetail.getProduct();
+                    if (cartItems.size() != 0) {
+                        for (LineItem line : cartItems) {
+                            Product product = line.getProduct();
                 %>
 
                 <li class="product bd-bottom pb-4 pt-4">
                     <div class="row">
 
                         <div class="col-3 p-0 left"><img
-                                src="<%=product.getImageSrc()%>"
+                                src="<%=product.getListImage().get(0)%>"
                                 alt=""></div>
                         <div class="col-6">
                             <div class="top">
-                                <h5 class="product-name"><%=product.getProductName()%>
+                                <h5 class="product-name"><%=product.getName()%>
                                 </h5>
                                 <div class="contain-price">
                                     <span>Giá:</span>
-                                    <span class="price"><%=Format.format(product.getPrice())%> VND</span>
-                                    <%if (product.getPriceReal() != 0) {%>
-                                    <span class="sale"><%=Format.format(product.getPriceReal())%> VND</span>
+                                    <%if (product.getPriceSale() == 0) {%>
+                                    <span class="price"><%=Format.format(product.getListHistoryPrice().get(0).getPrice())%> VND</span>
+                                    <%} else {%>
+                                    <span class="price"><%=Format.format(product.getPriceSale())%> VND</span>
+                                    <span class="sale"><%=Format.format(product.getListHistoryPrice().get(0).getPrice())%> VND</span>
                                     <%}%>
                                 </div>
                             </div>
                             <div class="bottom">
                                 <div class="text">Số lượng</div>
                                 <input type="number" id="quantity" class="input" name="quantity" min="1" max="20"
-                                       placeholder=" " value="<%=cartDetail.getQuantity()%>">
+                                       placeholder=" " value="<%=line.getQuantity()%>">
                             </div>
 
                         </div>
                         <div class="col-3 right">
                             <div class="top">
-                                <div class="price"><%=Format.format(cartDetail.total())%> VND</div>
+                                <div class="price"><%=Format.format(line.totalPrice())%> VND</div>
                                 <div class="stocking">
-                                    <%if (product.getProductDetail().getStt() == 0) {%>
+                                    <%if (product.getStatus() == 0) {%>
                                     Còn hàng
-                                    <%} else if (product.getProductDetail().getStt() == 1) {%>
+                                    <%} else if (product.getStatus() == 1) {%>
                                     Tạm hết hàng
                                     <%}%>
                                 </div>
                             </div>
                             <div class="bottom">
-                                <button class="btn-remove" value="<%=cartDetail.getOrderDetailId()%>"><i
+                                <button class="btn-remove" value="<%=product.getId()%>"><i
                                         class="fa-solid fa-trash"></i> Xóa
                                 </button>
                             </div>
@@ -89,7 +91,7 @@
                 </li>
                 <%}%>
             </ul>
-            <%if (!cart.getOrderDetails().isEmpty()) {%>
+            <%if (cartItems.size() != 0) {%>
             <div class="contain-btn">
                 <button class="delete-all uppercase submit">Xóa tất cả</button>
                 <%} else {%>
@@ -100,7 +102,7 @@
                 </div>
 
             </div>
-            <%if (!cart.getOrderDetails().isEmpty()) {%>
+            <%if (cartItems.size() != 0) {%>
             <div class="col-4 bill p-0">
                 <div class="contain-bill p-4">
                     <h5 class="title-bill uppercase">đơn hàng</h5>
@@ -116,11 +118,11 @@
                     <div class="mid bd-bottom">
                         <div class="arow">
                             <span>Đơn hàng</span>
-                            <span class="total-real"><%=Format.format(cart.totalReal())%> VND</span>
+                            <span class="total-real"><%=Format.format(Cart.totalPrice(cartItems))%> VND</span>
                         </div>
                         <div class="arow">
                             <span>Giảm</span>
-                            <span class="sale">- <%=Format.format(cart.totalReal() - cart.total())%> VND</span>
+                            <span class="sale">- <%=Format.format(Cart.totalPriceSale(cartItems))%> VND</span>
                         </div>
                         <div class="arow">
                             <span>Mã khuyến mãi</span>
@@ -131,7 +133,7 @@
                     <div class="bottom">
                         <div class="arow">
                             <span class="text uppercase">tạm tính</span>
-                            <span class="total"><span><%=Format.format(cart.total())%></span> VND</span>
+                            <span class="total"><span><%=Format.format(Cart.total(cartItems))%></span> VND</span>
                         </div>
                         <button class="btn-total uppercase submit">Tiếp tục thanh toán</button>
 

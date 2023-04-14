@@ -52,7 +52,7 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="address-tab" data-toggle="tab" data-target="#address" type="button"
-                                role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getUserId()%>">
+                                role="tab" aria-controls="profile" aria-selected="false" value="<%=user.getId()%>">
                             <i class="fa-solid fa-location-dot"></i>Danh sách địa chỉ
                         </button>
                     </li>
@@ -74,12 +74,12 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li>Họ tên: <%=user.getFullName()%>
+                                    <li>Họ tên: <%=user.getName()%>
                                     </li>
-                                    <li>Số điện thoại:  <%if (user.getPhoneNumber() == null) {%>
+                                    <li>Số điện thoại:  <%if (user.getPhone() == null) {%>
                                         <%=""%>
                                         <%} else {%>
-                                        <%=user.getPhoneNumber()%>
+                                        <%=user.getPhone()%>
                                         <%}%>
                                     </li>
                                     <li>Email:  <%if (user.getEmail() == null) {%>
@@ -110,11 +110,11 @@
                                                     <div class="form-add-address">
                                                         <input class="input" type="text" name="input-edit-name"
                                                                id="input-edit-name"
-                                                               placeholder="Họ tên" value="<%=user.getFullName()%>">
+                                                               placeholder="Họ tên" value="<%=user.getName()%>">
                                                         <input class="input" type="text" name="input-edit-phone"
                                                                id="input-edit-phone"
                                                                placeholder="    Số điện thoại"
-                                                               value="<%=user.getPhoneNumber()%>">
+                                                               value="<%=user.getPhone()%>">
                                                         <input class="input" type="email" name="input-edit-email"
                                                                id="input-edit-email"
                                                                placeholder="Email" value="<%=user.getEmail()%>">
@@ -153,22 +153,20 @@
                                 <%
                                     List<Order> orders = (List<Order>) request.getAttribute("orders");
                                     for (Order order : orders) {
-
-
                                 %>
 
                                 <tr>
-                                    <th scope="row">#<%= order.getOrderId()%>
+                                    <th scope="row">#<%= order.getId()%>
                                     </th>
-                                    <td><%=Format.formatDate(order.getOrderDate())%>
+                                    <td><%=Format.formatDate(order.getCreateDate())%>
                                     </td>
                                     <td><%=Format.format(order.getTotal())%> VND</td>
-                                    <td><%=order.getPay()%>
+                                    <td><%=order.getTotal()%>
                                     </td>
-                                    <td><%=order.getDelivery()%>
+                                    <td><%=order.getStatusDelivery()%>
                                     </td>
                                     <td>
-                                        <a href="/showOrderDetail?orderId=<%=order.getOrderId()%>"
+                                        <a href="/showOrderDetail?orderId=<%=order.getId()%>"
                                            class="submit button see-more">Chi tiết <i
                                                 class="fa-solid fa-circle-info"></i></a>
 
