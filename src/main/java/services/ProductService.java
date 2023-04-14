@@ -375,7 +375,7 @@ public class ProductService {
 
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getTopProducts(1));
+        System.out.println(getInstance().getNewProducts().get(0).getListHistoryPrice().get(0));
     }
 
 

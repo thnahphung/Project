@@ -61,7 +61,7 @@
     <div class="favourite top-product">
         <% for (Product product : favouriteProducts) { %>
         <div class="top-product-img">
-            <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>&page=1"><img
+            <a href="http://localhost:8080/product?id=<%= product.getId()%>&page=1"><img
                     src="<%= product.getListImage().get(0).getSource()%>" alt=""></a>
         </div>
 
@@ -108,8 +108,10 @@
                         <%}%>
                     </div>
                     <h3 class="price">
+                        <% if (product.getPriceSale() == 0) {%>
                         <%=Format.format(product.getPrice())%> VND
-                        <% if (product.getPrice() != 0) {%>
+                        <%} else{%>
+                        <%=Format.format(product.getPriceSale())%> VND
                         <span class="price-real"><%=Format.format(product.getPrice())%> VND</span>
                         <% }%>
                     </h3>
@@ -135,7 +137,7 @@
                     <div class="cont-item ">
 
                         <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>&page=1"><img
-                                src="<%=product.getListImage().get(0)%>"></a>
+                                src="<%=product.getListImage().get(0).getSource()%>"></a>
                     </div>
 
                     <div class="caption">
@@ -158,10 +160,13 @@
                             <%}%>
                         </div>
                         <h3 class="price">
+                            <% if (product.getPriceSale() == 0) {%>
                             <%=Format.format(product.getPrice())%> VND
-                            <% if (product.getPrice() != 0) {%>
+                            <%} else{%>
+                            <%=Format.format(product.getPriceSale())%> VND
                             <span class="price-real"><%=Format.format(product.getPrice())%> VND</span>
-                            <% }%></h3>
+                            <% }%>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -177,7 +182,7 @@
                     <div class="cont-item ">
 
                         <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>&page=1"><img
-                                src="<%=product.getListImage().get(0)%>"></a>
+                                src="<%=product.getListImage().get(0).getSource()%>"></a>
                     </div>
 
                     <div class="caption">
@@ -200,10 +205,13 @@
                             <%}%>
                         </div>
                         <h3 class="price">
+                            <% if (product.getPriceSale() == 0) {%>
                             <%=Format.format(product.getPrice())%> VND
-                            <% if (product.getPrice() != 0) {%>
+                            <%} else{%>
+                            <%=Format.format(product.getPriceSale())%> VND
                             <span class="price-real"><%=Format.format(product.getPrice())%> VND</span>
-                            <% }%></h3>
+                            <% }%>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -218,7 +226,7 @@
                     <div class="cont-item ">
 
                         <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>&page=1"><img
-                                src="<%=product.getListImage().get(0)%>"></a>
+                                src="<%=product.getListImage().get(0).getSource()%>"></a>
                     </div>
 
                     <div class="caption">
@@ -241,10 +249,13 @@
                             <%}%>
                         </div>
                         <h3 class="price">
+                            <% if (product.getPriceSale() == 0) {%>
                             <%=Format.format(product.getPrice())%> VND
-                            <% if (product.getPrice() != 0) {%>
+                            <%} else{%>
+                            <%=Format.format(product.getPriceSale())%> VND
                             <span class="price-real"><%=Format.format(product.getPrice())%> VND</span>
-                            <% }%></h3>
+                            <% }%>
+                        </h3>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ public class HistoryPriceService {
 
     public int nextId() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("Select max('id') as maxNumber from history_price").mapTo(Integer.class).one();
+            return handle.createQuery("select max(id) as maxNumber from history_price").mapTo(Integer.class).one();
         });
     }
 
@@ -50,7 +50,7 @@ public class HistoryPriceService {
 
     public List<HistoryPrice> getListHistoryPriceByProductId(int productId) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select id, price, price_sale, product_id, create_date from history_price WHERE product_id = ?")
+            return handle.createQuery("select id, price, price_sale, create_date from history_price WHERE product_id = ?")
                     .bind(0, productId)
                     .mapToBean(HistoryPrice.class)
                     .stream().collect(Collectors.toList());
@@ -65,5 +65,9 @@ public class HistoryPriceService {
                     .mapToBean(HistoryPrice.class)
                     .one();
         });
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getInstance().getListHistoryPriceByProductId(3));
     }
 }
