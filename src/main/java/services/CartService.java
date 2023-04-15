@@ -43,13 +43,12 @@ public class CartService {
         for (Integer productId : productIds) {
             products.add(ProductService.getInstance().getProductById(productId));
         }
-        List<LineItem> result = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select quantity\n" +
-                            "from cart_item \n" +
-                            "WHERE user_id = ?\n")
-                    .bind(0, userId)
-                    .mapToBean(LineItem.class).stream().collect(Collectors.toList());
-        });
+        List<LineItem> result = JDBIConnector.get().withHandle(
+                handle -> handle.createQuery("select quantity\n" +
+                        "from cart_item \n" +
+                        "WHERE user_id = ?\n")
+                .bind(0, userId)
+                .mapToBean(LineItem.class).stream().collect(Collectors.toList()));
         for (int i = 0; i < result.size(); i++) {
             result.get(i).setProduct(products.get(i));
         }

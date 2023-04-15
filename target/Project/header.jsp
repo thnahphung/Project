@@ -39,27 +39,27 @@
         </div>
 
 
-        <% User user = (User) session.getAttribute("auth");
-            // TODO: 4/14/2023     List<LineItem> cartItems = user.getListCartItem();%>
+<%--        <% User user = (User) session.getAttribute("auth");--%>
+<%--            List<LineItem> cartItems = user.getListCartItem();%>--%>
         <a href="/cart" class="item-right"><i
                 class="fa-solid fa-cart-shopping"></i>
-<%--                        <%if (cartItems != null) {%>--%>
+            <%--            <%if (cartItems != null) {%>--%>
 <%--            <p>Giỏ hàng (<span class="amount-product"><%=Cart.sumQuantity(cartItems)%></span>)</p>--%>
-<%--                        <%}--%>
-<%--                        else {%>--%>
-<%--                        <p>Giỏ hàng (<span class="amount-product">0</span>)</p>--%>
-<%--                        <%}%>--%>
+            <%--            <%}--%>
+            <%--            else {%>--%>
+            <%--            <p>Giỏ hàng (<span class="amount-product">0</span>)</p>--%>
+            <%--            <%}%>--%>
         </a>
-        <% if (user != null) {%>
+<%--        <% if (user != null) {%>--%>
         <a href="/userProfile" class="item-right">
-            <img src="<%=user.getAvatar()%>" alt="">
+<%--            <img src="<%=user.getAvatar()%>" alt="">--%>
         </a>
-        <%} else {%>
+<%--        <%} else {%>--%>
         <a href="http://localhost:8080/doLogin" class="item-right">
             <i class="fa-solid fa-user"></i>
             <p>Đăng nhập</p>
         </a>
-        <%}%>
+<%--        <%}%>--%>
 
 
     </li>
