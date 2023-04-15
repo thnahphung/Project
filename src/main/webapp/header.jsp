@@ -40,7 +40,7 @@
 
 
 <%--        <% User user = (User) session.getAttribute("auth");--%>
-            List<LineItem> cartItems = user.getListCartItem();%>
+<%--            List<LineItem> cartItems = user.getListCartItem();%>--%>
         <a href="/cart" class="item-right"><i
                 class="fa-solid fa-cart-shopping"></i>
             <%--            <%if (cartItems != null) {%>--%>
