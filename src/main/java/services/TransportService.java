@@ -31,7 +31,7 @@ public class TransportService {
     }
     public Transport getTransportByOrderId(int id){
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select t.id, t.name, t.fee, t.time from transport t join order o on t.id = o.transport_id where o.id =?")
+            return handle.createQuery("select t.id, t.name, t.fee, t.time from transport t join `order` o on t.id = o.transport_id where o.id =?")
                     .bind(0,id)
                     .mapToBean(Transport.class)
                     .one();

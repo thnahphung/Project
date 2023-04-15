@@ -20,11 +20,8 @@ public class ShowDetailProduct extends HttpServlet {
         Product product = ProductService.getInstance().getProductById(idProduct);
         request.setAttribute("product", product);
 
-        List<String> listImg = ProductService.getInstance().getImageOfProductById(idProduct);
-        request.setAttribute("listImg", listImg);
-
-        List<Review> listCmt = ReviewService.getInstance().getListReviewByPage(idProduct, 1);
-        request.setAttribute("listCmt", listCmt);
+        List<Review> listReview = ReviewService.getInstance().getListReviewByPage(idProduct, 1);
+        request.setAttribute("listReview", listReview);
 
         int countPage = ReviewService.getInstance().getCountPageById(idProduct);
         request.setAttribute("countPage", countPage);

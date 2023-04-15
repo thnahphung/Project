@@ -176,16 +176,19 @@ public class ProductService {
 
     public List<Product> getListSameProduct(int paCategoryId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> productList = handle.createQuery("SELECT p.product_id, p.price,p.price_real,p.product_name,p.rate,p.category_id,p.image_src \n" +
-                    "FROM product p JOIN category c on p.category_id=c.category_id \n" +
-                    "JOIN pa_category pa ON c.pa_category_id = pa.pa_category_id \n" +
-                    "WHERE pa.pa_category_id = :paCategoryId LIMIT 16").bind("paCategoryId", paCategoryId).mapToBean(Product.class).stream().collect(Collectors.toList());
-
-            for (Product product : productList) {
-                product.setCategory(CaterogyService.getInstance().getCategoryById(product.getCategory().getId()));
+            List<Product> list = handle.createQuery("select p.id, p.`name`, p.description, p.detail, p.rate, p.`status`\n" +
+                            "from product p join category ca on p.category_id = ca.id join category pa on ca.pa_category = pa.id\n" +
+                            "where pa.id = :pa_id and p.`status` = 0 limit 20")
+                    .bind("pa_id",paCategoryId)
+                    .mapToBean(Product.class).stream()
+                    .collect(Collectors.toList());
+            for (Product product : list) {
+                product.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(product.getId()));
+                product.setListImage(ImageService.getInstance().getListImageByProductId(product.getId()));
+                product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
+                product.setUserAdd(UserService.getInstance().getUserAddProductByProductId(product.getId()));
             }
-            return productList;
-
+            return list;
         });
     }
 
@@ -351,42 +354,8 @@ public class ProductService {
         });
     }
 
-    //    public static void main(String[] args) {
-//        System.out.println(getInstance().statisticalProduct(1));
-//        System.out.println(getInstance().statisticalProductInMonth(1,1));
-//    }
     public static void main(String[] args) {
-//        getInstance().deleteProduct(1);
-//        System.out.println(ProductService.getInstance().getProductById(9));
-        System.out.println(ProductService.getInstance().getListProduct());
-//        System.out.println(ProductService.getInstance().getListTopProduct());
-
-//        System.out.println(ProductService.getInstance().getProductById(1));
-
-//        System.out.println(ProductService.getInstance().getListFavouriteProduct());
-//        System.out.println(ProductService.getInstance().getImageOfProductById(1));
-
-//        System.out.println(ProductService.getInstance().getNewProducts());
-//        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
-
-
-//        System.out.println(ProductService.getInstance().getTopWoodProducts());
-//        System.out.println(ProductService.getInstance().getListProductByKind(ALL));
-
-//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
-//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
-//        getInstance().getListSameProduct(2);
-
-
-//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
-//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
-//        System.out.println(ProductService.getInstance().getListProductInGroupName(0, ""));
-//        ProductDetail productDetail = new ProductDetail(getInstance().getListProduct().size() + 1, "ádsa", "ádad", null, 10, LocalDateTime.now(), LocalDateTime.of(2022, 12, 11, 3, 3, 2), 0, 3);
-//        ProductService.getInstance().addProductDetail(productDetail);
-//        Product product = new Product(getInstance().getListProduct().size() + 1, 1, "dsad", 1312, 13, 0, "", productDetail);
-//
-//        ProductService.getInstance().addProduct(product);
-//
+        System.out.println(getInstance().getListSameProduct(1).size());
     }
 
 
