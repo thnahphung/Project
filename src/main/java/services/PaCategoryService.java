@@ -38,7 +38,7 @@ public class PaCategoryService implements Serializable {
 
     public List<Category> getListPaCategory() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`, pa_category, status  from  category where pa_category is null").mapToBean(Category.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, `name`, status  from  category where pa_category is null").mapToBean(Category.class).stream().collect(Collectors.toList());
 
         });
     }
