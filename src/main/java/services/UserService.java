@@ -247,7 +247,7 @@ public class UserService {
     }
     public User getUserByOrderId(int id){
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select u.id, u.name, u.phone, u.email, u.avatar, u.variety, u.status from `user` u join order o on u.id = o.user_id WHERE o.id = ?; ")
+            return handle.createQuery("select u.id, u.name, u.phone, u.email, u.avatar, u.variety, u.status from `user` u join `order` o on u.id = o.user_id WHERE o.id = ?; ")
                     .bind(0, id)
                     .mapToBean(User.class)
                     .one();
