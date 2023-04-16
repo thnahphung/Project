@@ -32,11 +32,14 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        List<User> users = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
+       User user= JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).one();
         });
-        if (users.size() != 1) return null;
-        return users.get(0);
+        user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(id));
+        user.setListCartItem(CartService.getInstance().getCartOfUser(id));
+        user.setListOrder(OrderService.getInstance().getOrderListByUserId(id));
+        user.setIdThirdParty(ThirdPartyService.getInstance().getIdThirdPartyByUserId(id));
+        return user;
     }
 
     public User getUserById3rd(String id3rd) {

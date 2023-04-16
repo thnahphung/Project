@@ -2,6 +2,7 @@ package bean;
 
 import db.JDBIConnector;
 import services.CartService;
+import services.UserService;
 
 import java.io.Serializable;
 import java.util.List;
@@ -166,10 +167,7 @@ public class User implements Serializable {
     }
 
     public static void main(String[] args) {
-        User u = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select id, name, phone from user where id = 5").mapToBean(User.class).one();
-        });
-        u.setListCartItem(CartService.getInstance().getCartOfUser(u.getId()));
-        System.out.println(u);
+        User u = UserService.getInstance().getUserById(5);
+        System.out.println(u.getListOrder());
     }
 }

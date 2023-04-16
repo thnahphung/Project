@@ -55,7 +55,7 @@ public class OrderService implements Serializable {
 
     public Order getOrderByOrderId(int orderId) {
         return JDBIConnector.get().withHandle(handle -> {
-            Order order = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date,is_payment, `status` from `order` where id = ?")
+            Order order = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date,is_payment, create_date, `status` from `order` where id = ?")
                     .bind(0, orderId)
                     .mapToBean(Order.class).one();
             order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(orderId));
@@ -115,9 +115,8 @@ public class OrderService implements Serializable {
     }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getOrderListByUserId(1));
 
-        System.out.println(getInstance().getOrderByOrderId(1));
+        System.out.println(getInstance().getOrderListByUserId(5));
     }
 
 }

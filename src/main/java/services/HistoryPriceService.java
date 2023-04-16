@@ -59,7 +59,7 @@ public class HistoryPriceService {
 
     public HistoryPrice getPriceOfProductAtTime(int productId, LocalDateTime time) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select id, price, price_sale, product_id, create_date, status from history_price WHERE product_id = ? and create_date <= ? order by create_date desc limit 1")
+            return handle.createQuery("select id, price, price_sale, create_date, `status` from history_price WHERE product_id =? and create_date <= ? order by create_date desc limit 1")
                     .bind(0, productId)
                     .bind(1, time)
                     .mapToBean(HistoryPrice.class)
@@ -68,6 +68,6 @@ public class HistoryPriceService {
     }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getListHistoryPriceByProductId(3));
+        System.out.println(getInstance().getPriceOfProductAtTime(4, LocalDateTime.now()));
     }
 }

@@ -28,7 +28,6 @@ public class LoginByFB extends HttpServlet {
         String id3rd = request.getParameter("id");
         ThirdParty thirdParty = new ThirdParty(ThirdPartyService.getInstance().maxId()+1, "Facebook", id3rd );
         User user = new User();
-        System.out.println(UserService.getInstance().checkExistId3rd(id3rd));
         if (!UserService.getInstance().checkExistId3rd(id3rd)) {
             user.setName(name);
             user.setIdThirdParty(thirdParty);
