@@ -33,25 +33,14 @@ public class CartService {
 
     }
 
-    public List<LineItem> getItemCartUserId(int userId) {
-        List<Integer> productIds = JDBIConnector.get().withHandle(handle -> handle.createQuery("select product_id\n" +
-                        "from cart_item\n" +
-                        "WHERE user_id = ?\n")
-                .bind(0, userId)
-                .mapToBean(Integer.class).stream().collect(Collectors.toList()));
-        List<Product> products = new ArrayList<>();
-        for (Integer productId : productIds) {
-            products.add(ProductService.getInstance().getProductById(productId));
-        }
+    public List<LineItem> getCartOfUser(int userId) {
         List<LineItem> result = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select quantity\n" +
-                            "from cart_item \n" +
-                            "WHERE user_id = ?\n")
+            return handle.createQuery("select id, quantity from cart_item  WHERE user_id = ?")
                     .bind(0, userId)
                     .mapToBean(LineItem.class).stream().collect(Collectors.toList());
         });
-        for (int i = 0; i < result.size(); i++) {
-            result.get(i).setProduct(products.get(i));
+        for(LineItem l : result){
+            l.setProduct(ProductService.getInstance().getProductByCartItemId(l.getId()));
         }
         return result;
     }
@@ -62,5 +51,9 @@ public class CartService {
                         .bind("user_id", userId)
                         .execute()
         );
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getInstance().getCartOfUser(5));
     }
 }

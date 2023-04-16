@@ -30,4 +30,7 @@ public class AddressService {
         });
     }
 
+    public static void main(String[] args) {
+        System.out.println(getInstance().getAddressByInformationId(1));
+    }
 }

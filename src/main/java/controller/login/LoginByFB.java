@@ -40,7 +40,7 @@ public class LoginByFB extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         session.setAttribute("auth", user);
-        session.setAttribute("cart", CartService.getInstance().getItemCartUserId(user.getId()));
+        session.setAttribute("cart", CartService.getInstance().getCartOfUser(user.getId()));
         response.getWriter().print(true);
     }
 }

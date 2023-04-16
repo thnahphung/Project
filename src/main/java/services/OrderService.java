@@ -23,15 +23,16 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderListByUserId(int userId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orders = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from order where user_id = ?")
+            List<Order> orders = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from `order` where user_id =  ?")
                     .bind(0, userId)
                     .mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orders) {
-                order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(order.getId()));
-                order.setListDiscount(DiscountService.getInstance().getListDiscountByOrderId(order.getId()));
-                order.setUser(UserService.getInstance().getUserById(userId));
-                order.setTransport(TransportService.getInstance().getTransportByOrderId(order.getId()));
-                order.setInformation(InformationService.getInstance().getInformationByOrderId(order.getId()));
+                int id = order.getId();
+                order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(id));
+                order.setListDiscount(DiscountService.getInstance().getListDiscountByOrderId(id));
+                order.setUser(UserService.getInstance().getUserByOrderId(id));
+                order.setTransport(TransportService.getInstance().getTransportByOrderId(id));
+                order.setInformation(InformationService.getInstance().getInformationByOrderId(id));
             }
             return orders;
         });
@@ -114,8 +115,8 @@ public class OrderService implements Serializable {
     }
 
     public static void main(String[] args) {
-//        System.out.println(getInstance().getOrderListByUserId(3));
-        System.out.println(getInstance().getOrderByOrderId(1));
+        System.out.println(getInstance().getOrderListByUserId(1));
+
     }
 
 }

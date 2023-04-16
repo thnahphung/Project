@@ -49,4 +49,15 @@ public class LineItem implements Serializable {
     public int totalPrice() {
         return this.product.getListHistoryPrice().get(0).getPrice() * this.quantity;
     }
+
+    @Override
+    public String toString() {
+        return "LineItem{" +
+                "id=" + id +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                '}';
+    }
+
+
 }

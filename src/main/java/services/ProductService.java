@@ -157,7 +157,7 @@ public class ProductService {
         return JDBIConnector.get().withHandle(handle -> {
 
             List<Product> result = handle.createQuery("select id, name, description, detail, rate from product order by rate desc limit 3;").mapToBean(Product.class).stream().collect(Collectors.toList());
-            for(Product p: result){
+            for (Product p : result) {
                 int id = p.getId();
                 p.setListImage(ImageService.getInstance().getListImageByProductId(id));
                 p.setCategory(CaterogyService.getInstance().getCategoryByProductId(id));
@@ -175,7 +175,7 @@ public class ProductService {
             List<Product> result = handle.createQuery("SELECT p.id, p.name, p.description, p.detail,p.rate from product p join category c on p.category_id = c.id WHERE c.pa_category = ?  order by p.description  desc limit 16")
                     .bind(0, kind)
                     .mapToBean(Product.class).stream().collect(Collectors.toList());
-            for(Product p: result){
+            for (Product p : result) {
                 int id = p.getId();
                 p.setListImage(ImageService.getInstance().getListImageByProductId(id));
                 p.setCategory(CaterogyService.getInstance().getCategoryByProductId(id));
@@ -329,7 +329,7 @@ public class ProductService {
         return JDBIConnector.get().withHandle(handle -> {
             List<Product> result = handle.createQuery("SELECT p.id, p.name, p.description, p.detail,p.rate from product p  order by p.create_date desc limit 8")
                     .mapToBean(Product.class).stream().collect(Collectors.toList());
-            for(Product p: result){
+            for (Product p : result) {
                 int id = p.getId();
                 p.setListImage(ImageService.getInstance().getListImageByProductId(id));
                 p.setCategory(CaterogyService.getInstance().getCategoryByProductId(id));
@@ -373,9 +373,28 @@ public class ProductService {
         });
     }
 
+    public Product getProductByLineItemId(int id) {
+        return JDBIConnector.get().withHandle(handle -> {
+            Product result = handle.createQuery("SELECT p.id, p.name, p.description, p.detail,p.rate from product p join line_item li on p.id = li.product_id where li.id = ?")
+                    .bind(0, id).mapToBean(Product.class).one();
+            result.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(result.getId()));
+            return result;
+        });
+    }
+
+    public Product getProductByCartItemId(int userid) {
+        return JDBIConnector.get().withHandle(handle -> {
+            Product p = handle.createQuery("SELECT p.id, p.name, p.description, p.detail,p.rate from product p join cart_item ci on p.id = ci.product_id where ci.id =?")
+                    .bind(0, userid).mapToBean(Product.class).one();
+
+            p.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(p.getId()));
+            p.setListImage(ImageService.getInstance().getListImageByProductId(p.getId()));
+            return p;
+        });
+    }
 
     public static void main(String[] args) {
-
+        System.out.println(getInstance().getProductByCartItemId(1));
     }
 
 
