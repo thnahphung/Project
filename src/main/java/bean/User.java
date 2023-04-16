@@ -2,6 +2,7 @@ package bean;
 
 import db.JDBIConnector;
 import services.CartService;
+import services.ProductService;
 
 import java.io.Serializable;
 import java.util.List;
@@ -163,6 +164,14 @@ public class User implements Serializable {
                 ", varieties=" + varieties +
                 ", status=" + status +
                 '}';
+    }
+
+    public LineItem containProductInCart(int idProduct) {
+        for (LineItem cartItem : getListCartItem()) {
+            if (cartItem.getProduct().getId() == idProduct)
+                return cartItem;
+        }
+        return null;
     }
 
     public static void main(String[] args) {
