@@ -2,7 +2,6 @@
 <%@ page import="services.ProductService" %>
 <%@ page import="bean.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,23 +99,23 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner">
-                <%
-                    List<Banner> listbanner = (List<Banner>) request.getAttribute("listBanner");
-                    for (int i = 0; i < 3; i++) {
-                %>
-                <%if (i == 0) {%>
-                <div class="carousel-item active">
-                    <a href=""><img class="d-block w-100" src=" <% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"
-                                    alt="First slide"></a>
-                </div>
-                <%}%>
-                <div class="carousel-item ">
-                    <a href=""><img class="d-block w-100" src="<% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"
-                                    alt="Second slide"></a>
-                </div>
-                <%}%>
-            </div>
+<%--            <div class="carousel-inner">--%>
+<%--                <%--%>
+<%--                    List<Banner> listbanner = (List<Banner>) request.getAttribute("listBanner");--%>
+<%--                    for (int i = 0; i < 3; i++) {--%>
+<%--                %>--%>
+<%--                <%if (i == 0) {%>--%>
+<%--                <div class="carousel-item active">--%>
+<%--                    <a href=""><img class="d-block w-100" src=" <% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"--%>
+<%--                                    alt="First slide"></a>--%>
+<%--                </div>--%>
+<%--                <%}%>--%>
+<%--                <div class="carousel-item ">--%>
+<%--                    <a href=""><img class="d-block w-100" src="<% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"--%>
+<%--                                    alt="Second slide"></a>--%>
+<%--                </div>--%>
+<%--                <%}%>--%>
+<%--            </div>--%>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
@@ -131,14 +130,15 @@
             <div class="row">
 
                 <%
-                    List<Product> list = (List<Product>) request.getAttribute("list");
-                    for (Product product : list) {
+                    List<Product> listProduct = (List<Product>) request.getAttribute("listProduct");
+                    System.out.println(listProduct.get(0).getCategory().getPaCategory().getName());
+                    for (Product product : listProduct) {
                 %>
                 <div class="col-4">
                     <div class="thumbnail">
                         <div class="cont-item ">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"><img
-                                    src="<%= product.getListImage().get(0).getSource()%>" alt="">
+                            <a href="http://localhost:8080/detail-product?id=<%=product.getId()%>"><img
+                                    src="<%=product.getListImage().get(0).getSource()%>" alt="">
                             </a>
                         </div>
                         <div class="button">
@@ -158,13 +158,12 @@
                                         if (count > 0) {%>
                                 <i class="fa fa-star yellow"></i>
                                 <%} else {%>
-                                <i class="fa fa-star  "></i>
+                                <i class="fa fa-star"></i>
                                 <%
                                     }
                                     count--;
+                                    }
                                 %>
-
-                                <%}%>
                             </div>
                             <h3 class="price">
                                 <%= Format.format(product.getPrice())%> VND

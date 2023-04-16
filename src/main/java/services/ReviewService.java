@@ -51,7 +51,7 @@ public class ReviewService {
 
     public List<Review> getListReviewByProductId(int idProduct) {
         List<Review> listResult = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select id, comment, rate, create_date, status from `comment` WHERE product_id = :idProduct ORDER BY comment_id")
+            return handle.createQuery("select id, comment, rate, create_date, status from `review` WHERE product_id = :idProduct ORDER BY create_date")
                     .bind("idProduct", idProduct)
                     .mapToBean(Review.class).stream()
                     .collect(Collectors.toList());
