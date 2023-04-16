@@ -1,5 +1,8 @@
 package bean;
 
+import db.JDBIConnector;
+import services.CartService;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,7 +13,7 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
-    private String avatar;
+    private Image avatar;
     private List<Information> listOrderInformation;
     private List<LineItem> listCartItem;
     private List<Order> listOrder;
@@ -23,7 +26,7 @@ public class User implements Serializable {
 
     }
 
-    public User(int id, String name, String email, String phone, String password, String avatar, List<Information> listOrderInformation, List<LineItem> listCartItem, List<Order> listOrder, ThirdParty idThirdParty, int varieties, int status) {
+    public User(int id, String name, String email, String phone, String password, Image avatar, List<Information> listOrderInformation, List<LineItem> listCartItem, List<Order> listOrder, ThirdParty idThirdParty, int varieties, int status) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -78,11 +81,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getAvatar() {
+    public Image getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(Image avatar) {
         this.avatar = avatar;
     }
 
@@ -160,5 +163,13 @@ public class User implements Serializable {
                 ", varieties=" + varieties +
                 ", status=" + status +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        User u = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id, name, phone from user where id = 5").mapToBean(User.class).one();
+        });
+        u.setListCartItem(CartService.getInstance().getCartOfUser(u.getId()));
+        System.out.println(u);
     }
 }

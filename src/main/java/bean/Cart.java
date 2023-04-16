@@ -4,11 +4,7 @@ import java.util.List;
 
 public class Cart {
     public static int sumQuantity(List<LineItem> lineItems) {
-        int sum = 0;
-        for (LineItem lineItem : lineItems) {
-            sum += lineItem.getQuantity();
-        }
-        return sum;
+        return lineItems.size();
     }
 
     public static int totalPrice(List<LineItem> lineItems) {

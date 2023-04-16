@@ -24,23 +24,34 @@ public class CaterogyService {
     public List<Category> getListCategory(int kind) {
         if (kind == ProductService.ALL && kind == ProductService.SALE) {
             return JDBIConnector.get().withHandle(handle -> {
-                return handle.createQuery("SELECT id, name, pa_category, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+               List<Category> categoryList= handle.createQuery("SELECT id, name, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+                for (Category category: categoryList) {
+                    category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
+                }
+                return categoryList;
             });
         }
 
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT  id, name, pa_category, status  FROM category where pa_category=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
+            List<Category> categoryList= handle.createQuery("SELECT  id, name, status  FROM category where pa_category=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
+            for (Category category: categoryList) {
+                category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
+            }
+            return categoryList;
         });
     }
 
+
     public Category getCategoryById(int id) {
         Category category = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("SELECT id, `name`, pa_category,status FROM category WHERE id=:id")
+                handle.createQuery("SELECT id, `name`,status FROM category WHERE id=:id")
                         .bind("id", id)
                         .mapToBean(Category.class).one());
-        category.setPaCategory(PaCategoryService.getInstance().getPaCategoryById(category.getId()));
+        category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
         return category;
     }
+
+
 
 
     public List<Category> getListCategoryAll() {

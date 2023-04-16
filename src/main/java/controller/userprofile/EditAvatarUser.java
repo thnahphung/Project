@@ -38,7 +38,7 @@ public class EditAvatarUser extends HttpServlet {
         String imageUrl = request.getContextPath() + "/" + UPLOAD_DIR + "/" + fileName;
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-        user.setAvatar(imageUrl);
+//        user.setAvatar(imageUrl);
         UserService.getInstance().editAvatar(user.getId(), imageUrl);
         response.getWriter().write(imageUrl);
     }

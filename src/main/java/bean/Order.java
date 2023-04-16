@@ -21,6 +21,9 @@ public class Order implements Serializable {
     private Information information;
     private int status;
 
+    public Order() {
+    }
+
     public Order(int id, String note, int total, List<LineItem> listOrderItem, List<Discount> listDiscount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, LocalDateTime createDate, boolean isPayment, User user, Information information, int status) {
         this.id = id;
         this.note = note;
@@ -57,8 +60,6 @@ public class Order implements Serializable {
         this.createDate = createDate;
     }
 
-    public Order() {
-    }
 
     public User getUser() {
         return user;
@@ -166,5 +167,26 @@ public class Order implements Serializable {
 
     public int total() {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", note='" + note + '\'' +
+                ", total=" + total +
+                ", listOrderItem=" + listOrderItem +
+                ", listDiscount=" + listDiscount +
+                ", transport=" + transport +
+                ", statusDelivery=" + statusDelivery +
+                ", paymentMethod=" + paymentMethod +
+                ", deliveryDate=" + deliveryDate +
+                ", receivingDate=" + receivingDate +
+                ", createDate=" + createDate +
+                ", isPayment=" + isPayment +
+                ", user=" + user +
+                ", information=" + information +
+                ", status=" + status +
+                '}';
     }
 }

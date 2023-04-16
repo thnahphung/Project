@@ -47,7 +47,7 @@ public class UserService {
                     .one();
         });
         User user = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT u.id, u.name, u.phone, u.email, u.avatar,u.variety, u.`status`, t.name, t.`value` FROM `user`u WHERE u.id_third_party =?").bind(0, thirdParty.getId()).mapToBean(User.class).one();
+            return handle.createQuery("SELECT u.id, u.name, u.phone, u.email, u.variety, u.`status`, t.name, t.`value` FROM `user`u WHERE u.id_third_party =?").bind(0, thirdParty.getId()).mapToBean(User.class).one();
         });
         user.setIdThirdParty(thirdParty);
         return user;
@@ -55,7 +55,7 @@ public class UserService {
 
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select id,  phone, email, `password` from user where email=? or phone=?")
+                handle.createQuery("select id,`name`,  phone, email, `password` from user where email=? or phone=?")
                         .bind(0, userName).bind(1, userName)
                         .mapToBean(User.class)
                         .stream()
@@ -63,10 +63,11 @@ public class UserService {
         );
         if (users.size() != 1) return null;
         User user = users.get(0);
-        if (!user.getPassword().equals((password))
+        if (!user.getPassword().equals(UserService.getInstance().hashPassword(password))
                 || !(user.getEmail().equals(userName) || user.getPhone().equals(userName))) {
             return null;
         }
+        user.setAvatar(ImageService.getInstance().getListImageByProductId(4).get(0));
         return user;
     }
 
@@ -231,7 +232,7 @@ public class UserService {
 
     public User getUserByReviewId(int id){
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select u.id, u.name, u.phone, u.email, u.avatar, u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
+            return handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
                     .bind(0, id)
                     .mapToBean(User.class)
                     .one();
@@ -239,7 +240,7 @@ public class UserService {
     }
     public User getUserAddProductByProductId(int id){
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select u.id, u.name, u.phone, u.email, u.avatar, u.variety, u.status from `user` u join product p on u.id = p.user_add_id WHERE p.id = ?; ")
+            return handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join product p on u.id = p.user_add_id WHERE p.id = ?; ")
                     .bind(0, id)
                     .mapToBean(User.class)
                     .one();
@@ -247,10 +248,14 @@ public class UserService {
     }
     public User getUserByOrderId(int id){
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select u.id, u.name, u.phone, u.email, u.avatar, u.variety, u.status from `user` u join `order` o on u.id = o.user_id WHERE o.id = ?; ")
+            return handle.createQuery("select u.id, u.`name`, u.phone, u.email, u.variety, u.`status` from `user` u join `order` o on u.id = o.user_id WHERE o.id = ?; ")
                     .bind(0, id)
                     .mapToBean(User.class)
                     .one();
         });
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getInstance().checkLogin("qinhuuuuu@gmail.com","1"));
     }
 }

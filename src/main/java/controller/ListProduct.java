@@ -1,6 +1,5 @@
 package controller;
 
-import bean.Banner;
 import bean.Category;
 import bean.Product;
 import services.CaterogyService;
@@ -21,9 +20,10 @@ public class ListProduct extends HttpServlet {
         String group = "";
         int size = ProductService.getInstance().getCountProduct(kind, group) / 15;
         int count = ProductService.getInstance().getCountProduct(kind, group) % 15 > 0 ? size + 1 : size;
-        List<Product> list = ProductService.getInstance().getListProductInPageName(kind, group,page);// danh sach san pham theo trang
+        List<Product> listProduct = ProductService.getInstance().getListProductInPageName(kind, group,page);// danh sach san pham theo trang
 //        List<Banner> listbanner = BannerService.getInstance().getListBannerInPage("product");
-        request.setAttribute("list", list);
+//        System.out.println(listProduct);
+        request.setAttribute("listProduct", listProduct);
         request.setAttribute("kind", kind);
         request.setAttribute("group", group);
         request.setAttribute("count", count);
