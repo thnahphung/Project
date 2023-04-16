@@ -21,11 +21,12 @@ public class EditUser extends HttpServlet {
 
         UserService.getInstance().editInfor(user.getId(), fullName, phoneNumber, email);
 
-        response.getWriter().println("<li>" + fullName + "</li>\n" +
-                "                     <li>" + phoneNumber + "</li>\n" +
-                "                    <li>" + email + "</li>");
+        response.getWriter().println("<li>Họ tên: " + fullName + "</li>\n" +
+                "                     <li>Số điện thoại: " + phoneNumber + "</li>\n" +
+                "                    <li>Email: " + email + "</li>");
 
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

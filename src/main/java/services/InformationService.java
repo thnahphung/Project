@@ -29,15 +29,15 @@ public class InformationService {
         });
     }
 
-    public void addNewInformation(Information information) {
+    public void addNewInformation(String name, String phone, String detail, String district, String city) {
         JDBIConnector.get().withHandle(handle -> {
             int num = handle.createUpdate("INSERT INTO information(name, phone, detail, district, city, status)\n" +
                             "VALUES (:name, :phone, :detail, :district, :city,0);")
-                    .bind("name", information.getName())
-                    .bind("phone", information.getPhone())
-                    .bind("detail", information.getAddress().getDetail())
-                    .bind("distict", information.getAddress().getDistrict())
-                    .bind("city", information.getAddress().getCity())
+                    .bind("name", name)
+                    .bind("phone", phone)
+                    .bind("detail", detail)
+                    .bind("district", district)
+                    .bind("city", city)
                     .execute();
             return num;
         });
@@ -87,13 +87,24 @@ public class InformationService {
                     .execute();
         });
     }
-    public Information getInformationByOrderId(int id){
+
+    public Information getInformationByOrderId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select i.id, i.name, i.phone, i.status from information i join `order` o on i.id = o.information_id where o.id =?")
+            Information result = handle.createQuery("select i.id, i.name, i.phone, i.status from information i join `order` o on i.id = o.information_id where o.id = ?")
                     .bind(0, id)
                     .mapToBean(Information.class)
                     .one();
+            result.setAddress(AddressService.getInstance().getAddressByInformationId(result.getId()));
+            return result;
         });
+    }
+    public int maxId() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(`id`) as numberInformation FROM `information`").mapTo(Integer.class).one();
+        });
+    }
+    public static void main(String[] args) {
+        getInstance().addNewInformation("Trung Kien", "054568744", "Le van sy", "Tan Binh", "Ho Chi Minh");
     }
 }
 
