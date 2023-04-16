@@ -66,7 +66,7 @@
                     <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>
                     <span class="sale uppercase"><%=Format.format(product.getPriceSale())%> VND</span>
                     <%} else {%>
-                    <span class="sale uppercase"><%=Format.format(product.getPrice())%> VND</span>
+                    <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>
                     <%}%>
                 </div>
                 <div class="ratting">
@@ -205,58 +205,59 @@
     </div>
 </div>
 
-<%--<div class="container similar-product">--%>
-<%--    <div class="title-similar-product uppercase">--%>
-<%--        <h3>Sản phẩm tương tự</h3>--%>
-<%--    </div>--%>
-<%--    <div class="slider-similar-product">--%>
-<%--        <%for (Product productItem : (List<Product>) request.getAttribute("listSameProduct")) {%>--%>
-<%--        <div class="product">--%>
-<%--            <div class="thumbnail">--%>
-<%--                <div class="cont-item ">--%>
-<%--                    <a href="http://localhost:8080/detail-product?id=<%=productItem.getId()%>"><img--%>
-<%--                            src="<%=productItem.getMainImage().getSource()%>"--%>
-<%--                            alt="">--%>
-<%--                    </a>--%>
-<%--                </div>--%>
+<div class="container similar-product">
+    <div class="title-similar-product uppercase">
+        <h3>Sản phẩm tương tự</h3>
+    </div>
+    <div class="slider-similar-product">
+        <%
+            List<Product> listSameProduct = (List<Product>) request.getAttribute("listSameProduct");
+            System.out.println(listSameProduct.size());
+            for (Product productItem : listSameProduct) {
+        %>
+        <div class="product">
+            <div class="thumbnail">
+                <div class="cont-item ">
+                    <a href="http://localhost:8080/detail-product?id=<%=productItem.getId()%>"><img
+                            src="<%=productItem.getMainImage().getSource()%>"
+                            alt="">
+                    </a>
+                </div>
 
-<%--                <div class="caption">--%>
-<%--                    <h3>--%>
-<%--                        <a href="http://localhost:8080/detail-product?id=<%=productItem.getId()%>"><%=productItem.getName()%>--%>
-<%--                        </a></h3>--%>
-<%--                    <div class="ratting">--%>
-<%--                        <% count = productItem.getRate();--%>
-<%--                            for (int i = 0; i < 5; i++) {--%>
-<%--                                if (count > 0) {%>--%>
-<%--                        <i class="fa fa-star yellow"></i>--%>
-<%--                        <%} else {%>--%>
-<%--                        <i class="fa fa-star  "></i>--%>
-<%--                        <%--%>
-<%--                            }--%>
-<%--                            count--;--%>
-<%--                        %>--%>
-<%--                        <%}%>--%>
-<%--                    </div>--%>
-<%--                    <h3 class="price">--%>
-<%--                        <%if (product.getPriceSale() != 0) {%>--%>
-<%--                        <span class="price uppercase"><%=Format.format(product.getPrice())%> VND</span>--%>
-<%--                        <span class="sale uppercase"><%=Format.format(product.getPriceSale())%> VND</span>--%>
-<%--                        <%} else {%>--%>
-<%--                        <span class="sale uppercase"><%=Format.format(product.getPrice())%> VND</span>--%>
-<%--                        <%}%>--%>
+                <div class="caption">
+                    <h3>
+                        <a href="http://localhost:8080/detail-product?id=<%=productItem.getId()%>"><%=productItem.getName()%>
+                        </a></h3>
+                    <div class="ratting">
+                        <% count = productItem.getRate();
+                            for (int i = 0; i < 5; i++) {
+                                if (count > 0) {%>
+                        <i class="fa fa-star yellow"></i>
+                        <%} else {%>
+                        <i class="fa fa-star  "></i>
+                        <%
+                            }
+                            count--;
+                        %>
+                        <%}%>
+                    </div>
+                    <h3 class="price">
+                        <%if (productItem.getPriceSale() != 0) {%>
+                        <%=Format.format(productItem.getPrice())%> VND
+                        <span class="price-real"><%=Format.format(productItem.getPriceSale())%> VND</span>
+                        <%} else {%>
+                        <%=Format.format(productItem.getPrice())%> VND
+                        <%}%>
 
-<%--&lt;%&ndash;                        <%=Format.format(productItem.getPrice())%> VND&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <%if (productItem.getPriceReal() != 0) {%>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <span class="price-real"><%=Format.format(productItem.getPriceReal())%> VND</span>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        <%}%>&ndash;%&gt;--%>
-<%--                    </h3>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <%}%>--%>
 
-<%--    </div>--%>
-<%--</div>--%>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <%}%>
+
+    </div>
+</div>
 
 <%@include file="footer.jsp" %>
 <%@include file="scroll-to-top.jsp" %>
