@@ -23,7 +23,7 @@ public class ThirdPartyService {
 
     public int maxId() {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT MAX(`id`) as numberOfInformation FROM `information`").mapTo(Integer.class).one();
+            return handle.createQuery("SELECT MAX(`id`) as numberOfThirdParty FROM `third_party`").mapTo(Integer.class).one();
         });
     }
 
@@ -32,5 +32,16 @@ public class ThirdPartyService {
             return handle.createQuery("select tp.id, tp.name, tp.value from third_party tp join `user` u on tp.id = u.id_third_party where u.id = ?;")
                     .bind(0, id).mapToBean(ThirdParty.class).one();
         });
+    }
+
+    public ThirdParty getThirdPartyById(int id) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id, name, value from third_party where id = ?")
+                    .bind(0, id).mapToBean(ThirdParty.class).one();
+        });
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getInstance().getThirdPartyById(1));
     }
 }

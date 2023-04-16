@@ -49,7 +49,16 @@
             <%}%>
         </a>
         <a href="/userProfile" class="item-right">
+            <%if (user.getAvatar() == null) {%>
+            <img src="images/userNull.png" alt="">
+
+            <%} else {%>
             <img src="<%=user.getAvatar().getSource()%>" alt="">
+            <%}%>
+            <a href="http://localhost:8080/doLogin" class="item-right">
+                <p><%=user.getName()%>
+                </p>
+            </a>
         </a>
         <%} else {%>
         <a href="/cart" class="item-right"><i

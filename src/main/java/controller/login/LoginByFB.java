@@ -26,17 +26,17 @@ public class LoginByFB extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String id3rd = request.getParameter("id");
-        ThirdParty thirdParty = new ThirdParty(ThirdPartyService.getInstance().maxId()+1, "Facebook", id3rd );
+        System.out.println(id3rd);
         User user = new User();
         if (!UserService.getInstance().checkExistId3rd(id3rd)) {
             user.setName(name);
-            user.setIdThirdParty(thirdParty);
+            user.setIdThirdParty(new ThirdParty(ThirdPartyService.getInstance().maxId()+1, "Facebook", id3rd ));
             UserService.getInstance().addUserLoginBy3rdParty(user);
         } else {
             user = UserService.getInstance().getUserById3rd(id3rd);
             UserService.getInstance().changeName(name, id3rd);
         }
-
+        System.out.println(user.getAvatar());
         HttpSession session = request.getSession(true);
         session.setAttribute("auth", user);
         session.setAttribute("cart", CartService.getInstance().getCartOfUser(user.getId()));
