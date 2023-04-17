@@ -1,5 +1,8 @@
 package bean;
 
+import services.OrderService;
+import services.UserService;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -184,5 +187,10 @@ public class Order implements Serializable {
                 ", information=" + information +
                 ", status=" + status +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        Order o = OrderService.getInstance().getOrderByOrderId(1);
+        System.out.println(o.getListOrderItem());
     }
 }

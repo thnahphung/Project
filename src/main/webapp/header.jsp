@@ -36,7 +36,9 @@
 
 
         <% User user = (User) session.getAttribute("auth");
-            List<LineItem> cartItems = user.getListCartItem();
+            if (user != null) {
+                List<LineItem> cartItems = user.getListCartItem();
+
         %>
         <a href="/cart" class="item-right"><i
                 class="fa-solid fa-cart-shopping"></i>
@@ -46,12 +48,23 @@
             <p>Giỏ hàng (<span class="amount-product">0</span>)</p>
             <%}%>
         </a>
-        <% if (user != null) {%>
         <a href="/userProfile" class="item-right">
-<%--            <%="hakjhfsdsdg"%>--%>
+            <%if (user.getAvatar() == null) {%>
+            <img src="images/userNull.png" alt="">
+
+            <%} else {%>
             <img src="<%=user.getAvatar().getSource()%>" alt="">
+            <%}%>
+            <a href="http://localhost:8080/userProfile" class="item-right">
+                <p><%=user.getName()%>
+                </p>
+            </a>
         </a>
         <%} else {%>
+        <a href="/cart" class="item-right"><i
+                class="fa-solid fa-cart-shopping"></i>
+            <p>Giỏ hàng</p>
+        </a>
         <a href="http://localhost:8080/doLogin" class="item-right">
             <i class="fa-solid fa-user"></i>
             <p>Đăng nhập</p>

@@ -92,10 +92,7 @@
                                             </div>
                                         </div>
                                         <div class="contain-address right">
-                                            <button class="btn-address edit-one button submit" id="edit-address"
-                                                    data-toggle="modal"
-                                                    data-target="#exampleEditAddress<%=i.getId()%>">Sửa
-                                            </button>
+
                                             <button class="btn-address delete-one button submit" id="delete-address"
                                                     value="<%=i.getId()%>">Xóa
                                             </button>
@@ -177,7 +174,7 @@
                             <input class="input" type="text" name="" id="input-number-phone" placeholder="Số điện thoại">
                             <input class="input" type="text" name="" id="input-detail" placeholder="Số nhà, tên đường, thôn, ấp">
                             <input class="input" type="text" name="" id="input-district" placeholder="Quận, huyện">
-                            <input class="input" type="text" name="" id="input-city" placeholder="Thành phố">
+                            <input class="input" type="text" name="" id="input-city" placeholder="Tỉnh, thành phố">
                         </div>
                     </div>
                     <div class="modal-footer">

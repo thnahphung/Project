@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
         if (user == null) {
             request.setAttribute("error", "Sai tài khoản hoặc mật khẩu.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else if (user.getVarieties() > 0) {
+        } else if (user.getVariety() > 0) {
             if(user.getStatus()==0){
                 HttpSession session = request.getSession(true);
                 session.setAttribute("authAdmin", user);

@@ -73,40 +73,7 @@ $(document).ready(function () {
         })
     })
 
-    // SỬA ĐỊA CHỈ
-    $(document).on("click", ".btn-save-address", function (e) {
-        let id = $(this).val();
-        let name = $("#input-edit-name" + id).val();
-        let phone = $('#input-edit-phone' + id).val();
-        let city = $('#input-edit-city' + id).val();
-        let district = $('#input-edit-district' + id).val();
-        let detail = $("#input-edit-detail" + id).val();
 
-        if (checkNull(name) || checkNull(phone) || checkNull(city) || checkNull(district) || checkNull(detail)) {
-
-            return $(".error").text("không");
-        }
-
-        $.ajax({
-            url: "/userprofile/editInformation",
-            type: "get", //send it through get method
-            data: {
-                id: id,
-                name: name,
-                phone: phone,
-                city: city,
-                district: district,
-                detail: detail
-            },
-            success: function (response) {
-                $(".contain-address" + id).html(response);
-            },
-            error: function (xhr) {
-                //Do Something to handle error
-            }
-        });
-        $('#exampleEditAddress' + id).modal('toggle');
-    })
     // XÓA ĐỊA CHỈ
     $(document).on("click", ".delete-one", function (e) {
         let id = $(this).val();
@@ -147,7 +114,7 @@ $(document).ready(function () {
                 detail: detail
             },
             success: function (response) {
-                $(".contain-list-address").append(response);
+                $('.contain-list-address').append(response);
             },
             error: function (xhr) {
                 //Do Something to handle error
