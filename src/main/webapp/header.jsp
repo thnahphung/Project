@@ -55,7 +55,7 @@
             <%} else {%>
             <img src="<%=user.getAvatar().getSource()%>" alt="">
             <%}%>
-            <a href="http://localhost:8080/doLogin" class="item-right">
+            <a href="http://localhost:8080/userProfile" class="item-right">
                 <p><%=user.getName()%>
                 </p>
             </a>

@@ -19,7 +19,7 @@ public class User implements Serializable {
     private List<LineItem> listCartItem;
     private List<Order> listOrder;
     private ThirdParty idThirdParty;
-    private int varieties;
+    private int variety;
     private int status;
 
 
@@ -27,7 +27,7 @@ public class User implements Serializable {
 
     }
 
-    public User(int id, String name, String email, String phone, String password, Image avatar, List<Information> listOrderInformation, List<LineItem> listCartItem, List<Order> listOrder, ThirdParty idThirdParty, int varieties, int status) {
+    public User(int id, String name, String email, String phone, String password, Image avatar, List<Information> listOrderInformation, List<LineItem> listCartItem, List<Order> listOrder, ThirdParty idThirdParty, int variety, int status) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -38,7 +38,7 @@ public class User implements Serializable {
         this.listCartItem = listCartItem;
         this.listOrder = listOrder;
         this.idThirdParty = idThirdParty;
-        this.varieties = varieties;
+        this.variety = variety;
         this.status = status;
     }
 
@@ -122,12 +122,12 @@ public class User implements Serializable {
         this.idThirdParty = idThirdParty;
     }
 
-    public int getVarieties() {
-        return varieties;
+    public int getVariety() {
+        return variety;
     }
 
-    public void setVarieties(int varieties) {
-        this.varieties = varieties;
+    public void setVariety(int variety) {
+        this.variety = variety;
     }
 
     public int getStatus() {
@@ -138,11 +138,11 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public String getVarietiesUser() {
-        if (this.varieties == 1) {
+    public String getVarietyUser() {
+        if (this.variety == 1) {
             return "Cộng tác viên";
         }
-        if (this.varieties == 2) {
+        if (this.variety == 2) {
             return "Quản lý";
         }
         return "Khách hàng";
@@ -161,7 +161,7 @@ public class User implements Serializable {
                 ", listCartItem=" + listCartItem +
                 ", listOrder=" + listOrder +
                 ", idThirdParty='" + idThirdParty + '\'' +
-                ", varieties=" + varieties +
+                ", variety=" + variety +
                 ", status=" + status +
                 '}';
     }
