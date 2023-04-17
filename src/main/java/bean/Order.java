@@ -9,7 +9,7 @@ public class Order implements Serializable {
     private String note;
     private int total;
     private List<LineItem> listOrderItem;  // chi tiết đơn hàng
-    private List<Discount> listDiscount;
+    private Discount discount;
     private Transport transport;
     private int statusDelivery;
     private int paymentMethod;
@@ -24,12 +24,12 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(int id, String note, int total, List<LineItem> listOrderItem, List<Discount> listDiscount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, LocalDateTime createDate, boolean isPayment, User user, Information information, int status) {
+    public Order(int id, String note, int total, List<LineItem> listOrderItem, Discount discount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, LocalDateTime createDate, boolean isPayment, User user, Information information, int status) {
         this.id = id;
         this.note = note;
         this.total = total;
         this.listOrderItem = listOrderItem;
-        this.listDiscount = listDiscount;
+        this.discount = discount;
         this.transport = transport;
         this.statusDelivery = statusDelivery;
         this.paymentMethod = paymentMethod;
@@ -101,12 +101,12 @@ public class Order implements Serializable {
         this.listOrderItem = listOrderItem;
     }
 
-    public List<Discount> getListDiscount() {
-        return listDiscount;
+    public Discount getDiscount() {
+        return discount;
     }
 
-    public void setListDiscount(List<Discount> listDiscount) {
-        this.listDiscount = listDiscount;
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 
     public Transport getTransport() {
@@ -165,10 +165,6 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public int total() {
-        return 0;
-    }
-
     @Override
     public String toString() {
         return "Order{" +
@@ -176,7 +172,7 @@ public class Order implements Serializable {
                 ", note='" + note + '\'' +
                 ", total=" + total +
                 ", listOrderItem=" + listOrderItem +
-                ", listDiscount=" + listDiscount +
+                ", discount=" + discount +
                 ", transport=" + transport +
                 ", statusDelivery=" + statusDelivery +
                 ", paymentMethod=" + paymentMethod +

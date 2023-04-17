@@ -39,8 +39,8 @@ public class Cart {
         return totalPrice(lineItems) - totalPriceSale(lineItems);
     }
 
-    public static int total(List<LineItem> lineItems, int sumDiscount) {
-        return totalPrice(lineItems) - totalPriceSale(lineItems) - sumDiscount;
+    public static int total(List<LineItem> lineItems, int discountFee) {
+        return totalPrice(lineItems) - totalPriceSale(lineItems) - discountFee;
     }
 
     public static List<LineItem> removeItemCart(List<LineItem> lineItem, int idItemCart) {

@@ -222,7 +222,7 @@
             }
 
             $('.btn-total').click(function () {
-                window.location = "http://localhost:8080/shipping?voucher="+$('#input-voucher').val();
+                window.location = "http://localhost:8080/shipping?discountCode="+$('#input-voucher').val();
             })
             $('#submit-voucher').click(function () {
 
