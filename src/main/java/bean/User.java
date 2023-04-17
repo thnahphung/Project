@@ -166,6 +166,14 @@ public class User implements Serializable {
                 '}';
     }
 
+    public LineItem containProductInCart(int idProduct) {
+        for (LineItem cartItem : getListCartItem()) {
+            if (cartItem.getProduct().getId() == idProduct)
+                return cartItem;
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         User u = UserService.getInstance().getUserById(5);
         System.out.println(u.getListOrder());

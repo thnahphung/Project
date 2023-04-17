@@ -1,11 +1,9 @@
 package services;
 
 import bean.LineItem;
-import bean.Order;
-import bean.Product;
+import bean.User;
 import db.JDBIConnector;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,13 +21,33 @@ public class CartService {
         return instance;
     }
 
-    public void addCartItem(int userId, LineItem lineItem) {
+    public void addLineItem(int userId, LineItem lineItem) {
         JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("INSERT INTO cart_item VALUES (:user_id, :product_id, :quantity);")
+                handle -> handle.createUpdate("INSERT INTO cart_item(user_id, product_id, quantity) VALUES (:user_id, :product_id, :quantity);")
                         .bind("user_id", userId)
                         .bind("product_id", lineItem.getProduct().getId())
                         .bind("quantity", lineItem.getQuantity())
                         .execute());
+    }
+
+    public void update(LineItem cartItem) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE `cart_item` SET quantity=:quantity WHERE id=:id")
+                    .bind("id", cartItem.getId())
+                    .bind("quantity", cartItem.getQuantity())
+                    .execute();
+        });
+    }
+
+    public void addCartItem(User user, LineItem lineItem) {
+        LineItem aLine = user.containProductInCart(lineItem.getProduct().getId());
+        if (aLine != null) {
+            aLine.setQuantity(lineItem.getQuantity() + aLine.getQuantity());
+            update(aLine);
+        } else {
+            user.getListCartItem().add(lineItem);
+            addLineItem(user.getId(), lineItem);
+        }
 
     }
 
@@ -39,7 +57,7 @@ public class CartService {
                     .bind(0, userId)
                     .mapToBean(LineItem.class).stream().collect(Collectors.toList());
         });
-        for(LineItem l : result){
+        for (LineItem l : result) {
             l.setProduct(ProductService.getInstance().getProductByCartItemId(l.getId()));
         }
         return result;
@@ -53,7 +71,15 @@ public class CartService {
         );
     }
 
+    public  void removeCartItemById(int id){
+        JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("DELETE FROM cart_item WHERE id=:id;")
+                        .bind("id", id)
+                        .execute()
+        );
+    }
+
     public static void main(String[] args) {
-        System.out.println(getInstance().getCartOfUser(5));
+
     }
 }

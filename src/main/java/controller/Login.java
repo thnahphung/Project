@@ -23,6 +23,7 @@ public class Login extends HttpServlet {
         String username = request.getParameter("user");
         String password = request.getParameter("password");
         User user = UserService.getInstance().checkLogin(username, password);
+        user.setVarieties(1);
         if (user == null) {
             request.setAttribute("error", "Sai tài khoản hoặc mật khẩu.");
             request.getRequestDispatcher("login.jsp").forward(request, response);

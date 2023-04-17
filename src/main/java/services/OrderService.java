@@ -1,5 +1,7 @@
 package services;
 
+import bean.Cart;
+import bean.LineItem;
 import bean.Order;
 import db.JDBIConnector;
 
@@ -29,7 +31,7 @@ public class OrderService implements Serializable {
             for (Order order : orders) {
                 int id = order.getId();
                 order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(id));
-                order.setListDiscount(DiscountService.getInstance().getListDiscountByOrderId(id));
+                order.setDiscount(DiscountService.getInstance().getDiscountByOrderId(id));
                 order.setUser(UserService.getInstance().getUserByOrderId(id));
                 order.setTransport(TransportService.getInstance().getTransportByOrderId(id));
                 order.setInformation(InformationService.getInstance().getInformationByOrderId(id));
@@ -40,10 +42,10 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderList() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orderList = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from order where stt_delivery not like 0;").mapToBean(Order.class).stream().collect(Collectors.toList());
+            List<Order> orderList = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from `order`;").mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orderList) {
                 order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(order.getId()));
-                order.setListDiscount(DiscountService.getInstance().getListDiscountByOrderId(order.getId()));
+                order.setDiscount(DiscountService.getInstance().getDiscountByOrderId(order.getId()));
                 order.setUser(UserService.getInstance().getUserByOrderId(order.getId()));
                 order.setTransport(TransportService.getInstance().getTransportByOrderId(order.getId()));
                 order.setInformation(InformationService.getInstance().getInformationByOrderId(order.getId()));
@@ -59,7 +61,7 @@ public class OrderService implements Serializable {
                     .bind(0, orderId)
                     .mapToBean(Order.class).one();
             order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(orderId));
-            order.setListDiscount(DiscountService.getInstance().getListDiscountByOrderId(orderId));
+            order.setDiscount(DiscountService.getInstance().getDiscountByOrderId(orderId));
             order.setUser(UserService.getInstance().getUserByOrderId(orderId));
             order.setTransport(TransportService.getInstance().getTransportByOrderId(orderId));
             order.setInformation(InformationService.getInstance().getInformationByOrderId(orderId));
@@ -69,7 +71,7 @@ public class OrderService implements Serializable {
 
 
     public void add(Order order) {
-        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `ord` VALUES (:id,:note,:total,:transport_id,:status_delivery,:payment_method,:delivery_date,:receiving_date,:is_payment,:create_date,:user_id,:infomation_id,0)")
+        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `ord` VALUES (:id,:note,:total,:transport_id,:status_delivery,:payment_method,:delivery_date,:receiving_date,:is_payment,:create_date,:user_id,:infomation_id,0,:discount_id)")
                 .bind("id", order.getId())
                 .bind("note", order.getNote())
                 .bind("total", order.getTotal())
@@ -82,15 +84,9 @@ public class OrderService implements Serializable {
                 .bind("create_date", order.getCreateDate())
                 .bind("user_id", order.getUser().getId())
                 .bind("information_id", order.getInformation().getId())
+                .bind("discount_id", order.getDiscount().getId())
                 .execute());
-        //Them danh sach cac discount cua 1 order vao bang discount_order
-        if (order.getListDiscount().size() > 0) {
-            StringBuilder query = new StringBuilder();
-            for (int i = 0; i < order.getListDiscount().size(); i++) {
-                query.append("INSERT INTO `discount_order` VALUES (" + order.getId() + order.getListDiscount().get(i).getId() + ");");
-            }
-            JDBIConnector.get().withHandle(handle -> handle.createUpdate(query.toString()));
-        }
+
         //Them danh sach cac item cua 1 order vao bang order_line
         StringBuilder query = new StringBuilder();
         for (int i = 0; i < order.getListOrderItem().size(); i++) {
@@ -112,6 +108,13 @@ public class OrderService implements Serializable {
                     .bind("id", id)
                     .execute();
         });
+    }
+
+    public int total(Order order) {
+        if (order.getDiscount() == null) {
+            return Cart.total(order.getListOrderItem());
+        }
+        return Cart.total(order.getListOrderItem(), order.getDiscount().getValue());
     }
 
     public static void main(String[] args) {

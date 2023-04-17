@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="bean.Order" %>
 <%@ page import="bean.Format" %>
+<%@ page import="services.OrderService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 >
 <html lang="en">
@@ -130,7 +131,7 @@
                     </td>
                     <td><%=order.getCreateDate()%>
                     </td>
-                    <td><%=order.total()%>
+                    <td><%=OrderService.getInstance().total(order)%>
                     </td>
                     <td><%=order.isPayment()   %>
                     </td>

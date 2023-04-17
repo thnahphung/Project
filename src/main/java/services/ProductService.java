@@ -189,15 +189,17 @@ public class ProductService {
 
     public List<Product> getListSameProduct(int paCategoryId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> productList = handle.createQuery("SELECT p.product_id, p.price,p.price_real,p.product_name,p.rate,p.category_id,p.image_src \n" +
-                    "FROM product p JOIN category c on p.category_id=c.category_id \n" +
-                    "JOIN pa_category pa ON c.pa_category_id = pa.pa_category_id \n" +
-                    "WHERE pa.pa_category_id = :paCategoryId LIMIT 16").bind("paCategoryId", paCategoryId).mapToBean(Product.class).stream().collect(Collectors.toList());
-
-            for (Product product : productList) {
-                product.setCategory(CaterogyService.getInstance().getCategoryById(product.getCategory().getId()));
+            List<Product> result = handle.createQuery("SELECT p.id, p.name, p.description, p.detail,p.rate from product p join category c on p.category_id = c.id WHERE c.pa_category = :paId  order by p.description  desc limit 20")
+                    .bind("paId", paCategoryId)
+                    .mapToBean(Product.class).stream().collect(Collectors.toList());
+            for (Product p : result) {
+                int id = p.getId();
+                p.setListImage(ImageService.getInstance().getListImageByProductId(id));
+                p.setCategory(CaterogyService.getInstance().getCategoryByProductId(id));
+                p.setUserAdd(UserService.getInstance().getUserAddProductByProductId(id));
+                p.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(id));
             }
-            return productList;
+            return result;
 
         });
     }
