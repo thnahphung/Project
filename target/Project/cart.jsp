@@ -23,6 +23,10 @@
 <body>
 
 <%@include file="header.jsp" %>
+<%
+    List<LineItem> cartItems = (List<LineItem>) request.getAttribute("cartItems");
+
+%>
 <div class="container content">
     <div class="row">
         <div class="<%=cartItems.size()==0?"col-12":"col-8"%> list-product">

@@ -1,6 +1,4 @@
-<%@ page import="bean.Order" %>
-<%@ page import="services.OrderService" %>
-<%@ page import="bean.Format" %>
+<%@ page import="bean.*" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 

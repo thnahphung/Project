@@ -57,7 +57,7 @@ public class SignUp extends HttpServlet {
             user.setEmail(email);
             user.setPhone(phone);
             user.setPassword(UserService.getInstance().hashPassword(pass));
-            user.setVarieties(0);
+            user.setVariety(0);
             UserService.getInstance().addUser(user);
             MailService.sendMail("Đăng ký tài khoản", "Bạn đã đăng ký tài khoản thành công, chào mừng đến với CRAFTS, chúc bạn có một trải nghiệm mua sắm vui vẻ!", email);
             request.getRequestDispatcher("sign-up.jsp").forward(request, response);

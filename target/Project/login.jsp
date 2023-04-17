@@ -38,7 +38,6 @@
 
             <input type="submit" name="submit" class="submit" value="Đăng nhập">
             <p style="color:red;text-align: center">Hoặc bạn có thể đăng nhập bằng:</p>
-            <!-- <button  type="button" class="btn btn-sm btn-primary">Facebook</button> -->
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
             </fb:login-button>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -108,11 +107,11 @@
                     id: response.id
                 },
                 success: function (response) {
-                    // window.location = "http://localhost:8080/homepage";
+                    window.location = "http://localhost:8080/homepage";
                 }
             });
             document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name +response.email+ '!';
+                'Thanks for logging in, ' + response.name+ '!';
         });
     }
 

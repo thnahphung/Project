@@ -61,9 +61,10 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <!-- <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Đăng xuất</button> -->
-                        <a class="nav-link" href="home-page.jsp"><i class="fa-solid fa-right-from-bracket"></i>Đăng
-                            xuất</a>
+                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button"
+                                role="tab" aria-controls="messages" aria-selected="false"><i
+                                class="fa-solid fa-right-from-bracket"></i>Đăng xuất
+                        </button>
                     </li>
 
                 </ul>
@@ -75,11 +76,12 @@
                             <h3>Thông tin địa chỉ</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li><%=order.getInformation().getName()%>
+                                    <li>Họ và tên: <%=order.getInformation().getName()%>
                                     </li>
-                                    <li><%=order.getInformation().getPhone()%>
+                                    <li>Số điện thoại: <%=order.getInformation().getPhone()%>
                                     </li>
-                                    <li><%=order.getInformation().getAddress().getDetail() + ", " + order.getInformation().getAddress().getDistrict() + ", " + order.getInformation().getAddress().getCity()%>
+                                    <li>Địa
+                                        chỉ: <%=order.getInformation().getAddress().getDetail() + ", " + order.getInformation().getAddress().getDistrict() + ", " + order.getInformation().getAddress().getCity()%>
                                     </li>
                                 </ul>
 
@@ -105,6 +107,7 @@
                                 <tr>
                                     <th scope="row"><%=orderItems.get(i).getProduct().getName()%>
                                     </th>
+                                    <%if (listPrice.get(i).getPriceSale() == 0) {%>
                                     <td><%=Format.format(listPrice.get(i).getPrice())%>
                                         VND
                                     </td>
@@ -115,6 +118,18 @@
                                         VND
                                     </td>
                                     <%total += listPrice.get(i).getPrice() * orderItems.get(i).getQuantity();%>
+                                    <%} else {%>
+                                    <td><%=Format.format(listPrice.get(i).getPriceSale())%>
+                                        VND
+                                    </td>
+                                    <td><%=orderItems.get(i).getQuantity()%>
+                                    </td>
+
+                                    <td><%=Format.format(listPrice.get(i).getPriceSale() * orderItems.get(i).getQuantity())%>
+                                        VND
+                                    </td>
+                                    <%total += listPrice.get(i).getPriceSale() * orderItems.get(i).getQuantity();%>
+                                    <%}%>
                                 </tr>
                                 <%}%>
 
@@ -127,26 +142,26 @@
                                     <td>Mã giảm giá:</td>
                                     <td>Thành tiền:</td>
                                 </tr>
-                                <tr>
-                                    <td><%=Format.format(total)%> VND</td>
-                                    <td>+ <%=Format.format(order.getTransport().getFee())%> VND</td>
-                                    <%if (order.getListDiscount().size() == 0) {%>
-                                    <td>- 0 VND</td>
-                                    <td><%=Format.format(total + order.getTransport().getFee()) %>
-                                        VND
-                                    </td>
-                                    <%
-                                    } else {
-                                    %>
-                                    <td>- <%=Format.format(order.getListDiscount().get(0).getValue())%> VND</td>
-                                    <td><%=Format.format(total + order.getTransport().getFee() - order.getListDiscount().get(0).getValue()) %>
-                                        VND
-                                    </td>
-                                    <%
+                                <%--                                <tr>--%>
+                                <%--                                    <td><%=Format.format(total)%> VND</td>--%>
+                                <%--                                    <td>+ <%=Format.format(order.getTransport().getFee())%> VND</td>--%>
+                                <%--                                    <%if (order.getListDiscount().size() == 0) {%>--%>
+                                <%--                                    <td>- 0 VND</td>--%>
+                                <%--                                    <td><%=Format.format(total + order.getTransport().getFee()) %>--%>
+                                <%--                                        VND--%>
+                                <%--                                    </td>--%>
+                                <%--                                    <%--%>
+                                <%--                                    } else {--%>
+                                <%--                                    %>--%>
+                                <%--                                    <td>- <%=Format.format(order.getListDiscount().get(0).getValue())%> VND</td>--%>
+                                <%--                                    <td><%=Format.format(total + order.getTransport().getFee() - order.getListDiscount().get(0).getValue()) %>--%>
+                                <%--                                        VND--%>
+                                <%--                                    </td>--%>
+                                <%--                                    <%--%>
 
-                                        }
-                                    %>
-                                </tr>
+                                <%--                                        }--%>
+                                <%--                                    %>--%>
+                                <%--                                </tr>--%>
                             </table>
                         </div>
 

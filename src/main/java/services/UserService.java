@@ -25,6 +25,12 @@ public class UserService {
         return instance;
     }
 
+    public int maxId() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(`id`) as numberOfUser FROM `user`").mapTo(Integer.class).one();
+        });
+    }
+
     public List<User> getListUser() {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT id, name, phone, email, avatar, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
@@ -32,25 +38,25 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        List<User> users = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).stream().collect(Collectors.toList());
+        User user = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).one();
         });
-        if (users.size() != 1) return null;
-        return users.get(0);
+        user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(id));
+        user.setListCartItem(CartService.getInstance().getCartOfUser(id));
+        user.setListOrder(OrderService.getInstance().getOrderListByUserId(id));
+        user.setIdThirdParty(ThirdPartyService.getInstance().getIdThirdPartyByUserId(id));
+        return user;
     }
 
     public User getUserById3rd(String id3rd) {
-        ThirdParty thirdParty = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select id, name, value from third_party where value=?")
+        return JDBIConnector.get().withHandle(handle -> {
+            User user = handle.createQuery("SELECT u.id, u.`name`, u.phone, u.email,u.avatar, u.variety, u.`status` FROM `user` u join third_party tp on u.id_third_party = tp.id where tp.value =?")
                     .bind(0, id3rd)
-                    .mapToBean(ThirdParty.class)
+                    .mapToBean(User.class)
                     .one();
+            user.setIdThirdParty(ThirdPartyService.getInstance().getIdThirdPartyByUserId(user.getId()));
+            return user;
         });
-        User user = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT u.id, u.name, u.phone, u.email, u.variety, u.`status`, t.name, t.`value` FROM `user`u WHERE u.id_third_party =?").bind(0, thirdParty.getId()).mapToBean(User.class).one();
-        });
-        user.setIdThirdParty(thirdParty);
-        return user;
     }
 
     public User checkLogin(String userName, String password) {
@@ -194,16 +200,20 @@ public class UserService {
 
 
     public void addUserLoginBy3rdParty(User user) {
+
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("insert into third_party(name, value) values ( :name, :value)")
+            return handle.createUpdate("insert into third_party(id,name, value) values ( :id, :name, :value)")
+                    .bind("id", user.getIdThirdParty().getId())
                     .bind("name", user.getIdThirdParty().getName())
                     .bind("value", user.getIdThirdParty().getValue())
                     .execute();
+
         });
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("insert into `user`(name, id_third_party, variety, status) values ( :name,:id_third_party, :varieties, :stt)")
+            return handle.createUpdate("insert into `user`(id,name, id_third_party, variety, status) values (:id, :name,:id_third_party, :varieties, :stt)")
+                    .bind("id", UserService.getInstance().maxId() + 1)
                     .bind("name", user.getName())
-                    .bind("id_third_party", ThirdPartyService.getInstance().maxId())
+                    .bind("id_third_party", user.getIdThirdParty().getId())
                     .bind("varieties", 0)
                     .bind("stt", 0)
                     .execute();
@@ -230,7 +240,7 @@ public class UserService {
         });
     }
 
-    public User getUserByReviewId(int id){
+    public User getUserByReviewId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
                     .bind(0, id)
@@ -238,7 +248,8 @@ public class UserService {
                     .one();
         });
     }
-    public User getUserAddProductByProductId(int id){
+
+    public User getUserAddProductByProductId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join product p on u.id = p.user_add_id WHERE p.id = ?; ")
                     .bind(0, id)
@@ -246,7 +257,8 @@ public class UserService {
                     .one();
         });
     }
-    public User getUserByOrderId(int id){
+
+    public User getUserByOrderId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select u.id, u.`name`, u.phone, u.email, u.variety, u.`status` from `user` u join `order` o on u.id = o.user_id WHERE o.id = ?; ")
                     .bind(0, id)
@@ -256,6 +268,6 @@ public class UserService {
     }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().checkLogin("qinhuuuuu@gmail.com","1"));
+        System.out.println(getInstance().getUserById3rd("1098242514911602"));
     }
 }

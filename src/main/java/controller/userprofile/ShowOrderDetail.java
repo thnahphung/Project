@@ -24,7 +24,10 @@ public class ShowOrderDetail extends HttpServlet {
         List<HistoryPrice> listPrice = new ArrayList<>();
 
         for(LineItem lineItem: order.getListOrderItem()){
+            System.out.println(lineItem.getProduct().getId());
+            System.out.println(order.getCreateDate());
             listPrice.add(HistoryPriceService.getInstance().getPriceOfProductAtTime(lineItem.getProduct().getId(), order.getCreateDate()));
+            System.out.println(listPrice);
         }
 
         request.setAttribute("listPrice", listPrice);

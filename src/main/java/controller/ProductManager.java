@@ -18,7 +18,7 @@ public class ProductManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("authAdmin");
-        if (user.getVarieties() != 1 && user.getVarieties() != 2) {
+        if (user.getVariety() != 1 && user.getVariety() != 2) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         String name = "Quản lý sản phẩm";
