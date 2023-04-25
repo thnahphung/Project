@@ -32,7 +32,7 @@
         </div>
 
         <div class="sort">
-            <select name="sort" class="sort-table " id="sort-tableID">
+            <select name="sort" class="sort-table" id="sort-tableID">
                 <option class="sort-item" value="nameA">A-Z</option>
                 <option class="sort-item" value="nameZ">Z-A</option>
                 <option class="sort-item" value="priceHigh">Giá từ thấp đến cao</option>
@@ -78,7 +78,6 @@
                         %>
                         <li class="item item-groupProduct">
                             <button class="button">
-
                                 <%=category.getName()%>
                             </button>
                         </li>
@@ -99,23 +98,23 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
-<%--            <div class="carousel-inner">--%>
-<%--                <%--%>
-<%--                    List<Banner> listbanner = (List<Banner>) request.getAttribute("listBanner");--%>
-<%--                    for (int i = 0; i < 3; i++) {--%>
-<%--                %>--%>
-<%--                <%if (i == 0) {%>--%>
-<%--                <div class="carousel-item active">--%>
-<%--                    <a href=""><img class="d-block w-100" src=" <% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"--%>
-<%--                                    alt="First slide"></a>--%>
-<%--                </div>--%>
-<%--                <%}%>--%>
-<%--                <div class="carousel-item ">--%>
-<%--                    <a href=""><img class="d-block w-100" src="<% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"--%>
-<%--                                    alt="Second slide"></a>--%>
-<%--                </div>--%>
-<%--                <%}%>--%>
-<%--            </div>--%>
+            <div class="carousel-inner">
+                <%
+//                    List<Banner> listbanner = (List<Banner>) request.getAttribute("listBanner");
+                    for (int i = 0; i < 3; i++) {
+                %>
+                <%if (i == 0) {%>
+                <div class="carousel-item active">
+                    <a href=""><img class="d-block w-100" src=" <% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"
+                                    alt="First slide"></a>
+                </div>
+                <%}%>
+                <div class="carousel-item ">
+                    <a href=""><img class="d-block w-100" src="<% // TODO: 4/9/2023  =listbanner.get(i).getImage_src()%>"
+                                    alt="Second slide"></a>
+                </div>
+                <%}%>
+            </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
@@ -131,7 +130,6 @@
 
                 <%
                     List<Product> listProduct = (List<Product>) request.getAttribute("listProduct");
-                    System.out.println(listProduct.get(0).getCategory().getPaCategory().getName());
                     for (Product product : listProduct) {
                 %>
                 <div class="col-4">
@@ -141,40 +139,40 @@
                                     src="<%=product.getListImage().get(0).getSource()%>" alt="">
                             </a>
                         </div>
-                        <div class="button">
-                            <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"
-                               class="buy-now"> Mua ngay</a>
-                            <button class="wish-list btn-add-cart" value="<%= product.getId()%>"><i
-                                    class="fa-solid fa-cart-plus"></i></button>
+                            <div class="button">
+                                <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"
+                                   class="buy-now"> Mua ngay</a>
+                                <button class="wish-list btn-add-cart" value="<%= product.getId()%>"><i
+                                        class="fa-solid fa-cart-plus"></i></button>
 
-                        </div>
-                        <div class="caption">
-                            <h3>
-                                <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"><%= product.getName()%>
-                                </a></h3>
-                            <div class="ratting">
-                                <% int count = product.getRate();
-                                    for (int i = 0; i < 5; i++) {
-                                        if (count > 0) {%>
-                                <i class="fa fa-star yellow"></i>
-                                <%} else {%>
-                                <i class="fa fa-star"></i>
-                                <%
-                                    }
-                                    count--;
-                                    }
-                                %>
                             </div>
-                            <h3 class="price">
-                                <%= Format.format(product.getPrice())%> VND
-                                <% if (product.getPriceSale() != 0) {%>
-                                <span class="price-real"><%= Format.format(product.getPriceSale())%> VND</span>
-                                <%}%>
-                            </h3>
-                        </div>
+                            <div class="caption">
+                                <h3>
+                                    <a href="http://localhost:8080/detail-product?id=<%= product.getId()%>"><%= product.getName()%>
+                                    </a></h3>
+                                <div class="ratting">
+                                    <% int count = product.getRate();
+                                        for (int i = 0; i < 5; i++) {
+                                            if (count > 0) {%>
+                                    <i class="fa fa-star yellow"></i>
+                                    <%} else {%>
+                                    <i class="fa fa-star"></i>
+                                    <%
+                                        }
+                                        count--;
+                                        }
+                                    %>
+                                </div>
+                                <h3 class="price">
+                                    <%= Format.format(product.getPrice())%> VND
+                                    <% if (product.getPriceSale() != 0) {%>
+                                    <span class="price-real"><%= Format.format(product.getPriceSale())%> VND</span>
+                                    <%}%>
+                                </h3>
+                            </div>
                     </div>
                 </div>
-                <% }%>
+                <%}%>
 
             </div>
         </div>
@@ -190,7 +188,6 @@
                     </button>
                 </li>
                 <%
-
                     int count = (int) request.getAttribute("count");
                     for (int i = 0; i < count; i++) {
                 %>

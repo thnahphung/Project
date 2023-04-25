@@ -39,27 +39,29 @@ $('.item-groupProduct').click(function () {
 })
 
 // ---------- Tim kiem -------------
-// $("#search").click(function () {
-//     $.ajax({
-//         url: "/listProducts/search",
-//         type: "get", //send it through get method
-//         data: {
-//             search: $(".search-input").val(),
-//         },
-//         success: function (response) {
-//             $(".list-product .row").html(response);
-//         },
-//         error: function (xhr) {
-//             //Do Something to handle error
-//         }
-//     });
-// })
+        // $("#search").click(function () {
+        //     $.ajax({
+        //         url: "/listProducts/search",
+        //         type: "get", //send it through get method
+        //         data: {
+        //             search: $(".search-input").val(),
+        //         },
+        //         success: function (response) {
+        //             $(".list-product .row").html(response);
+        //         },
+        //         error: function (xhr) {
+        //             //Do Something to handle error
+        //         }
+        //     });
+        // })
 
 
 // =============== Phan Trang =====================
 $("button.page-link").click(
+
 function () {
     let page = $(this).text().trim();
+    alert(page)
     if (page === 'Previous') {
         let buttonActive = $('li.active>button');
         page = buttonActive.text() - 1 <= 0 ? 1 : buttonActive.text() - 1;
@@ -85,7 +87,7 @@ function () {
             page: page,
             kind: urlParams.get('kind'),
             group: $('.active-navbar-left').text(),
-            sort: $('.sort-table').val.trim()
+            sort: $('.sort-table').val().trim()
         },
         success: function (response) {
             $(".list-product .row").html(response);

@@ -150,7 +150,6 @@ public class ProductService {
         for (int i = start; i < end; i++) {
             listResult.add(list.get(i));
         }
-
         return listResult;
     }
 
@@ -372,7 +371,7 @@ public class ProductService {
 
 
 //        System.out.println(ProductService.getInstance().getTopWoodProducts());
-        System.out.println(ProductService.getInstance().getListProductByKind(3));
+//        System.out.println(ProductService.getInstance().getListProductByKind(1));
 
 //        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
 //        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
