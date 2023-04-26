@@ -62,12 +62,21 @@ public class DiscountService implements Serializable {
         return 0;
     }
 
-    public List<Discount> getListDiscountByOrderId(int id){
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select d.id, d.code, d.value, d.condition, d.quantity, d.start_date, d.end_date from discount d join discount_order do on d.id = do.discount_id where order_id = ?")
-                    .bind(0, id)
-                    .mapToBean(Discount.class)
-                    .stream().collect(Collectors.toList());
-        });
+    public Discount getDiscountByOrderId(int idOrder) {
+        List<Discount> list = JDBIConnector.get().withHandle(
+                handle -> handle.createQuery("select d.id, d.`code`, d.`value`, d.`condition`, d.quantity, d.start_date, d.end_date \n" +
+                                "from discount d join `order` o on d.id = o.discount_id \n" +
+                                "where o.id = :idOrder")
+                .bind("idOrder", idOrder)
+                .mapToBean(Discount.class)
+                .stream().collect(Collectors.toList()));
+        if (list.size() > 0)
+            return list.get(0);
+        else return null;
+
+    }
+
+    public static void main(String[] args) {
+
     }
 }

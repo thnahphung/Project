@@ -1,5 +1,8 @@
 package bean;
 
+import services.OrderService;
+import services.UserService;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,7 +12,7 @@ public class Order implements Serializable {
     private String note;
     private int total;
     private List<LineItem> listOrderItem;  // chi tiết đơn hàng
-    private List<Discount> listDiscount;
+    private Discount discount;
     private Transport transport;
     private int statusDelivery;
     private int paymentMethod;
@@ -21,12 +24,15 @@ public class Order implements Serializable {
     private Information information;
     private int status;
 
-    public Order(int id, String note, int total, List<LineItem> listOrderItem, List<Discount> listDiscount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, LocalDateTime createDate, boolean isPayment, User user, Information information, int status) {
+    public Order() {
+    }
+
+    public Order(int id, String note, int total, List<LineItem> listOrderItem, Discount discount, Transport transport, int statusDelivery, int paymentMethod, LocalDateTime deliveryDate, LocalDateTime receivingDate, LocalDateTime createDate, boolean isPayment, User user, Information information, int status) {
         this.id = id;
         this.note = note;
         this.total = total;
         this.listOrderItem = listOrderItem;
-        this.listDiscount = listDiscount;
+        this.discount = discount;
         this.transport = transport;
         this.statusDelivery = statusDelivery;
         this.paymentMethod = paymentMethod;
@@ -57,8 +63,6 @@ public class Order implements Serializable {
         this.createDate = createDate;
     }
 
-    public Order() {
-    }
 
     public User getUser() {
         return user;
@@ -100,12 +104,12 @@ public class Order implements Serializable {
         this.listOrderItem = listOrderItem;
     }
 
-    public List<Discount> getListDiscount() {
-        return listDiscount;
+    public Discount getDiscount() {
+        return discount;
     }
 
-    public void setListDiscount(List<Discount> listDiscount) {
-        this.listDiscount = listDiscount;
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 
     public Transport getTransport() {
@@ -164,7 +168,29 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public int total() {
-        return 0;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", note='" + note + '\'' +
+                ", total=" + total +
+                ", listOrderItem=" + listOrderItem +
+                ", discount=" + discount +
+                ", transport=" + transport +
+                ", statusDelivery=" + statusDelivery +
+                ", paymentMethod=" + paymentMethod +
+                ", deliveryDate=" + deliveryDate +
+                ", receivingDate=" + receivingDate +
+                ", createDate=" + createDate +
+                ", isPayment=" + isPayment +
+                ", user=" + user +
+                ", information=" + information +
+                ", status=" + status +
+                '}';
+    }
+
+    public static void main(String[] args) {
+        Order o = OrderService.getInstance().getOrderByOrderId(1);
+        System.out.println(o.getListOrderItem());
     }
 }

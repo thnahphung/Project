@@ -23,7 +23,7 @@ public class PaCategoryService implements Serializable {
 
     public Category getPaCategoryById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, `name`,status from category WHERE category = :id")
+            return handle.createQuery("SELECT id, `name`,status from category WHERE id = :id")
                     .bind("id", id)
                     .mapToBean(Category.class).one();
         });

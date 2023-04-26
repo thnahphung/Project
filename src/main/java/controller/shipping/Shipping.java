@@ -20,15 +20,17 @@ public class Shipping extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
-        String[] discountCode = request.getParameter("voucher").split(" ");
-        List<Discount> discounts = DiscountService.getInstance().getListDiscountByListCode(Arrays.asList(discountCode));
-        int sumDiscountFee = 0;
-        for (Discount discount : discounts) {
-            sumDiscountFee += discount.getValue();
+        String discountCode = request.getParameter("discountCode");
+        if(!"".equals(discountCode)){
+            Discount discount = DiscountService.getInstance().getDiscountByCode(discountCode);
+            request.setAttribute("discountFee", discount.getValue());
+        }else{
+            request.setAttribute("discountFee", 0);
         }
+
         List<Information> informations = InformationService.getInstance().getListInformationByUserId(user.getId());
 
-        request.setAttribute("sumDiscountFee", sumDiscountFee);
+        request.setAttribute("discountCode", discountCode);
         request.setAttribute("informations", informations);
         request.getRequestDispatcher("shipping.jsp").forward(request, response);
     }

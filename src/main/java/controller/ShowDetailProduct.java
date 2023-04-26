@@ -28,6 +28,7 @@ public class ShowDetailProduct extends HttpServlet {
 
         List<Product> listSameProduct = ProductService.getInstance().getListSameProduct(product.getCategory().getPaCategory().getId());
         request.setAttribute("listSameProduct", listSameProduct);
+        System.out.println(listSameProduct.size());
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
 

@@ -106,12 +106,12 @@ img {
     height: 30px;
 }
 
-=======
-    right: 44px;
-    background-color: var(--color1);
-    color: var(--color4);
-    border: 2px solid var(--color4);
-}
+/*=======*/
+/*    right: 44px;*/
+/*    background-color: var(--color1);*/
+/*    color: var(--color4);*/
+/*    border: 2px solid var(--color4);*/
+/*}*/
 
 .input-img {
     display: none;
@@ -125,7 +125,6 @@ img {
     margin: 10px 0 10px 44px;
 }
 
->>>>>>> 5476b2255b630edc235b0d54291136ff029bdfc1
 form .row {
     margin-left: 3px;
     margin-bottom: 10px;

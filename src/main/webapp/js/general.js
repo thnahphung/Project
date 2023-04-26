@@ -20,8 +20,6 @@ $(document).ready(function () {
         if (isNaN(amountAdd)) {
             amountAdd = 1;
         }
-        console.log(idProduct);
-        console.log(amountAdd);
         $.ajax({
             url: "/cart/addCart",
             type: "get",
@@ -30,7 +28,7 @@ $(document).ready(function () {
                 amount: amountAdd
             },
             success: function (response) {
-                $('.amount-product').text(response.trim()   );
+                $('.amount-product').text(response.trim());
             },
             error: function (xhr) {
 

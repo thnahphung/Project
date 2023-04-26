@@ -1,6 +1,5 @@
-<%@ page import="bean.Order" %>
-<%@ page import="services.OrderService" %>
-<%@ page import="bean.Format" %>
+<%@ page import="bean.*" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -28,7 +27,6 @@
 <div id="container">
     <!-- header -->
     <%@include file="header.jsp" %>
-
     <!-- end header -->
 
 
@@ -74,7 +72,11 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
-                                    <li>Họ tên: <%=user.getName()%>
+                                    <li>Họ và tên:  <%if (user.getName() == null) {%>
+                                        <%=""%>
+                                        <%} else {%>
+                                        <%=user.getName()%>
+                                        <%}%>
                                     </li>
                                     <li>Số điện thoại:  <%if (user.getPhone() == null) {%>
                                         <%=""%>
