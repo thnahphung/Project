@@ -42,7 +42,7 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderList() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orderList = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from `order`;").mapToBean(Order.class).stream().collect(Collectors.toList());
+            List<Order> orderList = handle.createQuery("select * from `order`;").mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orderList) {
                 order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(order.getId()));
                 order.setDiscount(DiscountService.getInstance().getDiscountByOrderId(order.getId()));
@@ -53,7 +53,7 @@ public class OrderService implements Serializable {
             return orderList;
         });
     }
-
+// id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status`
 
     public Order getOrderByOrderId(int orderId) {
         return JDBIConnector.get().withHandle(handle -> {

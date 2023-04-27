@@ -268,17 +268,26 @@ public class ProductService {
 
     //------------------------------ Tim kiem----------------------------------------
     public List<Product> getListProductInSearch(String search) {
-        List<Product> list = new ArrayList<>();
-//        List<Product> pr = JDBIConnector.get().withHandle(handle -> {
-//            return handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd").mapToBean(Product.class).stream().collect(Collectors.toList());
-//        });
-        List<Product> pr = getListProduct();
+        List<Product> listProducts = new ArrayList<>();
+        List<Product> pr =  JDBIConnector.get().withHandle(handle -> {
+            List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.status = 0")
+                    .mapToBean(Product.class).stream()
+                    .collect(Collectors.toList());
+            for (Product product : list) {
+                product.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(product.getId()));
+                product.setListImage(ImageService.getInstance().getListImageByProductId(product.getId()));
+                product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
+                product.setUserAdd(UserService.getInstance().getUserAddProductByProductId(product.getId()));
+            }
+            return list;
+        });
+//        List<Product> pr = getListProduct();
         for (Product p : pr) {
             if (p.getName().toUpperCase().contains(search.toUpperCase())) {
-                list.add(p);
+                listProducts.add(p);
             }
         }
-        return list;
+        return listProducts;
     }
 
     //--------------------- Lay id lon nhat trong ban ----------------------------
@@ -393,7 +402,6 @@ public class ProductService {
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
 //        System.out.println(ProductService.getInstance().getListProductInPageName(0,"","1"));
 //        getInstance().deleteProduct(1);
 //        System.out.println(ProductService.getInstance().getProductById(9));
@@ -426,9 +434,7 @@ public class ProductService {
 //
 //        ProductService.getInstance().addProduct(product);
 //
-=======
         System.out.println(getInstance().getListSameProduct(2));
->>>>>>> main
     }
 
 

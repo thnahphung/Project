@@ -15,13 +15,11 @@ public class ListProductInPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pages = (request.getParameter("page"));
-        System.out.println(pages);
         int kind = Integer.parseInt(request.getParameter("kind"));
-        System.out.println(kind);
         String group = request.getParameter("group");
-        System.out.println(group);
+        String sort = request.getParameter("sort");
+        System.out.println(sort);
         List<Product> list = ProductService.getInstance().getListProductInPageName(kind, group, pages);
-        System.out.println(list);
         for (Product product : list) {
             StringBuilder rate = new StringBuilder();
             StringBuilder priceReal = new StringBuilder();

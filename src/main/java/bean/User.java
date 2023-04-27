@@ -178,4 +178,5 @@ public class User implements Serializable {
         User u = UserService.getInstance().getUserById(5);
         System.out.println(u.getListOrder());
     }
+
 }

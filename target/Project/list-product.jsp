@@ -74,7 +74,7 @@
                         <% List<Category> categories = (List<Category>) request.getAttribute("categories");
                             int counts = 0;
                             for (Category category : categories) {
-                                if (Integer.parseInt(request.getAttribute("kind").toString()) == 0)
+//                                if (Integer.parseInt(request.getAttribute("kind").toString()) == 0)
                         %>
                         <li class="item item-groupProduct">
                             <button class="button">
