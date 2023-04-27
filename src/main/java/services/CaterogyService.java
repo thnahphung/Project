@@ -54,7 +54,7 @@ public class CaterogyService {
 
     public List<Category> getListCategoryAll() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Category> categoryList = handle.createQuery("SELECT id, name, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
+            List<Category> categoryList = handle.createQuery("SELECT id, name, status  FROM category where pa_category is not null ").mapToBean(Category.class).stream().collect(Collectors.toList());
             for (Category category : categoryList) {
                 category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
             }

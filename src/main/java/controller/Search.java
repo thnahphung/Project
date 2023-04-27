@@ -36,7 +36,7 @@ public class Search extends HttpServlet {
             response.getWriter().println("   <div class=\"col-4\">\n" +
                     "                        <div class=\"thumbnail\">\n" +
                     "                            <div class=\"cont-item \">\n" +
-                    "                                <a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\"><img src=\"" + product.getListImage().get(1).getSource() + " \" alt=\"\">\n" +
+                    "                                <a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\"><img src=\"" + product.getListImage().get(0).getSource() + " \" alt=\"\">\n" +
                     "                                </a>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"button\">\n" +
