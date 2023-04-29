@@ -34,7 +34,13 @@ public class LineItemService {
             return result;
         });
     }
+
+    public int maxId(){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(`id`) as numberProduct FROM `line_item`").mapTo(Integer.class).one();
+        });
+    }
     public static void main(String[] args) {
-        System.out.println(getInstance().getListLineItemByOrderId(1));
+        System.out.println(getInstance().maxId());
     }
 }

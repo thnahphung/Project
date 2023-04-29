@@ -20,7 +20,6 @@ public class RemoveProduct extends HttpServlet {
         User user = (User) request.getSession().getAttribute("auth");
 
         user.setListCartItem(Cart.removeItemCart(user.getListCartItem(), idCartItem));
-        CartService.getInstance().removeCartItemById(idCartItem);
 
         response.getWriter().println(Format.format(Cart.totalPrice(user.getListCartItem())));
         response.getWriter().println(Format.format(Cart.totalPriceSale(user.getListCartItem())));

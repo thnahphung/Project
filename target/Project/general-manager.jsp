@@ -152,7 +152,7 @@
                     for (Category pa : paCategoryList) {
                 %>
                 <tr class="name<%=pa.getPaCategory()%>">
-                    <td><%=pa.getPaCategory()%>
+                    <td><%=pa.getId()%>
                     </td>
                     <td><%=pa.getName()%>
                     </td>

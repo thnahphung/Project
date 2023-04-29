@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,13 @@ public class AddOrder extends HttpServlet {
         User user = (User) request.getSession().getAttribute("auth");
         String note = request.getParameter("note");
         int idInformation = Integer.parseInt(request.getParameter("idInformation"));
-        boolean isPayment = Boolean.parseBoolean(request.getParameter("isPayment"));
+//        boolean isPayment = Boolean.parseBoolean(request.getParameter("isPayment"));
         String discountCode = request.getParameter("discountCode");
 
-        Order order = (Order) request.getSession().getAttribute("cart");
+        Order order = new Order();
 
         order.setNote(note);
-        order.setPayment(isPayment);
+        order.setPayment(false);
         order.setInformation(InformationService.getInstance().getInformationByInformationId(idInformation));
         order.setTransport(TransportService.getInstance().getTransportById(1));
         order.setPaymentMethod(0);
@@ -33,6 +34,7 @@ public class AddOrder extends HttpServlet {
         order.setListOrderItem(user.getListCartItem());
         order.setStatus(0);
         order.setTotal(OrderService.getInstance().total(order));
+        order.setUser(user);
 
         if (!"".equals(discountCode)) {
             Discount discount = DiscountService.getInstance().getDiscountByCode(discountCode);
@@ -43,6 +45,10 @@ public class AddOrder extends HttpServlet {
         MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.getTotal() + " VND", user.getEmail());
 
         user.setListCartItem(new ArrayList<>());
+
+        OrderService.getInstance().add(order);
+
+
         CartService.getInstance().removeAllProductByUserId(user.getId());
 
         request.getRequestDispatcher("finish-buy.jsp").forward(request, response);

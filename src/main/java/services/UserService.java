@@ -32,9 +32,13 @@ public class UserService {
     }
 
     public List<User> getListUser() {
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
+        List<User> list = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT id, name, phone, email, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
+        for (User user : list) {
+            user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
+        }
+        return list;
     }
 
     public User getUserById(int id) {
@@ -61,7 +65,7 @@ public class UserService {
 
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select id,`name`,  phone, email, `password` from user where email=? or phone=?")
+                handle.createQuery("select id,`name`,  phone, email, `password`,variety, status from user where email=? or phone=?")
                         .bind(0, userName).bind(1, userName)
                         .mapToBean(User.class)
                         .stream()
@@ -73,7 +77,7 @@ public class UserService {
                 || !(user.getEmail().equals(userName) || user.getPhone().equals(userName))) {
             return null;
         }
-        user.setAvatar(ImageService.getInstance().getListImageByProductId(4).get(0));
+        user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
         return user;
     }
 
@@ -139,7 +143,7 @@ public class UserService {
 
     public void addUser(User user) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO user(id, name, phone, email, password, variety, status) values (:id, :name, :phone, :email, :pass, :variety, :status)")
+            return handle.createUpdate("INSERT INTO user(id, name, phone, email, password, variety, status ) values (:id, :name, :phone, :email, :pass, :variety, :status)")
                     .bind("id", user.getId())
                     .bind("name", user.getName())
                     .bind("email", user.getEmail())
@@ -242,10 +246,12 @@ public class UserService {
 
     public User getUserByReviewId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
+            User user = handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
                     .bind(0, id)
                     .mapToBean(User.class)
                     .one();
+            user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
+            return user;
         });
     }
 
