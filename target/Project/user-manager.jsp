@@ -64,9 +64,9 @@
                     <%--                            <p class="text-xs font-weight-bold mb-0"><%=list.get(i).getVarieties()%></p>--%>
 
                     <select class="input-varieties user-varieties<%=list.get(i).getId()%>">
-                        <option value="2" <%=list.get(i).getVarieties() == 2 ? "selected" : " "%>>Quản lý</option>
-                        <option value="1" <%=list.get(i).getVarieties() == 1 ? "selected" : " "%>>Cộng tác viên</option>
-                        <option value="0" <%=list.get(i).getVarieties() == 0 ? "selected" : " "%>>Khách hàng</option>
+                        <option value="2" <%=list.get(i).getVariety() == 2 ? "selected" : " "%>>Quản lý</option>
+                        <option value="1" <%=list.get(i).getVariety() == 1 ? "selected" : " "%>>Cộng tác viên</option>
+                        <option value="0" <%=list.get(i).getVariety() == 0 ? "selected" : " "%>>Khách hàng</option>
                     </select>
                 </td>
                 <td class="align-middle text-center text-sm">

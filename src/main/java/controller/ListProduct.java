@@ -22,7 +22,7 @@ public class ListProduct extends HttpServlet {
         int count = ProductService.getInstance().getCountProduct(kind, group) % 15 > 0 ? size + 1 : size;
         List<Product> listProduct = ProductService.getInstance().getListProductInPageName(kind, group,page);// danh sach san pham theo trang
 //        List<Banner> listbanner = BannerService.getInstance().getListBannerInPage("product");
-//        System.out.println(listProduct);
+        System.out.println(listProduct.size());
         request.setAttribute("listProduct", listProduct);
         request.setAttribute("kind", kind);
         request.setAttribute("group", group);

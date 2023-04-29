@@ -30,7 +30,7 @@ public class Sort extends HttpServlet {
                     rate.append(" <i class=\"fa fa-star  \"></i>\n");
                 }
             }
-            if (product.getPriceSale()   != 0) {
+            if (product.getPriceSale() != 0) {
                 priceReal.append(" <span class=\\\"price-real\\\">" + Format.format(product.getPriceSale()) + " VND</span>");
             }
 
@@ -38,7 +38,7 @@ public class Sort extends HttpServlet {
             response.getWriter().println("   <div class=\"col-4\">\n" +
                     "                        <div class=\"thumbnail\">\n" +
                     "                            <div class=\"cont-item \">\n" +
-                    "                                <a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\"><img src=\"" +// TODO: 4/11/2023   product.getImageSrc() + " \" alt=\"\">\n" +
+                    "                                <a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\"><img src=\"" +   product.getListImage().get(0).getSource() + " \" alt=\"\">\n" +
                     "                                </a>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"button\">\n" +

@@ -19,7 +19,7 @@ public class ListProductGroup extends HttpServlet {
         List<Product> productList = ProductService.getInstance().getListProductInGroupName(kind, groups);
         for (Product product : productList) {
             StringBuilder rate = new StringBuilder();
-            StringBuilder priceReal = new StringBuilder();
+            StringBuilder priceSale = new StringBuilder();
             int count = product.getRate();
             for (int i = 0; i < 5; i++) {
                 if (count > 0) {
@@ -29,15 +29,15 @@ public class ListProductGroup extends HttpServlet {
                     rate.append(" <i class=\"fa fa-star  \"></i>\n");
                 }
             }
-            if (product.getListHistoryPrice().get(0).getPriceSale() != 0) {
-                priceReal.append(" <span class=\\\"price-real\\\">" + Format.format(product.getListHistoryPrice().get(0).getPriceSale())  + " VND</span>");
+            if (product.getPriceSale() != 0) {
+                priceSale.append(" <span class=\\\"price-real\\\">" + Format.format(product.getPriceSale())  + " VND</span>");
             }
 
 
             response.getWriter().println("   <div class=\"col-4\">\n" +
                     "                        <div class=\"thumbnail\">\n" +
                     "                            <div class=\"cont-item \">\n" +
-                    "                                <a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\"><img src=\"" + product.getListImage().get(0).getSource() + " \" alt=\"\">\n" +
+                    "                                <a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\"><img src=\"" + product.getListImage().get(1).getSource() + " \" alt=\"\">\n" +
                     "                                </a>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"button\">\n" +
@@ -48,7 +48,7 @@ public class ListProductGroup extends HttpServlet {
                     "                                <h3><a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\">" + product.getName() + "</a></h3>\n" +
                     "                                <div class=\"ratting\">\n" + rate +
                     "                                </div>\n" +
-                    "                                <h3 class=\"price\">\n" + Format.format(product.getListHistoryPrice().get(0).getPrice()) + " VND\n" + priceReal +
+                    "                                <h3 class=\"price\">\n" + Format.format(product.getPrice()) + " VND\n" + priceSale +
                     "                                </h3>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +

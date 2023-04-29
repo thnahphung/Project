@@ -152,12 +152,12 @@
                     for (Category pa : paCategoryList) {
                 %>
                 <tr class="name<%=pa.getPaCategory()%>">
-                    <td><%=pa.getPaCategory()%>
+                    <td><%=pa.getId()%>
                     </td>
                     <td><%=pa.getName()%>
                     </td>
                     <td>
-                        <%--                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>--%>
+                                                <button class="edit-pa" value="<%=pa.getId()%>">Lưu sữa đổi</button>
                         <button type="button" class="delete-pa submit" class="button btn-indigo btn-sm m-0 delete"
                                 value="<%=pa.getPaCategory()%>">Xóa
                         </button>
@@ -202,48 +202,48 @@
 
 
     </div>
-    <%--    <div class="manager-groupProduct">--%>
-    <%--        <h3>Quản lý nhóm sản phẩm</h3>--%>
-    <%--        <button type="button" class="btn-add-address button submit add" data-toggle="modal"--%>
-    <%--                data-target="#exampleModalCenterGroup">Thêm--%>
-    <%--        </button>--%>
-    <%--        <div class=" table-group">--%>
+        <div class="manager-groupProduct">
+            <h3>Quản lý nhóm sản phẩm</h3>
+            <button type="button" class="btn-add-address button submit add" data-toggle="modal"
+                    data-target="#exampleModalCenterGroup">Thêm
+            </button>
+            <div class=" table-group">
 
-    <%--            <table class="table">--%>
-    <%--                <thead>--%>
-    <%--                <tr>--%>
-    <%--                    <th>Mã nhóm sản phẩm</th>--%>
-    <%--                    <th>Nhóm sản phẩm</th>--%>
-    <%--                    <th>Tên danh mục</th>--%>
-    <%--                    <th></th>--%>
-    <%--                </tr>--%>
-    <%--                </thead>--%>
-    <%--                <tbody>--%>
-    <%--                <%--%>
-    <%--                    List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");--%>
-    <%--                    for (Category ca : categoryList) {--%>
-    <%--                %>--%>
-    <%--                <tr class="name">--%>
-    <%--                    <td><%=ca.getCategoryId()%></td>--%>
-    <%--                    <td><%=ca.getName()%></td>--%>
-    <%--                    <td><%=ca.getPaCategory().getName()%></td>--%>
-    <%--                    <td>--%>
-    <%--                        &lt;%&ndash;                        <button class="edit-pa" value="<%=pa.getPaCategoryId()%>">Lưu sữa đổi</button>&ndash;%&gt;--%>
-    <%--                        <button class="delete-ca"--%>
-    <%--                                value="<%=ca.getCategoryId()%>">Xóa--%>
-    <%--                        </button>--%>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Mã nhóm sản phẩm</th>
+                        <th>Nhóm sản phẩm</th>
+                        <th>Tên danh mục</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        List<Category> categoryList = (List<Category>) request.getAttribute("listCategory");
+                        for (Category ca : categoryList) {
+                    %>
+                    <tr class="name">
+                        <td><%=ca.getId()%></td>
+                        <td><%=ca.getName()%></td>
+                        <td><%=ca.getPaCategory().getName()%></td>
+                        <td>
+                                                    <button class="edit-pa" value="<%=ca.getPaCategory()%>">Lưu sữa đổi</button>
+                            <button class="delete-ca"
+                                    value="<%=ca.getId()%>">Xóa
+                            </button>
 
-    <%--                    </td>--%>
-    <%--                </tr>--%>
-    <%--                <%}%>--%>
-    <%--                </tbody>--%>
-    <%--            </table>--%>
-
-
-    <%--        </div>--%>
+                        </td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
 
 
-    <%--    </div>--%>
+            </div>
+
+
+        </div>
 
 </div>
 </div>
