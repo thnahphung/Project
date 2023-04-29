@@ -83,7 +83,7 @@
             </div>
             <div class="pay">
                 <h6 class="title uppercase"><i class="fa-regular fa-credit-card"></i>Ghi Chú</h6>
-                <textarea class="input" rows="10" cols="10"></textarea>
+                <textarea class="input note" rows="10" cols="10"></textarea>
             </div>
         </div>
         <div class="col-5 bill p-0">
@@ -110,14 +110,11 @@
                         <div class="col-8 name-product text">Tổng đơn hàng</div>
                         <div class="col-4  text text-right"><%=Format.format(Cart.totalPrice(cartItems))%> VND</div>
                         <div class="col-8 text">Giảm</div>
-                        <div class="col-4 price text text-right">- <%=Format.format(Cart.totalPriceSale(cartItems))%>
-                            VND
-                        </div>
+                        <div class="col-4 price text text-right">- <%=Format.format(Cart.totalPriceSale(cartItems))%> VND</div>
                         <div class="col-8 text">Mã khuyến mãi</div>
                         <%int discountFee = (int) request.getAttribute("discountFee");%>
                         <div class="col-4 price text text-right">
-                            - <%=Format.format(discountFee)%>
-                            VND
+                            - <%=Format.format(discountFee)%> VND
                         </div>
                         <div class="col-8 name-product text">Phí vận chuyển</div>
                         <div class="col-4 text text-right"><span class="ship-fee">30.000</span> VND</div>

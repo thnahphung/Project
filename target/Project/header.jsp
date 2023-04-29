@@ -36,8 +36,9 @@
 
 
         <% User user = (User) session.getAttribute("auth");
+            List<LineItem> cartItems = null;
             if (user != null) {
-                List<LineItem> cartItems = user.getListCartItem();
+                cartItems = user.getListCartItem();
 
         %>
         <a href="/cart" class="item-right"><i

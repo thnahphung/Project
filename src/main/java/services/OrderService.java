@@ -71,8 +71,8 @@ public class OrderService implements Serializable {
 
 
     public void add(Order order) {
-        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `ord` VALUES (:id,:note,:total,:transport_id,:status_delivery,:payment_method,:delivery_date,:receiving_date,:is_payment,:create_date,:user_id,:infomation_id,0,:discount_id)")
-                .bind("id", order.getId())
+        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `order`(note,total,transport_id,status_delivery,payment_method,devlivery_date,receiving_date,is_payment,create_date,user_id,information_id,`status`,discount_id \n) " +
+                        "VALUES (:note,:total,:transport_id,:status_delivery,:payment_method,:delivery_date,:receiving_date,:is_payment,:create_date,:user_id,:information_id,0,:discount_id)")
                 .bind("note", order.getNote())
                 .bind("total", order.getTotal())
                 .bind("transport_id", order.getTransport().getId())
@@ -94,13 +94,36 @@ public class OrderService implements Serializable {
         }
         JDBIConnector.get().withHandle(handle -> handle.createUpdate(query.toString()));
 
+        for (LineItem lineItem : order.getListOrderItem()) {
+            addOrderItem(lineItem);
+
+            addOrderLine(maxId(), LineItemService.getInstance().maxId());
+        }
     }
 
-    public int nextId() {
-        return 1 + JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT MAX(`order_id`) as numberOfOrder FROM `ord`").mapTo(Integer.class).one();
+    public void addOrderLine(int orderId, int lineItemId) {
+        JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("INSERT INTO order_line VALUES (:order_id, :line_item_id);")
+                        .bind("order_id", orderId)
+                        .bind("line_item_id", lineItemId)
+                        .execute());
+    }
+
+    public void addOrderItem(LineItem lineItem) {
+        JDBIConnector.get().withHandle(
+                handle -> handle.createUpdate("INSERT INTO line_item(product_id, quantity) VALUES (:product_id, :quantity);")
+                        .bind("product_id", lineItem.getProduct().getId())
+                        .bind("quantity", lineItem.getQuantity())
+                        .execute());
+    }
+
+    public int maxId() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT MAX(`id`) as numberOfOrder FROM `order`").mapTo(Integer.class).one();
         });
     }
+
+
 
     public void removeAllDetailByOrderId(int id) {
         JDBIConnector.get().withHandle(handle -> {
@@ -119,7 +142,7 @@ public class OrderService implements Serializable {
 
     public static void main(String[] args) {
 
-        System.out.println(getInstance().getOrderListByUserId(5));
+        getInstance().addOrderLine(6,6);
     }
 
 }

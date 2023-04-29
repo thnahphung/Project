@@ -10,7 +10,6 @@ public class Discount implements Serializable {
     private int value;
     private int condition;
     private int quantity;
-    private List<Product> listProduct;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
@@ -23,7 +22,6 @@ public class Discount implements Serializable {
         this.value = value;
         this.condition = condition;
         this.quantity = quantity;
-        this.listProduct = listProduct;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -68,14 +66,6 @@ public class Discount implements Serializable {
         this.quantity = quantity;
     }
 
-    public List<Product> getListProduct() {
-        return listProduct;
-    }
-
-    public void setListProduct(List<Product> listProduct) {
-        this.listProduct = listProduct;
-    }
-
     public LocalDateTime getStartDate() {
         return startDate;
     }
@@ -100,6 +90,10 @@ public class Discount implements Serializable {
         return quantity > 0;
     }
 
+    public boolean checkCondition(int total) {
+        return total > this.condition;
+    }
+
 
     @Override
     public String toString() {
@@ -109,20 +103,9 @@ public class Discount implements Serializable {
                 ", value=" + value +
                 ", condition=" + condition +
                 ", quantity=" + quantity +
-                ", listProduct=" + listProduct +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';
     }
 
-
-    public boolean checkListProductAccept(List<LineItem> listCartItem) {
-        for (Product product : listProduct) {
-            for (LineItem lineItem : listCartItem) {
-                if (product.equals(lineItem.getProduct()))
-                    return true;
-            }
-        }
-        return false;
-    }
 }

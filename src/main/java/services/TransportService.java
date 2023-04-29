@@ -21,7 +21,7 @@ public class TransportService {
     public Transport getTransportById(int idTransportService) {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery(
-                            "select id,name,transport_fee\n" +
+                            "select id,`name`,fee\n" +
                                     "from transport\n" +
                                     "WHERE id = ?;")
                     .bind(0, idTransportService)

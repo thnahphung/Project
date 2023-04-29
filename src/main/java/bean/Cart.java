@@ -16,11 +16,7 @@ public class Cart {
     public static int totalPrice(List<LineItem> lineItems) {
         int sum = 0;
         for (LineItem lineItem : lineItems) {
-            Product product = lineItem.getProduct();
-            if (product.getPriceSale() == 0)
-                sum += product.getPrice() * lineItem.getQuantity();
-            else
-                sum += product.getPriceSale() * lineItem.getQuantity();
+            sum += lineItem.totalPrice();
         }
         return sum;
     }

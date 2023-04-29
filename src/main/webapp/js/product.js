@@ -100,6 +100,10 @@ $(document).ready(function () {
                 idProduct: idProduct
             },
             success: function (response) {
+                if(response == 'false'){
+                    $('.write-ratting .message').text("Bạn cần đăng nhập để thực hiện bình luận.");
+                }
+
                 let containListComment = $('.list-comment');
                 containListComment.children().last().remove();
                 containListComment.prepend(response);

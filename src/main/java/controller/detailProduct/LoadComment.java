@@ -32,7 +32,7 @@ public class LoadComment extends HttpServlet {
             }
             response.getWriter().println("<li class=\"item-comment bd-bottom\">\n" +
                     "                        <div class=\"user-cmt\">\n" +
-                    "                            <img src=\"" + user.getAvatar() + "\"\n" +
+                    "                            <img src=\"" + user.getAvatar().getSource() + "\"\n" +
                     "                                alt=\"\" class=\"img-user-cmt\">\n" +
                     "                            <div>\n" +
                     "                                <div class=\"name-user-cmt\">" + user.getName() + "</div>\n" +

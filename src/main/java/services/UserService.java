@@ -61,7 +61,7 @@ public class UserService {
 
     public User checkLogin(String userName, String password) {
         List<User> users = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select id,`name`,  phone, email, `password` from user where email=? or phone=?")
+                handle.createQuery("select id,`name`,  phone, email, `password`,variety, status from user where email=? or phone=?")
                         .bind(0, userName).bind(1, userName)
                         .mapToBean(User.class)
                         .stream()
@@ -73,7 +73,7 @@ public class UserService {
                 || !(user.getEmail().equals(userName) || user.getPhone().equals(userName))) {
             return null;
         }
-        user.setAvatar(ImageService.getInstance().getListImageByProductId(4).get(0));
+        user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
         return user;
     }
 
@@ -242,10 +242,12 @@ public class UserService {
 
     public User getUserByReviewId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
+            User user = handle.createQuery("select u.id, u.name, u.phone, u.email,  u.variety, u.status from `user` u join review r on u.id = r.user_id WHERE r.id = ?; ")
                     .bind(0, id)
                     .mapToBean(User.class)
                     .one();
+            user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
+            return user;
         });
     }
 

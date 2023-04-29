@@ -23,10 +23,6 @@
 <body>
 
 <%@include file="header.jsp" %>
-<%
-    List<LineItem> cartItems = (List<LineItem>) request.getAttribute("cartItems");
-
-%>
 <div class="container content">
     <div class="row">
         <div class="<%=cartItems.size()==0?"col-12":"col-8"%> list-product">
@@ -53,8 +49,8 @@
                                     <%if (product.getPriceSale() == 0) {%>
                                     <span class="price"><%=Format.format(product.getPrice())%> VND</span>
                                     <%} else {%>
-                                        <span class="price"><%=Format.format(product.getPrice())%> VND</span>
-                                        <span class="sale"><%=Format.format(product.getPriceSale())%> VND</span>
+                                    <span class="price"><%=Format.format(product.getPrice())%> VND</span>
+                                    <span class="sale"><%=Format.format(product.getPriceSale())%> VND</span>
                                     <%}%>
                                 </div>
                             </div>
@@ -164,7 +160,7 @@
             integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/general.js"></script>
-<%--    <script type="text/javascript" src="js/cart.js" charset="UTF-8"></script>--%>
+    <%--    <script type="text/javascript" src="js/cart.js" charset="UTF-8"></script>--%>
     <script>
         $(document).ready(function () {
             let isAppendVoucher = false;
@@ -226,7 +222,7 @@
             }
 
             $('.btn-total').click(function () {
-                window.location = "http://localhost:8080/shipping?discountCode="+$('#input-voucher').val();
+                window.location = "http://localhost:8080/shipping?discountCode=" + $('#input-voucher').val();
             })
             $('#submit-voucher').click(function () {
 
@@ -239,10 +235,9 @@
                     success: function (response) {
                         let listResponse = response.replace(/\r/g, "").split(/\n/);
                         $('#mess-voucher').text(listResponse[0]);
-                        if (listResponse[0] === "") {
-                            $('.money-sale-voucher').text(new Intl.NumberFormat('de-DE').format(listResponse[1]));
-                            $('.total span').text(new Intl.NumberFormat('de-DE').format(listResponse[2]));
-                        }
+                        $('.money-sale-voucher').text(new Intl.NumberFormat('de-DE').format(listResponse[1]));
+                        $('.total span').text(new Intl.NumberFormat('de-DE').format(listResponse[2]));
+
 
                     },
                     error: function (xhr) {
