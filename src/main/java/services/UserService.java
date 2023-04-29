@@ -32,9 +32,13 @@ public class UserService {
     }
 
     public List<User> getListUser() {
-        return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
+        List<User> list = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT id, name, phone, email, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
+        for (User user : list) {
+            user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
+        }
+        return list;
     }
 
     public User getUserById(int id) {
@@ -139,7 +143,7 @@ public class UserService {
 
     public void addUser(User user) {
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO user(id, name, phone, email, password, variety, status) values (:id, :name, :phone, :email, :pass, :variety, :status)")
+            return handle.createUpdate("INSERT INTO user(id, name, phone, email, password, variety, status ) values (:id, :name, :phone, :email, :pass, :variety, :status)")
                     .bind("id", user.getId())
                     .bind("name", user.getName())
                     .bind("email", user.getEmail())
