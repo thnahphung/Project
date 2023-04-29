@@ -39,7 +39,7 @@ public class DiscountService implements Serializable {
         return JDBIConnector.get().withHandle(handle -> {
             try {
                 return handle.createQuery(
-                                "select discount_id, `code`, discount_fee, start_date, end_date, quantity, `condition`\n" +
+                                "select id, `code`, `value`, `condition`,quantity , start_date, end_date\n" +
                                         "from discount where code = :code;")
                         .bind("code", code)
                         .mapToBean(Discount.class)

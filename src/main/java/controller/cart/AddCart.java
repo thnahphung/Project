@@ -31,9 +31,11 @@ public class AddCart extends HttpServlet {
 
         LineItem lineItem = new LineItem(product, amount);
 
-        CartService.getInstance().addCartItem(user, lineItem);
+        user.addToCart(lineItem);
 
         response.getWriter().println(Cart.sumQuantity(user.getListCartItem()));
+
+
 
     }
 

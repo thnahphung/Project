@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-scope" content ="profile email">
     <meta name="google-signin-client_id"
-          content="1034647834889-tosk1o80dfq9tm8pcm5r0utorrj977io.apps.googleusercontent.com">
+          content="1034647834889-cac969ni56lqahndnovhocna77j0lda3.apps.googleusercontent.com">
     <title>login</title>
     <link rel="stylesheet" href="css/reset.css">
 
@@ -17,7 +16,7 @@
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="css/login.css">
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
 <%
@@ -47,7 +46,6 @@
     </form>
 </div>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -57,8 +55,8 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
 <script src="js/general.js"></script>
+<%--// đăng nhập bằng fb--%>
 <script>
-    // $(function () {
     window.fbAsyncInit = function () {
         FB.init({
             appId: '530919699225104',
@@ -111,69 +109,68 @@
                 }
             });
             document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name+ '!';
+                'Thanks for logging in, ' + response.name + '!';
         });
     }
 
-    function onSignIn(googleUser){
-        var profile = googleUser.getBasicProfile();
-        console.log(profile.getId());
-        console.log(profile.getName());
-        console.log(profile.getEmail());
-    };
-    // function login() {
-    //     var myParams = {
-    //         'clientid': '204961060808-udtiudh6h2h1469ivjh84nsksh6h9sfq.apps.googleusercontent.com',
-    //         'cookiepolicy': 'single_host_origin',
-    //         'callback': 'loginCallback',
-    //         'approvalprompt': 'force',
-    //         'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
-    //     };
-    //     gapi.auth.signIn(myParams);
-    // }
-
-    // function loginCallback(result) {
-    //     if (result['status']['signed_in']) {
-    //         var request = gapi.client.plus.people.get(
-    //             {
-    //                 'userId': 'me'
-    //             });
-    //         request.execute(function (resp) {
-    //             console.log(resp);
-    //             if (resp != null) {
-    //                 window.location.href = 'Login?action=Google&name=' + resp.name.givenName + '&email=' + resp.emails[0].value + '&id=' + resp.id + '&fullName=' + resp.displayName + '&image=' + resp.image.url + '&age=' + resp.ageRange.max + '&etag=' + resp.etag;
-    //             }
-    //             var email = '';
-    //             if (resp['emails']) {
-    //                 for (i = 0; i < resp['emails'].length; i++) {
-    //                     if (resp['emails'][i]['type'] == 'account') {
-    //                         email = resp['emails'][i]['value'];//here is required email id
-    //                     }
-    //                 }
-    //             }
-    //             var usersname = resp['displayName'];//required name
-    //         });
-    //     }
-    // }
-
-    // function onLoadCallback() {
-    //     gapi.client.setApiKey('AIzaSyBvKg3asprpxMgAVhaonZOjJ_O-bcEoGxw');
-    //     gapi.client.load('plus', 'v1', function () {
-    //     });
-    // }
-
+    // hết đăng nhập bằng fb
 
 </script>
-<%--<script type="text/javascript">--%>
-<%--    (function () {--%>
-<%--        var po = document.createElement('script');--%>
-<%--        po.type = 'text/javascript';--%>
-<%--        po.async = true;--%>
-<%--        po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';--%>
-<%--        var s = document.getElementsByTagName('script')[0];--%>
-<%--        s.parentNode.insertBefore(po, s);--%>
-<%--    })();--%>
-<%--</script>--%>
+<%-- đăng nhập bằng gg--%>
+<script type="text/javascript">
+    function login() {
+        var myParams = {
+            'clientid': '1034647834889-cac969ni56lqahndnovhocna77j0lda3.apps.googleusercontent.com',
+            'cookiepolicy': 'single_host_origin',
+            'callback': 'loginCallback',
+            'approvalprompt': 'force',
+            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+        };
+        gapi.auth.signIn(myParams);
+    }
+
+    function loginCallback(result) {
+        if (result['status']['signed_in']) {
+            var request = gapi.client.plus.people.get(
+                {
+                    'userId': 'me'
+                });
+            request.execute(function (resp) {
+                console.log(resp);
+                if (resp != null) {
+                    window.location.href = 'Login?action=Google&name=' + resp.name.givenName + '&email=' + resp.emails[0].value + '&id=' + resp.id + '&fullName=' + resp.displayName + '&image=' + resp.image.url + '&age=' + resp.ageRange.max + '&etag=' + resp.etag;
+                }
+                var email = '';
+                if (resp['emails']) {
+                    for (i = 0; i < resp['emails'].length; i++) {
+                        if (resp['emails'][i]['type'] == 'account') {
+                            email = resp['emails'][i]['value'];//here is required email id
+                        }
+                    }
+                }
+                var usersname = resp['displayName'];//required name
+            });
+        }
+    }
+
+    function onLoadCallback() {
+        gapi.client.setApiKey('AIzaSyBvKg3asprpxMgAVhaonZOjJ_O-bcEoGxw');
+        gapi.client.load('plus', 'v1', function () {
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+</script>
 </body>
 
 </html>

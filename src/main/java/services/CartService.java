@@ -51,6 +51,16 @@ public class CartService {
 
     }
 
+    public void addCartUser(User user) {
+        removeAllProductByUserId(user.getId());
+        List<LineItem> cartItems = user.getListCartItem();
+        StringBuilder sql = new StringBuilder();
+        for (LineItem cartItem : cartItems) {
+            addLineItem(user.getId(), cartItem);
+        }
+
+    }
+
     public List<LineItem> getCartOfUser(int userId) {
         List<LineItem> result = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select id, quantity from cart_item  WHERE user_id = ?")
@@ -71,7 +81,7 @@ public class CartService {
         );
     }
 
-    public  void removeCartItemById(int id){
+    public void removeCartItemById(int id) {
         JDBIConnector.get().withHandle(
                 handle -> handle.createUpdate("DELETE FROM cart_item WHERE id=:id;")
                         .bind("id", id)

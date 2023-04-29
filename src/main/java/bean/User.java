@@ -174,6 +174,15 @@ public class User implements Serializable {
         return null;
     }
 
+    public void addToCart(LineItem lineItem){
+        LineItem aLine = containProductInCart(lineItem.getProduct().getId());
+        if (aLine != null) {
+            aLine.setQuantity(lineItem.getQuantity() + aLine.getQuantity());
+        } else {
+            getListCartItem().add(lineItem);
+        }
+    }
+
     public static void main(String[] args) {
         User u = UserService.getInstance().getUserById(5);
         System.out.println(u.getListOrder());
