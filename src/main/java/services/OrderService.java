@@ -25,7 +25,7 @@ public class OrderService implements Serializable {
 
     public List<Order> getOrderListByUserId(int userId) {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Order> orders = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status` from `order` where user_id =  ?")
+            List<Order> orders = handle.createQuery("select id, note, total, status_delivery, payment_method, delivery_date, receiving_date, create_date, is_payment, `status` from `order` where user_id =  ?")
                     .bind(0, userId)
                     .mapToBean(Order.class).stream().collect(Collectors.toList());
             for (Order order : orders) {
@@ -53,11 +53,11 @@ public class OrderService implements Serializable {
             return orderList;
         });
     }
-// id, note, total, status_delivery, payment_method, devlivery_date, receiving_date, create_date, is_payment, `status`
+// id, note, total, status_delivery, payment_method, delivery_date, receiving_date, create_date, is_payment, `status`
 
     public Order getOrderByOrderId(int orderId) {
         return JDBIConnector.get().withHandle(handle -> {
-            Order order = handle.createQuery("select id, note, total, status_delivery, payment_method, devlivery_date, receiving_date,is_payment, create_date, `status` from `order` where id = ?")
+            Order order = handle.createQuery("select id, note, total, status_delivery, payment_method, delivery_date, receiving_date,is_payment, create_date, `status` from `order` where id = ?")
                     .bind(0, orderId)
                     .mapToBean(Order.class).one();
             order.setListOrderItem(LineItemService.getInstance().getListLineItemByOrderId(orderId));
@@ -71,7 +71,7 @@ public class OrderService implements Serializable {
 
 
     public void add(Order order) {
-        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `order`(note,total,transport_id,status_delivery,payment_method,devlivery_date,receiving_date,is_payment,create_date,user_id,information_id,`status`,discount_id \n) " +
+        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO `order`(note,total,transport_id,status_delivery,payment_method,delivery_date,receiving_date,is_payment,create_date,user_id,information_id,`status`,discount_id \n) " +
                         "VALUES (:note,:total,:transport_id,:status_delivery,:payment_method,:delivery_date,:receiving_date,:is_payment,:create_date,:user_id,:information_id,0,:discount_id)")
                 .bind("note", order.getNote())
                 .bind("total", order.getTotal())
