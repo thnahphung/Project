@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<%if (user.getVarieties() == 1) {%>
+<%if (user.getVariety() == 1) {%>
 <div class="header-left">
     <img src="images/logo/logo-rmbg1.png" alt="">
     <ul>
@@ -58,7 +58,7 @@
 </div>
 <%
     }
-    if (user.getVarieties() == 2) {
+    if (user.getVariety() == 2) {
 %>
 <div class="header-left">
     <img src="images/logo/logo-rmbg1.png" alt="">
@@ -70,7 +70,7 @@
 </div>
 <%
     }
-    if (user.getVarieties() == 3) {
+    if (user.getVariety() == 3) {
 %>
 <div class="header-left">
     <img src="images/logo/logo-rmbg1.png" alt="">

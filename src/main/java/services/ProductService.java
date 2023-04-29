@@ -150,7 +150,6 @@ public class ProductService {
         for (int i = start; i < end; i++) {
             listResult.add(list.get(i));
         }
-
         return listResult;
     }
 
@@ -269,17 +268,26 @@ public class ProductService {
 
     //------------------------------ Tim kiem----------------------------------------
     public List<Product> getListProductInSearch(String search) {
-        List<Product> list = new ArrayList<>();
-//        List<Product> pr = JDBIConnector.get().withHandle(handle -> {
-//            return handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd").mapToBean(Product.class).stream().collect(Collectors.toList());
-//        });
-        List<Product> pr = getListProduct();
+        List<Product> listProducts = new ArrayList<>();
+        List<Product> pr =  JDBIConnector.get().withHandle(handle -> {
+            List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.status = 0")
+                    .mapToBean(Product.class).stream()
+                    .collect(Collectors.toList());
+            for (Product product : list) {
+                product.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(product.getId()));
+                product.setListImage(ImageService.getInstance().getListImageByProductId(product.getId()));
+                product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
+                product.setUserAdd(UserService.getInstance().getUserAddProductByProductId(product.getId()));
+            }
+            return list;
+        });
+//        List<Product> pr = getListProduct();
         for (Product p : pr) {
             if (p.getName().toUpperCase().contains(search.toUpperCase())) {
-                list.add(p);
+                listProducts.add(p);
             }
         }
-        return list;
+        return listProducts;
     }
 
     //--------------------- Lay id lon nhat trong ban ----------------------------
@@ -394,6 +402,38 @@ public class ProductService {
     }
 
     public static void main(String[] args) {
+//        System.out.println(ProductService.getInstance().getListProductInPageName(0,"","1"));
+//        getInstance().deleteProduct(1);
+//        System.out.println(ProductService.getInstance().getProductById(9));
+//        System.out.println(ProductService.getInstance().getListProduct());
+//        System.out.println(ProductService.getInstance().getListTopProduct());
+
+//        System.out.println(ProductService.getInstance().getProductById(1));
+
+//        System.out.println(ProductService.getInstance().getListFavouriteProduct());
+//        System.out.println(ProductService.getInstance().getImageOfProductById(1));
+
+//        System.out.println(ProductService.getInstance().getNewProducts());
+//        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
+
+
+//        System.out.println(ProductService.getInstance().getTopWoodProducts());
+//        System.out.println(ProductService.getInstance().getListProductByKind(1));
+
+//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
+//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
+//        getInstance().getListSameProduct(2);
+
+
+//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
+//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
+//        System.out.println(ProductService.getInstance().getListProductInGroupName(0, ""));
+//        ProductDetail productDetail = new ProductDetail(getInstance().getListProduct().size() + 1, "ádsa", "ádad", null, 10, LocalDateTime.now(), LocalDateTime.of(2022, 12, 11, 3, 3, 2), 0, 3);
+//        ProductService.getInstance().addProductDetail(productDetail);
+//        Product product = new Product(getInstance().getListProduct().size() + 1, 1, "dsad", 1312, 13, 0, "", productDetail);
+//
+//        ProductService.getInstance().addProduct(product);
+//
         System.out.println(getInstance().getListSameProduct(2));
     }
 
