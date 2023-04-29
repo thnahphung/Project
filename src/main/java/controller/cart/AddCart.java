@@ -31,10 +31,11 @@ public class AddCart extends HttpServlet {
 
         LineItem lineItem = new LineItem(product, amount);
 
-        user.getListCartItem().add(lineItem);
-        CartService.getInstance().addCartItem(user.getId(), lineItem);
+        user.addToCart(lineItem);
 
         response.getWriter().println(Cart.sumQuantity(user.getListCartItem()));
+
+
 
     }
 

@@ -15,7 +15,6 @@ public class RemoveAllProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
         user.setListCartItem(new ArrayList<>());
-        CartService.getInstance().removeAllProductByUserId(user.getId());
     }
 
     @Override

@@ -2,7 +2,6 @@ $(document).ready(function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     let click = false;
-    console.log('áds')
     $.ajax({
         url: "/detailProduct/loadComment",
         type: "get",
@@ -12,7 +11,6 @@ $(document).ready(function () {
         },
         success: function (response) {
             $(".list-comment").html(response);
-            console.log(response);
         },
         error: function (xhr) {
         }
@@ -102,6 +100,10 @@ $(document).ready(function () {
                 idProduct: idProduct
             },
             success: function (response) {
+                if(response == 'false'){
+                    $('.write-ratting .message').text("Bạn cần đăng nhập để thực hiện bình luận.");
+                }
+
                 let containListComment = $('.list-comment');
                 containListComment.children().last().remove();
                 containListComment.prepend(response);

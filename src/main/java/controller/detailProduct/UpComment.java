@@ -17,6 +17,10 @@ public class UpComment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         User user = (User) request.getSession().getAttribute("auth");
+        if (user == null) {
+            response.getWriter().println(0);
+            return;
+        }
         String text = request.getParameter("text");
         int idProduct = Integer.parseInt(request.getParameter("idProduct"));
         int rate = Integer.parseInt(request.getParameter("rate"));
@@ -35,9 +39,12 @@ public class UpComment extends HttpServlet {
 
         }
 
+        Review review = new Review(text, rate, user, ProductService.getInstance().getProductById(idProduct), now, 0);
+        ReviewService.getInstance().addReview(review);
+
         response.getWriter().println("<li class=\"item-comment bd-bottom\">\n" +
                 "                        <div class=\"user-cmt\">\n" +
-                "                            <img src=\"" + user.getAvatar() + "\"\n" +
+                "                            <img src=\"" + user.getAvatar().getSource() + "\"\n" +
                 "                                alt=\"\" class=\"img-user-cmt\">\n" +
                 "                            <div>\n" +
                 "                                <div class=\"name-user-cmt\">" + user.getName() + "</div>\n" +
@@ -55,8 +62,7 @@ public class UpComment extends HttpServlet {
                 "\n" +
                 "                    </li>");
 
-        Review review = new Review(text, rate, user, ProductService.getInstance().getProductById(idProduct), now, 0);
-        ReviewService.getInstance().addReview(review);
+
     }
 
     @Override

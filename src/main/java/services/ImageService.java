@@ -58,6 +58,14 @@ public class ImageService {
                         .collect(Collectors.toList()));
     }
 
+    public Image getImageByUserId(int idUser) {
+        return JDBIConnector.get().withHandle(
+                handle -> handle.createQuery("SELECT i.id, i.`source` FROM image i join `user` u on i.id = u.avatar WHERE u.id= :idUser;")
+                        .bind("idUser", idUser)
+                        .mapToBean(Image.class)
+                        .one());
+    }
+
     public static void main(String[] args) {
         System.out.println(getInstance().getListImageByProductId(2).get(0).getSource());
     }

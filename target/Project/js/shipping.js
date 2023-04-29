@@ -24,11 +24,12 @@ $(document).ready(function () {
                 show: true
             });
         } else {
-            let idAddress = $('.contain-address input:radio:checked').val();
+            let idInformation = $('.contain-address input:radio:checked').val();
             wayShip = $('.contain-way-ship input:radio:checked').val();
             let payments = $('.contain-pay input:radio:checked').val();
-            let voucher = urlParams.get('voucher');
-            window.location = 'http://localhost:8080/addOrder?idAddress=' + idAddress + '&wayShip=' + wayShip + '&payments=' + payments + '&voucher=' + voucher;
+            let discountCode = urlParams.get('discountCode');
+            let note = $('.note').val();
+            window.location = 'http://localhost:8080/addOrder?idInformation=' + idInformation + '&discountCode=' + discountCode + '&note=' + note;
         }
 
 

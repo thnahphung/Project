@@ -16,10 +16,10 @@ import java.io.IOException;
 public class RemoveProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idProduct = Integer.parseInt(request.getParameter("idProduct"));
+        int idCartItem = Integer.parseInt(request.getParameter("idCartItem"));
         User user = (User) request.getSession().getAttribute("auth");
-        Product product = ProductService.getInstance().getProductById(idProduct);
-        user.setListCartItem(Cart.removeItemCart(user.getListCartItem(), product));
+
+        user.setListCartItem(Cart.removeItemCart(user.getListCartItem(), idCartItem));
 
         response.getWriter().println(Format.format(Cart.totalPrice(user.getListCartItem())));
         response.getWriter().println(Format.format(Cart.totalPriceSale(user.getListCartItem())));

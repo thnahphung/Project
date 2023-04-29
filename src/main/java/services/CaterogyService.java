@@ -24,8 +24,8 @@ public class CaterogyService {
     public List<Category> getListCategory(int kind) {
         if (kind == ProductService.ALL && kind == ProductService.SALE) {
             return JDBIConnector.get().withHandle(handle -> {
-               List<Category> categoryList= handle.createQuery("SELECT id, name, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
-                for (Category category: categoryList) {
+                List<Category> categoryList = handle.createQuery("SELECT id, name, status  FROM category ;").mapToBean(Category.class).stream().collect(Collectors.toList());
+                for (Category category : categoryList) {
                     category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
                 }
                 return categoryList;
@@ -33,8 +33,8 @@ public class CaterogyService {
         }
 
         return JDBIConnector.get().withHandle(handle -> {
-            List<Category> categoryList= handle.createQuery("SELECT  id, name, status  FROM category where pa_category=" + kind).mapToBean(Category.class).stream().collect(Collectors.toList());
-            for (Category category: categoryList) {
+            List<Category> categoryList = handle.createQuery("SELECT  id, name, status  FROM category where pa_category=" + kind + ";").mapToBean(Category.class).stream().collect(Collectors.toList());
+            for (Category category : categoryList) {
                 category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
             }
             return categoryList;
@@ -52,17 +52,16 @@ public class CaterogyService {
     }
 
 
-
-
     public List<Category> getListCategoryAll() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Category> categoryList= handle.createQuery("SELECT id, name, status  FROM category ").mapToBean(Category.class).stream().collect(Collectors.toList());
-            for (Category category: categoryList) {
+            List<Category> categoryList = handle.createQuery("SELECT id, name, status  FROM category where pa_category is not null ").mapToBean(Category.class).stream().collect(Collectors.toList());
+            for (Category category : categoryList) {
                 category.setPaCategory(PaCategoryService.getInstance().getPaCategoryByIdCa(category.getId()));
             }
             return categoryList;
         });
     }
+
     public int nextID() {
         return 1 + JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT MAX(id) as numberCategory FROM `category`").mapTo(Integer.class).one();

@@ -67,13 +67,6 @@
                             <span class="text fee">30.000 VND</span>
                         </label>
                     </p>
-                    <p>
-                        <input type="radio" id="way2" value="2" name="way-ship">
-                        <label for="way2">
-                            <span class="text">Giao hàng hỏa tốc (2 giờ)</span>
-                            <span class="text fee">50.000 VND</span>
-                        </label>
-                    </p>
                 </div>
             </div>
 
@@ -86,17 +79,11 @@
                             <span class="text">Thanh toán trực tiếp khi giao hàng</span>
                         </label>
                     </p>
-                    <p class="bd-bottom">
-                        <input type="radio" id="pay2" name="pay" value="Thanh toán bằng thẻ quốc tế và nội địa (ATM)">
-                        <label for="pay2">
-                            <span class="text">Thanh toán bằng thẻ quốc tế và nội địa (ATM)</span>
-                        </label>
-                    </p>
                 </div>
             </div>
             <div class="pay">
                 <h6 class="title uppercase"><i class="fa-regular fa-credit-card"></i>Ghi Chú</h6>
-                <textarea class="input" rows="10" cols="10"></textarea>
+                <textarea class="input note" rows="10" cols="10"></textarea>
             </div>
         </div>
         <div class="col-5 bill p-0">
@@ -123,14 +110,11 @@
                         <div class="col-8 name-product text">Tổng đơn hàng</div>
                         <div class="col-4  text text-right"><%=Format.format(Cart.totalPrice(cartItems))%> VND</div>
                         <div class="col-8 text">Giảm</div>
-                        <div class="col-4 price text text-right">- <%=Format.format(Cart.totalPriceSale(cartItems))%>
-                            VND
-                        </div>
+                        <div class="col-4 price text text-right">- <%=Format.format(Cart.totalPriceSale(cartItems))%> VND</div>
                         <div class="col-8 text">Mã khuyến mãi</div>
-                        <%int sumDiscountFee = (int) request.getAttribute("sumDiscountFee");%>
+                        <%int discountFee = (int) request.getAttribute("discountFee");%>
                         <div class="col-4 price text text-right">
-                            - <%=Format.format(sumDiscountFee)%>
-                            VND
+                            - <%=Format.format(discountFee)%> VND
                         </div>
                         <div class="col-8 name-product text">Phí vận chuyển</div>
                         <div class="col-4 text text-right"><span class="ship-fee">30.000</span> VND</div>
@@ -142,7 +126,7 @@
                     <div class="row">
                         <div class="col-6 text uppercase">Tổng cộng</div>
                         <div class="col-6 text text-right"><span
-                                class="total-price"><%=Format.format(Cart.total(cartItems, sumDiscountFee))%></span> VND
+                                class="total-price"><%=Format.format(Cart.total(cartItems, discountFee))%></span> VND
                         </div>
                     </div>
                     <button class="btn-total uppercase submit">thanh toán</button>

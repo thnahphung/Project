@@ -1,5 +1,6 @@
 package controller.cart;
 
+import bean.Cart;
 import bean.Discount;
 import bean.User;
 import services.DiscountService;
@@ -28,10 +29,17 @@ public class CheckVoucher extends HttpServlet {
             message = "Voucher đã hết hạn sử dụng";
         else if (!discount.checkQuantity())
             message = "Voucher đã hết lượt sử dụng";
-        else if (!discount.checkListProductAccept(user.getListCartItem()))
-            message = "Không có sản phẩm nào của bạn được áp dụng Voucher";
-        else message = "";
+        else if (!discount.checkCondition(Cart.total(user.getListCartItem())))
+            message = "Tổng đơn hàng của bạn phải lớn hơn "+discount.getCondition()+" VND để sử dụng mã giảm giá này!";
+        else message = "Chúc mừng bạn đã được giảm "+ discount.getValue()+" VND";
         response.getWriter().println(message);
+        if(discount == null){
+            response.getWriter().println(0);
+            response.getWriter().println(Cart.total(user.getListCartItem()));
+        }else{
+            response.getWriter().println(discount.getValue());
+            response.getWriter().println(Cart.total(user.getListCartItem(),discount.getValue()));
+        }
     }
 
     @Override

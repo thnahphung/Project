@@ -1,4 +1,4 @@
-package controller.listProducts;
+package controller;
 
 import bean.Format;
 import bean.Product;
@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "Search", value = "/listProducts/search")
+@WebServlet(name = "Search", value = "/search")
 public class Search extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,8 +28,8 @@ public class Search extends HttpServlet {
                     rate.append(" <i class=\"fa fa-star  \"></i>\n");
                 }
             }
-                if (product.getListHistoryPrice().get(0).getPriceSale() != 0) {
-                    priceReal.append(" <span class=\\\"price-real\\\">" + Format.format(product.getListHistoryPrice().get(0).getPriceSale()) + " VND</span>");
+                if (product.getPriceSale() != 0) {
+                    priceReal.append(" <span class=\\\"price-real\\\">" + Format.format(product.getPriceSale()) + " VND</span>");
                 }
 
 
@@ -47,7 +47,7 @@ public class Search extends HttpServlet {
                     "                                <h3><a href=\"http://localhost:8080/detail-product?id=" + product.getId() + "&page=1\">" + product.getName() + "</a></h3>\n" +
                     "                                <div class=\"ratting\">\n" + rate +
                     "                                </div>\n" +
-                    "                                <h3 class=\"price\">\n" + Format.format(product.getListHistoryPrice().get(0).getPrice()) + " VND\n" + priceReal +
+                    "                                <h3 class=\"price\">\n" + Format.format(product.getPrice()) + " VND\n" + priceReal +
                     "                                </h3>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +

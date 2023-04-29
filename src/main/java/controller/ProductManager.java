@@ -26,17 +26,17 @@ public class ProductManager extends HttpServlet {
         List<Category> listPaCategories = PaCategoryService.getInstance().getListPaCategory();
         List<Category> categoryList = CaterogyService.getInstance().getListCategory(1);
         int quantity = list.size();
-        List<Integer> wood = ProductService.getInstance().statisticalProduct(1);
-        List<Integer> ceramic = ProductService.getInstance().statisticalProduct(2);
-        List<Integer> picture = ProductService.getInstance().statisticalProduct(3);
+//        List<Integer> wood = ProductService.getInstance().statisticalProduct(1);
+//        List<Integer> ceramic = ProductService.getInstance().statisticalProduct(2);
+//        List<Integer> picture = ProductService.getInstance().statisticalProduct(3);
         request.setAttribute("quantity", quantity);
         request.setAttribute("list", list);
         request.setAttribute("listPacategories", listPaCategories);
         request.setAttribute("listCategory", categoryList);
         request.setAttribute("name", name);
-        request.setAttribute("wood",wood);
-        request.setAttribute("ceramic",ceramic);
-        request.setAttribute("picture",picture);
+//        request.setAttribute("wood",wood);
+//        request.setAttribute("ceramic",ceramic);
+//        request.setAttribute("picture",picture);
         request.getRequestDispatcher("product-manager.jsp").forward(request, response);
 
     }

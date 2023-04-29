@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="bean.Order" %>
 <%@ page import="bean.Format" %>
+<%@ page import="services.OrderService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 >
 <html lang="en">
@@ -24,14 +25,15 @@
 <body>
 <%@include file="header-admin.jsp" %>
 <div class="content">
-    <% List<Order> list = (List<Order>) request.getAttribute("orderList");%>
+    <% List<Order> list = (List<Order>) request.getAttribute("orderList");
+    %>
     <div class="row">
         <div class="col-sm">
             <div class="top">
                 <div class="icon i-gray"><img src="" alt=""><i class="fa-solid fa-cash-register"></i></div>
                 <div class="title-number">
                     <p class="title">Tổng doanh thu</p>
-                    <p class="number"><%=Format.format((Integer) request.getAttribute("total"))%> VND</p>
+                    <p class="number"> 720 VND</p>
                 </div>
             </div>
             <div class="bottom">
@@ -130,7 +132,7 @@
                     </td>
                     <td><%=order.getCreateDate()%>
                     </td>
-                    <td><%=order.total()%>
+                    <td><%=OrderService.getInstance().total(order)%>
                     </td>
                     <td><%=order.isPayment()   %>
                     </td>

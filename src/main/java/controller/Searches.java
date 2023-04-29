@@ -23,11 +23,11 @@ public class Searches extends HttpServlet {
         String search = request.getParameter("search");
         int size = ProductService.getInstance().getCountProduct(kind, group) / 15;
         int count = ProductService.getInstance().getCountProduct(kind, group) % 15 > 0 ? size + 1 : size;
-        List<Product> list = ProductService.getInstance().getListProductInSearch(search);// danh sach san pham theo trang
+        List<Product> listProduct = ProductService.getInstance().getListProductInSearch(search);// danh sach san pham theo trang
 //        List<Banner> listBanner = BannerService.getInstance().getListBanner();
 //        List<Product> listSearch = ProductService.getInstance().getListProductInSearch(search);
 
-        request.setAttribute("list", list);
+        request.setAttribute("listProduct", listProduct);
         request.setAttribute("kind", kind);
         request.setAttribute("page", page);
         request.setAttribute("sort", sort);

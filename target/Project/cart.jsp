@@ -23,10 +23,6 @@
 <body>
 
 <%@include file="header.jsp" %>
-<%
-    List<LineItem> cartItems = (List<LineItem>) request.getAttribute("cartItems");
-
-%>
 <div class="container content">
     <div class="row">
         <div class="<%=cartItems.size()==0?"col-12":"col-8"%> list-product">
@@ -42,7 +38,7 @@
                     <div class="row">
 
                         <div class="col-3 p-0 left"><img
-                                src="<%=product.getListImage().get(0)%>"
+                                src="<%=product.getMainImage().getSource()%>"
                                 alt=""></div>
                         <div class="col-6">
                             <div class="top">
@@ -51,10 +47,10 @@
                                 <div class="contain-price">
                                     <span>Giá:</span>
                                     <%if (product.getPriceSale() == 0) {%>
-                                    <span class="price"><%=Format.format(product.getListHistoryPrice().get(0).getPrice())%> VND</span>
+                                    <span class="price"><%=Format.format(product.getPrice())%> VND</span>
                                     <%} else {%>
-                                    <span class="price"><%=Format.format(product.getPriceSale())%> VND</span>
-                                    <span class="sale"><%=Format.format(product.getListHistoryPrice().get(0).getPrice())%> VND</span>
+                                    <span class="price"><%=Format.format(product.getPrice())%> VND</span>
+                                    <span class="sale"><%=Format.format(product.getPriceSale())%> VND</span>
                                     <%}%>
                                 </div>
                             </div>
@@ -77,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="bottom">
-                                <button class="btn-remove" value="<%=product.getId()%>"><i
+                                <button class="btn-remove" value="<%=line.getId()%>"><i
                                         class="fa-solid fa-trash"></i> Xóa
                                 </button>
                             </div>
@@ -164,7 +160,94 @@
             integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/general.js"></script>
-    <script type="text/javascript" src="js/cart.js" charset="UTF-8"></script>
+    <%--    <script type="text/javascript" src="js/cart.js" charset="UTF-8"></script>--%>
+    <script>
+        $(document).ready(function () {
+            let isAppendVoucher = false;
+            $('.btn-remove').click(function () {
+                let idCartItem = $(this).val();
+                $(this).closest('.product').remove();
+
+                $.ajax({
+                    url: "/cart/removeProduct",
+                    type: "get",
+                    data: {
+                        idCartItem: idCartItem,
+                    },
+                    success: function (response) {
+                        let listResponse = response.replace(/\r/g, "").split(/\n/);
+                        $('#input-voucher').val('');
+                        $('.money-sale-voucher').text(0);
+                        if (parseInt(listResponse[3].trim()) === 0) {
+                            removeEmlement();
+                        } else {
+                            $('.total-real').text(listResponse[0] + ' VND');
+                            $('.sale').text(listResponse[1] + ' VND');
+                            $('.total span').text(listResponse[2]);
+                        }
+                        $('.amount-product').text(listResponse[3]);
+                    },
+                    error: function (xhr) {
+
+                    }
+                });
+            })
+
+            $('.delete-all').click(function () {
+                removeEmlement();
+                $('.amount-product').text(0);
+                $.ajax({
+                    url: "/cart/removeAllProduct",
+                    type: "get",
+                    data: {},
+                    success: function (response) {
+                    },
+                    error: function (xhr) {
+
+                    }
+                });
+            })
+
+            function removeEmlement() {
+                $('.product').remove();
+                $('.bill').remove();
+                $('.list-product').removeClass('col-8');
+                $('.list-product').addClass('col-12');
+                $('.container-list-product').html('<li class="notification bd-bottom pb-4 pt-4 uppercase">\n' +
+                    '            Giỏ hàng của bạn đang trống, quay lại mua hàng nhé!\n' +
+                    '        </li>');
+                $('.delete-all').remove();
+                $('.contain-btn').css('justify-content', 'center');
+                $('.input-voucher').val('');
+            }
+
+            $('.btn-total').click(function () {
+                window.location = "http://localhost:8080/shipping?discountCode=" + $('#input-voucher').val();
+            })
+            $('#submit-voucher').click(function () {
+
+                $.ajax({
+                    url: "/cart/checkVoucher",
+                    type: "get",
+                    data: {
+                        voucher: $('#input-voucher').val(),
+                    },
+                    success: function (response) {
+                        let listResponse = response.replace(/\r/g, "").split(/\n/);
+                        $('#mess-voucher').text(listResponse[0]);
+                        $('.money-sale-voucher').text(new Intl.NumberFormat('de-DE').format(listResponse[1]));
+                        $('.total span').text(new Intl.NumberFormat('de-DE').format(listResponse[2]));
+
+
+                    },
+                    error: function (xhr) {
+
+                    }
+                });
+
+            })
+
+        })</script>
 </body>
 
 </html>

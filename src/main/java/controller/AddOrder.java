@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,32 +17,38 @@ public class AddOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
-        int idAddress = Integer.parseInt(request.getParameter("idAddress"));
-        int wayShip = Integer.parseInt(request.getParameter("wayShip"));
-        String payments = request.getParameter("payments");
-        String voucher = request.getParameter("voucher");
+        String note = request.getParameter("note");
+        int idInformation = Integer.parseInt(request.getParameter("idInformation"));
+//        boolean isPayment = Boolean.parseBoolean(request.getParameter("isPayment"));
+        String discountCode = request.getParameter("discountCode");
 
-        Order order = (Order) request.getSession().getAttribute("cart");
+        Order order = new Order();
 
-        order.setInformation(new Information());
-        order.setTransport(new Transport());
-        order.setPaymentMethod(1);
+        order.setNote(note);
+        order.setPayment(false);
+        order.setInformation(InformationService.getInstance().getInformationByInformationId(idInformation));
+        order.setTransport(TransportService.getInstance().getTransportById(1));
+        order.setPaymentMethod(0);
+        order.setStatusDelivery(0);
         order.setCreateDate(LocalDateTime.now());
         order.setListOrderItem(user.getListCartItem());
-        Discount discount = DiscountService.getInstance().getDiscountByCode(voucher);
-        List<Discount> discountList = new ArrayList<>();
-        discountList.add(discount);
-        if (discount != null) {
-            order.setListDiscount(discountList);
-            order.setTotal(order.total() - DiscountService.getInstance().totalDiscount(discountList));
-        } else {
-            order.setListDiscount(null);
-            order.setTotal(order.total());
+        order.setStatus(0);
+        order.setTotal(OrderService.getInstance().total(order));
+        order.setUser(user);
+
+        if (!"".equals(discountCode)) {
+            Discount discount = DiscountService.getInstance().getDiscountByCode(discountCode);
+            order.setDiscount(discount);
         }
+
         order.setStatusDelivery(1);
-        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.total() + " VND", user.getEmail());
+        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.getTotal() + " VND", user.getEmail());
 
         user.setListCartItem(new ArrayList<>());
+
+        OrderService.getInstance().add(order);
+
+
         CartService.getInstance().removeAllProductByUserId(user.getId());
 
         request.getRequestDispatcher("finish-buy.jsp").forward(request, response);

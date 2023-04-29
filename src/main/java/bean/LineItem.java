@@ -47,7 +47,10 @@ public class LineItem implements Serializable {
     }
 
     public int totalPrice() {
-        return this.product.getListHistoryPrice().get(0).getPrice() * this.quantity;
+        if (this.product.getPriceSale() != 0) {
+            return this.product.getPriceSale() * this.quantity;
+        }
+        return this.product.getPrice() * this.quantity;
     }
 
     @Override

@@ -166,8 +166,26 @@ public class User implements Serializable {
                 '}';
     }
 
+    public LineItem containProductInCart(int idProduct) {
+        for (LineItem cartItem : getListCartItem()) {
+            if (cartItem.getProduct().getId() == idProduct)
+                return cartItem;
+        }
+        return null;
+    }
+
+    public void addToCart(LineItem lineItem){
+        LineItem aLine = containProductInCart(lineItem.getProduct().getId());
+        if (aLine != null) {
+            aLine.setQuantity(lineItem.getQuantity() + aLine.getQuantity());
+        } else {
+            getListCartItem().add(lineItem);
+        }
+    }
+
     public static void main(String[] args) {
         User u = UserService.getInstance().getUserById(5);
         System.out.println(u.getListOrder());
     }
+
 }
