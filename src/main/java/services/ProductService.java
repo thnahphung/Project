@@ -402,37 +402,7 @@ public class ProductService {
     }
 
     public static void main(String[] args) {
-//        System.out.println(ProductService.getInstance().getListProductInPageName(0,"","1"));
-//        getInstance().deleteProduct(1);
-//        System.out.println(ProductService.getInstance().getProductById(9));
-//        System.out.println(ProductService.getInstance().getListProduct());
-//        System.out.println(ProductService.getInstance().getListTopProduct());
-
-//        System.out.println(ProductService.getInstance().getProductById(1));
-
-//        System.out.println(ProductService.getInstance().getListFavouriteProduct());
-//        System.out.println(ProductService.getInstance().getImageOfProductById(1));
-
-//        System.out.println(ProductService.getInstance().getNewProducts());
-//        System.out.println(ProductService.getInstance().getCommentOfProductById(1));
-
-
-//        System.out.println(ProductService.getInstance().getTopWoodProducts());
-//        System.out.println(ProductService.getInstance().getListProductByKind(1));
-
-//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
-//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
-//        getInstance().getListSameProduct(2);
-
-
-//        System.out.println(ProductService.getInstance().getListProductInGroup(ALL, TRANGTRI));
-//        System.out.println(ProductService.getInstance().getTopProducts(WOOD));
-//        System.out.println(ProductService.getInstance().getListProductInGroupName(0, ""));
-//        ProductDetail productDetail = new ProductDetail(getInstance().getListProduct().size() + 1, "ádsa", "ádad", null, 10, LocalDateTime.now(), LocalDateTime.of(2022, 12, 11, 3, 3, 2), 0, 3);
-//        ProductService.getInstance().addProductDetail(productDetail);
-//        Product product = new Product(getInstance().getListProduct().size() + 1, 1, "dsad", 1312, 13, 0, "", productDetail);
 //
-//        ProductService.getInstance().addProduct(product);
 //
         System.out.println(getInstance().getListSameProduct(2));
     }
