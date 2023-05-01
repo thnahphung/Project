@@ -81,6 +81,14 @@ public class UserService {
         return user;
     }
 
+    public int getIdByUserName(String userName) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id from user where email =? or phone = ?")
+                    .bind(0, userName).bind(1, userName)
+                    .mapTo(Integer.class).one();
+        });
+    }
+
     public String hashPassword(String password) {
         try {
             MessageDigest sha256 = null;
@@ -121,6 +129,20 @@ public class UserService {
         }
         return false;
 
+    }
+
+    public boolean checkExistUserName(String userName) {
+        List<String> strings = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT phone, email \n" +
+                            "from user\n" +
+                            " where phone=? or email =?").bind(0, userName).bind(1, userName)
+                    .mapTo(String.class).stream().collect(Collectors.toList());
+        });
+        if (strings.size() != 0) {
+
+            return true;
+        }
+        return false;
     }
 
     public boolean checkExistId3rd(String id3rd) {
@@ -270,6 +292,24 @@ public class UserService {
                     .bind(0, id)
                     .mapToBean(User.class)
                     .one();
+        });
+    }
+
+    public void updateStatus(int userId) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("update `user` u join incorrect_time it on u.id = it.user_id set u.`status` = 0 where u.id = ?")
+                    .bind(0, userId).execute();
+        });
+    }
+
+    public boolean isEligibilityToLock(int userId) {
+        return JDBIConnector.get().withHandle(handle -> {
+            List<Boolean> booleans = handle.createQuery("select case when incorrect_attempts>=5 then 'true' else 'false' end as result from incorrect_time where user_id = ? and status = 0 ")
+                    .bind(0, userId).mapTo(Boolean.class).stream().collect(Collectors.toList());
+            for (Boolean b : booleans) {
+                if (b == true) return true;
+            }
+            return false;
         });
     }
 
