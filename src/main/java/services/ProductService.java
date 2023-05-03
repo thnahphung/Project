@@ -208,7 +208,6 @@ public class ProductService {
             return handle.createQuery("select image_src from image where product_id " + "=" + id).mapTo(String.class).stream().collect(Collectors.toList());
         });
     }
-
     //------------------ Tong so san pham theo nhom ---------------------
     public int getCountProduct(int kind, String group) {
 

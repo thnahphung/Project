@@ -78,8 +78,8 @@ $(document).ready(function () {
     //
     // })
     $('.edit-product').click(function () {
-
         var idpr = $(this).val().trim()
+        alert(idpr)
         $.ajax({
             url: "/admins/editProduct",
             type: "get",

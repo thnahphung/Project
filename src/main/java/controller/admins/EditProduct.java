@@ -1,7 +1,9 @@
 package controller.admins;
 
 import bean.Category;
+import bean.Image;
 import bean.Product;
+import services.ImageService;
 import services.PaCategoryService;
 import services.ProductService;
 
@@ -20,22 +22,22 @@ public class EditProduct extends HttpServlet {
         List<Category> paCategoryList = PaCategoryService.getInstance().getListPaCategory();// Pa_Category_list
         String result = "";
         for (Category pa : paCategoryList) {
-            if (product.getCategory().getPaCategory().getId() == pa.getPaCategory().getId()) {
-                result += "<option value=\"" + pa.getPaCategory().getId() + "\" selected>" + pa.getName() + "</option>\n";
+            if (product.getCategory().getPaCategory().getId()== pa.getId()) {
+                result += "<option value=\"" + pa.getId() + "\" selected>" + pa.getName() + "</option>\n";
             } else {
-                result += "<option value=\"" + pa.getPaCategory().getId() + "\">" + pa.getName() + "</option>\n";
+                result += "<option value=\"" + pa.getId() + "\">" + pa.getName() + "</option>\n";
             }
         }
-        List<String> images = ProductService.getInstance().getImageOfProductById(id);
+        List<Image> images = ImageService.getInstance().getListImageByProductId(product.getId());
         int index = 1;
         String htmlImg = "<div class=\"col-4 item" + index + "\">\n" +
-                "                                            <img class=\"img-load image-item\" " + index + "\" src=\"" +// TODO: 4/9/2023   product.getListImage().get(0) + "\" alt=\"\">\n" +
+                "                                            <img class=\"img-load image-item\" " + index + "\" src=\"" +  product.getMainImage() + "\" alt=\"\">\n" +
                 "                                            <button class=\"remove-img\" value=\"" + index + "\">X</button>\n" +
                 "                                       </div>";
-        for (String src : images) {
+        for (Image src : images) {
             index++;
             htmlImg += " <div class=\"col-4 item" + index + "\">\n" +
-                    "                                <img class=\"img-load image-item" + index + "\" src=\"" + src + "\" alt=\"\">\n" +
+                    "                                <img class=\"img-load image-item" + index + "\" src=\"" + src.getSource() + "\" alt=\"\">\n" +
                     "                                <button class=\"remove-img\" value=\"" + index + "\">X</button>\n" +
                     "                            </div>";
 
@@ -67,12 +69,12 @@ public class EditProduct extends HttpServlet {
                 "                    <div class=\"inventory\">\n" +
                 "                        <label>Số lượng</label>\n" +
                 "                        <input class=\"input\" type=\"number\" min=\"0\" name=\"inventory\" id=\"edit-inventory\"\n" +
-                "                               value=\"" + // TODO: 4/9/2023   product.getInventory() + "\">\n" +
+                "                               value=\"" + 2 + "\">\n" +
                 "                    </div>\n" +
                 "                    <div class=\"stt\">\n" +
                 "                        <label>Trạng thái</label>\n" +
                 "                        <input class=\"input\" type=\"number\" min=\"0\" name=\"stt\" id=\"edit-stt\"\n" +
-                "                               value=\"" +// TODO: 4/9/2023   product.getProductDetail().getStt() + "\">\n" +
+                "                               value=\"" +   product.getStatus() + "\">\n" +
                 "                    </div>\n" +
                 "                    <div class=\"images\">\n" +
                 "                        <form action=\"/admins/uploadImageProduct\" method=\"post\" class=\"upload\" enctype=\"multipart/form-data\">\n" +
