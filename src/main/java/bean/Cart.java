@@ -36,7 +36,11 @@ public class Cart {
     }
 
     public static int total(List<LineItem> lineItems, int discountFee) {
-        return totalPrice(lineItems) - totalPriceSale(lineItems) - discountFee;
+        return total(lineItems) - discountFee;
+    }
+
+    public static int totalHaveShipAndDiscount(List<LineItem> lineItems, int discountFee, int shipFee) {
+        return total(lineItems, discountFee) + shipFee;
     }
 
     public static List<LineItem> removeItemCart(List<LineItem> lineItem, int idItemCart) {

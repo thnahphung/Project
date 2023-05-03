@@ -20,6 +20,19 @@ public class Information implements Serializable {
         this.status = status;
     }
 
+    public Information(String name, String phone, Address address, int status) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+    }
+
+    public Information(String name, String phone, Address address) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public int getId() {
         return id;
     }

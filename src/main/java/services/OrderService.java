@@ -84,7 +84,7 @@ public class OrderService implements Serializable {
                 .bind("create_date", order.getCreateDate())
                 .bind("user_id", order.getUser().getId())
                 .bind("information_id", order.getInformation().getId())
-                .bind("discount_id", order.getDiscount().getId())
+                .bind("discount_id", order.getDiscount() == null ? null : order.getDiscount().getId())
                 .execute());
 
         //Them danh sach cac item cua 1 order vao bang order_line
@@ -96,7 +96,6 @@ public class OrderService implements Serializable {
 
         for (LineItem lineItem : order.getListOrderItem()) {
             addOrderItem(lineItem);
-
             addOrderLine(maxId(), LineItemService.getInstance().maxId());
         }
     }
@@ -124,7 +123,6 @@ public class OrderService implements Serializable {
     }
 
 
-
     public void removeAllDetailByOrderId(int id) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("DELETE FROM order_detail WHERE order_id = :id")
@@ -142,7 +140,7 @@ public class OrderService implements Serializable {
 
     public static void main(String[] args) {
 
-        getInstance().addOrderLine(6,6);
+        getInstance().addOrderLine(6, 6);
     }
 
 }

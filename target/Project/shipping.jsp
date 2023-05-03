@@ -39,9 +39,9 @@
                     %>
                     <div class="contain-address bd-bottom">
                         <p>
-                            <input type="radio" id="test<%=informaton.getId()%>" name="address" checked
+                            <input class="information" type="radio" id="test<%=informaton.getId()%>" name="address"
                                    value="<%=informaton.getId()%>">
-                            <label for="test<%=informaton.getId()%>"><span
+                            <label class="label-information" for="test<%=informaton.getId()%>"><span
                                     class="name"><%=informaton.getName()%></span>
                                 <span class="phone-number"><%=informaton.getPhone()%></span></label>
                         </p>
@@ -58,13 +58,14 @@
 
             </div>
             <div class="way-ship">
-                <h6 class="title uppercase"><i class="fa-solid fa-truck-fast"></i>Hình thức giao hàng </h6>
+                <h6 class="title uppercase"><i class="fa-solid fa-truck-fast"></i>Hình thức giao hàng</h6>
                 <div class="contain-way-ship">
                     <p class="bd-bottom">
                         <input type="radio" id="way1" name="way-ship" value="1" checked>
                         <label for="way1">
-                            <span class="text">Giao hàng tiêu chuẩn (Từ 2-5 ngày)</span>
-                            <span class="text fee">30.000 VND</span>
+                            <span class="text">Giao hàng tiêu chuẩn <br/> (Thời gian dự kiến <span
+                                    id="lead-time"></span>)</span>
+                            <span><span class="text fee">0</span> VND</span>
                         </label>
                     </p>
                 </div>
@@ -110,14 +111,16 @@
                         <div class="col-8 name-product text">Tổng đơn hàng</div>
                         <div class="col-4  text text-right"><%=Format.format(Cart.totalPrice(cartItems))%> VND</div>
                         <div class="col-8 text">Giảm</div>
-                        <div class="col-4 price text text-right">- <%=Format.format(Cart.totalPriceSale(cartItems))%> VND</div>
+                        <div class="col-4 price text text-right">- <%=Format.format(Cart.totalPriceSale(cartItems))%>
+                            VND
+                        </div>
                         <div class="col-8 text">Mã khuyến mãi</div>
                         <%int discountFee = (int) request.getAttribute("discountFee");%>
                         <div class="col-4 price text text-right">
                             - <%=Format.format(discountFee)%> VND
                         </div>
                         <div class="col-8 name-product text">Phí vận chuyển</div>
-                        <div class="col-4 text text-right"><span class="ship-fee">30.000</span> VND</div>
+                        <div class="col-4 text text-right"><span class="fee">0</span> VND</div>
                     </div>
 
                 </div>
@@ -177,6 +180,7 @@
         crossorigin="anonymous"></script>
 
 <script src="js/general.js"></script>
+<script src="js/api-logistic.js"></script>
 <script src="js/shipping.js"></script>
 </body>
 
