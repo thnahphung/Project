@@ -33,7 +33,7 @@ public class UserService {
 
     public List<User> getListUser() {
         List<User> list = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, phone, email, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, name, phone, email, `password`,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
         for (User user : list) {
             user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));

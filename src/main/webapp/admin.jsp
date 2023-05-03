@@ -103,12 +103,11 @@
                 <thead>
                 <tr>
                     <th>Mã hóa đơn</th>
-                    <th>Tên</th>
-<%--                    <th>Địa chỉ</th>--%>
+                    <th>Tên khách hàng</th>
                     <th>Số điện thoại</th>
                     <th>Ngày tạo HĐ</th>
                     <th>Thành tiền</th>
-                    <th>Trạng thái</th>
+                    <th>Thanh toán</th>
                     <th>Tình trạng</th>
                     <th></th>
                 </tr>
@@ -119,7 +118,7 @@
                     for (Order order : list) {
                 %>
                 <tr data-toggle="modal"
-                    data-target="#exampleModalCenterEdit">
+                    data-target="#exampleModalCenterEdit" >
                     <td class="order-id"><%=order.getId()%>
                     </td>
                     <td class="name"><%=order.getUser().getName()%>
@@ -142,7 +141,7 @@
                     <%}%>
 
                     <td>
-                        <button class="detail-order submit" style="width: 130px" value="<%=order.getId()%>">Xem chi
+                        <button class="detail-order submit"  value="<%=order.getId()%>">Xem chi
                             tiết
                         </button>
                     </td>

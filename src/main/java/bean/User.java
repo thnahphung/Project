@@ -138,6 +138,7 @@ public class User implements Serializable {
         this.status = status;
     }
 
+
     public String getVarietyUser() {
         if (this.variety == 1) {
             return "Cộng tác viên";
