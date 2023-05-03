@@ -104,7 +104,7 @@
                 <tr>
                     <th>Mã hóa đơn</th>
                     <th>Tên</th>
-                    <th>Địa chỉ</th>
+<%--                    <th>Địa chỉ</th>--%>
                     <th>Số điện thoại</th>
                     <th>Ngày tạo HĐ</th>
                     <th>Thành tiền</th>
@@ -119,26 +119,33 @@
                     for (Order order : list) {
                 %>
                 <tr data-toggle="modal"
-                    data-target="#exampleModalCenterEdit" >
+                    data-target="#exampleModalCenterEdit">
                     <td class="order-id"><%=order.getId()%>
                     </td>
                     <td class="name"><%=order.getUser().getName()%>
                     </td>
-                    <td><%=order.getInformation().getAddress().getDetail()%>
-                        , <%=order.getInformation().getAddress().getDistrict()%>
-                        , <%=order.getInformation().getAddress().getCity()%>
-                    </td>
+<%--                    <td><%=order.getInformation().getAddress().getDetail()%>--%>
+<%--                        , <%=order.getInformation().getAddress().getDistrict()%>--%>
+<%--                        , <%=order.getInformation().getAddress().getCity()%>--%>
+<%--                    </td>--%>
                     <td><%=order.getInformation().getPhone()%>
                     </td>
                     <td><%=order.getCreateDate()%>
                     </td>
-                    <td><%=OrderService.getInstance().total(order)%>
+                    <td><%=Format.format(OrderService.getInstance().total(order))%>
                     </td>
-                    <td><%=order.isPayment()   %>
+                    <td><%=order.isPayment() ? "đã thanh toán" : "chưa thanh toán"%>
                     </td>
-                    <td><%=order.getStatusDelivery()%>
+                    <% if (order.getStatusDelivery() == 1) {%>
+                    <td> Giao hàng thành công
                     </td>
-                    <td> <button class="detail-order submit" style="width: 130px" value="<%=order.getId()%>">Xem chi tiết</button></td>
+                    <%}%>
+
+                    <td>
+                        <button class="detail-order submit" style="width: 130px" value="<%=order.getId()%>">Xem chi
+                            tiết
+                        </button>
+                    </td>
                 </tr>
                 <%}%>
 

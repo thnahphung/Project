@@ -276,6 +276,9 @@ a {
 #dtHorizontalVerticalExample th,
 td {
     white-space: nowrap;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 table.dataTable thead .sorting:after,
