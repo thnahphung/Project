@@ -5,18 +5,29 @@ import java.io.Serializable;
 public class Address implements Serializable {
     private String detail;
     private String district;
-
     private String city;
+
+    private String wardId;
+    private int districtId;
+    private int provinceId;
 
     public Address() {
     }
 
-    public Address( String detail, String district, String city) {
+    public Address(String detail, String district, String city) {
         this.detail = detail;
         this.district = district;
         this.city = city;
     }
 
+    public Address(String detail, String district, String city, String wardId, int districtId, int provinceId) {
+        this.detail = detail;
+        this.district = district;
+        this.city = city;
+        this.wardId = wardId;
+        this.districtId = districtId;
+        this.provinceId = provinceId;
+    }
 
     public String getDetail() {
         return detail;
@@ -40,6 +51,30 @@ public class Address implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getWardId() {
+        return wardId;
+    }
+
+    public void setWardId(String wardId) {
+        this.wardId = wardId;
+    }
+
+    public int getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(int districtId) {
+        this.districtId = districtId;
+    }
+
+    public int getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(int provinceId) {
+        this.provinceId = provinceId;
     }
 
     @Override

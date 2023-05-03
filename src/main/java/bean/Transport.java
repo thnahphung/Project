@@ -6,13 +6,20 @@ import java.time.LocalDateTime;
 public class Transport implements Serializable {
     private int id;
     private int fee;
-    private int time;
+    private LocalDateTime time;
     private String idShipping;
     private LocalDateTime createDate;
 
     public Transport(int id, int fee, String idShipping, LocalDateTime createDate) {
         this.id = id;
         this.fee = fee;
+        this.idShipping = idShipping;
+        this.createDate = createDate;
+    }
+
+    public Transport(int fee, LocalDateTime time, String idShipping, LocalDateTime createDate) {
+        this.fee = fee;
+        this.time = time;
         this.idShipping = idShipping;
         this.createDate = createDate;
     }
@@ -37,11 +44,11 @@ public class Transport implements Serializable {
         this.fee = fee;
     }
 
-    public int getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

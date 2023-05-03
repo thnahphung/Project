@@ -21,16 +21,14 @@ public class AddressService {
     }
 
     public Address getAddressByInformationId(int id) {
-        return JDBIConnector.get().withHandle(handle -> {
-            Address address = handle.createQuery("select  detail, district, city from information where id = ?")
-                    .bind(0, id)
-                    .mapToBean(Address.class)
-                    .one();
-            return address;
-        });
+        return JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("select detail, district, city, ward_id, district_id, province_id from information where id = ?")
+                        .bind(0, id)
+                        .mapToBean(Address.class)
+                        .one());
     }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().getAddressByInformationId(1));
+        System.out.println(getInstance().getAddressByInformationId(5));
     }
 }
