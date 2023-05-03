@@ -67,7 +67,10 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
+                        <button class="nav-link" id="logout-tab" data-toggle="tab" data-target="#messages" type="button"
+                                role="tab" aria-controls="messages" aria-selected="false"><i
+                                class="fa-solid fa-right-from-bracket"></i>Đăng xuất
+                        </button>
 
                     </li>
 
@@ -119,45 +122,8 @@
         </div>
         <!-- end content -->
 
-        <%--Modal edit address--%>
-        <%for (Information i : informationList) {%>
-        <div class="modal fade" id="exampleEditAddress<%=i.getId()%>" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title uppercase" id="exampleModalLongTitle">Sửa địa chỉ</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="form-edit-address">
-                            <input class="input" type="text" name="" id="input-edit-name<%=i.getId()%>"
-                                   placeholder="Họ tên" value="<%=i.getName()%>">
-                            <input class="input" type="text" name="" id="input-edit-phone<%=i.getId()%>"
-                                   placeholder="Số điện thoại" value="<%=i.getPhone()%>">
-                            <input class="input" type="text" name="" id="input-edit-detail<%=i.getId()%>"
-                                   placeholder="Số nhà, tên đường, thôn, ấp"
-                                   value="<%=i.getAddress().getDetail()%>">
-                            <input class="input" type="text" name="" id="input-edit-district<%=i.getId()%>"
-                                   placeholder="Quận, huyện" value="<%=i.getAddress().getDistrict()%>">
-                            <input class="input" type="text" name="" id="input-edit-city<%=i.getId()%>"
-                                   placeholder="Tỉnh, thành phố" value="<%=i.getAddress().getCity()%>">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save btn-save-address submit"
-                                value="<%=i.getId()%>">Lưu địa chỉ</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <%}%>
-        <%--        end modal edit address--%>
         <!-- Modal add address-->
+
         <div class="modal fade" id="exampleAddAddress" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -171,19 +137,33 @@
                     <div class="modal-body">
                         <div class="form-add-address">
                             <input class="input" type="text" name="" id="input-name" placeholder="Họ tên">
-                            <input class="input" type="text" name="" id="input-number-phone" placeholder="Số điện thoại">
-                            <input class="input" type="text" name="" id="input-detail" placeholder="Số nhà, tên đường, thôn, ấp">
-                            <input class="input" type="text" name="" id="input-district" placeholder="Quận, huyện">
-                            <input class="input" type="text" name="" id="input-city" placeholder="Tỉnh, thành phố">
+                            <input class="input" type="text" name="" id="input-number-phone"
+                                   placeholder="Số điện thoại">
+                            <select id="select-province" class="select-address input">
+                                <option class="option-select-province default" value="-1">Tỉnh / Thành phố</option>
+                            </select>
+                            <select id="select-district" class="select-address input">
+                                <option class="option-select-district default" value="-1">Quận / Huyện</option>
+                            </select>
+                            <select id="select-ward" class="select-address input">
+                                <option class="option-select-ward default" value="-1">Phường / Xã</option>
+                            </select>
+                            <div class="errorAddAddress"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save save-address btn-save submit">Lưu địa chỉ</button>
+                        <button type="button" class="button button-close submit"
+                                data-dismiss="modal">Hủy
+                        </button>
+                        <button type="button" class="button button-save btn-save-address submit">
+                            Lưu
+                            địa chỉ
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+
         <%--end modal add address--%>
         <!-- Modal delete all address-->
         <div class="modal fade" id="exampleDeleteAllAddress" tabindex="-1" role="dialog"
@@ -191,13 +171,14 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title uppercase" >Bạn chắc chắn xóa tất cả địa chỉ?</h5>
+                        <h5 class="modal-title uppercase">Bạn chắc chắn xóa tất cả địa chỉ?</h5>
                         </button>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="button button-close submit" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="button button-save delete-address btn-delete-all submit">Vẫn xóa</button>
+                        <button type="button" class="button button-save delete-address btn-delete-all submit">Vẫn xóa
+                        </button>
                     </div>
                 </div>
             </div>
@@ -218,8 +199,188 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
 <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
+<script src="js/api-logistic.js"></script>
 <script src="js/general.js"></script>
-<script src="js/show-address.js"></script>
+<script>
+
+    $(document).ready(function () {
+        login();
+        $('#infor-tab').click(function () {
+            window.location = "http://localhost:8080/userProfile";
+        })
+
+        $(document).on('click', '.btn-add-address', function () {
+            //Lấy danh sách các tỉnh
+            if ($('#select-province').children('.option-select-province').length > 1)
+                return;
+
+            $.ajax({
+                url: "http://140.238.54.136/api/province",
+                type: "get",
+                data: {},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                },
+                success: function (response) {
+                    const res = JSON.parse(response);
+                    let data = res.original.data;
+                    for (let i = 0; i < data.length; i++) {
+                        let item = '<option  class="option-select-province" value="' + data[i].ProvinceID + '">' + data[i].ProvinceName + '</option>';
+                        $('#select-province').append(item);
+                    }
+                },
+                error: function (xhr) {
+                }
+            });
+        })
+
+        $(document).on('change', '#select-province', function () {
+            $('#select-district').children('.option-select-district').not('.default').remove();
+            $('#select-ward').children('.option-select-ward').not('.default').remove();
+
+            //Lấy danh sách các huyện của tỉnh
+            const seProvince = $('#select-province');
+            const provinceID = seProvince.val();
+
+            if (provinceID == -1) return;
+
+            $.ajax({
+                url: "http://140.238.54.136/api/district",
+                type: "get",
+                data: {
+                    provinceID: provinceID
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                },
+                success: function (response) {
+                    const res = JSON.parse(response);
+                    let data = res.original.data;
+                    for (let i = 0; i < data.length; i++) {
+                        let item = '<option  class="option-select-district" value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>';
+                        $('#select-district').append(item);
+                    }
+                },
+                error: function (xhr) {
+                }
+            });
+        })
+
+        $(document).on('change', '#select-district', function () {
+            $('#select-ward').children('.option-select-ward').not('.default').remove();
+
+            //Lấy danh sách các huyện của tỉnh
+            const seDistrict = $('#select-district');
+            const districtID = seDistrict.val();
+
+            if (districtID == -1) return;
+
+            $.ajax({
+                url: "http://140.238.54.136/api/ward",
+                type: "get",
+                data: {
+                    districtID: districtID
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                },
+                success: function (response) {
+                    const res = JSON.parse(response);
+                    let data = res.original.data;
+                    for (let i = 0; i < data.length; i++) {
+                        let item = '<option  class="option-select-ward" value="' + data[i].WardCode + '">' + data[i].WardName + '</option>';
+                        $('#select-ward').append(item);
+                    }
+                },
+                error: function (xhr) {
+                }
+            });
+        })
+
+        // XÓA ĐỊA CHỈ
+        $(document).on("click", ".delete-one", function (e) {
+            let id = $(this).val();
+            $.ajax({
+                url: "/userprofile/deleteInformation",
+                type: "get",
+                data: {
+                    id: id,
+                },
+                success: function (response) {
+                    $(".list-address" + id).html(response);
+                },
+                error: function (xhr) {
+                }
+            });
+        })
+        // THÊM ĐỊA CHỈ
+        $('.btn-save-address').click(function () {
+            let name = $('#input-name').val();
+            let phone = $('#input-number-phone').val();
+
+            let cityId = $('#select-province').val();
+            let districtId = $('#select-district').val();
+            let detailId = $('#select-ward').val();
+
+            let city = $('option.option-select-province[value=' + cityId + ']').text();
+            let district = $('option.option-select-district[value=' + districtId + ']').text();
+            let detail = $('option.option-select-ward[value=' + detailId + ']').text();
+
+
+            if (checkNull(name) || checkNull(phone) || cityId == -1 || districtId == -1 || detailId == -1) {
+                return $(".errorAddAddress").css('color', 'red').text("Chưa điền đủ thông tin");
+            }
+
+            $.ajax({
+                url: "/userprofile/addInformation",
+                type: "get",
+                data: {
+                    name: name,
+                    phone: phone,
+                    city: city,
+                    district: district,
+                    detail: detail,
+                    cityId: cityId,
+                    districtId: districtId,
+                    detailId: detailId
+                },
+                success: function (response) {
+                    $('.contain-list-address').append(response);
+                },
+                error: function (xhr) {
+                }
+            }).done(function () {
+                window.location = "http://localhost:8080/showAddress";
+            })
+            ;
+            $('#exampleAddAddress').modal('toggle');
+        })
+
+        function checkNull(text) {
+            return text.length == 0 || text == null;
+        }
+
+        $('.btn-delete-all').click(function () {
+
+            $.ajax({
+                url: "/userprofile/deleteAllInformation",
+                type: "get", //send it through get method
+                data: {},
+                success: function (response) {
+                    $(".all-address").html(response);
+                },
+                error: function (xhr) {
+                    //Do Something to handle error
+                }
+            });
+            $('#exampleDeleteAllAddress').modal('toggle');
+
+        })
+        $('#logout-tab').click(function () {
+            window.location = "http://localhost:8080/logOut";
+        })
+    })
+</script>
 </body>
 
 </html>

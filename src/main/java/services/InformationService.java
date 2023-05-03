@@ -1,8 +1,6 @@
 package services;
 
-import bean.Address;
 import bean.Information;
-import bean.User;
 import db.JDBIConnector;
 
 import java.util.List;
@@ -29,15 +27,18 @@ public class InformationService {
         });
     }
 
-    public void addNewInformation(String name, String phone, String detail, String district, String city) {
+    public void addNewInformation(Information information) {
         JDBIConnector.get().withHandle(handle -> {
-            int num = handle.createUpdate("INSERT INTO information(name, phone, detail, district, city, status)\n" +
-                            "VALUES (:name, :phone, :detail, :district, :city,0);")
-                    .bind("name", name)
-                    .bind("phone", phone)
-                    .bind("detail", detail)
-                    .bind("district", district)
-                    .bind("city", city)
+            int num = handle.createUpdate("INSERT INTO information(`name`, phone, detail, district, city, ward_id, district_id, province_id, status)\n" +
+                            "VALUES (:name, :phone, :detail, :district, :city, :detailId, :districtId, :cityId, 0);")
+                    .bind("name", information.getName())
+                    .bind("phone", information.getPhone())
+                    .bind("detail", information.getAddress().getDetail())
+                    .bind("district", information.getAddress().getDistrict())
+                    .bind("city", information.getAddress().getCity())
+                    .bind("detailId", information.getAddress().getWardId())
+                    .bind("districtId", information.getAddress().getDistrictId())
+                    .bind("cityId", information.getAddress().getProvinceId())
                     .execute();
             return num;
         });
@@ -98,13 +99,14 @@ public class InformationService {
             return result;
         });
     }
+
     public int maxId() {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT MAX(`id`) as numberInformation FROM `information`").mapTo(Integer.class).one();
         });
     }
+
     public static void main(String[] args) {
-        getInstance().addNewInformation("Trung Kien", "054568744", "Le van sy", "Tan Binh", "Ho Chi Minh");
     }
 }
 
