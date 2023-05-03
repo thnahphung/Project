@@ -44,7 +44,6 @@ $(document).ready(function () {
     $('#input-avt-user').change(function () {
             let formData = new FormData();
             formData.append('imageUpload', $('#input-avt-user')[0].files[0]);
-            console.log("done")
             $.ajax({
                 url: '/userprofile/editAvatarUser',
                 type: 'POST',
@@ -55,6 +54,7 @@ $(document).ready(function () {
                     let imageUrl = response;
                     console.log(imageUrl)
                     $('.avatar').attr('src', imageUrl);
+                    $('#small-avt').attr('src', imageUrl);
                     sessionStorage.setItem('imageUrl', imageUrl);
                 }
             });

@@ -26,6 +26,9 @@ public class ImageService {
         });
     }
 
+    public int maxId() {
+        return JDBIConnector.get().withHandle(handle -> handle.createQuery("SELECT MAX(`id`) as numberProduct FROM `image`").mapTo(Integer.class).one());
+    }
 
     public void addListImageByIdProduct(int idProduct, List<String> srcImage) {
         for (String src : srcImage) {
@@ -64,6 +67,14 @@ public class ImageService {
                         .bind("idUser", idUser)
                         .mapToBean(Image.class)
                         .one());
+    }
+
+    public int add(Image image) {
+        JDBIConnector.get().withHandle(handle -> handle.createUpdate("INSERT INTO image(`source`) VALUES (:image_src)")
+                .bind("image_src", image.getSource())
+                .execute());
+
+        return maxId();
     }
 
     public static void main(String[] args) {
