@@ -34,7 +34,7 @@ public class UserService {
 
     public List<User> getListUser() {
         List<User> list = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, phone, email, `password`, id_third_party,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
+            return handle.createQuery("SELECT id, name, phone, email, `password`,variety, `status`  FROM user").mapToBean(User.class).stream().collect(Collectors.toList());
         });
         for (User user : list) {
             user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
@@ -42,10 +42,21 @@ public class UserService {
         return list;
     }
 
+//    public User getUserById(int id) {
+//        User user = JDBIConnector.get().withHandle(handle -> {
+//            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).one();
+//        });
+//        user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(id));
+//        user.setListCartItem(CartService.getInstance().getCartOfUser(id));
+//        user.setListOrder(OrderService.getInstance().getOrderListByUserId(id));
+//        user.setIdThirdParty(ThirdPartyService.getInstance().getIdThirdPartyByUserId(id));
+//        return user;
+//    }
     public User getUserById(int id) {
         User user = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT id, name, phone, email, avatar, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).one();
+            return handle.createQuery("SELECT id, name, phone, email, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).one();
         });
+        user.setAvatar(ImageService.getInstance().getImageByUserId(id));
         user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(id));
         user.setListCartItem(CartService.getInstance().getCartOfUser(id));
         user.setListOrder(OrderService.getInstance().getOrderListByUserId(id));

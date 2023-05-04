@@ -246,7 +246,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title uppercase" id="Title">Thêm sản phẩm mới</h5>
+                <h5 class="modal-title uppercase" id="Title">Chỉnh sửa sản phẩm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -281,41 +281,58 @@
 <script src="js/product-manager.js"></script>
 
 <script>
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const canvas = document.getElementById('canvas');
-    attribute = element.getAttribute("wood");
-    console.log(attribute);
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'Gỗ',
-                borderColor: '#CC0000',
-                data: [10, 30, 40, 10, 30, 40, 40, 50, 50, 0, 10, 50],
-                fill: false,
-                tension: 0.1
+    $('.edit-product').click(function () {
+        var idpr = $(this).val().trim()
+        alert(idpr)
+        $.ajax({
+            url: "/admins/editProduct",
+            type: "get",
+            data: {
+                id: idpr
             },
-            {
-                label: 'Gốm',
-                borderColor: '#0066CC',
-                data: [10, 35, 40, 56, 73, 50, 30, 30, 20, 50, 30, 30],
-                fill: false,
-                tension: 0.1
+            success: function (response) {
+                $(".form-edit").html(response);
             },
-            {
-                label: 'green',
-                borderColor: '#00CC66',
-                data: [20, 30, 40, 50, 60, 20, 40, 30, 50, 20, 10, 10],
-                fill: false,
-                tension: 0.1
-            },
-        ],
-    }
-    let config = {
-        type: 'line',
-        data: data,
-    };
-    const chart = new Chart(canvas, config);
+            error: function (xhr) {
+            }
+        }).done(function () {
+                $('#edit-pa_category').change(function () {
+                    $.ajax({
+                        url: "/setCategory",
+                        type: "get",
+                        data: {
+                            idcategory: $(this).val().trim()
+                        },
+                        success: function (data) {
+                            $("#edit-category").html(data);
+
+                        },
+                        error: function (xhr) {
+
+                        }
+                    })
+                })
+                $('#editProduct').click(function () {
+                    var idpr1 = idpr;
+                    var name = $('#edit-name').val();
+                    var price = $('#edit-price').val().trim();
+                    var priceReal = $('#edit-priceReal').val().trim();
+                    var inventory = $('#edit-inventory').val().trim();
+                    // img: $()
+                    let category = $('.category').find(":selected").val().trim();
+                    var detail = $('#edit-detail').val();
+                    var decription = $('#edit-decription').val();
+
+                    if (name == "" || price == "" || priceReal == "" || inventory == "" || detail == "" || decription == "" || $('.image-item').length < 5) {
+                        alert("Vui lòng kiểm tra lại")
+                        return;
+                    }
+                    window.location = "/admins/editProductinForm?=name" + name + "&price=" + price + "&priceReal=" + priceReal + "&inventory=" + inventory + "&detail=" + detail + "&decription=" + decription + "&category=" + category + "&id=" + idpr1 + "&stt=0";
+                })
+            }
+        )
+
+    })
 </script>
 </body>
 
