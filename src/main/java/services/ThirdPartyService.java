@@ -34,6 +34,7 @@ public class ThirdPartyService {
         });
     }
 
+
     public ThirdParty getThirdPartyById(int id) {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select id, name, value from third_party where id = ?")

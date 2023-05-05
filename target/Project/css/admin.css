@@ -32,7 +32,7 @@ a {
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 30px;
-    width: 70px;
+    width: 130px;
     height: 40px;
     color: #FFF;
     border: none;
@@ -276,6 +276,9 @@ a {
 #dtHorizontalVerticalExample th,
 td {
     white-space: nowrap;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 table.dataTable thead .sorting:after,
