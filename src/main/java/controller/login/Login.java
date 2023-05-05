@@ -28,47 +28,55 @@ public class Login extends HttpServlet {
         // kiem tra userName co ton tai
         if (UserService.getInstance().checkExistUserName(username)) {
             int id = UserService.getInstance().getIdByUserName(username);
-            // kiểm tra xem user có đang trong thời gian bị khóa tài khoản
-            if (IncorrectTimeService.getInstance().checkLocked(LocalDateTime.now(), username)) {
-                LocalDateTime time = IncorrectTimeService.getInstance().getTimeUnLock(id);
-                request.setAttribute("error", "Tài khoản của bạn đang tạm khóa, sẽ được mở lại sau " + time.getHour() + "h" + time.getMinute() + " " + time.getDayOfMonth() + "/" + time.getMonthValue() + "/" + time.getYear());
+            // kiểm tra tài khoản có bị khóa vĩnh viễn
+            if (UserService.getInstance().isBlockedForever(id)) {
+                request.setAttribute("error", "Tài khoản của bạn bị khóa vĩnh viễn!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-            // TH user không bị khóa tài khoản
+            // TH tài khoản ko bị khóa vĩnh viễn
             else {
-                // User đăng nhập đúng
-                if (user != null) {
-                    IncorrectTimeService.getInstance().deleteIncorrectTime(id);
-                    // Vào trang Admin
-                    if (user.getVariety() > 0) {
-                        HttpSession session = request.getSession(true);
-                        session.setAttribute("authAdmin", user);
-                        response.sendRedirect("orderManager");
-                    }
-                    // User bình thường
-                    else {
-                        user.setListCartItem(CartService.getInstance().getCartOfUser(id));
-                        HttpSession session = request.getSession(true);
-                        session.setAttribute("auth", user);
-                        response.sendRedirect("homepage");
-                    }
+                // kiểm tra tài khoản có bị khóa tạm thời
+                if (IncorrectTimeService.getInstance().checkLocked(LocalDateTime.now(), username)) {
+                    LocalDateTime time = IncorrectTimeService.getInstance().getTimeUnLock(id);
+                    request.setAttribute("error", "Tài khoản của bạn đang tạm khóa, sẽ được mở lại sau " + time.getHour() + "h" + time.getMinute() + " " + time.getDayOfMonth() + "/" + time.getMonthValue() + "/" + time.getYear());
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
-                // User nhập sai password
+                // TH ko bị khóa tạm thời
                 else {
-                    System.out.println(id);
-                    IncorrectTimeService.getInstance().insertIncorrectAttemptsPassword(id);
-                    // TH User nhập sai 5 lần
-                    if (UserService.getInstance().isEligibilityToLock(id)) {
-                        LocalDateTime tomorrow = LocalDateTime.now().plusDays(1);
-                        IncorrectTimeService.getInstance().setLockTimePassword(id, tomorrow);
-                        request.setAttribute("error", "Bạn đã nhập sai 5 lần, tài khoản của bạn bị khóa cho đến " +  tomorrow.getHour() + "h" + tomorrow.getMinute() + " " + tomorrow.getDayOfMonth() + "/" + tomorrow.getMonthValue() + "/" + tomorrow.getYear());
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
-
+                    //kiểm tra có đăng nhập đúng
+                    if (user != null) {
+                        // reset thời gian khóa
+                        IncorrectTimeService.getInstance().deleteIncorrectTime(id);
+                        // Vào trang Admin
+                        if (user.getVariety() > 0) {
+                            HttpSession session = request.getSession(true);
+                            session.setAttribute("authAdmin", user);
+                            response.sendRedirect("orderManager");
+                        }
+                        // User bình thường
+                        else {
+                            user.setListCartItem(CartService.getInstance().getCartOfUser(id));
+                            HttpSession session = request.getSession(true);
+                            session.setAttribute("auth", user);
+                            response.sendRedirect("homepage");
+                        }
                     }
-                    // TH User nhập sai <5 lần
+                    // TH đăng nhập sai
                     else {
-                        request.setAttribute("error", "Bạn đã nhập sai " + IncorrectTimeService.getInstance().getInccorrectAttempts(id) + " lần, tài khoản sẽ khóa sau 5 lần sai");
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                        IncorrectTimeService.getInstance().insertIncorrectAttemptsPassword(id);
+                        // TH User nhập sai 5 lần
+                        if (UserService.getInstance().isEligibilityToLock(id)) {
+                            LocalDateTime tomorrow = LocalDateTime.now().plusDays(1);
+                            IncorrectTimeService.getInstance().setLockTimePassword(id, tomorrow);
+                            request.setAttribute("error", "Bạn đã nhập sai 5 lần, tài khoản của bạn bị khóa cho đến " + tomorrow.getHour() + "h" + tomorrow.getMinute() + " " + tomorrow.getDayOfMonth() + "/" + tomorrow.getMonthValue() + "/" + tomorrow.getYear());
+                            request.getRequestDispatcher("login.jsp").forward(request, response);
+
+                        }
+                        // TH User nhập sai <5 lần
+                        else {
+                            request.setAttribute("error", "Bạn đã nhập sai " + IncorrectTimeService.getInstance().getInccorrectAttempts(id) + " lần, tài khoản sẽ khóa sau 5 lần  sai");
+                            request.getRequestDispatcher("login.jsp").forward(request, response);
+                        }
                     }
                 }
             }
@@ -76,40 +84,5 @@ public class Login extends HttpServlet {
             request.setAttribute("error", "Username không tồn tại!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-
-//        if (user == null) {
-//            request.setAttribute("error", "Sai tài khoản hoặc mật khẩu.");
-//            request.getRequestDispatcher("login.jsp").forward(request, response);
-//        } else if (user.getVariety() > 0) {
-//            if (user.getStatus() == 0) {
-//                IncorrectTimeService.getInstance().resetIncorrectAttempts(user.getId());
-//                HttpSession session = request.getSession(true);
-//                session.setAttribute("authAdmin", user);
-//                response.sendRedirect("orderManager");
-//            } else if (user.getStatus() == 1) {
-//                request.setAttribute("error", "Tài khoản đang tạm bị khóa.");
-//                request.getRequestDispatcher("login.jsp").forward(request, response);
-//            } else if (user.getStatus() == 2) {
-//                request.setAttribute("error", "Tài khoản đã bị khóa vĩnh viễn, hãy tạo tài khoản mới.");
-//                request.getRequestDispatcher("login.jsp").forward(request, response);
-//            }
-//        } else {
-//            if (user.getStatus() == 0) {
-//                user.setListCartItem(CartService.getInstance().getCartOfUser(user.getId()));
-//                IncorrectTimeService.getInstance().resetIncorrectAttempts(user.getId());
-//                HttpSession session = request.getSession(true);
-//                session.setAttribute("auth", user);
-//                response.sendRedirect("homepage");
-//            } else if (user.getStatus() == 1) {
-//                request.setAttribute("error", "Tài khoản đang tạm bị khóa.");
-//                request.getRequestDispatcher("login.jsp").forward(request, response);
-//            } else if (user.getStatus() == 2) {
-//                request.setAttribute("error", "Tài khoản đã bị khóa vĩnh viễn, hãy tạo tài khoản mới.");
-//                request.getRequestDispatcher("login.jsp").forward(request, response);
-//            }
-//
-//        }
-
-
     }
 }

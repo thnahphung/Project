@@ -313,7 +313,19 @@ public class UserService {
         });
     }
 
+    public boolean isBlockedForever(int userId) {
+        return JDBIConnector.get().withHandle(handle -> {
+            List<Integer> integers = handle.createQuery("SELECT status FROM user WHERE id=?")
+                    .bind(0, userId)
+                    .mapTo(Integer.class).stream().collect(Collectors.toList());
+            if (integers.size() == 1) {
+                return integers.get(0) == 2;
+            }
+            return false;
+        });
+    }
+
     public static void main(String[] args) {
-        System.out.println(getInstance().getUserById3rd("1098242514911602"));
+        System.out.println(getInstance().isBlockedForever(1));
     }
 }

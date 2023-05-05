@@ -13,7 +13,11 @@ public class LogOut extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
-        CartService.getInstance().addCartUser(user);
+        if (user != null) {
+            CartService.getInstance().addCartUser(user);
+        } else {
+            user = (User) request.getSession().getAttribute("authAdmin");
+        }
         request.getSession().invalidate();
         response.sendRedirect("/homepage");
     }
