@@ -52,7 +52,6 @@ $(document).ready(function () {
                 contentType: false,
                 success: function (response) {
                     let imageUrl = response;
-                    console.log(imageUrl)
                     $('.avatar').attr('src', imageUrl);
                     $('#small-avt').attr('src', imageUrl);
                     sessionStorage.setItem('imageUrl', imageUrl);

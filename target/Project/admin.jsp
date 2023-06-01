@@ -118,15 +118,15 @@
                     for (Order order : list) {
                 %>
                 <tr data-toggle="modal"
-                    data-target="#exampleModalCenterEdit" >
+                    data-target="#exampleModalCenterEdit">
                     <td class="order-id"><%=order.getId()%>
                     </td>
                     <td class="name"><%=order.getUser().getName()%>
                     </td>
-<%--                    <td><%=order.getInformation().getAddress().getDetail()%>--%>
-<%--                        , <%=order.getInformation().getAddress().getDistrict()%>--%>
-<%--                        , <%=order.getInformation().getAddress().getCity()%>--%>
-<%--                    </td>--%>
+                    <%--                    <td><%=order.getInformation().getAddress().getDetail()%>--%>
+                    <%--                        , <%=order.getInformation().getAddress().getDistrict()%>--%>
+                    <%--                        , <%=order.getInformation().getAddress().getCity()%>--%>
+                    <%--                    </td>--%>
                     <td><%=order.getInformation().getPhone()%>
                     </td>
                     <td><%=order.getCreateDate()%>
@@ -141,7 +141,7 @@
                     <%}%>
 
                     <td>
-                        <button class="detail-order submit"  value="<%=order.getId()%>">Xem chi
+                        <button class="detail-order submit" value="<%=order.getId()%>">Xem chi
                             tiết
                         </button>
                     </td>
@@ -153,6 +153,26 @@
 
         </div>
     </div>
+
+    <div class="contain-statistical-year">
+        <div>
+            <span class="uppercase">Đang hiển thị cho năm: </span>
+            <select id="select-year">
+                <option value="2023" selected>2023</option>
+                <option value="2022">2022</option>
+            </select>
+        </div>
+        <canvas id="statistical-year"></canvas>
+    </div>
+
+    <div class="contain-all-year">
+        <div>
+            <span class="uppercase">Thống kê tất cả các năm </span>
+        </div>
+        <canvas id="statistical-all-year"></canvas>
+    </div>
+
+
     <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100%;">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -170,7 +190,7 @@
     </div>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -187,6 +207,75 @@
 <!-- <script src="js/general.js"></script> -->
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/admin.js"></script>
+
+<script>
+    const canvas = $('#statistical-year');
+
+    const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Số lượng đơn hàng',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    };
+    const config = {
+        type: 'line',
+        data: data,
+    };
+    const chart = new Chart(canvas, config);
+
+    loadChartYear(2023, chart);
+
+    function loadChartYear(year, chart) {
+        let dataset;
+        $.ajax({
+            url: "/getStatisticalOrderInYear",
+            type: "post",
+            data: {
+                year: year,
+            },
+            success: function (response) {
+                dataset = JSON.parse(response);
+                chart.data.datasets[0].data = dataset;
+                chart.update();
+            },
+            error: function (xhr) {
+            }
+        })
+    }
+
+    $(document).on('change', '#select-year', function () {
+        const selectYear = $('#select-year');
+        const year = selectYear.val();
+
+        loadChartYear(year, chart);
+
+    });
+
+    function loadAllYear(chart) {
+        let dataset;
+        $.ajax({
+            url: "/getStatisticalOrderAllYear",
+            type: "get",
+            data: {},
+            success: function (response) {
+                let res = response.replace(/\r/g, "").split(/\n/);
+                for (let i = 0; i < res.length - 1; i++) {
+                    dataset = JSON.parse(res[i]);
+                    chart.data.datasets.push(dataset);
+                }
+                chart.update();
+            },
+            error: function (xhr) {
+            }
+        })
+    }
+</script>
 </body>
 
 </html>
