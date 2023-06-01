@@ -138,9 +138,47 @@ public class OrderService implements Serializable {
         return Cart.total(order.getListOrderItem(), order.getDiscount().getValue());
     }
 
+    public List<Integer> listStatisticalInYear(int year) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT coalesce(o.count,0) as count\n" +
+                    "FROM\n" +
+                    "(SELECT 1 AS `month`\n" +
+                    "UNION \n" +
+                    "SELECT 2 AS `month`\n" +
+                    "UNION \n" +
+                    "SELECT 3 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 4 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 5 AS `month`\n" +
+                    "UNION\n" +
+                    " SELECT 6 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 7 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 8 AS `month`\n" +
+                    "UNION \n" +
+                    "  SELECT 9 AS `month`\n" +
+                    "UNION \n" +
+                    "  SELECT 10 AS `month`\n" +
+                    "UNION \n" +
+                    "  SELECT 11 AS `month`\n" +
+                    "UNION \n" +
+                    "SELECT 12 AS `month`\n" +
+                    ") AS t\n" +
+                    "LEFT JOIN \n" +
+                    "(\n" +
+                    "  SELECT MONTH(create_date) as month, COUNT(id) as count FROM `order` WHERE YEAR(create_date)=:year GROUP BY MONTH(create_date)\n" +
+                    ") as o \n" +
+                    "ON t.month = o.month  \n" +
+                    "ORDER BY t.`month` ASC").bind("year", year).mapTo(Integer.class).stream().collect(Collectors.toList());
+        });
+    }
+
     public static void main(String[] args) {
 
-        getInstance().addOrderLine(6, 6);
+        System.out.println(getInstance().listStatisticalInYear(2023));
+
     }
 
 }
