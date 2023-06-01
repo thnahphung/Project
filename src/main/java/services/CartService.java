@@ -90,6 +90,8 @@ public class CartService {
     }
 
     public static void main(String[] args) {
+        User u = UserService.getInstance().getUserById(5);
 
+        getInstance().addCartUser(u);
     }
 }
