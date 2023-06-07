@@ -301,3 +301,15 @@ table.dataTable thead .sorting_desc_disabled:before {
     max-height: 500px !important;
     height: 500px !important;
 }
+.cant{
+    text-align: center;
+    line-height: 2;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+    width: 130px;
+    height: 40px;
+    color: #FFF;
+    border: none;
+    background: var(--color3);
+}

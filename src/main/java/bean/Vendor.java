@@ -8,6 +8,8 @@ public class Vendor implements Serializable {
     private Information information;
     private String website;
     private int status;
+    static final int DangHopTac = 0;
+    static final int NgungHopTac = 1;
 
     public Vendor() {
     }
@@ -59,6 +61,14 @@ public class Vendor implements Serializable {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public String getStatusNow() {
+        if (this.status == NgungHopTac)
+            return "Ngưng hợp tác";
+        return "Đang Hợp tác";
+    }
+
+    ;
 
     @Override
     public String toString() {
