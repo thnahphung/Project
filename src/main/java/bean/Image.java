@@ -14,6 +14,10 @@ public class Image implements Serializable {
         this.source = source;
     }
 
+    public Image(String source) {
+        this.source = source;
+    }
+
     public int getId() {
         return id;
     }

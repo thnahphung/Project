@@ -72,6 +72,13 @@
                             <h3>Thông tin tài khoản</h3>
                             <div class="inf container">
                                 <ul class="inf-left">
+                                    <li id="avatar-user">
+                                        <label for="input-avt-user">
+                                            <img class="avatar" src="<%=user.getAvatar().getSource()%>"
+                                                 alt="Ảnh đại diện của bạn">
+                                        </label>
+                                        <input id="input-avt-user" type="file" accept="image/png, image/jpeg">
+                                    </li>
                                     <li>Họ và tên:  <%if (user.getName() == null) {%>
                                         <%=""%>
                                         <%} else {%>
