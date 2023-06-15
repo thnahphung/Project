@@ -53,6 +53,7 @@
         <li><a class="nav-item" href="/ProductManager">Quản lý sản phẩm</a></li>
         <li><a class="nav-item" href="/userManager">Quản lý tài khoản</a></li>
         <li><a class="nav-item" href="/vendorManager">Quản lý nhà cung cấp</a></li>
+        <li><a class="nav-item" href="/importManager">Nhập kho</a></li>
         <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
         <li><a class="nav-item logout" href="/logOut" id="logout">Đăng xuất</a></li>
     </ul>

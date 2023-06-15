@@ -25,23 +25,23 @@ public class VendorService {
 
     //    Lay ra danh sach nha cung cap
     public List<Vendor> getListVendor() {
-        List<Vendor> list = JDBIConnector.get().withHandle(handle -> {
-                    return handle.createQuery("SELECT id, email, information_id, website, status from vendor").mapToBean(Vendor.class).stream().collect(Collectors.toList());
+        return JDBIConnector.get().withHandle(handle -> {
+                    List<Vendor> list = handle.createQuery("SELECT id, email, information_id, website, status from vendor").mapToBean(Vendor.class).stream().collect(Collectors.toList());
+                    for (Vendor vendor : list) {
+                        vendor.setInformation(InformationService.getInstance().getInformationByVendorId(vendor.getId()));
+                    }
+                    return list;
                 }
         );
-        for (Vendor vendor : list) {
-            vendor.setInformation(InformationService.getInstance().getInformationByVendorId(vendor.getId()));
-        }
-        return list;
     }
 //   Lay ra nha cung cap theo id
 
     public Vendor getVendorbyId(int id) {
-        Vendor vendor = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT  id, email, information_id,website, status from `vendor` where id =" + id).mapToBean(Vendor.class).one();
+        return JDBIConnector.get().withHandle(handle -> {
+            Vendor vendor = handle.createQuery("SELECT  id, email, information_id,website, status from `vendor` where id =" + id).mapToBean(Vendor.class).one();
+            vendor.setInformation(InformationService.getInstance().getInformationByVendorId(vendor.getId()));
+            return vendor;
         });
-        vendor.setInformation(InformationService.getInstance().getInformationByVendorId(vendor.getId()));
-        return vendor;
     }
 
     //  Lay ra id lon nhat
@@ -120,6 +120,14 @@ public class VendorService {
         return listVendors;
     }
 
+    public Vendor getVendorbyImportId(int id) {
+        return JDBIConnector.get().withHandle(handle -> {
+            Vendor vendor = handle.createQuery("SELECT  v.id, v.email, v.information_id, v.website, v.status from `vendor` v join import i on v.id = i.vendor_id where i.id =" + id).mapToBean(Vendor.class).one();
+            vendor.setInformation(InformationService.getInstance().getInformationByVendorId(vendor.getId()));
+            return vendor;
+        });
+    }
+
     public static void main(String[] args) {
         Address address = new Address("Phu Lam", "Phu Tan", "An Giang", "0", 1, 1);
         Information information = new Information(0, "Go Hoang Gia Anh", "0128878957", address, 0);
@@ -127,4 +135,6 @@ public class VendorService {
 
         System.out.println(VendorService.getInstance().searchByAll("Mộc"));
     }
+
+
 }
