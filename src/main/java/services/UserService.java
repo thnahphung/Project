@@ -1,5 +1,6 @@
 package services;
 
+import bean.Image;
 import bean.ThirdParty;
 import bean.User;
 import db.JDBIConnector;
@@ -257,13 +258,16 @@ public class UserService {
 
     }
 
-    public void editAvatar(int id, String url) {
-        JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE `user` SET avatar=? where id= ? ;")
-                    .bind(0, url)
-                    .bind(1, id)
-                    .execute();
-        });
+    public void editAvatar(User user, String url) {
+        Image image = new Image(url);
+        int idImg = ImageService.getInstance().add(image);
+        image.setId(idImg);
+        user.setAvatar(image);
+
+        JDBIConnector.get().withHandle(handle -> handle.createUpdate("UPDATE `user` SET avatar= :idImg where id= :userId ;")
+                .bind("idImg", idImg)
+                .bind("userId", user.getId())
+                .execute());
     }
 
 

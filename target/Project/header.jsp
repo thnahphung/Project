@@ -51,10 +51,10 @@
         </a>
         <a href="/userProfile" class="item-right">
             <%if (user.getAvatar() == null) {%>
-            <img src="images/userNull.png" alt="">
+            <img id="small-avt" src="images/userNull.png" alt="">
 
             <%} else {%>
-            <img src="<%=user.getAvatar().getSource()%>" alt="">
+            <img id="small-avt" src="<%=user.getAvatar().getSource()%>" alt="">
             <%}%>
             <a href="http://localhost:8080/userProfile" class="item-right">
                 <p><%=user.getName()%>

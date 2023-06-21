@@ -29,8 +29,11 @@ public class ThirdPartyService {
 
     public ThirdParty getIdThirdPartyByUserId(int id) {
         return JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("select tp.id, tp.name, tp.value from third_party tp join `user` u on tp.id = u.id_third_party where u.id = ?;")
-                    .bind(0, id).mapToBean(ThirdParty.class).one();
+
+            List<ThirdParty> list = handle.createQuery("select tp.id, tp.name, tp.value from third_party tp join `user` u on tp.id = u.id_third_party where u.id = ?;")
+                    .bind(0, id).mapToBean(ThirdParty.class).stream().collect(Collectors.toList());
+            if (list.size() == 0) return null;
+            return list.get(0);
         });
     }
 
