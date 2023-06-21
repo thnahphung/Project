@@ -182,7 +182,7 @@ public class UserService {
                     .bind("email", user.getEmail())
                     .bind("phone", user.getPhone())
                     .bind("pass", user.getPassword())
-                    .bind("varieties", 0)
+                    .bind("variety", 0)
                     .bind("status", 0)
                     .execute();
         });
@@ -237,7 +237,6 @@ public class UserService {
 
 
     public void addUserLoginBy3rdParty(User user) {
-
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("insert into third_party(id,name, value) values ( :id, :name, :value)")
                     .bind("id", user.getIdThirdParty().getId())
@@ -247,11 +246,11 @@ public class UserService {
 
         });
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("insert into `user`(id,name, id_third_party, variety, status) values (:id, :name,:id_third_party, :varieties, :stt)")
+            return handle.createUpdate("insert into `user`(id,name, id_third_party, variety, status) values (:id, :name,:id_third_party, :variety, :stt)")
                     .bind("id", UserService.getInstance().maxId() + 1)
                     .bind("name", user.getName())
                     .bind("id_third_party", user.getIdThirdParty().getId())
-                    .bind("varieties", 0)
+                    .bind("variety", 0)
                     .bind("stt", 0)
                     .execute();
         });
@@ -337,6 +336,15 @@ public class UserService {
     }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().isBlockedForever(1));
+        User u = new User();
+        u.setName("sfd");
+        ThirdParty id = new ThirdParty();
+        id.setValue("1630346147389912");
+        id.setName("");
+        id.setId(14);
+        u.setIdThirdParty(id);
+//        getInstance().addUserLoginBy3rdParty(u);
+        System.out.println(getInstance().checkExistId3rd("1630346147389912"));
+
     }
 }
