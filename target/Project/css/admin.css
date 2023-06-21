@@ -158,7 +158,7 @@ a {
 
 .header-left ul li a {
     color: black;
-    padding: 20px 20px;
+    /*padding: 20px 20px;*/
 }
 
 .header-left ul li:hover {
@@ -300,4 +300,16 @@ table.dataTable thead .sorting_desc_disabled:before {
 .dataTables_scrollBody{
     max-height: 500px !important;
     height: 500px !important;
+}
+.cant{
+    text-align: center;
+    line-height: 2;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+    width: 130px;
+    height: 40px;
+    color: #FFF;
+    border: none;
+    background: var(--color3);
 }
