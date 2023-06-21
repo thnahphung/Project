@@ -106,7 +106,20 @@ public class InformationService {
         });
     }
 
+    //    Lấy ra thông tin chi tiết của nhà sản xuất
+    public Information getInformationByVendorId(int id) {
+        Information information = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select i.id, i.name, i.phone, i.status from information i join vendor v on i.id = v.information_id where v.id =?")
+                    .bind(0, id)
+                    .mapToBean(Information.class)
+                    .one();
+        });
+        information.setAddress(AddressService.getInstance().getAddressByInformationId(information.getId()));
+        return information;
+    }
+
     public static void main(String[] args) {
+        System.out.println(getInstance().getInformationByVendorId(8));
     }
 }
 

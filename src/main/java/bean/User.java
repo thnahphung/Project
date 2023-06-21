@@ -141,10 +141,13 @@ public class User implements Serializable {
 
     public String getVarietyUser() {
         if (this.variety == 1) {
-            return "Cộng tác viên";
+            return "Admin";
         }
         if (this.variety == 2) {
-            return "Quản lý";
+            return "Nhân viên bán hàng";
+        }
+        if(this.variety ==3){
+            return "Nhân viên kho";
         }
         return "Khách hàng";
     }
