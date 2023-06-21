@@ -59,7 +59,7 @@
 <script>
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '530919699225104',
+            appId: '262888572779226',
             xfbml: true,
             version: 'v16.0'
         });
@@ -109,7 +109,7 @@
                 }
             });
             document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name + '!';
+                'Thanks for logging in, ' + response.name+response.id + '!';
         });
     }
 
