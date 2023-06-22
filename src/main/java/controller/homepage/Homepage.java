@@ -15,8 +15,6 @@ import java.util.List;
 public class Homepage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = UserService.getInstance().getUserById(2);
-        request.getSession().setAttribute("authAdmin", user);
         List<Product> favouriteProducts = ProductService.getInstance().getListFavouriteProduct();
         request.setAttribute("favouriteProducts", favouriteProducts);
 
