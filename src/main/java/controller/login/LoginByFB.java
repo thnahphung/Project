@@ -1,11 +1,9 @@
 package controller.login;
 
+import bean.Image;
 import bean.ThirdParty;
 import bean.User;
-import services.CartService;
-import services.OrderService;
-import services.ThirdPartyService;
-import services.UserService;
+import services.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +27,11 @@ public class LoginByFB extends HttpServlet {
         System.out.println("1");
         User user = new User();
         if (!UserService.getInstance().checkExistId3rd(id3rd)) {
+<<<<<<< Updated upstream
             System.out.println("het yeuasd");
+=======
+            user.setAvatar(ImageService.getInstance().getImageByUserId(1));
+>>>>>>> Stashed changes
             user.setName(name);
             user.setIdThirdParty(new ThirdParty(ThirdPartyService.getInstance().maxId()+1, "Facebook", id3rd ));
             System.out.println(user.getIdThirdParty());
@@ -40,7 +42,6 @@ public class LoginByFB extends HttpServlet {
             user = UserService.getInstance().getUserById3rd(id3rd);
             UserService.getInstance().changeName(name, id3rd);
         }
-
         HttpSession session = request.getSession(true);
         session.setAttribute("auth", user);
         session.setAttribute("cart", CartService.getInstance().getCartOfUser(user.getId()));
