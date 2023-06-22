@@ -47,12 +47,11 @@ public class LineItemImportService {
                     .bind("id", lineItemImport.getProduct().getId())
                     .bind("import_id", ImprotService.getInstance().maxId())
                     .bind("quantity", lineItemImport.getQuantity())
-                    .bind("price_import", lineItemImport.getPriceImport());
+                    .bind("price_import", lineItemImport.getPriceImport()).execute();
         });
     }
 
     public static void main(String[] args) {
-
 
 
         System.out.println(getInstance().getListProductImportByImportId(1));

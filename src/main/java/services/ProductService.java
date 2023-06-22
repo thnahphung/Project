@@ -105,7 +105,7 @@ public class ProductService {
             });
         }
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join category c on pd.category_id = c.id WHERE (pd.status=0 and  c.pa_category = " + kind +")").mapToBean(Product.class).stream().collect(Collectors.toList());
+            List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join category c on pd.category_id = c.id WHERE (pd.status=0 and  c.pa_category = " + kind + ")").mapToBean(Product.class).stream().collect(Collectors.toList());
             for (Product product : productList) {
                 product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
                 product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
@@ -117,7 +117,6 @@ public class ProductService {
 
 
     }
-
 
 
     // -------------------- Loc san pham theo nhom --------------------------------
@@ -208,6 +207,7 @@ public class ProductService {
             return handle.createQuery("select image_src from image where product_id " + "=" + id).mapTo(String.class).stream().collect(Collectors.toList());
         });
     }
+
     //------------------ Tong so san pham theo nhom ---------------------
     public int getCountProduct(int kind, String group) {
 
@@ -268,7 +268,7 @@ public class ProductService {
     //------------------------------ Tim kiem----------------------------------------
     public List<Product> getListProductInSearch(String search) {
         List<Product> listProducts = new ArrayList<>();
-        List<Product> pr =  JDBIConnector.get().withHandle(handle -> {
+        List<Product> pr = JDBIConnector.get().withHandle(handle -> {
             List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.status = 0")
                     .mapToBean(Product.class).stream()
                     .collect(Collectors.toList());
@@ -406,4 +406,13 @@ public class ProductService {
     }
 
 
+    public Product getProductByName(String name) {
+        Product prd = null;
+        for (Product product : getListProduct()) {
+            if (product.getName().toUpperCase().equals(name.toUpperCase())) {
+                prd = product;
+            }
+        }
+        return prd;
+    }
 }

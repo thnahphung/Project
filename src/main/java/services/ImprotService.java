@@ -1,10 +1,10 @@
 package services;
 
-import bean.Import;
-import bean.LineItemImport;
-import bean.Product;
+import bean.*;
 import db.JDBIConnector;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,18 +50,21 @@ public class ImprotService {
                     .bind("id", getInstance().maxId() + 1)
                     .bind("vendor_id", anImport.getVendor().getId())
                     .bind("create_date", anImport.getCreateDate())
-                    .bind("user_import", anImport.getUserImport().getId())
+                    .bind("user_import_id", anImport.getUserImport().getId())
                     .bind("note", anImport.getNote())
-                    .bind("status", 1)
+                    .bind("status", 0)
                     .execute();
         });
+
     }
+
     public void addImportAll(Import anImport) {
         anImport.setId(getInstance().maxId() + 1);
         addImport(anImport);
         for (LineItemImport lineItemImport : anImport.getListLineItem()) {
-            LineItemImportService.instance.addImportProduct(lineItemImport);
+            LineItemImportService.getInstance().addImportProduct(lineItemImport);
         }
+
     }
 
     public boolean editStatusImport(int status, int id) { // Chỉnh sửa trạng thái đơn nhập hàng
@@ -95,6 +98,5 @@ public class ImprotService {
     }
 
     public static void main(String[] args) {
-        System.out.println(getInstance().editStatusImport(1, 1));
     }
 }
