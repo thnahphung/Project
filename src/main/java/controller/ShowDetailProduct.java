@@ -1,7 +1,7 @@
 package controller;
 
-import bean.Product;
-import bean.Review;
+import bean.*;
+import services.LogService;
 import services.ProductService;
 import services.ReviewService;
 
@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @WebServlet(name = "ShowDetailProduct", value = "/detail-product")
@@ -28,10 +29,18 @@ public class ShowDetailProduct extends HttpServlet {
 
         List<Product> listSameProduct = ProductService.getInstance().getListSameProduct(product.getCategory().getPaCategory().getId());
         request.setAttribute("listSameProduct", listSameProduct);
-        System.out.println(listSameProduct.size());
 
         request.getRequestDispatcher("product.jsp").forward(request, response);
 
+        Log log = new Log();
+        log.setEvent("/detail-product");
+        log.setSeverityLevel(Log.INFO);
+        log.setDescription("Truy cập chi tiết sản phẩm: " + product.getName());
+        User user = (User) request.getSession().getAttribute("auth");
+
+        if (user != null) log.setUser(user);
+
+        LogService.getInstance().insert(log);
     }
 
     @Override

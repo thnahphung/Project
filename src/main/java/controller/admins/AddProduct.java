@@ -1,10 +1,7 @@
 package controller.admins;
 
 import bean.*;
-import services.CaterogyService;
-import services.HistoryPriceService;
-import services.ImageService;
-import services.ProductService;
+import services.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -42,6 +39,15 @@ public class AddProduct extends HttpServlet {
         ProductService.getInstance().addProduct(product);
         System.out.println("đã thêm");
 //        response.sendRedirect("/admins/uploadImageProduct");
+
+        Log log = new Log();
+        log.setEvent("/admins/addProduct");
+        log.setDescription("Thêm sản phẩm mới \" "+name+" \"");
+        log.setSeverityLevel(Log.INFO);
+        if (user != null) {
+            log.setUser(user);
+        }
+        LogService.getInstance().insert(log);
 
     }
 

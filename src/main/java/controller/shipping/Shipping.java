@@ -1,12 +1,10 @@
 package controller.shipping;
 
-import bean.Address;
-import bean.Discount;
-import bean.Information;
-import bean.User;
+import bean.*;
 import services.AddressService;
 import services.DiscountService;
 import services.InformationService;
+import services.LogService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -33,6 +31,13 @@ public class Shipping extends HttpServlet {
         request.setAttribute("discountCode", discountCode);
         request.setAttribute("informations", informations);
         request.getRequestDispatcher("shipping.jsp").forward(request, response);
+
+        Log log = new Log();
+        log.setEvent("/shipping");
+        log.setDescription("Truy cập trang thanh toán");
+        log.setUser(user);
+        log.setSeverityLevel(Log.INFO);
+        LogService.getInstance().insert(log);
     }
 
     @Override

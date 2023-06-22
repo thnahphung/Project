@@ -1,7 +1,9 @@
 package controller.homepage;
 
 import bean.Product;
+import bean.User;
 import services.ProductService;
+import services.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,6 +15,8 @@ import java.util.List;
 public class Homepage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = UserService.getInstance().getUserById(2);
+        request.getSession().setAttribute("authAdmin", user);
         List<Product> favouriteProducts = ProductService.getInstance().getListFavouriteProduct();
         request.setAttribute("favouriteProducts", favouriteProducts);
 
