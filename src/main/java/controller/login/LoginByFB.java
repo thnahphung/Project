@@ -27,11 +27,7 @@ public class LoginByFB extends HttpServlet {
         System.out.println("1");
         User user = new User();
         if (!UserService.getInstance().checkExistId3rd(id3rd)) {
-<<<<<<< Updated upstream
-            System.out.println("het yeuasd");
-=======
             user.setAvatar(ImageService.getInstance().getImageByUserId(1));
->>>>>>> Stashed changes
             user.setName(name);
             user.setIdThirdParty(new ThirdParty(ThirdPartyService.getInstance().maxId()+1, "Facebook", id3rd ));
             System.out.println(user.getIdThirdParty());
