@@ -26,7 +26,6 @@ public class Import implements Serializable {
     public Import() {
 
     }
-
     public int getId() {
         return id;
     }
@@ -103,5 +102,13 @@ public class Import implements Serializable {
                 ", note='" + note + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public int getTotal() {
+        int result = 0;
+        for (LineItemImport lineItemImport : getListLineItem()) {
+            result += lineItemImport.getTotalPrice();
+        }
+        return result;
     }
 }

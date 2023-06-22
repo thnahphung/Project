@@ -341,7 +341,7 @@ public class UserService {
     }
     public User getUserByImportId(int id) { // Lấy ra user theo import (nhân viên nhập đơn hàng)
         User user = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT u.id, u.name, u.phone, u.email, u.`password`,u.variety, u.`status`  FROM user u join import i on i.user_import_id = u.id where i.user_import_id = " + id).mapToBean(User.class).one();
+            return handle.createQuery("SELECT u.id, u.name, u.phone, u.email, u.`password`,u.variety, u.`status`  FROM user u join import i on i.user_import_id = u.id where i.id = " + id).mapToBean(User.class).one();
         });
         user.setAvatar(ImageService.getInstance().getImageByUserId(id));
         user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(id));
