@@ -73,7 +73,7 @@ public class ProductService {
         if (kind == ALL) {
             return JDBIConnector.get().withHandle(handle -> {
 
-                List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd").mapToBean(Product.class).stream().collect(Collectors.toList());
+                List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd where pd.`status` =0").mapToBean(Product.class).stream().collect(Collectors.toList());
                 for (Product product : productList) {
                     product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
                     product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
@@ -83,7 +83,7 @@ public class ProductService {
             });
         } else if (kind == SALE) {
             return JDBIConnector.get().withHandle(handle -> {
-                List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join history_price hp on hp.product_id=pd.id where hp.price_sale is not null ").mapToBean(Product.class).stream().collect(Collectors.toList());
+                List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join history_price hp on hp.product_id=pd.id where( hp.price_sale is not null and pd.status = 0) ").mapToBean(Product.class).stream().collect(Collectors.toList());
                 for (Product product : productList) {
                     product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
                     product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
@@ -94,7 +94,7 @@ public class ProductService {
             });
         } else if (kind == NEW) {
             return JDBIConnector.get().withHandle(handle -> {
-                List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd where pd.status=0").mapToBean(Product.class).stream().collect(Collectors.toList());
+                List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd where() pd.status = 0)").mapToBean(Product.class).stream().collect(Collectors.toList());
                 for (Product product : productList) {
                     product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
                     product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
@@ -105,7 +105,7 @@ public class ProductService {
             });
         }
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join category c on pd.category_id = c.id WHERE c.pa_category = " + kind).mapToBean(Product.class).stream().collect(Collectors.toList());
+            List<Product> productList = handle.createQuery("SELECT pd.id,pd.`name`, pd.description, pd.detail, pd.rate,pd.category_id, pd.user_add_id,pd.`status` from product pd join category c on pd.category_id = c.id WHERE (pd.status=0 and  c.pa_category = " + kind +")").mapToBean(Product.class).stream().collect(Collectors.toList());
             for (Product product : productList) {
                 product.setCategory(CaterogyService.getInstance().getCategoryByProductId(product.getId()));
                 product.setListHistoryPrice(HistoryPriceService.getInstance().getPriceNow(product.getId()));
@@ -399,6 +399,7 @@ public class ProductService {
             return p;
         });
     }
+
 
     public static void main(String[] args) {
         System.out.println(getInstance().getListSameProduct(2));
