@@ -29,10 +29,14 @@ public class LoginByFB extends HttpServlet {
         System.out.println("1");
         User user = new User();
         if (!UserService.getInstance().checkExistId3rd(id3rd)) {
+            System.out.println("het yeuasd");
             user.setName(name);
             user.setIdThirdParty(new ThirdParty(ThirdPartyService.getInstance().maxId()+1, "Facebook", id3rd ));
+            System.out.println(user.getIdThirdParty());
             UserService.getInstance().addUserLoginBy3rdParty(user);
         } else {
+            System.out.println("het yeua");
+
             user = UserService.getInstance().getUserById3rd(id3rd);
             UserService.getInstance().changeName(name, id3rd);
         }
