@@ -26,7 +26,7 @@ public class LoginByFB extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String id3rd = request.getParameter("id");
-        System.out.println(id3rd);
+        System.out.println("1");
         User user = new User();
         if (!UserService.getInstance().checkExistId3rd(id3rd)) {
             user.setName(name);
@@ -36,7 +36,7 @@ public class LoginByFB extends HttpServlet {
             user = UserService.getInstance().getUserById3rd(id3rd);
             UserService.getInstance().changeName(name, id3rd);
         }
-        System.out.println(user.getAvatar());
+
         HttpSession session = request.getSession(true);
         session.setAttribute("auth", user);
         session.setAttribute("cart", CartService.getInstance().getCartOfUser(user.getId()));
