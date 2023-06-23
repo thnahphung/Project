@@ -41,7 +41,7 @@ public class UserService {
         }
         return list;
     }
-    
+
     public User getUserById(int id) {
         User user = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT id, name, phone, email, `password`,variety, `status`  FROM user where id " + "=" + id).mapToBean(User.class).one();
