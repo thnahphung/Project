@@ -1,7 +1,9 @@
 package controller.admins;
 
+import bean.Log;
 import bean.Order;
 import bean.User;
+import services.LogService;
 import services.OrderService;
 import services.UserService;
 
@@ -23,14 +25,20 @@ public class OrderManager extends HttpServlet {
         List<Order> list = OrderService.getInstance().getOrderList();
         int member = UserService.getInstance().getListUser().size();
         int total = 0;
-        for (Order o: list) {
+        for (Order o : list) {
             total += o.getTotal();
         }
-        request.setAttribute("total",total);
+        request.setAttribute("total", total);
         request.setAttribute("orderList", list);
-        request.setAttribute("name",name);
-        request.setAttribute("member",member);
-        request.getRequestDispatcher("admin.jsp").forward(request,response);
+        request.setAttribute("name", name);
+        request.setAttribute("member", member);
+        request.getRequestDispatcher("admin.jsp").forward(request, response);
+        Log log = new Log();
+        log.setEvent("/searches");
+        log.setDescription("Truy cập trang \"" + name + " \"");
+        log.setSeverityLevel(Log.INFO);
+        log.setUser(user);
+        LogService.getInstance().insert(log);
 
     }
 

@@ -1,9 +1,8 @@
 package controller;
 
-import bean.Banner;
-import bean.Category;
-import bean.Product;
+import bean.*;
 import services.CaterogyService;
+import services.LogService;
 import services.ProductService;
 
 import javax.servlet.*;
@@ -16,6 +15,7 @@ import java.util.List;
 public class Searches extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("auth");
         int kind = 0;
         int page = 1;
         String sort = "a-z";
@@ -39,6 +39,15 @@ public class Searches extends HttpServlet {
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("list-product.jsp").forward(request, response);
 //        response.sendRedirect("");
+
+        Log log = new Log();
+        log.setEvent("/searches");
+        log.setDescription("Tìm kiếm sản phẩm có từ khóa \"" + search + "\"");
+        log.setSeverityLevel(Log.INFO);
+        if (user != null) {
+            log.setUser(user);
+        }
+        LogService.getInstance().insert(log);
     }
 
     @Override
