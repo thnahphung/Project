@@ -7,10 +7,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "AddOrder", value = "/addOrder")
 public class AddOrder extends HttpServlet {
@@ -60,7 +58,12 @@ public class AddOrder extends HttpServlet {
         CartService.getInstance().removeAllProductByUserId(user.getId());
 
         request.getRequestDispatcher("finish-buy.jsp").forward(request, response);
-//        response.sendRedirect("finish-buy.jsp");
+        Log log = new Log();
+        log.setEvent("/addOrder");
+        log.setDescription("Thanh toán thành công, tổng giá trị đơn hàng: " + order.getTotal());
+        log.setUser(user);
+        log.setSeverityLevel(Log.INFO);
+        LogService.getInstance().insert(log);
 
     }
 

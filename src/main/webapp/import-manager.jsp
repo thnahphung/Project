@@ -27,9 +27,9 @@
 <div class="card-body px-0 pb-2 content">
     <div class="table">
         <div class="table-cart">
-            <h2>Danh sách đơn hàng</h2>
+            <h2>Danh sách đơn nhập hàng</h2>
             <div class="right">
-                <button type="button" class="btn-add-address button submit add">Thêm
+                <button type="button" class="btn-add-address button submit add" onclick="show()">Tạo phiếu
                 </button>
             </div>
 
@@ -56,15 +56,27 @@
                     </td>
                     <td><%=anImpor.getVendor().getInformation().getPhone()%>
                     </td>
-                    <td><%=anImpor.getStatus()%>
+                    <td><%=anImpor.getListLineItem().size()%>
                     </td>
                     <td><%=anImpor.getUserImport().getName()%>
                     </td>
-                    <td><%=anImpor.getStatustoString()%>
+                    <td>
+                        <select class="input-status statusImport<%=anImpor.getId()%>">
+                            <option value="0" <%=anImpor.getStatus() == 0 ? "selected" : " "%>>Đang Duyệt</option>
+                            <option value="1" <%=anImpor.getStatus() == 1 ? "selected" : " "%>>Đã duyệt</option>
+                            <option value="2" <%=anImpor.getStatus() == 2 ? "selected" : " "%>>Chờ nhận hàng</option>
+                            <option value="3" <%=anImpor.getStatus() == 3 ? "selected" : " "%>>Nhập hàng thành công
+                            </option>
+                        </select>
                     </td>
                     <td>
-                        <button class="edit-product button submit" value="<%=anImpor.getId()%>">
-                            sữa
+                        <button class="edit-product button " value="<%=anImpor.getId()%>"
+                                onclick="showDetail(this)">
+                            <i class="far fa-eye"></i>
+                        </button>
+                        <button class="edit-product button " value="<%=anImpor.getId()%>"
+                                onclick="editStatus(this)">
+                            <i class="fas fa-pen"></i>
                         </button>
                     </td>
 
@@ -77,35 +89,198 @@
         </div>
     </div>
 </div>
+<div id="detail-import">
+</div>
+<div id="add-Import">
+    <section class="container">
+        <div id="border-import">
+            <form class="form">
+                <button class="close" onclick="hide()"><i class="fas fa-times"></i></button>
+                <header>Tạo phiếu nhập hàng</header>
+                <div class="input-box">
+                    <label> Nhà cung cấp</label>
+                    <select name="vendor" id="vendor" class="vendor">
+                        <% List<Vendor> vendorList = (List<Vendor>) request.getAttribute("vendors");
+                            for (Vendor vendor : vendorList) { %>
+                        <option value="<%=vendor.getId()%>" selected><%=vendor.getInformation().getName()%>
+                        </option>
+                        <% }
+                        %>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label>Số điện thoại</label>
+                    <input type="text" name="email" placeholder="Số điện thoại" required/>
+                </div>
+
+                <div class="input-box address">
+                    <label>Địa chỉ</label>
+                    <input type="text" name="detail" placeholder="Số nhà,tên đường, xã/phường" required/>
+                    <input type="text" name="district" placeholder="Quận/huyện" required/>
+                    <input type="text" name="city" placeholder="Tỉnh/thành phố" required/>
+                </div>
+                <div class="input-box productAdd">
+                    <lable>Sản phẩm</lable>
+                    <table class="tableImport">
+                        <thead>
+                        <tr>
+                            <th class="stt">STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá tiền</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="import-group">
+                        <tr class="import-item" id="product1">
+                            <td class="stt "><input type="button" value="1" name="indexRow"></td>
+                            <td><input id="nameProduct1" name="nameProduct" type="text" class="nameProduct" value=""
+                                       required></td>
+                            <td><input id="quantity1" name="quantity" type="number" class="quantity" min="0" value=""
+                                       required>
+                            </td>
+                            <td><input id="priceImport1" name="priceImport" type="number" min="0" class="priceImport"
+                                       value=""
+                                       required></td>
+                            <td>
+                                <div class="buttonItem">
+                                    <p type="button" class="minus icon" onclick="remove('product1')"><i
+                                            class="fas fa-minus"></i></p></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="input-box">
+                    <div><p type="button" class="plus icon" onclick="addRow()"><i
+                            class="fas fa-plus"></i>
+                    </p></div>
+                </div>
+                <div class="input-box">
+                    <label>Tổng tiền: <p></p></label>
+                </div>
+                <div class="input-box">
+                    <label>Ghi chú</label>
+                    <textarea name="note" id="note" cols="105" rows="5"></textarea>
+                </div>
+                <div class="bottom-form">
+                    <div class="submit" onclick="addImport()"> Thêm</div>
+                    <div type="button" class="submit cant" onclick="hide()">Hủy</div>
+                    <input id="jsonItem" name="jsonItem" value="" style="display: none">
+                </div>
+            </form>
+        </div>
+    </section>
+    <div class="margin-b"></div>
+</div>
 
 <script type="text/javascript">
-    <%--    tìm kiếm --%>
-
-    function searchByAll(param) {
-        var txtSearch = param.value;
-        console.log(txtSearch)
-        $.ajax({
-                url: "/searchVendor",
-                type: "get",
-                data: {
-                    txtSearch: txtSearch
-                },
-                success: function (data) {
-                    var row = document.getElementById('vendor-item');
-                    row.innerHTML = data;
-                }
+    // thêm phiếu nhập hàng
+    function addImport() {
+        let vendorId = $('.vendor').find(":selected").val();
+        let note = $('#note').val();
+        const name = document.getElementsByName('nameProduct');
+        const quantity = document.getElementsByName('quantity');
+        const priceImport = document.getElementsByName('priceImport');
+        let sizeList = document.getElementsByClassName('import-item').length;
+        console.log(sizeList)
+        var arr = [];
+        for (let i = 0; i < sizeList; i++) {
+            var item = {
+                id: 0,
+                name: name[i].value,
+                quantity: quantity[i].value,
+                priceImport: priceImport[i].value,
             }
-        )
+            arr[i] = item;
+        }
+        console.log(arr)
+        var jsonItem = JSON.stringify(arr);
+        $('#jsonItem').val(jsonItem);
+        console.log($('#jsonItem').val())
+        $.ajax({
+            url: "/addImport",
+            type: "get",
+            data: {
+                vendorId: vendorId,
+                note: note,
+                jsonItem: $('#jsonItem').val(),
+            }, success: function (data) {
+                alert("Tạo phiếu thành công")
+                location.reload();
+            }, error: function (error) {
+
+            }
+        })
+
     }
 
     function show() {
-        document.getElementById('addVendorForm').style.display = "block";
+        document.getElementById('add-Import').style.display = "block";
     }
 
     function hide() {
-        document.getElementById('addVendorForm').style.display = "none";
+        document.getElementById('add-Import').style.display = "none";
     }
 
+    function closes() {
+        document.getElementById('detail-import').style.display = "none";
+        $('.contents').delete();
+    }
+
+    // Xem chi tiết nhập hàng
+    function showDetail(param) {
+        var id = param.value;
+        $.ajax({
+                url: "/importDetail",
+                type: "get",
+                data: {
+                    id: id,
+                },
+                success: function (data) {
+                    $('#detail-import').html(data);
+                },
+                error: function (xhr) {
+
+                }
+            }
+        )
+        document.getElementById("detail-import").style.display = "block";
+    }
+
+    // Chỉnh sửa trạng thái phiếu nhập hàng
+    function editStatus(param) {
+        var id = param.value;
+        var status = $('.statusImport' + id).val();
+        window.location = "/editStatusImport?id=" + id + "&status=" + status;
+    }
+
+    // Xóa hàng nhập sản phẩm
+    function remove(id) {
+        document.getElementById(id).remove();
+        const totalRow = document.getElementsByClassName('import-item').length;
+        var elementIndexRow = document.getElementsByName('indexRow');
+        for (let i = 1; i <= totalRow; i++) {
+            elementIndexRow[i].value = i;
+        }
+
+    }
+
+    // Thêm hàng nhập sản phẩm
+    function addRow() {
+        let index = document.getElementsByClassName('import-item').length + 1;
+        $('#import-group').append("  <tr class=\"import-item\" id=\"product" + index + "\">\n" +
+            "                            <td class=\"stt \"><input type=\"button\" value=\"" + index + "\" name=\"indexRow\"></td>\n" +
+            "                            <td><input id=\"nameProduct" + index + "\" name=\"nameProduct\" type=\"text\"></td>\n" +
+            "                            <td><input id=\"quantity" + index + "\" name=\"quantity\" min='0' type=\"number\"></td>\n" +
+            "                            <td><input id=\"priceImport" + index + "\" name=\"priceImport\" min='0' type=\"number\"></td>\n" +
+            "                            <td>\n" +
+            "                                <div class=\"buttonItem\">" +
+            "                                    <p type=\"button\" class=\"minus icon\" onclick=\"remove('product" + index + "')\"><i\n" +
+            "                                            class=\"fas fa-minus\"></i></p></div>\n" +
+            "                            </td>\n" +
+            "                        </tr>");
+    }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

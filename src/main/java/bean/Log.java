@@ -4,21 +4,56 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Log implements Serializable {
+
+    public static final int DEBUG = 1;
+    public static final int INFO = 2;
+    public static final int WARN = 3;
+    public static final int ERROR = 4;
+    public static final int FATAL = 5;
     private int id;
-    private LocalDateTime createDate;
-    private Source source;
+    private String ip;
+    private User user;
     private int severityLevel;
-    private Event event;
+    private String event;
+    private LocalDateTime createDate;
+    private String description;
+
 
     public Log() {
+        this.ip = IPConnect.getIpWlanConnect();
+        this.createDate = LocalDateTime.now();
     }
 
-    public Log(int id, LocalDateTime createDate, Source source, int severityLevel, Event event) {
+    public Log(int id, String ip, User user, int severityLevel, String event, LocalDateTime createDate, String description) {
         this.id = id;
-        this.createDate = createDate;
-        this.source = source;
+        this.ip = ip;
+        this.user = user;
         this.severityLevel = severityLevel;
         this.event = event;
+        this.createDate = createDate;
+        this.description = description;
+    }
+
+    public Log(String ip, User user, int severityLevel, String event, LocalDateTime createDate, String description) {
+        this.ip = ip;
+        this.user = user;
+        this.severityLevel = severityLevel;
+        this.event = event;
+        this.createDate = createDate;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Log{" +
+                "id=" + id +
+                ", ip='" + ip + '\'' +
+                ", user=" + user +
+                ", severityLevel=" + severityLevel +
+                ", event='" + event + '\'' +
+                ", createDate=" + createDate +
+                ", description='" + description + '\'' +
+                '}';
     }
 
     public int getId() {
@@ -29,20 +64,20 @@ public class Log implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
+    public String getIp() {
+        return ip;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public Source getSource() {
-        return source;
+    public User getUser() {
+        return user;
     }
 
-    public void setSource(Source source) {
-        this.source = source;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getSeverityLevel() {
@@ -53,22 +88,27 @@ public class Log implements Serializable {
         this.severityLevel = severityLevel;
     }
 
-    public Event getEvent() {
+    public String getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
+    public void setEvent(String event) {
         this.event = event;
     }
 
-    @Override
-    public String toString() {
-        return "Log{" +
-                "id=" + id +
-                ", createDate=" + createDate +
-                ", source=" + source +
-                ", severityLevel=" + severityLevel +
-                ", event=" + event +
-                '}';
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

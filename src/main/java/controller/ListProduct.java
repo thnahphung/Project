@@ -1,8 +1,11 @@
 package controller;
 
 import bean.Category;
+import bean.Log;
 import bean.Product;
+import bean.User;
 import services.CaterogyService;
+import services.LogService;
 import services.ProductService;
 
 import javax.servlet.*;
@@ -15,6 +18,7 @@ import java.util.List;
 public class ListProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("auth");
         int kind = Integer.parseInt(request.getParameter("kind"));
         String page= "1";
         String group = "";
@@ -31,6 +35,14 @@ public class ListProduct extends HttpServlet {
         List<Category> categories = CaterogyService.getInstance().getListCategory(kind);
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("list-product.jsp").forward(request, response);
+        Log log = new Log();
+        log.setEvent("/listProduct");
+        log.setDescription("Truy cập trang danh sách sản phẩm loại: "+kind);
+        log.setSeverityLevel(Log.INFO);
+        if (user != null) {
+            log.setUser(user);
+        }
+        LogService.getInstance().insert(log);
     }
 
     @Override

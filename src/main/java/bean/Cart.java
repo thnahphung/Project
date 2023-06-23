@@ -1,6 +1,7 @@
 package bean;
 
 import services.CartService;
+import services.LogService;
 
 import java.util.List;
 
@@ -46,6 +47,11 @@ public class Cart {
     public static List<LineItem> removeItemCart(List<LineItem> lineItem, int idItemCart) {
         for (int i = 0; i < lineItem.size(); i++) {
             if (lineItem.get(i).getId() == idItemCart) {
+                Log log = new Log();
+                log.setEvent("/cart/removeProduct");
+                log.setDescription("Xóa sản phẩm " + lineItem.get(i).getProduct().getName() + " khỏi giỏ hàng thành công");
+                log.setSeverityLevel(Log.INFO);
+                LogService.getInstance().insert(log);
                 lineItem.remove(i);
                 return lineItem;
             }

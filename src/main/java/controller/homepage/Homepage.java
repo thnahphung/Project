@@ -1,7 +1,9 @@
 package controller.homepage;
 
 import bean.Product;
+import bean.User;
 import services.ProductService;
+import services.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
