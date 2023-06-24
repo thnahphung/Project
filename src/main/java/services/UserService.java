@@ -234,7 +234,6 @@ public class UserService {
                     .bind("name", user.getIdThirdParty().getName())
                     .bind("value", user.getIdThirdParty().getValue())
                     .execute();
-
         });
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("insert into `user`(id,name, id_third_party, variety, status) values (:id, :name,:id_third_party, :variety, :stt)")
@@ -349,7 +348,7 @@ public class UserService {
         id.setId(14);
         u.setIdThirdParty(id);
 //        getInstance().addUserLoginBy3rdParty(u);
-        System.out.println(getInstance().checkExistId3rd("1630346147389912"));
+        System.out.println(getInstance().checkExistId3rd("1149673663101820"));
 
     }
 }
