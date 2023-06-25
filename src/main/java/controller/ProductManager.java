@@ -1,9 +1,11 @@
 package controller;
 
 import bean.Category;
+import bean.Log;
 import bean.Product;
 import bean.User;
 import services.CaterogyService;
+import services.LogService;
 import services.PaCategoryService;
 import services.ProductService;
 
@@ -38,6 +40,13 @@ public class ProductManager extends HttpServlet {
 //        request.setAttribute("ceramic",ceramic);
 //        request.setAttribute("picture",picture);
         request.getRequestDispatcher("product-manager.jsp").forward(request, response);
+
+        Log log = new Log();
+        log.setEvent("/ProductManager");
+        log.setDescription("Truy cập trang \"" + name + " \"");
+        log.setSeverityLevel(Log.INFO);
+        log.setUser(user);
+        LogService.getInstance().insert(log);
 
     }
 
