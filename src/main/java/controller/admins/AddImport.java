@@ -21,9 +21,6 @@ public class AddImport extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("authAdmin");
-        if (user.getVariety() != 1 || user.getVariety() != 3) {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
         //import
         int vendorId = Integer.parseInt(request.getParameter("vendorId"));
         Vendor vendor = VendorService.getInstance().getVendorbyId(vendorId);

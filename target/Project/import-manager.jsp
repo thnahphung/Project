@@ -27,7 +27,7 @@
 <div class="card-body px-0 pb-2 content">
     <div class="table">
         <div class="table-cart">
-            <h2>Danh sách đơn hàng</h2>
+            <h2>Danh sách đơn nhập hàng</h2>
             <div class="right">
                 <button type="button" class="btn-add-address button submit add" onclick="show()">Tạo phiếu
                 </button>
@@ -96,7 +96,7 @@
         <div id="border-import">
             <form class="form">
                 <button class="close" onclick="hide()"><i class="fas fa-times"></i></button>
-                <header>Thêm nhà cung cấp</header>
+                <header>Tạo phiếu nhập hàng</header>
                 <div class="input-box">
                     <label> Nhà cung cấp</label>
                     <select name="vendor" id="vendor" class="vendor">
