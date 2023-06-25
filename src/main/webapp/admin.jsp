@@ -135,8 +135,8 @@
                     </td>
                     <td><%=order.isPayment() ? "đã thanh toán" : "chưa thanh toán"%>
                     </td>
-                    <% if (order.getStatusDelivery() == 1) {%>
-                    <td> Giao hàng thành công
+                    <% if (order.getStatusDelivery() == 0) {%>
+                    <td> Chờ xác nhận
                     </td>
                     <%}%>
 

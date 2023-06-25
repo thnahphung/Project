@@ -35,10 +35,10 @@ $(document).ready(function () {
 
 
     $('#address-tab').click(function () {
-        window.location = "http://localhost:8080/showAddress";
+        window.location = "https://craftshop.click/showAddress";
     })
     $('#logout-tab').click(function () {
-        window.location = "http://localhost:8080/logOut";
+        window.location = "https://craftshop.click/logOut";
     })
 
     $('#input-avt-user').change(function () {

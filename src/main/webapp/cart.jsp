@@ -97,7 +97,7 @@
                 <%} else {%>
                 <div class="contain-btn" style="justify-content: center">
                     <%}%>
-                    <a href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>"
+                    <a href="/listProduct?kind=<%=ProductService.ALL%>"
                        class="return uppercase submit">quay lại mua hàng</a>
                 </div>
 
@@ -222,7 +222,7 @@
             }
 
             $('.btn-total').click(function () {
-                window.location = "http://localhost:8080/shipping?discountCode=" + $('#input-voucher').val();
+                window.location = "/shipping?discountCode=" + $('#input-voucher').val();
             })
             $('#submit-voucher').click(function () {
 

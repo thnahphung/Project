@@ -49,7 +49,7 @@ public class AddOrder extends HttpServlet {
             order.setTotal(Cart.totalHaveShipAndDiscount(order.getListOrderItem(), 0, shipFee));
         }
 
-        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.getTotal() + " VND", user.getEmail());
+//        MailService.sendMail("Thong tin don hang", "Tong don hang cua ban la: " + order.getTotal() + " VND", user.getEmail());
 
         user.setListCartItem(new ArrayList<>());
 

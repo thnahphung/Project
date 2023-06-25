@@ -4,6 +4,7 @@ import bean.LineItem;
 import bean.User;
 import db.JDBIConnector;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,9 @@ public class CartService {
         });
         for (LineItem l : result) {
             l.setProduct(ProductService.getInstance().getProductByCartItemId(l.getId()));
+        }
+        if(result.size()==0){
+            result = new ArrayList<>();
         }
         return result;
     }

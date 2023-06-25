@@ -56,10 +56,11 @@ public class UserService {
 
     public User getUserById3rd(String id3rd) {
         return JDBIConnector.get().withHandle(handle -> {
-            User user = handle.createQuery("SELECT u.id, u.`name`, u.phone, u.email,u.avatar, u.variety, u.`status` FROM `user` u join third_party tp on u.id_third_party = tp.id where tp.value =?")
+            User user = handle.createQuery("SELECT u.id, u.`name`, u.phone, u.email, u.variety, u.`status` FROM `user` u join third_party tp on u.id_third_party = tp.id where tp.value =?")
                     .bind(0, id3rd)
                     .mapToBean(User.class)
                     .one();
+            user.setAvatar(ImageService.getInstance().getImageByUserId(user.getId()));
             user.setIdThirdParty(ThirdPartyService.getInstance().getIdThirdPartyByUserId(user.getId()));
             return user;
         });
@@ -236,9 +237,10 @@ public class UserService {
                     .execute();
         });
         JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("insert into `user`(id,name, id_third_party, variety, status) values (:id, :name,:id_third_party, :variety, :stt)")
+            return handle.createUpdate("insert into `user`(id,name,avatar, id_third_party, variety, status) values (:id, :name,:avatar,:id_third_party, :variety, :stt)")
                     .bind("id", UserService.getInstance().maxId() + 1)
                     .bind("name", user.getName())
+                    .bind("avatar", "501")
                     .bind("id_third_party", user.getIdThirdParty().getId())
                     .bind("variety", 0)
                     .bind("stt", 0)
@@ -347,8 +349,6 @@ public class UserService {
         id.setName("");
         id.setId(14);
         u.setIdThirdParty(id);
-//        getInstance().addUserLoginBy3rdParty(u);
-        System.out.println(getInstance().checkExistId3rd("1149673663101820"));
 
     }
 }
