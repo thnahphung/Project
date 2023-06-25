@@ -43,7 +43,7 @@ public class ProductService {
 
     public List<Product> getListProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.status = 0")
+            List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status,p.create_date from product p where p.status = 0")
                     .mapToBean(Product.class).stream()
                     .collect(Collectors.toList());
             for (Product product : list) {

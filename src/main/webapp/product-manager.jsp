@@ -25,7 +25,7 @@
 <body>
 <%@include file="header-admin.jsp" %>
 <div class="content">
-<%--    <p style="display: none"> <%List<Integer> wood = (List<Integer>) request.getAttribute("wood");%></p>--%>
+    <%--    <p style="display: none"> <%List<Integer> wood = (List<Integer>) request.getAttribute("wood");%></p>--%>
     <div class="row">
         <div class="col-sm">
             <div class="top">
@@ -95,6 +95,7 @@
     <div class="table">
         <div class="table-cart">
             <h2>Danh sách sản phẩm</h2>
+            <button class="submit" onclick="downloadProducts()">Tải dạng Excel</button>
             <div class="right">
                 <button type="button" class="btn-add-address button submit add" data-toggle="modal"
                         data-target="#exampleModalCenter">Thêm
@@ -120,7 +121,8 @@
                     for (Product product : list) {%>
                 <tr class="product-<%=product.getId()%>">
                     <td><input type="checkbox" value="<%=product.getId()%>" class="checkbox-product"></td>
-                    <td><img class="avatar" src="<%=product.getListImage().get(0).getSource()%>" alt="<%=product.getName()%>">
+                    <td><img class="avatar" src="<%=product.getListImage().get(0).getSource()%>"
+                             alt="<%=product.getName()%>">
                     </td>
                     <td><%=product.getName()%>
                     </td>
@@ -215,7 +217,8 @@
                             <div class="row">
                                 <input type="file" name="file-img1" id="file-img1" class="input-img submit"
                                        accept="image/png">
-                                <label id="label-icon-add-img" for="file-img1"> <i id="icon-add-img" class="fa-sharp fa-solid fa-plus "></i></label>
+                                <label id="label-icon-add-img" for="file-img1"> <i id="icon-add-img"
+                                                                                   class="fa-sharp fa-solid fa-plus "></i></label>
                             </div>
 
                             <button type="submit" class="btn-submit-img" style="display: none">submit</button>
@@ -279,6 +282,7 @@
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/jquery.dataTables.min.js"></script>
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 <script src="js/admin.js"></script>
 <script src="js/product-manager.js"></script>
 
@@ -375,6 +379,47 @@
             error: function (xhr) {
             }
         })
+    }
+
+    function downloadProducts() {
+        $.ajax({
+            url: "/getListProductJSON",
+            type: "get",
+            data: {},
+            success: function (response) {
+                console.log(response)
+                const rows = JSON.parse(response);
+                let rows2 = [];
+                for (let i = 0; i < rows.length; i++) {
+                    rows2.push({
+                        name: rows[i].id,
+                        birthday: rows[i].name,
+                        year: rows[i].category,
+                        day: rows[i].price,
+                        month: rows[i].rate,
+                        yeah: rows[i].createDate,
+                    })
+                }
+
+                /* generate worksheet and workbook */
+                const worksheet = XLSX.utils.json_to_sheet(rows2);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Dates");
+
+                /* fix headers */
+                XLSX.utils.sheet_add_aoa(worksheet, [["id", "ten", "loai", "gia", "danh gia", "ngay them"]], {origin: "A1"});
+
+                /* calculate column width */
+
+                const max_width = rows2.reduce((w, r) => Math.max(w, r.name.length), 10);
+                worksheet["!cols"] = [{wch: max_width}];
+                /* create an XLSX file and try to save to Presidents.xlsx */
+                XLSX.writeFile(workbook, "list-products.xlsx", {compression: true});
+            },
+            error: function (xhr) {
+            }
+        })
+
     }
 </script>
 </body>
