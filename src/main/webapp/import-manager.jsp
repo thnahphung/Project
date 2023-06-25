@@ -183,7 +183,6 @@
         const quantity = document.getElementsByName('quantity');
         const priceImport = document.getElementsByName('priceImport');
         let sizeList = document.getElementsByClassName('import-item').length;
-        console.log(sizeList)
         var arr = [];
         for (let i = 0; i < sizeList; i++) {
             var item = {
@@ -194,10 +193,8 @@
             }
             arr[i] = item;
         }
-        console.log(arr)
         var jsonItem = JSON.stringify(arr);
         $('#jsonItem').val(jsonItem);
-        console.log($('#jsonItem').val())
         $.ajax({
             url: "/addImport",
             type: "get",

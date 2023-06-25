@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id"
-          content="1034647834889-cac969ni56lqahndnovhocna77j0lda3.apps.googleusercontent.com">
+
+    <meta name="google-signin-client_id" content="263705277277-q3u5p8obb6dfh50cb2shi5n1cckvo48d.apps.googleusercontent.com">
+
     <title>login</title>
     <link rel="stylesheet" href="css/reset.css">
 
@@ -16,7 +17,9 @@
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="css/login.css">
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=site_key"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+
 </head>
 <body>
 <%
@@ -33,19 +36,21 @@
             </p>
             <input type="text" name="user" class="name input" placeholder="Email hoặc số điện thoại">
             <input type="password" name="password" class="pass input" placeholder="Mật khẩu">
-            <a href="http://localhost:8080/forgotPass" class="forget"> Bạn quên mật khẩu?</a>
+            <a href="/forgotPass" class="forget"> Bạn quên mật khẩu?</a>
 
             <input type="submit" name="submit" class="submit" value="Đăng nhập">
+
             <p style="color:red;text-align: center">Hoặc bạn có thể đăng nhập bằng:</p>
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
             </fb:login-button>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="g-signin2" id="g-signin2" data-onsuccess="onSignIn"></div>
             <div id="status"></div>
-            <p class="sign-up">Tạo tài khoản mới miễn phí <a href="http://localhost:8080/doSignUp">tại đây</a></p>
+            <p class="sign-up">Tạo tài khoản mới miễn phí <a href="/doSignUp">tại đây</a></p>
         </div>
     </form>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -55,6 +60,13 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
 <script src="js/general.js"></script>
+
+
+<script>
+    function onSubmit(token) {
+        document.getElementsByClassName("submit").submit();
+    }
+</script>
 <%--// đăng nhập bằng fb--%>
 <script>
     window.fbAsyncInit = function () {
@@ -105,11 +117,11 @@
                     id: response.id
                 },
                 success: function (response) {
-                    window.location = "http://localhost:8080/homepage";
+                    window.location = "https://craftshop.click/homepage";
                 }
             });
             document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name+response.id + '!';
+                'Thanks for logging in, ' + response.name + response.id + '!';
         });
     }
 
@@ -117,60 +129,96 @@
 
 </script>
 <%-- đăng nhập bằng gg--%>
-<script type="text/javascript">
-    function login() {
-        var myParams = {
-            'clientid': '1034647834889-cac969ni56lqahndnovhocna77j0lda3.apps.googleusercontent.com',
-            'cookiepolicy': 'single_host_origin',
-            'callback': 'loginCallback',
-            'approvalprompt': 'force',
-            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
-        };
-        gapi.auth.signIn(myParams);
-    }
+<script>
+    renderGoogleSignInButton();
 
-    function loginCallback(result) {
-        if (result['status']['signed_in']) {
-            var request = gapi.client.plus.people.get(
-                {
-                    'userId': 'me'
-                });
-            request.execute(function (resp) {
-                console.log(resp);
-                if (resp != null) {
-                    window.location.href = 'Login?action=Google&name=' + resp.name.givenName + '&email=' + resp.emails[0].value + '&id=' + resp.id + '&fullName=' + resp.displayName + '&image=' + resp.image.url + '&age=' + resp.ageRange.max + '&etag=' + resp.etag;
-                }
-                var email = '';
-                if (resp['emails']) {
-                    for (i = 0; i < resp['emails'].length; i++) {
-                        if (resp['emails'][i]['type'] == 'account') {
-                            email = resp['emails'][i]['value'];//here is required email id
-                        }
-                    }
-                }
-                var usersname = resp['displayName'];//required name
-            });
-        }
-    }
-
-    function onLoadCallback() {
-        gapi.client.setApiKey('AIzaSyBvKg3asprpxMgAVhaonZOjJ_O-bcEoGxw');
-        gapi.client.load('plus', 'v1', function () {
-        });
+    function renderGoogleSignInButton() {
+        gapi.signin2.render('#g-signin2', {
+            'scope': 'email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSignIn,
+            'onfailure': onFailure
+        });}
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     }
 
 </script>
+<%--<script type="text/javascript">--%>
+<%--    function login() {--%>
+<%--        var myParams = {--%>
+<%--            'clientid': '263705277277-q3u5p8obb6dfh50cb2shi5n1cckvo48d.apps.googleusercontent.com',--%>
+<%--            'cookiepolicy': 'single_host_origin',--%>
+<%--            'callback': 'loginCallback',--%>
+<%--            'approvalprompt': 'force',--%>
+<%--            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'--%>
+<%--        };--%>
+<%--        gapi.auth.signIn(myParams);--%>
+<%--    }--%>
 
-<script type="text/javascript">
-    (function () {
-        var po = document.createElement('script');
-        po.type = 'text/javascript';
-        po.async = true;
-        po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(po, s);
-    })();
-</script>
+<%--    function loginCallback(result) {--%>
+<%--        if (result['status']['signed_in']) {--%>
+<%--            var request = gapi.client.plus.people.get(--%>
+<%--                {--%>
+<%--                    'userId': 'me'--%>
+<%--                });--%>
+<%--            request.execute(function (resp) {--%>
+<%--                console.log(resp);--%>
+<%--                if (resp != null) {--%>
+<%--                    window.location.href = 'Login?action=Google&name=' + resp.name.givenName + '&email=' + resp.emails[0].value + '&id=' + resp.id + '&fullName=' + resp.displayName + '&image=' + resp.image.url + '&age=' + resp.ageRange.max + '&etag=' + resp.etag;--%>
+<%--                }--%>
+<%--                var email = '';--%>
+<%--                if (resp['emails']) {--%>
+<%--                    for (i = 0; i < resp['emails'].length; i++) {--%>
+<%--                        if (resp['emails'][i]['type'] == 'account') {--%>
+<%--                            email = resp['emails'][i]['value'];//here is required email id--%>
+<%--                        }--%>
+<%--                    }--%>
+<%--                }--%>
+<%--                var usersname = resp['displayName'];//required name--%>
+<%--            });--%>
+<%--            console.log(resp);--%>
+
+<%--            $.ajax({--%>
+
+<%--                    url: "/loginByGG",--%>
+<%--                    type: "post", //send it through get method--%>
+<%--                    data: {--%>
+<%--                        id: resp.id--%>
+<%--                    },--%>
+<%--                    success: function (response) {--%>
+<%--                        window.location = "https://craftshop.click/homepage";--%>
+<%--                    }--%>
+<%--                });--%>
+
+<%--        }--%>
+<%--    }--%>
+
+<%--    function onLoadCallback() {--%>
+<%--        gapi.client.setApiKey('AIzaSyAvMvYxPp6QuNt4djztrB4EJKD94lJ6TdI');--%>
+<%--        gapi.client.load('plus', 'v1', function () {--%>
+<%--        });--%>
+<%--    }--%>
+
+<%--</script>--%>
+
+<%--<script type="text/javascript">--%>
+<%--    (function () {--%>
+<%--        var po = document.createElement('script');--%>
+<%--        po.type = 'text/javascript';--%>
+<%--        po.async = true;--%>
+<%--        po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';--%>
+<%--        var s = document.getElementsByTagName('script')[0];--%>
+<%--        s.parentNode.insertBefore(po, s);--%>
+<%--    })();--%>
+<%--</script>--%>
 </body>
 
 </html>

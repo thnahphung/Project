@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Hồ sơ của tôi</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -205,8 +206,9 @@
 
     $(document).ready(function () {
         login();
+        console.log(accessToken)
         $('#infor-tab').click(function () {
-            window.location = "http://localhost:8080/userProfile";
+            window.location = "https://craftshop.click/userProfile";
         })
 
         $(document).on('click', '.btn-add-address', function () {
@@ -350,7 +352,7 @@
                 error: function (xhr) {
                 }
             }).done(function () {
-                window.location = "http://localhost:8080/showAddress";
+                window.location = "https://craftshop.click/showAddress";
             })
             ;
             $('#exampleAddAddress').modal('toggle');
@@ -377,7 +379,7 @@
 
         })
         $('#logout-tab').click(function () {
-            window.location = "http://localhost:8080/logOut";
+            window.location = "https://craftshop.click/logOut";
         })
     })
 </script>

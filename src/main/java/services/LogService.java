@@ -1,7 +1,11 @@
 package services;
 
 import bean.Log;
+import bean.User;
 import db.JDBIConnector;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LogService {
     private static LogService instance;
@@ -49,4 +53,17 @@ public class LogService {
 
     }
 
+    public List<Log> getAllLog() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select id, ip,user_id, severity_level, event, description, create_date from log where status = 0")
+                    .mapToBean(Log.class).stream().collect(Collectors.toList());
+        });
+    }
+    public void deleteLog(int id){
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE log SET status =1 where id=:id")
+                    .bind("id", id)
+                    .execute();
+        });
+    }
 }
