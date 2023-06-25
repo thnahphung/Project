@@ -92,9 +92,6 @@
 
 
     </div>
-    <div class="statistics">
-        <canvas id="canvas"></canvas>
-    </div>
     <div class="table">
         <div class="table-cart">
             <h2>Danh sách sản phẩm</h2>
@@ -149,7 +146,12 @@
 
         </div>
     </div>
-
+    <div class="contain-all-year">
+        <div>
+            <span class="uppercase">Thống kê tất cả các năm </span>
+        </div>
+        <canvas id="statistical-all-year"></canvas>
+    </div>
 </div>
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -333,6 +335,47 @@
         )
 
     })
+    const canvasAll = $('#statistical-all-year');
+    const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+    const listColor = ['rgb(75, 192, 192)', 'rgb(248, 111, 3)', 'rgb(34, 166, 153)']
+
+    const dataAll = {
+        labels: labels,
+        datasets: []
+    };
+    const configAll = {
+        type: 'line',
+        data: dataAll,
+    };
+    const chartAll = new Chart(canvasAll, configAll);
+
+    loadAllYear(chartAll);
+
+    function loadAllYear(chart) {
+        let dataset;
+        let year = 2022;
+        $.ajax({
+            url: "/getStatisticalProductAllYear",
+            type: "get",
+            data: {},
+            success: function (response) {
+                let res = response.replace(/\r/g, "").split(/\n/);
+                for (let i = 0; i < res.length - 1; i++) {
+                    dataset = JSON.parse(res[i]);
+                    chart.data.datasets.push({
+                        label: 'Số lượng sản phẩm ' + (year + i),
+                        data: dataset,
+                        fill: false,
+                        borderColor: listColor[i],
+                        tension: 0.1
+                    });
+                }
+                chart.update();
+            },
+            error: function (xhr) {
+            }
+        })
+    }
 </script>
 </body>
 
