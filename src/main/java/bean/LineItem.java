@@ -55,11 +55,7 @@ public class LineItem implements Serializable {
 
     @Override
     public String toString() {
-        return "LineItem{" +
-                "id=" + id +
-                ", product=" + product +
-                ", quantity=" + quantity +
-                '}';
+        return "{" + product.getName() + ": " + quantity +"}";
     }
 
 

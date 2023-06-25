@@ -43,7 +43,7 @@ public class ProductService {
 
     public List<Product> getListProduct() {
         return JDBIConnector.get().withHandle(handle -> {
-            List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status from product p where p.status = 0")
+            List<Product> list = handle.createQuery("select p.id, p.name, p.description, p.detail, p.rate, p.status,p.create_date from product p where p.status = 0")
                     .mapToBean(Product.class).stream()
                     .collect(Collectors.toList());
             for (Product product : list) {
@@ -306,7 +306,7 @@ public class ProductService {
     public void addProduct(Product product) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("INSERT INTO product VALUES (:id, :name, :description,  :detail, :rate, :categoryId,:user_add_id, :status);")
-                    .bind("productId", nextId())
+                    .bind("id", nextId())
                     .bind("name", product.getName())
                     .bind("description", product.getDescription())
                     .bind("detail", product.getDetail())
@@ -397,6 +397,43 @@ public class ProductService {
             p.setListHistoryPrice(HistoryPriceService.getInstance().getListHistoryPriceByProductId(p.getId()));
             p.setListImage(ImageService.getInstance().getListImageByProductId(p.getId()));
             return p;
+        });
+    }
+
+    public List<Integer> listStatisticalInYear(int year) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT coalesce(o.count,0) as count\n" +
+                    "FROM\n" +
+                    "(SELECT 1 AS `month`\n" +
+                    "UNION \n" +
+                    "SELECT 2 AS `month`\n" +
+                    "UNION \n" +
+                    "SELECT 3 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 4 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 5 AS `month`\n" +
+                    "UNION\n" +
+                    " SELECT 6 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 7 AS `month`\n" +
+                    "UNION \n" +
+                    " SELECT 8 AS `month`\n" +
+                    "UNION \n" +
+                    "  SELECT 9 AS `month`\n" +
+                    "UNION \n" +
+                    "  SELECT 10 AS `month`\n" +
+                    "UNION \n" +
+                    "  SELECT 11 AS `month`\n" +
+                    "UNION \n" +
+                    "SELECT 12 AS `month`\n" +
+                    ") AS t\n" +
+                    "LEFT JOIN \n" +
+                    "(\n" +
+                    "  SELECT MONTH(create_date) as month, COUNT(id) as count FROM `product` WHERE YEAR(create_date)=:year GROUP BY MONTH(create_date)\n" +
+                    ") as o \n" +
+                    "ON t.month = o.month  \n" +
+                    "ORDER BY t.`month` ASC").bind("year", year).mapTo(java.lang.Integer.class).stream().collect(Collectors.toList());
         });
     }
 

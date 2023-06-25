@@ -66,8 +66,8 @@
 <div class="header-left">
     <img src="images/logo/logo-rmbg1.png" alt="">
     <ul>
+        <li><a class="nav-item" href="/orderManager">Quản lý đơn hàng</a></li>
         <li><a class="nav-item" href="/ProductManager">Quản lý sản phẩm</a></li>
-        <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
         <li><a class="nav-item logout" href="/logOut">Đăng xuất</a></li>
     </ul>
 </div>
@@ -79,7 +79,8 @@
     <img src="images/logo/logo-rmbg1.png" alt="">
     <ul>
         <li><a class="nav-item" href="/orderManager">Quản lý đơn hàng</a></li>
-        <li><a class="nav-item" href="/generalManager">Quản lý chung</a></li>
+        <li><a class="nav-item" href="/ProductManager">Quản lý sản phẩm</a></li>
+        <li><a class="nav-item" href="/importManager">Nhập kho</a></li>
         <li><a class="nav-item logout" href="/logOut">Đăng xuất</a></li>
     </ul>
 </div>
