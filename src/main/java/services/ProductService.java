@@ -306,7 +306,7 @@ public class ProductService {
     public void addProduct(Product product) {
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("INSERT INTO product VALUES (:id, :name, :description,  :detail, :rate, :categoryId,:user_add_id, :status);")
-                    .bind("productId", nextId())
+                    .bind("id", nextId())
                     .bind("name", product.getName())
                     .bind("description", product.getDescription())
                     .bind("detail", product.getDetail())

@@ -341,7 +341,7 @@ public class UserService {
         User user = JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT u.id, u.name, u.phone, u.email, u.`password`,u.variety, u.`status`  FROM user u join import i on i.user_import_id = u.id where i.id = " + id).mapToBean(User.class).one();
         });
-        user.setAvatar(ImageService.getInstance().getImageByUserId(id));
+//        user.setAvatar(ImageService.getInstance().getImageByUserId(id));
         user.setListOrderInformation(InformationService.getInstance().getListInformationByUserId(id));
         user.setListCartItem(CartService.getInstance().getCartOfUser(id));
         user.setListOrder(OrderService.getInstance().getOrderListByUserId(id));
