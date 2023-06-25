@@ -98,6 +98,7 @@
     <div class="table">
         <div class="table-cart">
             <h2>Lịch sử đơn hàng</h2>
+            <button class="submit" onclick="dowloadOrders()">Tải dạng Excel</button>
             <table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm "
                    cellspacing="0" width="100%">
                 <thead>
@@ -109,6 +110,7 @@
                     <th>Thành tiền</th>
                     <th>Thanh toán</th>
                     <th>Tình trạng</th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -136,42 +138,35 @@
                     <td><%=order.isPayment() ? "đã thanh toán" : "chưa thanh toán"%>
                     </td>
                     <% if (order.getStatusDelivery() == 1) {%>
-                    <td> Giao hàng thành công
+                    <td> Đợi xác nhận
                     </td>
                     <%}%>
 
                     <td>
-                        <button class="detail-order submit" value="<%=order.getId()%>">Xem chi
-                            tiết
-                        </button>
+                        <button class="detail-order submit" value="<%=order.getId()%>">Chi tiết</button>
                     </td>
+                    <td>
+                        <button class="register-transport submit" value="<%=order.getId()%>">Xác nhận</button>
+                    </td>
+                    <div id="<%="to-district-id-"+order.getId()%>" style="display: none">
+                        <%=order.getInformation().getAddress().getDistrictId()%>
+                    </div>
+                    <div id="<%="to-ward-id-"+order.getId()%>"
+                         style="display: none"><%=order.getInformation().getAddress().getWardId()%>
+                    </div>
                 </tr>
                 <%}%>
 
                 </tbody>
             </table>
-
         </div>
     </div>
-
-    <div class="contain-statistical-year">
-        <div>
-            <span class="uppercase">Đang hiển thị cho năm: </span>
-            <select id="select-year">
-                <option value="2023" selected>2023</option>
-                <option value="2022">2022</option>
-            </select>
-        </div>
-        <canvas id="statistical-year"></canvas>
-    </div>
-
     <div class="contain-all-year">
         <div>
             <span class="uppercase">Thống kê tất cả các năm </span>
         </div>
         <canvas id="statistical-all-year"></canvas>
     </div>
-
 
     <div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100%;">
@@ -206,59 +201,107 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- <script src="js/general.js"></script> -->
 <script src="js/jquery.dataTables.min.js"></script>
+<!-- use xlsx.full.min.js from version 0.20.0 -->
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+<script src="js/api-logistic.js"></script>
 <script src="js/admin.js"></script>
 
 <script>
     const canvas = $('#statistical-year');
-
-    const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'Số lượng đơn hàng',
-            data: [],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        }]
-    };
-    const config = {
-        type: 'line',
-        data: data,
-    };
-    const chart = new Chart(canvas, config);
-
-    loadChartYear(2023, chart);
-
-    function loadChartYear(year, chart) {
-        let dataset;
+    const canvasAll = $('#statistical-all-year');
+    login();
+    // Xác nhận vận chuyển
+    $('.register-transport').on('click', function () {
+        const orderId = $(this).val();
         $.ajax({
-            url: "/getStatisticalOrderInYear",
+            url: "http://140.238.54.136/api/registerTransport",
             type: "post",
             data: {
-                year: year,
+                from_district_id: 1451,
+                from_ward_id: 20911,
+                to_district_id: $('#to-district-id-' + orderId).text().trim(),
+                to_ward_id: $('#to-ward-id-' + orderId).text().trim(),
+                height: 100,
+                length: 100,
+                width: 100,
+                weight: 100
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            },
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
             },
             success: function (response) {
-                dataset = JSON.parse(response);
-                chart.data.datasets[0].data = dataset;
-                chart.update();
+                console.log(response);
             },
             error: function (xhr) {
             }
-        })
-    }
+        });
+    })
 
-    $(document).on('change', '#select-year', function () {
-        const selectYear = $('#select-year');
-        const year = selectYear.val();
+    const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+    const listColor = ['rgb(75, 192, 192)', 'rgb(248, 111, 3)', 'rgb(34, 166, 153)']
 
-        loadChartYear(year, chart);
+    // const data = {
+    //     labels: labels,
+    //     datasets: [{
+    //         label: 'Số lượng đơn hàng',
+    //         data: [],
+    //         fill: true,
+    //         borderColor: 'rgb(75, 192, 192)',
+    //         tension: 0.1
+    //     }]
+    // };
+    // const config = {
+    //     type: 'line',
+    //     data: data,
+    // };
+    // const chart = new Chart(canvas, config);
+    //
+    // loadChartYear(2023, chart);
+    //
+    // function loadChartYear(year, chart) {
+    //     let dataset;
+    //     $.ajax({
+    //         url: "/getStatisticalOrderInYear",
+    //         type: "post",
+    //         data: {
+    //             year: year,
+    //         },
+    //         success: function (response) {
+    //             dataset = JSON.parse(response);
+    //             chart.data.datasets[0].data = dataset;
+    //             chart.update();
+    //         },
+    //         error: function (xhr) {
+    //         }
+    //     })
+    // }
 
-    });
+    // $(document).on('change', '#select-year', function () {
+    //     const selectYear = $('#select-year');
+    //     const year = selectYear.val();
+    //     loadChartYear(year, chart);
+    //
+    // });
+    //------------------------------------------All YEAR
+
+    const dataAll = {
+        labels: labels,
+        datasets: []
+    };
+    const configAll = {
+        type: 'line',
+        data: dataAll,
+    };
+    const chartAll = new Chart(canvasAll, configAll);
+
+    loadAllYear(chartAll);
 
     function loadAllYear(chart) {
         let dataset;
+        let year = 2022;
         $.ajax({
             url: "/getStatisticalOrderAllYear",
             type: "get",
@@ -267,13 +310,61 @@
                 let res = response.replace(/\r/g, "").split(/\n/);
                 for (let i = 0; i < res.length - 1; i++) {
                     dataset = JSON.parse(res[i]);
-                    chart.data.datasets.push(dataset);
+                    chart.data.datasets.push({
+                        label: 'Số lượng đơn hàng ' + (year + i),
+                        data: dataset,
+                        fill: false,
+                        borderColor: listColor[i],
+                        tension: 0.1
+                    });
                 }
                 chart.update();
             },
             error: function (xhr) {
             }
         })
+    }
+
+    //============================================================EXCEL
+    /* flatten objects */
+    function dowloadOrders() {
+        $.ajax({
+            url: "/getListOrderJSON",
+            type: "get",
+            data: {},
+            success: function (response) {
+                const rows = JSON.parse(response);
+                let rows2 = [];
+                for (let i = 0; i < rows.length; i++) {
+                    rows2.push({
+                        name: rows[i].id,
+                        birthday: rows[i].userName,
+                        year: rows[i].total,
+                        day: rows[i].address,
+                        month: rows[i].items,
+                        yeah: rows[i].createDate,
+                    })
+                }
+
+                /* generate worksheet and workbook */
+                const worksheet = XLSX.utils.json_to_sheet(rows2);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Dates");
+
+                /* fix headers */
+                XLSX.utils.sheet_add_aoa(worksheet, [["id", "nguoi mua", "tong", "dia chi", "san pham", "ngay tao don"]], {origin: "A1"});
+
+                /* calculate column width */
+
+                const max_width = rows2.reduce((w, r) => Math.max(w, r.name.length), 10);
+                worksheet["!cols"] = [{wch: max_width}];
+                /* create an XLSX file and try to save to Presidents.xlsx */
+                XLSX.writeFile(workbook, "list-order.xlsx", {compression: true});
+            },
+            error: function (xhr) {
+            }
+        })
+
     }
 </script>
 </body>

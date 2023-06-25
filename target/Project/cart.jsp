@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sản phẩm</title>
+    <title>Giỏ hàng</title>
     <link rel="stylesheet" href="css/reset.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -144,110 +144,111 @@
             <%}%>
         </div>
     </div>
-    <%@include file="footer.jsp" %>
-    <%@include file="scroll-to-top.jsp" %>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-            integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="js/general.js"></script>
-    <%--    <script type="text/javascript" src="js/cart.js" charset="UTF-8"></script>--%>
-    <script>
-        $(document).ready(function () {
-            let isAppendVoucher = false;
-            $('.btn-remove').click(function () {
-                let idCartItem = $(this).val();
-                $(this).closest('.product').remove();
+</div>
+<%@include file="footer.jsp" %>
+<%@include file="scroll-to-top.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/general.js"></script>
+<%--    <script type="text/javascript" src="js/cart.js" charset="UTF-8"></script>--%>
+<script>
+    $(document).ready(function () {
+        let isAppendVoucher = false;
+        $('.btn-remove').click(function () {
+            let idCartItem = $(this).val();
+            $(this).closest('.product').remove();
 
-                $.ajax({
-                    url: "/cart/removeProduct",
-                    type: "get",
-                    data: {
-                        idCartItem: idCartItem,
-                    },
-                    success: function (response) {
-                        let listResponse = response.replace(/\r/g, "").split(/\n/);
-                        $('#input-voucher').val('');
-                        $('.money-sale-voucher').text(0);
-                        if (parseInt(listResponse[3].trim()) === 0) {
-                            removeEmlement();
-                        } else {
-                            $('.total-real').text(listResponse[0] + ' VND');
-                            $('.sale').text(listResponse[1] + ' VND');
-                            $('.total span').text(listResponse[2]);
-                        }
-                        $('.amount-product').text(listResponse[3]);
-                    },
-                    error: function (xhr) {
-
+            $.ajax({
+                url: "/cart/removeProduct",
+                type: "get",
+                data: {
+                    idCartItem: idCartItem,
+                },
+                success: function (response) {
+                    let listResponse = response.replace(/\r/g, "").split(/\n/);
+                    $('#input-voucher').val('');
+                    $('.money-sale-voucher').text(0);
+                    if (parseInt(listResponse[3].trim()) === 0) {
+                        removeEmlement();
+                    } else {
+                        $('.total-real').text(listResponse[0] + ' VND');
+                        $('.sale').text(listResponse[1] + ' VND');
+                        $('.total span').text(listResponse[2]);
                     }
-                });
-            })
+                    $('.amount-product').text(listResponse[3]);
+                },
+                error: function (xhr) {
 
-            $('.delete-all').click(function () {
-                removeEmlement();
-                $('.amount-product').text(0);
-                $.ajax({
-                    url: "/cart/removeAllProduct",
-                    type: "get",
-                    data: {},
-                    success: function (response) {
-                    },
-                    error: function (xhr) {
+                }
+            });
+        })
 
-                    }
-                });
-            })
+        $('.delete-all').click(function () {
+            removeEmlement();
+            $('.amount-product').text(0);
+            $.ajax({
+                url: "/cart/removeAllProduct",
+                type: "get",
+                data: {},
+                success: function (response) {
+                },
+                error: function (xhr) {
 
-            function removeEmlement() {
-                $('.product').remove();
-                $('.bill').remove();
-                $('.list-product').removeClass('col-8');
-                $('.list-product').addClass('col-12');
-                $('.container-list-product').html('<li class="notification bd-bottom pb-4 pt-4 uppercase">\n' +
-                    '            Giỏ hàng của bạn đang trống, quay lại mua hàng nhé!\n' +
-                    '        </li>');
-                $('.delete-all').remove();
-                $('.contain-btn').css('justify-content', 'center');
-                $('.input-voucher').val('');
-            }
+                }
+            });
+        })
 
-            $('.btn-total').click(function () {
-                window.location = "http://localhost:8080/shipping?discountCode=" + $('#input-voucher').val();
-            })
-            $('#submit-voucher').click(function () {
+        function removeEmlement() {
+            $('.product').remove();
+            $('.bill').remove();
+            $('.list-product').removeClass('col-8');
+            $('.list-product').addClass('col-12');
+            $('.container-list-product').html('<li class="notification bd-bottom pb-4 pt-4 uppercase">\n' +
+                '            Giỏ hàng của bạn đang trống, quay lại mua hàng nhé!\n' +
+                '        </li>');
+            $('.delete-all').remove();
+            $('.contain-btn').css('justify-content', 'center');
+            $('.input-voucher').val('');
+        }
 
-                $.ajax({
-                    url: "/cart/checkVoucher",
-                    type: "get",
-                    data: {
-                        voucher: $('#input-voucher').val(),
-                    },
-                    success: function (response) {
-                        let listResponse = response.replace(/\r/g, "").split(/\n/);
-                        $('#mess-voucher').text(listResponse[0]);
-                        $('.money-sale-voucher').text(new Intl.NumberFormat('de-DE').format(listResponse[1]));
-                        $('.total span').text(new Intl.NumberFormat('de-DE').format(listResponse[2]));
+        $('.btn-total').click(function () {
+            window.location = "http://localhost:8080/shipping?discountCode=" + $('#input-voucher').val();
+        })
+        $('#submit-voucher').click(function () {
+
+            $.ajax({
+                url: "/cart/checkVoucher",
+                type: "get",
+                data: {
+                    voucher: $('#input-voucher').val(),
+                },
+                success: function (response) {
+                    let listResponse = response.replace(/\r/g, "").split(/\n/);
+                    $('#mess-voucher').text(listResponse[0]);
+                    $('.money-sale-voucher').text(new Intl.NumberFormat('de-DE').format(listResponse[1]));
+                    $('.total span').text(new Intl.NumberFormat('de-DE').format(listResponse[2]));
 
 
-                    },
-                    error: function (xhr) {
+                },
+                error: function (xhr) {
 
-                    }
-                });
+                }
+            });
 
-            })
+        })
 
-        })</script>
+    })</script>
 </body>
 
 </html>
