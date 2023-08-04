@@ -4,8 +4,8 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(queryString);
 
     let total = parseInt($('.total-price').text().replaceAll('.', ''));
-    let shipFee;
-    let shipDate;
+    let shipFee=0;
+    let shipDate = "2023-06-28T23:59:59Z";
     $(document).on('click', '.label-information', function () {
         getLeadTime(this);
     })
@@ -100,14 +100,20 @@ $(document).ready(function () {
             let idInformation = $('.contain-address input:radio:checked').val();
             let discountCode = urlParams.get('discountCode');
             let note = $('.note').val();
-            window.location = 'http://localhost:8080/addOrder?idInformation=' + idInformation + '&discountCode=' + discountCode + '&note=' + note + '&shipFee=' + shipFee + '&shipDate=' + shipDate;
+            if(shipDate==undefined){
+                shipDate = "2023-06-28T23:59:59Z";
+            }
+            if(shipFee ==undefined){
+                shipFee=0;
+            }
+            window.location = 'https://craftshop.click/addOrder?idInformation=' + idInformation + '&discountCode=' + discountCode + '&note=' + note + '&shipFee=' + shipFee + '&shipDate=' + shipDate;
         }
 
 
     })
 
     $('.btn-add-address').click(function () {
-        window.location = 'http://localhost:8080/showAddress';
+        window.location = 'https://craftshop.click/showAddress';
     })
 
 

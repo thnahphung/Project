@@ -39,7 +39,7 @@ public class DetailOrder extends HttpServlet {
             delivery = "Giao hàng thành công";
         }
         if(order.getStatusDelivery()==0){
-            delivery ="Đang giao hàng";
+            delivery ="Chờ xác nhận";
         }
         if (order.getDiscount() == null) {
             discount = 0;

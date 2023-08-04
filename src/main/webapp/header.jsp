@@ -2,6 +2,14 @@
 <%@ page import="services.*" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<!-- Messenger Chat Plugin Code -->
+<!-- Messenger Plugin chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
 <ul class="nav nav-page">
     <li class=" left">
         <a href="/homepage"><img src="images/logo/logo-rmbg1.png" alt=""></a>
@@ -11,16 +19,16 @@
     <li class="nav-item center" id="nav-items">
 
         <a class="nav-link  " id="sanpham"
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.ALL%>">Sản
+           href="/listProduct?kind=<%=ProductService.ALL%>">Sản
             Phẩm</a>
         <a class="nav-link  " id="go"
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.WOOD%>">Gỗ</a>
+           href="/listProduct?kind=<%=ProductService.WOOD%>">Gỗ</a>
         <a class="nav-link  " id="gom"
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.CERAMIC%>">Gốm</a>
+           href="/listProduct?kind=<%=ProductService.CERAMIC%>">Gốm</a>
         <a class="nav-link "
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.PAINT%>">Tranh</a>
+           href="/listProduct?kind=<%=ProductService.PAINT%>">Tranh</a>
         <a class="nav-link  "
-           href="http://localhost:8080/listProduct?kind=<%=ProductService.SALE%>">giảm
+           href="/listProduct?kind=<%=ProductService.SALE%>">giảm
             giá</a>
 
     </li>
@@ -56,7 +64,7 @@
             <%} else {%>
             <img id="small-avt" src="<%=user.getAvatar().getSource()%>" alt="">
             <%}%>
-            <a href="http://localhost:8080/userProfile" class="item-right">
+            <a href="/userProfile" class="item-right">
                 <p><%=user.getName()%>
                 </p>
             </a>
@@ -66,7 +74,7 @@
                 class="fa-solid fa-cart-shopping"></i>
             <p>Giỏ hàng</p>
         </a>
-        <a href="http://localhost:8080/doLogin" class="item-right">
+        <a href="/doLogin" class="item-right">
             <i class="fa-solid fa-user"></i>
             <p>Đăng nhập</p>
         </a>

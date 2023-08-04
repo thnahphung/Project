@@ -13,6 +13,7 @@ public class Log implements Serializable {
     private int id;
     private String ip;
     private User user;
+    private int userId;
     private int severityLevel;
     private String event;
     private LocalDateTime createDate;
@@ -110,5 +111,13 @@ public class Log implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
