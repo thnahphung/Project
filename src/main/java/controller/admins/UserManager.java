@@ -11,12 +11,12 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "UserManaget", value = "/userManager")
+@WebServlet(name = "UserManager", value = "/userManager")
 public class UserManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("authAdmin");
-        if (user.getVariety() != 1 && user.getVariety() != 3) {
+        if (user.getVariety() != 1) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         String name = "Quản lý tài khoản";
